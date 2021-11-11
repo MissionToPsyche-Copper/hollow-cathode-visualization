@@ -17,53 +17,53 @@ code {
     monospace;
 }
 
-/*!*------------------------- Top nav -------------------------*!*/
-/* Add a black background color to the top navigation */
-.topnav {
-  overflow: hidden;
-  background-color: rgb(165, 63, 91);
-}
+/*!*!*------------------------- Top nav -------------------------*!*!*/
+/*!* Add a black background color to the top navigation *!*/
+/*.topnav {*/
+/*  overflow: hidden;*/
+/*  background-color: rgb(165, 63, 91);*/
+/*}*/
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: right;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+/*!* Style the links inside the navigation bar *!*/
+/*.topnav a {*/
+/*  float: right;*/
+/*  color: #f2f2f2;*/
+/*  text-align: center;*/
+/*  padding: 14px 16px;*/
+/*  text-decoration: none;*/
+/*  font-size: 17px;*/
+/*}*/
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: white;
-  color: black;
-}
+/*!* Add a color to the active/current link *!*/
+/*.topnav a.active {*/
+/*  background-color: white;*/
+/*  color: black;*/
+/*}*/
 
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
+/*!* Change the color of links on hover *!*/
+/*.topnav a:hover {*/
+/*  background-color: #ddd;*/
+/*  color: black;*/
+/*}*/
 
-/*!*------------------------- end of Top nav -------------------------*!*/
-/*------------------------- Footer -------------------------*/
-#page-container {
-  position: relative;
-  min-height: 100vh;
-}
+/*!*!*------------------------- end of Top nav -------------------------*!*!*/
+/*!*------------------------- Footer -------------------------*!*/
+/*#page-container {*/
+/*  position: relative;*/
+/*  min-height: 100vh;*/
+/*}*/
 
-#root{
-  padding-bottom: 2.5rem;    /* Footer height */
-}
+/*#root{*/
+/*  padding-bottom: 2.5rem;    !* Footer height *!*/
+/*}*/
 
-#footer{
-  position: absolute;
-  margin-top: auto;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;            /* Footer height */
-  background-color: rgb(165, 63, 91);
-}
+/*#footer{*/
+/*  position: absolute;*/
+/*  margin-top: auto;*/
+/*  bottom: 0;*/
+/*  width: 100%;*/
+/*  height: 2.5rem;            !* Footer height *!*/
+/*  background-color: rgb(165, 63, 91);*/
+/*}*/
 
-/*------------------------- end of Footer -------------------------*/
+/*!*------------------------- end of Footer -------------------------*!*/
