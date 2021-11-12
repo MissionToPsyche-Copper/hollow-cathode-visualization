@@ -57,7 +57,7 @@ ReactDOM.render(
 //     );
 //     ReactDOM.render(element, document.getElementById('root'));
 // }
-
+//
 // setInterval(tick, 1000);
 
 class Text extends React.Component {
