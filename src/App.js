@@ -10,8 +10,10 @@ function App() {
   return (
     <div className="App">
         <header className="App-header">
-            <CanvasExample/>
-            <LoggingButton/>
+            <div id={"canvasHolder"}>
+                <CanvasExample/>
+                <LoggingButton/>
+            </div>
         </header>
     </div>
   );
@@ -28,7 +30,7 @@ class LoggingButton extends React.Component {
     render() {
         // This syntax ensures `this` is bound within handleClick // (comment from online guide, idk what he is talking about)
         return (
-            <button id={"myButton"} onClick={() => this.handleClick()}>
+            <button id={"learningModeStartButton"} onClick={() => this.handleClick()}>
                 Click me
             </button>
         );
@@ -82,7 +84,10 @@ class CanvasExample extends React.Component {
         }
     }
 
-    // clears all drawings from the canvas
+    /**
+     * clearCanvas
+     * Clears all drawings from the canvas.
+      */
     clearCanvas(){
         this.scene = [false, false, false, false, false, false]; // reset the scenes
         console.log("CanvasExample.clearCanvas")
@@ -91,10 +96,15 @@ class CanvasExample extends React.Component {
             return null;
         }
 
-        const ctx = this.canvas.current.getContext('2d');     //// 3 - access node using .current
+        const ctx = this.canvas.current.getContext('2d');
         ctx.clearRect(0,0,1600,750); //clear the canvas
     }
 
+    /**
+     * draw_baseDrawing()
+     * Function to draw the base cathode (currently only draws a gray square)
+     * @returns {null}
+     */
     draw_baseDrawing(){
         console.log("CanvasExample.draw_baseDrawing")
         if(this.scene[this.currentStage] === true){
@@ -102,13 +112,15 @@ class CanvasExample extends React.Component {
             return null;
         }
 
-        const ctx = this.canvas.current.getContext('2d')     //// 3 - access node using .current
+        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
 
-        ctx.fillStyle = 'rgba(255,255,255,0.4)';
-        ctx.fillRect(200, 400, 200, 200)
+        ctx.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
+        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+
+        // draw the react logo image
         var myLogo = new Image();
         myLogo.src = logo;
-        ctx.drawImage(myLogo, -60, -60); //draw logo
+        ctx.drawImage(myLogo, -60, -60); //draw react logo image
         ctx.save();
     }
 
@@ -146,10 +158,7 @@ class CanvasExample extends React.Component {
             // ((2 * Math.PI) / 6000) * time.getMilliseconds() // makes it rotate just 1/4th of the way
             // ((2 * Math.PI) / 6) * time.getSeconds() + //chooses where that 1/4th rotation starts on an interval
             ctx.translate(0, 28.5);
-            // if (this.firstRun === true){
                 ctx.drawImage(this.moon, 10, 10);
-            //     this.firstRun = false;
-            // }
 
         ctx.restore(); // leave the moon layer so that only the moon layer spins (restore layer (010)
 
@@ -181,10 +190,7 @@ class CanvasExample extends React.Component {
         // ((2 * Math.PI) / 6000) * time.getMilliseconds() // makes it rotate just 1/4th of the way
         // ((2 * Math.PI) / 6) * time.getSeconds() + //chooses where that 1/4th rotation starts on an interval
         ctx.translate(0, 28.5);
-        // if (this.firstRun === true){
         ctx.drawImage(this.moon, 10, 10);
-        // this.firstRun = false;
-        // }
 
         ctx.restore(); // leave the moon layer so that only the moon layer spins (restore layer (010)
 
@@ -199,37 +205,7 @@ class CanvasExample extends React.Component {
     render(){
         console.log("CanvasExample.render")
         return (
-            <div>
-                <canvas ref={this.canvas} width={canvas_width} height={canvas_height} onClick={this.handleClick}> You need a better browser :( </canvas>      {/*//// 2 - attach ref to node}*/}
-            </div>
-        )
+            <canvas ref={this.canvas} width={canvas_width} height={canvas_height} onClick={this.handleClick}> You need a better browser :( </canvas>
+        ) //// 2 - attach ref to node
     }
 }
-
-
-
-
-
-
-
-
-// // primary coding style:
-// function Welcome(props) {
-//   switch (props.name) {
-//     case "Jake": return <h1>Hello {props.name} Smith!</h1>;
-//     case "Jack": return <h1>Hello {props.name} Blicha!</h1>;
-//     case "Huy": return <h1>Hello {props.name} Tran!</h1>;
-//     default: return <h1>Hello {props.name}!</h1>;
-//   }
-// }
-// // alternative: ES6 class
-// class Welcome extends React.Component {
-//     render() {
-//         switch (this.props.name) {
-//             case "Jake": return <h1>Hello {this.props.name} Smith!</h1>;
-//             case "Jack": return <h1>Hello {this.props.name} Blicha!</h1>;
-//             case "Huy": return <h1>Hello {this.props.name} Tran!</h1>;
-//             default: return <h1>Hello {this.props.name}!</h1>;
-//         }
-//     }
-// }
