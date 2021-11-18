@@ -39,12 +39,6 @@ ReactDOM.render(
 //     document.getElementById('myButton')
 // );
 
-// // basic sample
-// const element = <Welcome name="Jake" />;
-// ReactDOM.render(
-//     element,
-//     document.getElementById('root')
-// );
 
 // let tickvar = 0;
 // function tick() {
@@ -60,29 +54,6 @@ ReactDOM.render(
 //
 // setInterval(tick, 1000);
 
-class Text extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {isToggleOn: true};
-
-        // This binding is necessary to make `this` work in the callback
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState(prevState => ({
-            isToggleOn: !prevState.isToggleOn
-        }));
-    }
-
-    render() {
-        return (
-            <button onClick={this.handleClick}>
-                {this.state.isToggleOn ? 'ON' : 'OFF'}
-            </button>
-        );
-    }
-}
 
 
 

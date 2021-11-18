@@ -10,12 +10,7 @@ function App() {
   return (
     <div className="App">
         <header className="App-header">
-            {/*<Welcome name={"Jack"}/>*/}
-            {/*<Welcome name={"World"}/>*/}
-            {/*<Welcome name={"Jake"}/>*/}
-            {/*<img src={logo} className="App-logo" alt="logo" />*/}
             <CanvasExample/>
-            {/*<LandingPage/>*/}
             <LoggingButton/>
         </header>
     </div>
@@ -24,21 +19,6 @@ function App() {
 
 export default App;
 
-class LandingPage extends React.Component {
-    handleClick() {
-        console.log('You clicked the button, *this* button:', this);
-    }
-
-    render() {
-        return (
-            <div>
-                <button onClick={() => this.handleClick()}>
-                    Click me
-                </button>
-            </div>
-        );
-    }
-}
 
 class LoggingButton extends React.Component {
     handleClick() {
