@@ -12,7 +12,7 @@ function App() {
         <header className="App-header">
             <div id={"canvasHolder"}>
                 <CanvasExample/>
-                <LoggingButton/>
+                <LearningModeButton/>
             </div>
         </header>
     </div>
@@ -21,21 +21,50 @@ function App() {
 
 export default App;
 
+// /**
+//  * LoggingButton
+//  * Template button that simply logs to console when pressed
+//  */
+// class LoggingButton extends React.Component {
+//     handleClick() {
+//         console.log('You clicked the button, *this* button:', this);
+//     }
+//
+//     render() {
+//         // This syntax ensures `this` is bound within handleClick // (comment from online guide, idk what he is talking about)
+//         return (
+//             <button id={"loggingButton"} onClick={() => this.handleClick()}>
+//                 Click me
+//             </button>
+//         );
+//     }
+// }
 
-class LoggingButton extends React.Component {
+/**
+ * LearningModeButton
+ * Button element for landing page that triggers learning mode
+ */
+class LearningModeButton extends React.Component {
+
     handleClick() {
         console.log('You clicked the button, *this* button:', this);
+        console.log('globalCanvas:', globalCanvas);
+
+        // const ctx = globalCanvas.current.getContext('2d'); //ctx = the canvas element from react
+        // ctx.draw_baseDrawing()
     }
 
     render() {
         // This syntax ensures `this` is bound within handleClick // (comment from online guide, idk what he is talking about)
         return (
             <button id={"learningModeStartButton"} onClick={() => this.handleClick()}>
-                Click me
+                Learning Mode
             </button>
         );
     }
 }
+
+var globalCanvas;
 
 // this element has it's own canvas element stored
 class CanvasExample extends React.Component {
@@ -48,6 +77,7 @@ class CanvasExample extends React.Component {
         super() // I don't understand what this line does - Jack
         // initialize canvas instance variable
         this.canvas = React.createRef()                              //// 1 - create ref
+        globalCanvas = this.canvas                              //// 1 - create ref
 
         // bind handler function(s)
         this.handleClick = this.handleClick.bind(this);
@@ -201,11 +231,14 @@ class CanvasExample extends React.Component {
         this.myReq = window.requestAnimationFrame(this.draw_csv_gas_feed);
     }
 
+    getCanvas(){
+        return this.canvas;
+    }
 
     render(){
         console.log("CanvasExample.render")
         return (
-            <canvas ref={this.canvas} width={canvas_width} height={canvas_height} onClick={this.handleClick}> You need a better browser :( </canvas>
+            <canvas id={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height} onClick={this.handleClick}> You need a better browser :( </canvas>
         ) //// 2 - attach ref to node
     }
 }

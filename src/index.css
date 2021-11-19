@@ -23,11 +23,11 @@ canvas{
 }
 
 #learningModeStartButton {
-  height: 1px;
-  width: 1px;
+  height: 120px;
+  width: 360px;
   position:absolute;
-  right: 0px; /* relative to parent (canvasHolder) */
-  bottom: 0px;
+  right: 30px; /* relative to parent (canvasHolder) */
+  bottom: 30px;
   z-index: 3; /* exist on layer 3 (0 is bottom) */
 }
 
