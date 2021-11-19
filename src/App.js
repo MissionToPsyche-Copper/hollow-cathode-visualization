@@ -252,11 +252,11 @@ class CanvasExampleWithButton extends React.Component {
     canvas; // optional
 
     constructor(props){
-        console.log("CanvasExample.constructor")
         super() // I don't understand what this line does - Jack
 
         // initialize canvas instance variables
         this.canvas = React.createRef()                              //// 1 - create ref
+        console.log("CanvasExample.constructor")
 
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
@@ -266,8 +266,12 @@ class CanvasExampleWithButton extends React.Component {
         // this.draw_csv_gas_feed = this.draw_csv_gas_feed.bind(this);
 
         // initialize instance variables
-        this.deltaStage = props.deltastage;
-        this.scene = props.scene;
+        // this.deltaStage = props.deltastage;
+        // this.scene = props.scene;
+        this.state = { deltaStage: props.deltaStage, scene: props.scene };
+
+        console.log("this.state.scene", this.state.scene)
+
 
 
 
@@ -293,21 +297,21 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.componentDidMount")
         // this.draw_baseDrawing()
 
-        console.log("this.deltaStage", this.deltaStage)
-        console.log("this.scene", this.scene)
+        console.log("this.state.deltaStage", this.state.deltaStage);
+        console.log("this.state.scene", this.state.scene);
 
 
         //do logic based on deltaStage and scene
-        if(this.scene[0] === true){
+        if(this.state.scene[0] === true){
             this.draw_baseDrawing();
         }
-        if(this.scene[1] === true){
+        if(this.state.scene[1] === true){
             this.draw_csv_Heat_Insert();
         }
-        if(this.scene[2] === true){
+        if(this.state.scene[2] === true){
             this.draw_csv_gas_feed();
         }
-        if(this.scene[3] === true){
+        if(this.state.scene[3] === true){
             this.draw_csv_keeper_electrode();
         }
     }
@@ -329,15 +333,19 @@ class CanvasExampleWithButton extends React.Component {
         // }
 
         // this.scene[1] = !this.scene[1];
-        this.scene[1] = true;
-        this.deltaStage = 1;
+        // this.scene[1] = true;
+        // this.deltaStage = 1;
+
+        this.setState((state, props) => {
+            return { deltaStage: 1, scene: [props.scene[0], !props.scene[1], props.scene[2], props.scene[3]] };
+        });
 
 
         // this.render();
-        ReactDOM.render(
-            <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
-            document.getElementById('canvasHolder')
-        );
+        // ReactDOM.render(
+        //     <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
+        //     document.getElementById('canvasHolder')
+        // );
     }
 
     /**
@@ -348,17 +356,19 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.GasFeedToggle_HandleClick")
 
         // this.scene[2] = !this.scene[2];
-        this.scene[2] = true;
-        this.deltaStage = 2;
+        // this.state.scene[2] = true;
+        // this.deltaStage = 2;
+
+        this.setState((state, props) => {
+            return { deltaStage: 2, scene: [props.scene[0], props.scene[1], !props.scene[2], props.scene[3]] };
+        });
 
 
         // this.render();
-        ReactDOM.render(
-            <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
-            document.getElementById('canvasHolder')
-        );
-        this.forceUpdate();
-        this.setState(this.state);
+        // ReactDOM.render(
+        //     <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
+        //     document.getElementById('canvasHolder')
+        // );
     }
 
     /**
@@ -369,17 +379,21 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.KeeperElectrodeToggle_HandleClick")
 
         // this.scene[3] = !this.scene[3];
-        this.scene[3] = true;
-        this.deltaStage = 3;
+        // this.scene[3] = true;
+        // this.deltaStage = 3;
+
+        this.setState((state, props) => {
+            return { deltaStage: 3, scene: [props.scene[0], props.scene[1], props.scene[2], !props.scene[3]] };
+        });
 
 
         // this.render();
-        ReactDOM.render(
-            <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
-            document.getElementById('canvasHolder')
-        );
-        this.forceUpdate();
-        this.setState(this.state);
+        // ReactDOM.render(
+        //     <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
+        //     document.getElementById('canvasHolder')
+        // );
+        // this.forceUpdate();
+        // this.setState(this.state);
     }
 
     // /**
@@ -405,7 +419,7 @@ class CanvasExampleWithButton extends React.Component {
      */
     draw_baseDrawing(){
         console.log("CanvasExample.draw_baseDrawing")
-        if(this.scene[this.deltaStage] === false){
+        if(this.state.scene[this.state.deltaStage] === false){
             console.log("CanvasExample.draw_baseDrawing should not be drawn")
             return null;
         }
@@ -431,7 +445,7 @@ class CanvasExampleWithButton extends React.Component {
 
     draw_csv_Heat_Insert(){
         console.log("CanvasExample.draw_csv_Heat_Insert")
-        if(this.scene[this.deltaStage] === false){
+        if(this.state.scene[this.state.deltaStage] === false){
             console.log("CanvasExample.draw_csv_Heat_Insert should not be drawn")
             return null;
         }
@@ -534,7 +548,7 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.render")
         return (
             <>
-                <canvas id={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height} deltastage={this.deltaStage} scene={this.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height} deltastage={this.state.deltaStage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
                 <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
                 <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
