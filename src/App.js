@@ -338,8 +338,6 @@ class CanvasExampleWithButton extends React.Component {
             <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={this.deltaStage} scene={this.scene}/>,
             document.getElementById('canvasHolder')
         );
-        this.forceUpdate();
-        this.setState(this.state);
     }
 
     /**
