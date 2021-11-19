@@ -22,12 +22,30 @@ canvas{
   z-index: 0;
 }
 
-#learningModeStartButton {
+#HeatInsertToggle {
   height: 120px;
   width: 360px;
   position:absolute;
   right: 30px; /* relative to parent (canvasHolder) */
   bottom: 30px;
+  z-index: 3; /* exist on layer 3 (0 is bottom) */
+}
+
+#GasFeedToggle {
+  height: 120px;
+  width: 360px;
+  position:absolute;
+  right: 30px; /* relative to parent (canvasHolder) */
+  bottom: 150px;
+  z-index: 3; /* exist on layer 3 (0 is bottom) */
+}
+
+#KeeperElectrodeToggle {
+  height: 120px;
+  width: 360px;
+  position:absolute;
+  right: 30px; /* relative to parent (canvasHolder) */
+  bottom: 270px;
   z-index: 3; /* exist on layer 3 (0 is bottom) */
 }
 

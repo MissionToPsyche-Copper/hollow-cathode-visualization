@@ -16,10 +16,10 @@ ReactDOM.render(
 //         this.state = {isToggleOn: true};
 //
 //         // This binding is necessary to make `this` work in the callback
-//         this.handleClick = this.handleClick.bind(this);
+//         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
 //     }
 //
-//     handleClick() {
+//     HeatInsertToggle_HandleClick() {
 //         this.setState(prevState => ({
 //             isToggleOn: !prevState.isToggleOn
 //         }));
@@ -27,7 +27,7 @@ ReactDOM.render(
 //
 //     render() {
 //         return (
-//             <button onClick={this.handleClick}>
+//             <button onClick={this.HeatInsertToggle_HandleClick}>
 //                 {this.state.isToggleOn ? 'ON' : 'OFF'}
 //             </button>
 //         );
