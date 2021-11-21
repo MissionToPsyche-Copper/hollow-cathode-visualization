@@ -9,7 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="public/logo192.png" />
+    <link rel="apple-touch-icon" href="images/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -25,19 +25,31 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script src="../JS/UI.js" defer></script>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">big test</div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <body class="body">
+    <!-- Beginning Header Navigation Bar-->
+    <div class="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner">
+      <div class="container w-container">
+        <a href="https://psyche.asu.edu" class="brand w-nav-brand"><image src="images/psyche.svg" loading="lazy" width="75" alt=""></image></a>
+        <nav role ="navigation" class="nav-menu w-nav-menu">
+          <div class="dropdown" data-dropdown>
+            <button class = "text-block" data-dropdown-button>About Us</button>
+            <div class = "dropdown-list">
+              <a href="https://psyche.asu.edu/mission/" class="dropdown-link">Missions</a>
+              <a href="https://psyche.asu.edu/events/" class="dropdown-link">Events</a>
+              <a href="https://psyche.asu.edu/projects/" class="dropdown-link">Projects</a>
+            </div>
+          </div>
+          <div><a href="https://psyche.asu.edu/contact/" class = "nav-link">Contact</a></div>
+        </nav>
+      </div>
+    </div>
+    <!-- Ending Header Navigation Bar-->
+    <!-- Beginning Footer-->
+    <div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    </div>>
+    <!-- Ending Footer-->
   </body>
 </html>
