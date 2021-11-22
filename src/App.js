@@ -66,6 +66,7 @@ class CanvasExampleWithButton extends React.Component {
      * scenarioRefresh()
      *
      * Populates the canvas based on the current state, is hopefully called whenever a change is made (ex: the onClick functions)
+     * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
         console.log("CanvasExample.scenarioRefresh() called")
@@ -74,23 +75,32 @@ class CanvasExampleWithButton extends React.Component {
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene);
 
         //do logic based on deltastage and scene
-        if(this.state.scene[0] === true && (this.state.deltastage === 0 || this.state.deltastage === undefined)){
+        if(this.state.scene[0] === true){
             this.draw_baseDrawing();
+            if(this.state.deltastage === 0 || this.state.deltastage === undefined){
+                this.draw_baseDrawing_guide();
+            }
         }
-        else if(this.state.scene[1] === true && this.state.deltastage === 1){
+        if(this.state.scene[1] === true){
             this.draw_csv_Heat_Insert();
+            if(this.state.deltastage === 1){
+                this.draw_csv_Heat_Insert_guide();
+            }
         }
-        else if(this.state.scene[2] === true && this.state.deltastage === 2){
+        if(this.state.scene[2] === true){
             this.draw_csv_gas_feed();
+            if(this.state.deltastage === 2){
+                this.draw_csv_gas_feed_guide();
+            }
         }
-        else if(this.state.scene[3] === true && this.state.deltastage === 3){
+        if(this.state.scene[3] === true){
             this.draw_csv_keeper_electrode();
-        }
-        else {
-            console.log("scenarioRefresh no new scenarios (error?)")
+            if(this.state.deltastage === 3){
+                this.draw_csv_keeper_electrode_guide();
+            }
         }
 
-        // console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------")
+        console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------")
     }
 
     /**
@@ -99,13 +109,6 @@ class CanvasExampleWithButton extends React.Component {
      */
     HeatInsertToggle_HandleClick() {
         console.log("CanvasExample.HeatInsertToggle_HandleClick()")
-        // let heatInsertButton = document.getElementById("HeatInsertToggle");
-        // if(this.scene[1] === true){
-        //     heatInsertButton.classList.add("active")
-        // }
-        // else{
-        //     heatInsertButton.classList.remove("active")
-        // }
 
 
         // change the current state, scenarioRefresh() as a callback ensures the system synchronously calls scenarioRefresh AFTER the state has been updated
@@ -165,11 +168,9 @@ class CanvasExampleWithButton extends React.Component {
     /**
      * draw_baseDrawing()
      * Function to draw the base cathode (currently only draws a gray square)
-     *
-     * @returns {null}
      */
     draw_baseDrawing(){
-        console.log("CanvasExample.draw_baseDrawing")
+        console.log("draw_baseDrawing called")
 
         // check if this layer is already drawn
         // if(this.state.scene[this.state.deltastage] === false){
@@ -187,23 +188,32 @@ class CanvasExampleWithButton extends React.Component {
         // var myLogo = new Image();
         // myLogo.src = logo;
         // ctx.drawImage(myLogo, -60, -60); //draw react logo image
-        ctx.save();
+        // ctx.save();
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Base Drawing", canvas_width/2 + 200, canvas_height/2 + 200);
-        ctx.restore();
 
         // console.log("-------------------------------------------draw_baseDrawing (end)-------------------------------------------------------")
     }
 
     /**
+     * draw_baseDrawing_guide()
+     * Draws the guide text and tooltips and such for the base drawing for learning mode
+     */
+    draw_baseDrawing_guide(){
+        console.log("draw_baseDrawing called")
+
+        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+
+        // draw text
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
+        ctx.restore();
+    }
+
+    /**
      * draw_csv_Heat_Insert()
      * Currently draws a dark grey square along with the text "Heat Insert"
-     *
-     * @returns {null}
      */
     draw_csv_Heat_Insert(){
         console.log("draw_csv_Heat_Insert called")
@@ -220,15 +230,28 @@ class CanvasExampleWithButton extends React.Component {
         ctx.fillStyle = 'rgba(63,63,63,0.4)';
         ctx.fillRect(300, 400, 200, 200);
 
+
+
+        // console.log("-------------------------------------------draw_csv_Heat_Insert (end)-------------------------------------------------------")
+    }
+
+    /**
+     * draw_csv_Heat_Insert_guide()
+     * Draws the guide text and tooltips and such for the draw_csv_Heat_Insert for learning mode
+     */
+    draw_csv_Heat_Insert_guide(){
+        console.log("draw_csv_Heat_Insert_guide called")
+
+        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+
         // draw text
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
         ctx.restore();
-
-        // console.log("-------------------------------------------draw_csv_Heat_Insert (end)-------------------------------------------------------")
     }
+
 
     draw_csv_gas_feed(){
         console.log("draw_csv_gas_feed called");
@@ -264,15 +287,28 @@ class CanvasExampleWithButton extends React.Component {
         // // request the browser draws/runs this whole function
         // this.myReq = window.requestAnimationFrame(this.draw_csv_gas_feed);
 
+
+
+        // console.log("-------------------------------------------draw_csv_gas_feed (end)-------------------------------------------------------")
+    }
+
+    /**
+     * draw_csv_gas_feed_guide()
+     * Draws the guide text and tooltips and such for the draw_csv_gas_feed for learning mode
+     */
+    draw_csv_gas_feed_guide(){
+        console.log("draw_csv_gas_feed_guide called")
+
+        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+
         // draw text
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
         ctx.restore();
-
-        // console.log("-------------------------------------------draw_csv_gas_feed (end)-------------------------------------------------------")
     }
+
 
     draw_csv_keeper_electrode(){
         console.log("draw_csv_keeper_electrode called");
@@ -308,15 +344,28 @@ class CanvasExampleWithButton extends React.Component {
         // // request the browser draws/runs this whole function
         // this.myReq = window.requestAnimationFrame(this.draw_csv_keeper_electrode);
 
+
+
+        // console.log("-------------------------------------------draw_csv_keeper_electrode (end)-------------------------------------------------------")
+    }
+
+    /**
+     * draw_csv_keeper_electrode_guide()
+     * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
+     */
+    draw_csv_keeper_electrode_guide(){
+        console.log("draw_csv_keeper_electrode_guide called")
+
+        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+
         // draw text
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
         ctx.restore();
-
-        // console.log("-------------------------------------------draw_csv_keeper_electrode (end)-------------------------------------------------------")
     }
+
 
     render(){
         console.log("CanvasExample.render called")
