@@ -10,7 +10,7 @@ const canvas_width = 1600;
 function App() {
   return (
     <div id={"canvasHolder"}>
-        <CanvasExampleWithButton id={"CanvasExampleWithButton"} deltastage={0} scene={[true,false,false,false]}/>
+        <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
     </div>
   );
 }
@@ -19,7 +19,7 @@ export default App;
 
 
 // this element has it's own canvas element stored
-class CanvasExampleWithButton extends React.Component {
+class LearningMode extends React.Component {
     // Instance variables:
     // (all basically cosmetic) (created in constructor)
     deltastage;
