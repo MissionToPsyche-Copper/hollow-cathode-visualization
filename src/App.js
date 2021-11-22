@@ -29,7 +29,10 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.constructor() called")
 
         // initialize canvas instance variables
-        this.canvas = React.createRef()                              //// 1 - create ref
+        this.canvas0 = React.createRef()                              //// 1 - create ref
+        this.canvas1 = React.createRef()                              //// 1 - create ref
+        this.canvas2 = React.createRef()                              //// 1 - create ref
+        this.canvas3 = React.createRef()                              //// 1 - create ref
 
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
@@ -149,28 +152,33 @@ class CanvasExampleWithButton extends React.Component {
         // WARNING: code past setState will not be synchronously executed
     }
 
-    // /**
-    //  * clearCanvas
-    //  * Clears all drawings from the canvas.
-    //  */
-    // clearCanvas(){
-    //     this.scene = [false, false, false, false]; // reset the scenes
-    //     console.log("CanvasExample.clearCanvas")
-    //     if(this.scene[this.deltastage] === true){
-    //         console.log("CanvasExample.clearCanvas should not be drawn");
-    //         return null;
-    //     }
-    //
-    //     const ctx = this.canvas.current.getContext('2d');
-    //     ctx.clearRect(0,0,1600,750); //clear the canvas
-    // }
+    /**
+     * clearCanvas(layer)
+     * Clears contents of a given canvas layer
+     *
+     * @param layer layer to clear
+     */
+    clearCanvas(layer){
+        let ctx = this.canvas0.current.getContext('2d');
+        switch (layer) {
+            case 0: break;
+            case 1: ctx = this.canvas1.current.getContext('2d'); break;
+            case 2: ctx = this.canvas2.current.getContext('2d'); break;
+            case 3: ctx = this.canvas3.current.getContext('2d'); break;
+            default: console.error("clearCanvas(layer): Invalid layer = " + layer); return;
+        }
+
+        console.log("--------------clearing layer " + layer)
+
+        ctx.clearRect(0, 0, canvas_width, canvas_height);
+    }
 
     /**
      * draw_baseDrawing()
      * Function to draw the base cathode (currently only draws a gray square)
      */
     draw_baseDrawing(){
-        console.log("draw_baseDrawing called")
+        console.log("0 draw_baseDrawing called")
 
         // check if this layer is already drawn
         // if(this.state.scene[this.state.deltastage] === false){
@@ -178,7 +186,9 @@ class CanvasExampleWithButton extends React.Component {
         //     return null;
         // }
 
-        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+        const ctx = this.canvas0.current.getContext('2d'); //ctx = the canvas element from react
+
+        this.clearCanvas(0);
 
         // draw rectangle
         ctx.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
@@ -191,7 +201,7 @@ class CanvasExampleWithButton extends React.Component {
         // ctx.save();
 
 
-        // console.log("-------------------------------------------draw_baseDrawing (end)-------------------------------------------------------")
+        console.log("-------------------------------------------draw_baseDrawing (end)-------------------------------------------------------")
     }
 
     /**
@@ -199,9 +209,11 @@ class CanvasExampleWithButton extends React.Component {
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_baseDrawing_guide(){
-        console.log("draw_baseDrawing called")
+        console.log("0 draw_baseDrawing called")
 
-        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+        const ctx = this.canvas0.current.getContext('2d'); //ctx = the canvas element from react
+
+        // this.clearCanvas(0);
 
         // draw text
         ctx.save();
@@ -216,7 +228,7 @@ class CanvasExampleWithButton extends React.Component {
      * Currently draws a dark grey square along with the text "Heat Insert"
      */
     draw_csv_Heat_Insert(){
-        console.log("draw_csv_Heat_Insert called")
+        console.log("1 draw_csv_Heat_Insert called")
 
         // check if this layer is already drawn
         // if(this.state.scene[this.state.deltastage] === false){
@@ -224,7 +236,9 @@ class CanvasExampleWithButton extends React.Component {
         //     return null;
         // }
 
-        const ctx = this.canvas.current.getContext('2d');
+        const ctx = this.canvas1.current.getContext('2d');
+
+        this.clearCanvas(1);
 
         // draw rectangle
         ctx.fillStyle = 'rgba(63,63,63,0.4)';
@@ -240,9 +254,11 @@ class CanvasExampleWithButton extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        console.log("draw_csv_Heat_Insert_guide called")
+        console.log("1 draw_csv_Heat_Insert_guide called")
 
-        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+        const ctx = this.canvas1.current.getContext('2d'); //ctx = the canvas element from react
+
+        // this.clearCanvas(1);
 
         // draw text
         ctx.save();
@@ -254,7 +270,7 @@ class CanvasExampleWithButton extends React.Component {
 
 
     draw_csv_gas_feed(){
-        console.log("draw_csv_gas_feed called");
+        console.log("2 draw_csv_gas_feed called");
 
         // check if this layer is already drawn
         // if(this.scene[this.deltastage] === false){
@@ -262,7 +278,9 @@ class CanvasExampleWithButton extends React.Component {
         //     return null;
         // }
 
-        const ctx = this.canvas.current.getContext('2d');
+        const ctx = this.canvas2.current.getContext('2d');
+
+        this.clearCanvas(2);
 
         // // ctx.clearRect(0, 0, 1000, 1000);
         //
@@ -297,9 +315,11 @@ class CanvasExampleWithButton extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
-        console.log("draw_csv_gas_feed_guide called")
+        console.log("2 draw_csv_gas_feed_guide called")
 
-        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+        const ctx = this.canvas2.current.getContext('2d'); //ctx = the canvas element from react
+
+        // this.clearCanvas(2);
 
         // draw text
         ctx.save();
@@ -311,17 +331,23 @@ class CanvasExampleWithButton extends React.Component {
 
 
     draw_csv_keeper_electrode(){
-        console.log("draw_csv_keeper_electrode called");
+        console.log("3 draw_csv_keeper_electrode called");
 
-        // check if this layer is already drawn
+        // // check if this layer is should be drawn
         // if(this.scene[this.deltastage] === false){
         //     console.log("CanvasExample.draw_csv_keeper_electrode should not be drawn")
         //     return null;
         // }
 
-        const ctx = this.canvas.current.getContext('2d');
+            // // check if this layer is already drawn
+            // if(this.deltastage === 3){
+            //     console.error("CanvasExample.draw_csv_keeper_electrode is already drawn")
+            //     return null;
+            // }
 
-        // ctx.clearRect(0, 0, 1000, 1000);
+        const ctx = this.canvas3.current.getContext('2d');
+
+        this.clearCanvas(3);
 
         // ctx.save(); // push earth (layer 010) to the stack so now it is orbital ring on bottom, earth on top
         // ctx.translate(450, 450)
@@ -354,9 +380,11 @@ class CanvasExampleWithButton extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
      */
     draw_csv_keeper_electrode_guide(){
-        console.log("draw_csv_keeper_electrode_guide called")
+        console.log("3 draw_csv_keeper_electrode_guide called")
 
-        const ctx = this.canvas.current.getContext('2d'); //ctx = the canvas element from react
+        const ctx = this.canvas3.current.getContext('2d'); //ctx = the canvas element from react
+
+        // this.clearCanvas(3);
 
         // draw text
         ctx.save();
@@ -371,10 +399,13 @@ class CanvasExampleWithButton extends React.Component {
         console.log("CanvasExample.render called")
         return (
             <>
-                <canvas id={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
+                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
             </>
         ) //// 2 - attach ref to node
     }

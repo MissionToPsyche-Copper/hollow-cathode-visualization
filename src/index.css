@@ -17,11 +17,6 @@ code {
     monospace;
 }
 
-canvas{
-  border: 1px solid blue;
-  z-index: 0;
-}
-
 #HeatInsertToggle {
   height: 120px;
   width: 360px;
@@ -52,4 +47,33 @@ canvas{
 /* Div element that which holds the primary canvas element */
 #canvasHolder{
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
+}
+
+#canvas0{
+  border: 1px rgba(255, 0, 0, 0.23);
+  z-index: 0;
+}
+
+#canvas1{
+  position:absolute;
+  border: 1px rgba(0, 0, 255, 0.35);
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 1;
+}
+
+#canvas2{
+  position:absolute;
+  border: 1px solid green;
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 2;
+}
+
+#canvas3{
+  position:absolute;
+  border: 1px solid white;
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 3;
 }
