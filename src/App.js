@@ -4,8 +4,8 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 
-var canvas_height = 750;
-var canvas_width = 1600;
+const canvas_height = 750;
+const canvas_width = 1600;
 
 function App() {
   return (
@@ -35,10 +35,10 @@ class CanvasExampleWithButton extends React.Component {
         // console.log("CanvasExample.constructor() called") //:debug
 
         // initialize canvas instance variables
-        this.canvas0 = React.createRef()                              //// 1 - create ref
-        this.canvas1 = React.createRef()                              //// 1 - create ref
-        this.canvas2 = React.createRef()                              //// 1 - create ref
-        this.canvas3 = React.createRef()                              //// 1 - create ref
+        this.canvas0 = React.createRef();                              //// 1 - create ref
+        this.canvas1 = React.createRef();
+        this.canvas2 = React.createRef();
+        this.canvas3 = React.createRef();
 
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
@@ -49,15 +49,9 @@ class CanvasExampleWithButton extends React.Component {
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
 
+        // console.log("   constructor:: this.state.scene", this.state.scene); //:debug
+        // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
 
-
-
-        // console.log("   constructor:: this.state.scene", this.state.scene)
-        // console.log("   constructor:: this.deltastage", this.deltastage) //note: deltastage is undefined here for some reason?
-
-        // misc items for testing and learning
-        // TODO get rid of these
-        this.myReq = -1;
     }
 
     /**
@@ -65,11 +59,12 @@ class CanvasExampleWithButton extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-        // console.log("CanvasExample.componentDidMount() called") //:debug
+        // console.log("CanvasExample.componentDidMount() called"); //:debug
 
-        // console.log("   componentDidMount:: this.state.scene", this.state.scene);
-        // console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now
+        // console.log("   componentDidMount:: this.state.scene", this.state.scene); //:debug
+        // console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now //:debug
 
+        // initialize instance variables for each canvas element/layer
         this.ctx0 = this.canvas0.current.getContext('2d');
         this.ctx1 = this.canvas1.current.getContext('2d');
         this.ctx2 = this.canvas2.current.getContext('2d');
@@ -91,56 +86,65 @@ class CanvasExampleWithButton extends React.Component {
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
         // Execute logic based on deltastage and scene
+
+        // if basedrawing is active
         if(this.state.scene[0] === true){
             this.draw_baseDrawing();
 
+            // if the user just toggled basedrawing
             if(this.state.deltastage === 0 || this.state.deltastage === undefined){
                 this.draw_baseDrawing_guide();
             }
         }
         else if (this.state.deltastage === 0){
-            // the use deselected this option/layer
+            // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
+        // if heat insert is active
         if(this.state.scene[1] === true){
             this.draw_csv_Heat_Insert();
 
+            // if the user just toggled heat insert
             if(this.state.deltastage === 1){
                 this.draw_csv_Heat_Insert_guide();
             }
         }
         else if (this.state.deltastage === 1){
-            // the use deselected this option/layer
+            // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
+        // if gas feed is active
         if(this.state.scene[2] === true){
             this.draw_csv_gas_feed();
 
+            // if the user just toggled the gas feed
             if(this.state.deltastage === 2){
                 this.draw_csv_gas_feed_guide();
             }
         }
         else if (this.state.deltastage === 2){
-            // the use deselected this option/layer
+            // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
 
+        // if keeper electrode is active
         if(this.state.scene[3] === true){
             this.draw_csv_keeper_electrode();
 
+            // if the user just toggled the keeper electrode
             if(this.state.deltastage === 3){
                 this.draw_csv_keeper_electrode_guide();
             }
         }
         else if (this.state.deltastage === 3){
-            // the use deselected this option/layer
+            // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
-        console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------")
+        console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------"); //:debug
     }
 
     /**
@@ -214,12 +218,6 @@ class CanvasExampleWithButton extends React.Component {
     draw_baseDrawing(){
         console.log("0 draw_baseDrawing called") //:debug
 
-        // check if this layer is already drawn
-        // if(this.state.scene[this.state.deltastage] === false){
-        //     console.log("CanvasExample.draw_baseDrawing should not be drawn")
-        //     return null;
-        // }
-
         this.clearCanvas(0);
 
         // draw rectangle
@@ -254,18 +252,11 @@ class CanvasExampleWithButton extends React.Component {
     draw_csv_Heat_Insert(){
         console.log("1 draw_csv_Heat_Insert called") //:debug
 
-        // check if this layer is already drawn
-        // if(this.state.scene[this.state.deltastage] === false){
-        //     console.log("CanvasExample.draw_csv_Heat_Insert should not be drawn")
-        //     return null;
-        // }
-
         this.clearCanvas(1);
 
         // draw rectangle
         this.ctx1.fillStyle = 'rgba(63,63,63,0.4)';
         this.ctx1.fillRect(300, 400, 200, 200);
-
 
 
         // console.log("-------------------------------------------draw_csv_Heat_Insert (end)-------------------------------------------------------"); //:debug
@@ -324,9 +315,7 @@ class CanvasExampleWithButton extends React.Component {
     draw_csv_keeper_electrode(){
         console.log("3 draw_csv_keeper_electrode called"); //:debug
 
-
         this.clearCanvas(3);
-
 
         // draw rectangle
         this.ctx3.fillStyle = 'rgba(0,9,7,0.65)';
