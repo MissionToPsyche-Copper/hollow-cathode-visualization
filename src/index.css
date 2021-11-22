@@ -77,3 +77,15 @@ code {
   top: 0px;
   z-index: 3;
 }
+
+
+
+/* Landing Page */
+#LearningModeButton {
+  height: 120px;
+  width: 360px;
+  position:absolute;
+  right: 30px;
+  bottom: 30px;
+  z-index: 4;
+}

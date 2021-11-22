@@ -9,16 +9,80 @@ const canvas_width = 1600;
 
 function App() {
   return (
-    <div id={"canvasHolder"}>
-        <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
-    </div>
+      <div id={"canvasHolder"}>
+          <LandingPage id={"LandingPage"}/>
+      </div>
   );
 }
 
+
+
 export default App;
 
+/**
+ * Site landing page element
+ * Should be rendered inside a <div id={"canvasHolder"}>
+ */
+class LandingPage extends React.Component {
+    constructor(props) {
+        super();
+
+        // create a reference to the canvas element
+        this.canvas = React.createRef();
+    }
+
+    /**
+     * componentDidMount()
+     * Called when canvas element is mounted on page (canvas element is unusable up until this point)
+     */
+    componentDidMount() {
+        this.ctx = this.canvas.current.getContext('2d'); // grab the canvas element
+
+        this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
+
+        // draw some test text
+        this.draw_test();
+    }
+
+    draw_test(){
+        // draw text
+        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = 'rgb(255,255,255)';
+        this.ctx.fillText("Landing Page test", canvas_width/2, canvas_height/2 - 15);
+    }
+
+    /**
+     * LearningMode_HandleClick()
+     * Onclick handler for the learning mode button on the landing page
+     */
+    LearningMode_HandleClick() {
+        // console.log("CanvasExample.LearningMode_HandleClick()"); //:debug
+
+        // render learning mode
+        ReactDOM.render(
+            <div id={"canvasHolder"}>
+                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
+            </div>,
+            document.getElementById('root')
+        );
+    }
+
+    render() {
+        return (
+            <>
+                <canvas id={"canvas"} className={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height}> You need a better browser :( </canvas>
+                <button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick}> Learning Mode </button>
+            </>
+        )
+    }
+}
 
 // this element has it's own canvas element stored
+/**
+ * Learning mode element
+ * Should be rendered inside a <div id={"canvasHolder"}>
+ * also with props: id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}
+ */
 class LearningMode extends React.Component {
     // Instance variables:
     // (all basically cosmetic) (created in constructor)
