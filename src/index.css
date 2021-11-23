@@ -101,3 +101,11 @@ code {
 }
 
 /* Presentation Mode Page */
+#nextButton {
+  height: 120px;
+  width: 360px;
+  position:absolute;
+  right: 30px;
+  bottom: 30px;
+  z-index: 4;
+}
