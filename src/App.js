@@ -6,6 +6,16 @@ import ReactDOM from "react-dom";
 const canvas_height = 750;
 const canvas_width = 1600;
 
+/**
+ * Mapping layers via constants
+ * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
+ * This allows us to easily add and remove layers.
+ */
+const base = 0; // CONST
+const heat = 1; // CONST
+const gas = 2; // CONST
+const keeper = 3; // CONST
+
 function App() {
   return (
       <div id={"canvasHolder"}>
@@ -98,7 +108,7 @@ class LandingPage extends React.Component {
 /**
  * Learning mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}
+ * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false]}
  */
 class LearningMode extends React.Component {
     // Instance variables:
@@ -169,58 +179,58 @@ class LearningMode extends React.Component {
         // Execute logic based on deltastage and scene
 
         // if basedrawing is active
-        if(this.state.scene[0] === true){
+        if(this.state.scene[base] === true){
             this.draw_baseDrawing();
 
             // if the user just toggled basedrawing
-            if(this.state.deltastage === 0 || this.state.deltastage === undefined){
+            if(this.state.deltastage === base || this.state.deltastage === undefined){
                 this.draw_baseDrawing_guide();
             }
         }
-        else if (this.state.deltastage === 0){
+        else if (this.state.deltastage === base){
             // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
         // if heat insert is active
-        if(this.state.scene[1] === true){
+        if(this.state.scene[heat] === true){
             this.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
-            if(this.state.deltastage === 1){
+            if(this.state.deltastage === heat){
                 this.draw_csv_Heat_Insert_guide();
             }
         }
-        else if (this.state.deltastage === 1){
+        else if (this.state.deltastage === heat){
             // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
         // if gas feed is active
-        if(this.state.scene[2] === true){
+        if(this.state.scene[gas] === true){
             this.draw_csv_gas_feed();
 
             // if the user just toggled the gas feed
-            if(this.state.deltastage === 2){
+            if(this.state.deltastage === gas){
                 this.draw_csv_gas_feed_guide();
             }
         }
-        else if (this.state.deltastage === 2){
+        else if (this.state.deltastage === gas){
             // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
 
 
         // if keeper electrode is active
-        if(this.state.scene[3] === true){
+        if(this.state.scene[keeper] === true){
             this.draw_csv_keeper_electrode();
 
             // if the user just toggled the keeper electrode
-            if(this.state.deltastage === 3){
+            if(this.state.deltastage === keeper){
                 this.draw_csv_keeper_electrode_guide();
             }
         }
-        else if (this.state.deltastage === 3){
+        else if (this.state.deltastage === keeper){
             // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
@@ -238,7 +248,7 @@ class LearningMode extends React.Component {
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: 1, scene: [state.scene[0], !state.scene[1], state.scene[2], state.scene[3]] };
+            return { deltastage: heat, scene: [state.scene[base], !state.scene[heat], state.scene[gas], state.scene[keeper]] };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -253,7 +263,7 @@ class LearningMode extends React.Component {
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: 2, scene: [state.scene[0], state.scene[1], !state.scene[2], state.scene[3]] };
+            return { deltastage: gas, scene: [state.scene[base], state.scene[heat], !state.scene[gas], state.scene[keeper]] };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -268,7 +278,7 @@ class LearningMode extends React.Component {
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: 3, scene: [state.scene[0], state.scene[1], state.scene[2], !state.scene[3]] };
+            return { deltastage: keeper, scene: [state.scene[base], state.scene[heat], state.scene[gas], !state.scene[keeper]] };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -284,10 +294,10 @@ class LearningMode extends React.Component {
         console.log("----clearing layer " + layer) //:debug
 
         switch (layer) {
-            case 0: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 1: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 2: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 3: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
+            case base: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
+            case heat: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
+            case gas: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
+            case keeper: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
             default: console.error("clearCanvas(layer): Invalid layer = " + layer); return;
         }
     }
@@ -297,9 +307,9 @@ class LearningMode extends React.Component {
      * Function to draw the base cathode (currently only draws a gray square)
      */
     draw_baseDrawing(){
-        console.log("0 draw_baseDrawing called") //:debug
+        console.log(base ," draw_baseDrawing called") //:debug
 
-        this.clearCanvas(0);
+        this.clearCanvas(base);
 
         // draw rectangle
         this.ctx0.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
@@ -314,9 +324,9 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_baseDrawing_guide(){
-        console.log("0 draw_baseDrawing_guide called") //:debug
+        console.log(base, " draw_baseDrawing_guide called") //:debug
 
-        // this.clearCanvas(0);
+        // this.clearCanvas(base);
 
         // draw text
         this.ctx0.save();
@@ -331,9 +341,9 @@ class LearningMode extends React.Component {
      * Currently draws a dark grey square along with the text "Heat Insert"
      */
     draw_csv_Heat_Insert(){
-        console.log("1 draw_csv_Heat_Insert called") //:debug
+        console.log(heat, " draw_csv_Heat_Insert called") //:debug
 
-        this.clearCanvas(1);
+        this.clearCanvas(heat);
 
         // draw rectangle
         this.ctx1.fillStyle = 'rgba(63,63,63,0.4)';
@@ -348,9 +358,9 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        console.log("1 draw_csv_Heat_Insert_guide called") //:debug
+        console.log(heat, " draw_csv_Heat_Insert_guide called") //:debug
 
-        // this.clearCanvas(1);
+        // this.clearCanvas(heat);
 
         // draw text
         this.ctx1.save();
@@ -362,10 +372,10 @@ class LearningMode extends React.Component {
 
 
     draw_csv_gas_feed(){
-        console.log("2 draw_csv_gas_feed called"); //:debug
+        console.log(gas, " draw_csv_gas_feed called"); //:debug
 
 
-        this.clearCanvas(2);
+        this.clearCanvas(gas);
 
         // draw rectangle
         this.ctx2.fillStyle = 'rgba(31,100,84,0.65)';
@@ -380,9 +390,9 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
-        console.log("2 draw_csv_gas_feed_guide called"); //:debug
+        console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
-        // this.clearCanvas(2);
+        // this.clearCanvas(gas);
 
         // draw text
         this.ctx2.save();
@@ -394,9 +404,9 @@ class LearningMode extends React.Component {
 
 
     draw_csv_keeper_electrode(){
-        console.log("3 draw_csv_keeper_electrode called"); //:debug
+        console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
-        this.clearCanvas(3);
+        this.clearCanvas(keeper);
 
         // draw rectangle
         this.ctx3.fillStyle = 'rgba(0,9,7,0.65)';
@@ -411,9 +421,9 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
      */
     draw_csv_keeper_electrode_guide(){
-        console.log("3 draw_csv_keeper_electrode_guide called"); //:debug
+        console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
 
-        // this.clearCanvas(3);
+        // this.clearCanvas(keeper);
 
         // draw text
         this.ctx3.save();
@@ -443,7 +453,7 @@ class LearningMode extends React.Component {
 /**
  * Presentation mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"PresMode"} deltastage={0} scene={[true,false,false,false]}
+ * also with props: id={"PresMode"} deltastage={base} scene={[true,false,false,false]}
  */
 class PresMode extends React.Component {
     // Instance variables:
@@ -451,10 +461,10 @@ class PresMode extends React.Component {
     deltastage;
     scene;
     canvas;
-    ctx0; //canvas layer 0   (this.base)
-    ctx1; //canvas layer 1   (this.heat)
-    ctx2; //canvas layer 2   (this.gas)
-    ctx3; //canvas layer 3   (this.keeper)
+    ctx0; //canvas layer 0   (base)
+    ctx1; //canvas layer 1   (heat)
+    ctx2; //canvas layer 2   (gas)
+    ctx3; //canvas layer 3   (keeper)
 
     constructor(props){
         super() // I don't understand what this line does - Jack
@@ -471,12 +481,6 @@ class PresMode extends React.Component {
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
-
-        // Map layers to human readable layers
-        this.base = 0; // CONST
-        this.heat = 1; // CONST
-        this.gas = 2; // CONST
-        this.keeper = 3; // CONST
 
 
         // console.log("   constructor:: this.state.scene", this.state.scene); //:debug
@@ -516,46 +520,46 @@ class PresMode extends React.Component {
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
-        if(this.state.scene[0] === true && this.state.scene[1] === false){
+        if(this.state.scene[base] === true && this.state.scene[heat] === false){
             // clear every layer
-            for (let i = 0; i < this.state.scene.length; i++) {
+            for (let i = base; i < this.state.scene.length; i++) {
                 this.clearCanvas(i);
             }
         }
 
         // if basedrawing is active
-        if(this.state.scene[0] === true){
+        if(this.state.scene[base] === true){
             this.draw_baseDrawing();
         }
-        // else if (this.state.deltastage === 0){
+        // else if (this.state.deltastage === base){
         //     // the user deselected this option/layer
         //     this.clearCanvas(this.state.deltastage);
         // }
 
         // if heat insert is active
-        if(this.state.scene[1] === true){
+        if(this.state.scene[heat] === true){
             this.draw_csv_Heat_Insert();
         }
-        // else if (this.state.deltastage === 1){
+        // else if (this.state.deltastage === heat){
         //     // the user deselected this option/layer
         //     this.clearCanvas(this.state.deltastage);
         // }
 
         // if gas feed is active
-        if(this.state.scene[2] === true){
+        if(this.state.scene[gas] === true){
             this.draw_csv_gas_feed();
         }
-        // else if (this.state.deltastage === 2){
+        // else if (this.state.deltastage === gas){
         //     // the user deselected this option/layer
         //     this.clearCanvas(this.state.deltastage);
         // }
 
 
         // if keeper electrode is active
-        if(this.state.scene[3] === true){
+        if(this.state.scene[keeper] === true){
             this.draw_csv_keeper_electrode();
         }
-        // else if (this.state.deltastage === 3){
+        // else if (this.state.deltastage === keeper){
         //     // the user deselected this option/layer
         //     this.clearCanvas(this.state.deltastage);
         // }
@@ -576,7 +580,7 @@ class PresMode extends React.Component {
         if(this.state.deltastage === this.state.scene.length - 1){
             // special case: loop to beginning
             for (let i = 1; i < this.state.scene.length; i++) {
-                newdeltastage = 0;
+                newdeltastage = base;
                 newscene[i] = false;
             }
         } else {
@@ -610,10 +614,10 @@ class PresMode extends React.Component {
         console.log("----clearing layer " + layer) //:debug
 
         switch (layer) {
-            case 0: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 1: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 2: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
-            case 3: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
+            case base: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
+            case heat: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
+            case gas: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
+            case keeper: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
             default: console.error("clearCanvas(layer): Invalid layer = " + layer); return;
         }
     }
@@ -623,9 +627,9 @@ class PresMode extends React.Component {
      * Function to draw the base cathode (currently only draws a gray square)
      */
     draw_baseDrawing(){
-        console.log("0 draw_baseDrawing called") //:debug
+        console.log(base, " draw_baseDrawing called") //:debug
 
-        this.clearCanvas(0);
+        this.clearCanvas(base);
 
         // draw rectangle
         this.ctx0.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
@@ -647,9 +651,9 @@ class PresMode extends React.Component {
      * Currently draws a dark grey square along with the text "Heat Insert"
      */
     draw_csv_Heat_Insert(){
-        console.log("1 draw_csv_Heat_Insert called") //:debug
+        console.log(heat, " draw_csv_Heat_Insert called") //:debug
 
-        this.clearCanvas(1);
+        this.clearCanvas(heat);
 
         // draw rectangle
         this.ctx1.fillStyle = 'rgba(63,63,63,0.4)';
@@ -667,10 +671,10 @@ class PresMode extends React.Component {
 
 
     draw_csv_gas_feed(){
-        console.log("2 draw_csv_gas_feed called"); //:debug
+        console.log(gas, " draw_csv_gas_feed called"); //:debug
 
 
-        this.clearCanvas(2);
+        this.clearCanvas(gas);
 
         // draw rectangle
         this.ctx2.fillStyle = 'rgba(31,100,84,0.65)';
@@ -688,9 +692,9 @@ class PresMode extends React.Component {
 
 
     draw_csv_keeper_electrode(){
-        console.log("3 draw_csv_keeper_electrode called"); //:debug
+        console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
-        this.clearCanvas(3);
+        this.clearCanvas(keeper);
 
         // draw rectangle
         this.ctx3.fillStyle = 'rgba(0,9,7,0.65)';
