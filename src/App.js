@@ -66,7 +66,6 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     LearningMode_HandleClick() {
-        // console.log("LearningMode.LearningMode_HandleClick()"); //:debug
 
         // render learning mode
         ReactDOM.render(
@@ -82,12 +81,11 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     PresMode_HandleClick() {
-        // console.log("LearningMode.PresMode_HandleClick()"); //:debug
 
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <PresMode id={"PresMode"} deltastage={0} scene={[true,false,false,false]}/>
+                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -116,14 +114,13 @@ class LearningMode extends React.Component {
     deltastage;
     scene;
     canvas;
-    ctx0; //canvas layer 0 - base drawing
-    ctx1; //canvas layer 1 - inserts
-    ctx2; //canvas layer 2 - gas feed
-    ctx3; //canvas layer 3 - keeper electrode
+    // ctx0; //canvas layer 0 - base drawing
+    // ctx1; //canvas layer 1 - inserts
+    // ctx2; //canvas layer 2 - gas feed
+    // ctx3; //canvas layer 3 - keeper electrode
 
     constructor(props){
         super() // I don't understand what this line does - Jack
-        // console.log("LearningMode.constructor() called") //:debug
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -140,7 +137,7 @@ class LearningMode extends React.Component {
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
 
-        // console.log("   constructor:: this.state.scene", this.state.scene); //:debug
+        // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
         // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
 
     }
@@ -150,16 +147,14 @@ class LearningMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-        // console.log("LearningMode.componentDidMount() called"); //:debug
-
-        // console.log("   componentDidMount:: this.state.scene", this.state.scene); //:debug
-        // console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now //:debug
 
         // initialize instance variables for each canvas element/layer
-        this.ctx0 = this.canvas0.current.getContext('2d');
-        this.ctx1 = this.canvas1.current.getContext('2d');
-        this.ctx2 = this.canvas2.current.getContext('2d');
-        this.ctx3 = this.canvas3.current.getContext('2d');
+        const ctx0 = this.canvas0.current.getContext('2d');
+        const ctx1 = this.canvas1.current.getContext('2d');
+        const ctx2 = this.canvas2.current.getContext('2d');
+        const ctx3 = this.canvas3.current.getContext('2d');
+
+        this.layers = [ctx0, ctx1, ctx2, ctx3];
 
         this.scenarioRefresh();
     }
@@ -235,7 +230,7 @@ class LearningMode extends React.Component {
             this.clearCanvas(this.state.deltastage);
         }
 
-        console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------"); //:debug
+        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
     /**
@@ -243,8 +238,6 @@ class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
-        console.log("LearningMode.HeatInsertToggle_HandleClick()")
-
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -259,7 +252,6 @@ class LearningMode extends React.Component {
      * Onclick handler for the gas feed toggle button
      */
     GasFeedToggle_HandleClick() {
-        console.log("LearningMode.GasFeedToggle_HandleClick")
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -274,7 +266,6 @@ class LearningMode extends React.Component {
      * Onclick handler for the keeper electrode toggle button
      */
     KeeperElectrodeToggle_HandleClick() {
-        console.log("LearningMode.KeeperElectrodeToggle_HandleClick()")
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -285,21 +276,31 @@ class LearningMode extends React.Component {
     }
 
     /**
+     * getLayer(layer)
+     * @param layer layer number which you want to get
+     * @returns ctx 2d canvas context for that layer
+     */
+    getLayer(layer){
+        return this.layers[layer];
+        // switch (layer) {
+        //     case base: return this.ctx0;
+        //     case heat: return this.ctx1;
+        //     case gas: return this.ctx2;
+        //     case keeper: return this.ctx3;
+        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
+        // }
+    }
+
+
+    /**
      * clearCanvas(layer)
      * Clears contents of a given canvas layer
      *
      * @param layer layer to clear
      */
     clearCanvas(layer){
-        console.log("----clearing layer " + layer) //:debug
-
-        switch (layer) {
-            case base: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
-            case heat: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
-            case gas: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
-            case keeper: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
-            default: console.error("clearCanvas(layer): Invalid layer = " + layer); return;
-        }
+        // console.log("----clearing layer " + layer); //:debug
+        this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
     }
 
     /**
@@ -310,13 +311,14 @@ class LearningMode extends React.Component {
         console.log(base ," draw_baseDrawing called") //:debug
 
         this.clearCanvas(base);
+        const ctx = this.getLayer(base);
 
         // draw rectangle
-        this.ctx0.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
-        this.ctx0.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        ctx.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
+        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
 
-        // console.log("-------------------------------------------draw_baseDrawing (end)-------------------------------------------------------")
+        // console.log("-----------------------------draw_baseDrawing (end)-----------------------------")
     }
 
     /**
@@ -324,16 +326,17 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_baseDrawing_guide(){
-        console.log(base, " draw_baseDrawing_guide called") //:debug
+        // console.log(base, " draw_baseDrawing_guide called") //:debug
 
         // this.clearCanvas(base);
+        const ctx = this.getLayer(base);
 
         // draw text
-        this.ctx0.save();
-        this.ctx0.font = "30px Arial";
-        this.ctx0.fillStyle = 'rgb(255,255,255)';
-        this.ctx0.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
-        this.ctx0.restore();
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
+        ctx.restore();
     }
 
     /**
@@ -341,16 +344,14 @@ class LearningMode extends React.Component {
      * Currently draws a dark grey square along with the text "Heat Insert"
      */
     draw_csv_Heat_Insert(){
-        console.log(heat, " draw_csv_Heat_Insert called") //:debug
+        console.log(heat, " draw_csv_Heat_Insert called"); //:debug
 
         this.clearCanvas(heat);
+        const ctx = this.getLayer(heat);
 
         // draw rectangle
-        this.ctx1.fillStyle = 'rgba(63,63,63,0.4)';
-        this.ctx1.fillRect(300, 400, 200, 200);
-
-
-        // console.log("-------------------------------------------draw_csv_Heat_Insert (end)-------------------------------------------------------"); //:debug
+        ctx.fillStyle = 'rgba(63,63,63,0.4)';
+        ctx.fillRect(300, 400, 200, 200);
     }
 
     /**
@@ -358,31 +359,30 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        console.log(heat, " draw_csv_Heat_Insert_guide called") //:debug
+        console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
 
         // this.clearCanvas(heat);
+        const ctx = this.getLayer(heat);
 
         // draw text
-        this.ctx1.save();
-        this.ctx1.font = "30px Arial";
-        this.ctx1.fillStyle = 'rgb(255,255,255)';
-        this.ctx1.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
-        this.ctx1.restore();
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
+        ctx.restore();
     }
-
 
     draw_csv_gas_feed(){
         console.log(gas, " draw_csv_gas_feed called"); //:debug
 
-
         this.clearCanvas(gas);
+        const ctx = this.getLayer(gas);
 
         // draw rectangle
-        this.ctx2.fillStyle = 'rgba(31,100,84,0.65)';
-        this.ctx2.fillRect(400, 400, 200, 200);
+        ctx.fillStyle = 'rgba(31,100,84,0.65)';
+        ctx.fillRect(400, 400, 200, 200);
 
 
-        // console.log("-------------------------------------------draw_csv_gas_feed (end)-------------------------------------------------------"); //:debug
     }
 
     /**
@@ -393,13 +393,14 @@ class LearningMode extends React.Component {
         console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
         // this.clearCanvas(gas);
+        const ctx = this.getLayer(gas);
 
         // draw text
-        this.ctx2.save();
-        this.ctx2.font = "30px Arial";
-        this.ctx2.fillStyle = 'rgb(255,255,255)';
-        this.ctx2.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        this.ctx2.restore();
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
+        ctx.restore();
     }
 
 
@@ -407,13 +408,13 @@ class LearningMode extends React.Component {
         console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
         this.clearCanvas(keeper);
+        const ctx = this.getLayer(keeper);
 
         // draw rectangle
-        this.ctx3.fillStyle = 'rgba(0,9,7,0.65)';
-        this.ctx3.fillRect(500, 400, 200, 200);
+        ctx.fillStyle = 'rgba(0,9,7,0.65)';
+        ctx.fillRect(500, 400, 200, 200);
 
 
-        // console.log("-------------------------------------------draw_csv_keeper_electrode (end)-------------------------------------------------------"); //:debug
     }
 
     /**
@@ -424,13 +425,14 @@ class LearningMode extends React.Component {
         console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
 
         // this.clearCanvas(keeper);
+        const ctx = this.getLayer(keeper);
 
         // draw text
-        this.ctx3.save();
-        this.ctx3.font = "30px Arial";
-        this.ctx3.fillStyle = 'rgb(255,255,255)';
-        this.ctx3.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
-        this.ctx3.restore();
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
+        ctx.restore();
     }
 
 
@@ -446,7 +448,7 @@ class LearningMode extends React.Component {
                 <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
                 <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
             </>
-        ) //// 2 - attach ref to node
+        ) //// 2 - attach ref to node via ref = this.canvas#
     }
 }
 
@@ -468,7 +470,6 @@ class PresMode extends React.Component {
 
     constructor(props){
         super() // I don't understand what this line does - Jack
-        // console.log("PresMod.constructor() called") //:debug
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -482,10 +483,6 @@ class PresMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
-
-        // console.log("   constructor:: this.state.scene", this.state.scene); //:debug
-        // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
-
     }
 
     /**
@@ -493,10 +490,6 @@ class PresMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-        // console.log("PresMod.componentDidMount() called"); //:debug
-
-        // console.log("   componentDidMount:: this.state.scene", this.state.scene); //:debug
-        // console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now //:debug
 
         // initialize instance variables for each canvas element/layer
         this.ctx0 = this.canvas0.current.getContext('2d');
@@ -514,7 +507,7 @@ class PresMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        console.log("PresMod.scenarioRefresh() called") //:debug
+        console.log("PresMode.scenarioRefresh() called") //:debug
 
         console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
@@ -531,52 +524,35 @@ class PresMode extends React.Component {
         if(this.state.scene[base] === true){
             this.draw_baseDrawing();
         }
-        // else if (this.state.deltastage === base){
-        //     // the user deselected this option/layer
-        //     this.clearCanvas(this.state.deltastage);
-        // }
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
             this.draw_csv_Heat_Insert();
         }
-        // else if (this.state.deltastage === heat){
-        //     // the user deselected this option/layer
-        //     this.clearCanvas(this.state.deltastage);
-        // }
 
         // if gas feed is active
         if(this.state.scene[gas] === true){
             this.draw_csv_gas_feed();
         }
-        // else if (this.state.deltastage === gas){
-        //     // the user deselected this option/layer
-        //     this.clearCanvas(this.state.deltastage);
-        // }
 
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
             this.draw_csv_keeper_electrode();
         }
-        // else if (this.state.deltastage === keeper){
-        //     // the user deselected this option/layer
-        //     this.clearCanvas(this.state.deltastage);
-        // }
 
-        console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------"); //:debug
+        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
     /**
      * nextButton_HandleClick_HandleClick()
-     * Onclick handler for the "next" button
+     * Onclick handler for the "next" button, updates the state via appropriate logic
      */
     nextButton_HandleClick() {
-        // console.log("PresMode.nextButton_HandleClick()"); //:debug
         let newdeltastage = this.state.deltastage;
         let newscene = this.state.scene;
 
-
+        // update the state
         if(this.state.deltastage === this.state.scene.length - 1){
             // special case: loop to beginning
             for (let i = 1; i < this.state.scene.length; i++) {
@@ -611,7 +587,6 @@ class PresMode extends React.Component {
      * @param layer layer to clear
      */
     clearCanvas(layer){
-        console.log("----clearing layer " + layer) //:debug
 
         switch (layer) {
             case base: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
@@ -642,7 +617,6 @@ class PresMode extends React.Component {
         // this.ctx0.fillStyle = 'rgb(255,255,255)';
         // this.ctx0.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
         // this.ctx0.restore();
-        // console.log("-------------------------------------------draw_baseDrawing (end)-------------------------------------------------------")
     }
 
 
@@ -666,7 +640,6 @@ class PresMode extends React.Component {
         // this.ctx1.fillStyle = 'rgb(255,255,255)';
         // this.ctx1.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
         // this.ctx1.restore();
-        // console.log("-------------------------------------------draw_csv_Heat_Insert (end)-------------------------------------------------------"); //:debug
     }
 
 
@@ -687,7 +660,6 @@ class PresMode extends React.Component {
         // this.ctx2.fillStyle = 'rgb(255,255,255)';
         // this.ctx2.fillText("Gas Feed", canvas_width/2, canvas_height/2);
         // this.ctx2.restore();
-        // console.log("-------------------------------------------draw_csv_gas_feed (end)-------------------------------------------------------"); //:debug
     }
 
 
@@ -707,11 +679,10 @@ class PresMode extends React.Component {
         // this.ctx3.fillStyle = 'rgb(255,255,255)';
         // this.ctx3.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
         // this.ctx3.restore();
-        // console.log("-------------------------------------------draw_csv_keeper_electrode (end)-------------------------------------------------------"); //:debug
     }
 
     render(){
-        // console.log("PresMod.render called") //:debug
+        console.log("PresMode.render called") //:debug
         return (
             <>
                 <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -720,6 +691,6 @@ class PresMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
-        ) //// 2 - attach ref to node
+        ) //// 2 - attach ref to node via ref = this.canvas#
     }
 }
