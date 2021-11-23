@@ -451,10 +451,10 @@ class PresMode extends React.Component {
     deltastage;
     scene;
     canvas;
-    ctx0; //canvas layer 0 - base drawing
-    ctx1; //canvas layer 1 - inserts
-    ctx2; //canvas layer 2 - gas feed
-    ctx3; //canvas layer 3 - keeper electrode
+    ctx0; //canvas layer 0   (this.base)
+    ctx1; //canvas layer 1   (this.heat)
+    ctx2; //canvas layer 2   (this.gas)
+    ctx3; //canvas layer 3   (this.keeper)
 
     constructor(props){
         super() // I don't understand what this line does - Jack
@@ -472,6 +472,12 @@ class PresMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
+        // Map layers to human readable layers
+        this.base = 0; // CONST
+        this.heat = 1; // CONST
+        this.gas = 2; // CONST
+        this.keeper = 3; // CONST
+
 
         // console.log("   constructor:: this.state.scene", this.state.scene); //:debug
         // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
@@ -485,8 +491,8 @@ class PresMode extends React.Component {
     componentDidMount() {
         // console.log("PresMod.componentDidMount() called"); //:debug
 
-        console.log("   componentDidMount:: this.state.scene", this.state.scene); //:debug
-        console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now //:debug
+        // console.log("   componentDidMount:: this.state.scene", this.state.scene); //:debug
+        // console.log("   componentDidMount:: this.state.deltastage", this.state.deltastage); //note: deltastage is no longer undefined by now //:debug
 
         // initialize instance variables for each canvas element/layer
         this.ctx0 = this.canvas0.current.getContext('2d');
@@ -509,13 +515,8 @@ class PresMode extends React.Component {
         console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
-        // Execute logic based on deltastage and scene
-
-        // function which returns true if all of a boolean array is true
-        let checker = arr => arr.every(v => v === true);
-
-        // check if all false
-        if(!checker(this.state.scene)){
+        // clear all drawings if the user just entered presentation mode or it looped back to the beginning
+        if(this.state.scene[0] === true && this.state.scene[1] === false){
             // clear every layer
             for (let i = 0; i < this.state.scene.length; i++) {
                 this.clearCanvas(i);
@@ -526,38 +527,38 @@ class PresMode extends React.Component {
         if(this.state.scene[0] === true){
             this.draw_baseDrawing();
         }
-        else if (this.state.deltastage === 0){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
+        // else if (this.state.deltastage === 0){
+        //     // the user deselected this option/layer
+        //     this.clearCanvas(this.state.deltastage);
+        // }
 
         // if heat insert is active
         if(this.state.scene[1] === true){
             this.draw_csv_Heat_Insert();
         }
-        else if (this.state.deltastage === 1){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
+        // else if (this.state.deltastage === 1){
+        //     // the user deselected this option/layer
+        //     this.clearCanvas(this.state.deltastage);
+        // }
 
         // if gas feed is active
         if(this.state.scene[2] === true){
             this.draw_csv_gas_feed();
         }
-        else if (this.state.deltastage === 2){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
+        // else if (this.state.deltastage === 2){
+        //     // the user deselected this option/layer
+        //     this.clearCanvas(this.state.deltastage);
+        // }
 
 
         // if keeper electrode is active
         if(this.state.scene[3] === true){
             this.draw_csv_keeper_electrode();
         }
-        else if (this.state.deltastage === 3){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
+        // else if (this.state.deltastage === 3){
+        //     // the user deselected this option/layer
+        //     this.clearCanvas(this.state.deltastage);
+        // }
 
         console.log("-------------------------------------------scenarioRefresh (end)-------------------------------------------------------"); //:debug
     }
@@ -567,7 +568,7 @@ class PresMode extends React.Component {
      * Onclick handler for the "next" button
      */
     nextButton_HandleClick() {
-        console.log("PresMode.nextButton_HandleClick()")
+        // console.log("PresMode.nextButton_HandleClick()"); //:debug
         let newdeltastage = this.state.deltastage;
         let newscene = this.state.scene;
 
