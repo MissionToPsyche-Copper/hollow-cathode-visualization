@@ -102,7 +102,6 @@ class LandingPage extends React.Component {
     }
 }
 
-// this element has it's own canvas element stored
 /**
  * Learning mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
@@ -238,10 +237,12 @@ class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[heat] = !newScene[heat];
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: heat, scene: [state.scene[base], !state.scene[heat], state.scene[gas], state.scene[keeper]] };
+            return { deltastage: heat, scene: newScene };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -252,10 +253,12 @@ class LearningMode extends React.Component {
      * Onclick handler for the gas feed toggle button
      */
     GasFeedToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[gas] = !newScene[gas];
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: gas, scene: [state.scene[base], state.scene[heat], !state.scene[gas], state.scene[keeper]] };
+            return { deltastage: gas, scene: newScene };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -266,10 +269,12 @@ class LearningMode extends React.Component {
      * Onclick handler for the keeper electrode toggle button
      */
     KeeperElectrodeToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[keeper] = !newScene[keeper];
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: keeper, scene: [state.scene[base], state.scene[heat], state.scene[gas], !state.scene[keeper]] };
+            return { deltastage: keeper, scene: newScene };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
@@ -299,7 +304,6 @@ class LearningMode extends React.Component {
      * @param layer layer to clear
      */
     clearCanvas(layer){
-        // console.log("----clearing layer " + layer); //:debug
         this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
     }
 
@@ -356,7 +360,7 @@ class LearningMode extends React.Component {
 
     /**
      * draw_csv_Heat_Insert_guide()
-     * Draws the guide text and tooltips and such for the draw_csv_Heat_Insert for learning mode
+     * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
         console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
@@ -387,7 +391,7 @@ class LearningMode extends React.Component {
 
     /**
      * draw_csv_gas_feed_guide()
-     * Draws the guide text and tooltips and such for the draw_csv_gas_feed for learning mode
+     * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
         console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
