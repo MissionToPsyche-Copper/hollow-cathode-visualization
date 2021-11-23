@@ -71,7 +71,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <PresMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
+                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -82,7 +82,7 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     PresMode_HandleClick() {
-        // console.log("LearningMode.LearningMode_HandleClick()"); //:debug
+        // console.log("LearningMode.PresMode_HandleClick()"); //:debug
 
         // render learning mode
         ReactDOM.render(
