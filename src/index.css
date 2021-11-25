@@ -78,6 +78,21 @@ code {
   z-index: 3;
 }
 
+#canvas4{
+  position:absolute;
+  border: 1px solid mediumpurple;
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 3;
+}
+
+#canvas5{
+  position:absolute;
+  border: 1px solid orange;
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 3;
+}
 
 
 /* Landing Page */

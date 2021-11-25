@@ -11,10 +11,12 @@ const canvas_width = 1600;
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-const base = 0; // CONST
-const heat = 1; // CONST
-const gas = 2; // CONST
-const keeper = 3; // CONST
+const base = 0; // ctx0 // scene[base]
+const heat = 1; // ctx1 // scene[heat]
+const gas = 2; // ctx2 // scene[gas]
+const plasma = 3; // ctx3 // scene[plasma]
+const keeper = 4; // ctx4 // scene[keeper]
+const eject = 5; // ctx5 // scene[eject]
 
 function App() {
   return (
@@ -70,7 +72,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false]}/>
+                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -85,7 +87,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false]}/>
+                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -105,18 +107,15 @@ class LandingPage extends React.Component {
 /**
  * Learning mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false]}
+ * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false]}
  */
 class LearningMode extends React.Component {
     // Instance variables:
-    // (all basically cosmetic) (created in constructor)
+    // (all essentially cosmetic) (created in constructor)
     deltastage;
     scene;
     canvas;
-    // ctx0; //canvas layer 0 - base drawing
-    // ctx1; //canvas layer 1 - inserts
-    // ctx2; //canvas layer 2 - gas feed
-    // ctx3; //canvas layer 3 - keeper electrode
+    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
         super() // I don't understand what this line does - Jack
@@ -126,11 +125,15 @@ class LearningMode extends React.Component {
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
+        this.canvas4 = React.createRef();
+        this.canvas5 = React.createRef();
 
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
         this.GasFeedToggle_HandleClick = this.GasFeedToggle_HandleClick.bind(this);
         this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
+        this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
+        this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -148,12 +151,15 @@ class LearningMode extends React.Component {
     componentDidMount() {
 
         // initialize instance variables for each canvas element/layer
-        const ctx0 = this.canvas0.current.getContext('2d');
-        const ctx1 = this.canvas1.current.getContext('2d');
-        const ctx2 = this.canvas2.current.getContext('2d');
-        const ctx3 = this.canvas3.current.getContext('2d');
+        const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
+        const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
+        const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
+        const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
+        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
+        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
 
-        this.layers = [ctx0, ctx1, ctx2, ctx3];
+        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
 
         this.scenarioRefresh();
     }
@@ -214,6 +220,30 @@ class LearningMode extends React.Component {
             this.clearCanvas(this.state.deltastage);
         }
 
+        // if internal plasma is true
+        if(this.state.scene[plasma] === true){
+            this.draw_csv_internal_plasma();
+
+            // if the user just triggered the internal plasma
+            if(this.state.deltastage === plasma){
+                this.draw_csv_internal_plasma_guide();
+            }
+        }
+        else if (this.state.deltastage === plasma){
+            // the user deselected this option/layer
+            this.clearCanvas(this.state.deltastage);
+        }
+
+        // SPECIAL CASE [trigger internal plasma] LOGIC
+        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
+            if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
+                console.log("   scenarioRefresh:: SPECIAL CASE: [Internal Plasma] TRIGGERED", this.state.deltastage, this.state.scene[heat], this.state.scene[gas]); //:debug
+                ReactDOM.render(
+                    <button id={"nextButton"} onClick={this.nextButton_plasma_HandleClick}> Next </button>,
+                    document.getElementById('toggleButtonGroup')
+                );
+            }
+        }
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
@@ -228,6 +258,33 @@ class LearningMode extends React.Component {
             // the user deselected this option/layer
             this.clearCanvas(this.state.deltastage);
         }
+
+        // if eject plasma is true
+        if(this.state.scene[eject] === true){
+            this.draw_csv_eject_plasma();
+
+            // if the user just triggered eject plasma
+            if(this.state.deltastage === eject){
+                this.draw_csv_eject_plasma_guide();
+            }
+        }
+        else if (this.state.deltastage === eject){
+            // the user deselected this option/layer
+            this.clearCanvas(this.state.deltastage);
+        }
+
+        // SPECIAL CASE [trigger eject plasma] LOGIC
+        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true) && (this.state.scene[gas] === true)){
+            if (this.state.deltastage === keeper){ // Todo questionable logic
+                console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
+                ReactDOM.render(
+                    <button id={"nextButton"} onClick={this.nextButton_eject_HandleClick}> Next </button>,
+                    document.getElementById('toggleButtonGroup')
+                );
+            }
+        }
+
+        //TODO add one more for the 'finished' state where the controls disappear
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
@@ -278,6 +335,60 @@ class LearningMode extends React.Component {
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
+    }
+
+    /**
+     * nextButton_plasma_HandleClick()
+     * Onclick handler for the "next" button for the internal plasma scene, updates the state and DOM via appropriate logic
+     */
+    nextButton_plasma_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[plasma] = true;
+
+
+        // update DOM buttons (replace next with toggles)
+        ReactDOM.render(
+            <>
+                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
+                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+            </>,
+            document.getElementById('toggleButtonGroup')
+        );
+
+        console.log("   nextButton_plasma_HandleClick:: this.state.deltastage", this.state.deltastage); //:debug
+        console.log("   nextButton_plasma_HandleClick:: this.state.scene", this.state.scene); //:debug
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: plasma, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+    }
+
+    /**
+     * nextButton_eject_HandleClick()
+     * Onclick handler for the "next" button for the eject plasma scene, updates the state and DOM via appropriate logic
+     */
+    nextButton_eject_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[eject] = !newScene[eject];
+
+        // update DOM buttons (replace next with toggles)
+        ReactDOM.render(
+            <>
+                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (buttons disappear but code flexibility tho*/}
+                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+            </>,
+            document.getElementById('toggleButtonGroup')
+        );
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: eject, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
     }
 
     /**
@@ -417,8 +528,6 @@ class LearningMode extends React.Component {
         // draw rectangle
         ctx.fillStyle = 'rgba(0,9,7,0.65)';
         ctx.fillRect(500, 400, 200, 200);
-
-
     }
 
     /**
@@ -440,6 +549,59 @@ class LearningMode extends React.Component {
     }
 
 
+    draw_csv_internal_plasma(){
+        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
+
+        this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(57,255,0,0.65)';
+        ctx.fillRect(500, 400, 200, 200);
+    }
+
+    draw_csv_internal_plasma_guide() {
+        console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
+
+        // this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        // draw text
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Internal Plasma", canvas_width/2 + 0, canvas_height/2 + 30);
+        ctx.restore();
+    }
+
+
+
+    draw_csv_eject_plasma(){
+        console.log(eject, " draw_csv_eject_plasma called"); //:debug
+
+        this.clearCanvas(eject);
+        const ctx = this.getLayer(eject);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(0,51,255,0.65)';
+        ctx.fillRect(500, 400, 200, 200);
+    }
+
+    draw_csv_eject_plasma_guide() {
+        console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
+
+        // this.clearCanvas(eject);
+        const ctx = this.getLayer(eject);
+
+        // draw text
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Eject Plasma", canvas_width/2 + 100, canvas_height/2 - 30);
+        ctx.restore();
+    }
+
+
     render(){
         // console.log("LearningMode.render called") //:debug
         return (
@@ -448,9 +610,13 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <div id={"toggleButtonGroup"}>
+                    <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
+                    <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                    <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }
@@ -459,7 +625,7 @@ class LearningMode extends React.Component {
 /**
  * Presentation mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"PresMode"} deltastage={base} scene={[true,false,false,false]}
+ * also with props: id={"PresMode"} deltastage={base} scene={[true,false,false,false,false,false]}
  */
 class PresMode extends React.Component {
     // Instance variables:
@@ -549,7 +715,7 @@ class PresMode extends React.Component {
     }
 
     /**
-     * nextButton_HandleClick_HandleClick()
+     * nextButton_HandleClick()
      * Onclick handler for the "next" button, updates the state via appropriate logic
      */
     nextButton_HandleClick() {
