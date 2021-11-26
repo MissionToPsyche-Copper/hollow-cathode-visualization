@@ -274,8 +274,10 @@ class LearningMode extends React.Component {
         }
 
         // SPECIAL CASE [trigger eject plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true) && (this.state.scene[gas] === true)){
-            if (this.state.deltastage === keeper){ // Todo questionable logic
+        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
+            // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
+            if (this.state.deltastage === keeper){
+                // Todo not super solid logic^
                 console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
                 ReactDOM.render(
                     <button id={"nextButton"} onClick={this.nextButton_eject_HandleClick}> Next </button>,
@@ -284,8 +286,11 @@ class LearningMode extends React.Component {
             }
         }
 
-        //TODO add one more for the 'finished' state where the controls disappear
-        if (this.scene){
+        //TODO add one more for the 'finished' state where the controls disappear but do it better
+
+        // source: https://stackoverflow.com/questions/53897673/check-if-all-values-in-array-are-true-then-return-a-true-boolean-statement-jav
+        let checker = arr => arr.every(v => v === true);
+        if(checker(this.state.scene)){
             ReactDOM.render(<></>, document.getElementById('toggleButtonGroup'));
         }
 
@@ -380,7 +385,7 @@ class LearningMode extends React.Component {
         // update DOM buttons (replace next with toggles)
         ReactDOM.render(
             <>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (buttons disappear but code flexibility tho*/}
+                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
                 <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
                 <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
             </>,
