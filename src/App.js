@@ -60,7 +60,7 @@ class LandingPage extends React.Component {
         // draw text
         this.ctx.font = "30px Arial";
         this.ctx.fillStyle = 'rgb(255,255,255)';
-        this.ctx.fillText("Landing Page test", canvas_width/2, canvas_height/2 - 15);
+        this.ctx.fillText("Landing Page", canvas_width/2, canvas_height/2);
     }
 
     /**
@@ -285,6 +285,9 @@ class LearningMode extends React.Component {
         }
 
         //TODO add one more for the 'finished' state where the controls disappear
+        if (this.scene){
+            ReactDOM.render(<></>, document.getElementById('toggleButtonGroup'));
+        }
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
@@ -420,7 +423,7 @@ class LearningMode extends React.Component {
 
     /**
      * draw_baseDrawing()
-     * Function to draw the base cathode (currently only draws a gray square)
+     * Function to draw the base cathode visuals (currently only draws a red square)
      */
     draw_baseDrawing(){
         console.log(base ," draw_baseDrawing called") //:debug
@@ -429,11 +432,8 @@ class LearningMode extends React.Component {
         const ctx = this.getLayer(base);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
+        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
         ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
-
-
-        // console.log("-----------------------------draw_baseDrawing (end)-----------------------------")
     }
 
     /**
@@ -456,7 +456,7 @@ class LearningMode extends React.Component {
 
     /**
      * draw_csv_Heat_Insert()
-     * Currently draws a dark grey square along with the text "Heat Insert"
+     * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
         console.log(heat, " draw_csv_Heat_Insert called"); //:debug
@@ -465,7 +465,7 @@ class LearningMode extends React.Component {
         const ctx = this.getLayer(heat);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(63,63,63,0.4)';
+        ctx.fillStyle = 'rgba(255,136,0,0.5)';
         ctx.fillRect(300, 400, 200, 200);
     }
 
@@ -487,6 +487,11 @@ class LearningMode extends React.Component {
         ctx.restore();
     }
 
+
+    /**
+     * draw_csv_gas_feed()
+     * Function to draw the gas feed visuals (currently only draws a yellow square)
+     */
     draw_csv_gas_feed(){
         console.log(gas, " draw_csv_gas_feed called"); //:debug
 
@@ -494,10 +499,8 @@ class LearningMode extends React.Component {
         const ctx = this.getLayer(gas);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(31,100,84,0.65)';
+        ctx.fillStyle = 'rgba(247,255,0,0.5)';
         ctx.fillRect(400, 400, 200, 200);
-
-
     }
 
     /**
@@ -519,6 +522,44 @@ class LearningMode extends React.Component {
     }
 
 
+    /**
+     * draw_csv_internal_plasma()
+     * Function to draw the internal plasma visuals (currently only draws a green square)
+     */
+    draw_csv_internal_plasma(){
+        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
+
+        this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(56,255,0,0.65)';
+        ctx.fillRect(500, 400, 200, 200);
+    }
+
+    /**
+     * draw_csv_internal_plasma_guide()
+     * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
+     */
+    draw_csv_internal_plasma_guide() {
+        console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
+
+        // this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        // draw text
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2 + 30);
+        ctx.restore();
+    }
+
+
+    /**
+     * draw_csv_keeper_electrode()
+     * Function to draw the keeper electrode visuals (currently only draws a blue square)
+     */
     draw_csv_keeper_electrode(){
         console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
@@ -526,8 +567,8 @@ class LearningMode extends React.Component {
         const ctx = this.getLayer(keeper);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(0,9,7,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
+        ctx.fillStyle = 'rgba(0,54,255,0.5)';
+        ctx.fillRect(600, 400, 200, 200);
     }
 
     /**
@@ -549,33 +590,10 @@ class LearningMode extends React.Component {
     }
 
 
-    draw_csv_internal_plasma(){
-        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
-
-        this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(57,255,0,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
-    }
-
-    draw_csv_internal_plasma_guide() {
-        console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
-
-        // this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
-
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Internal Plasma", canvas_width/2 + 0, canvas_height/2 + 30);
-        ctx.restore();
-    }
-
-
-
+    /**
+     * draw_csv_eject_plasma()
+     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
+     */
     draw_csv_eject_plasma(){
         console.log(eject, " draw_csv_eject_plasma called"); //:debug
 
@@ -583,10 +601,14 @@ class LearningMode extends React.Component {
         const ctx = this.getLayer(eject);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(0,51,255,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
+        ctx.fillStyle = 'rgba(59,0,255,0.5)';
+        ctx.fillRect(700, 400, 200, 200);
     }
 
+    /**
+     * draw_csv_eject_plasma_guide()
+     * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
+     */
     draw_csv_eject_plasma_guide() {
         console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
 
@@ -633,19 +655,18 @@ class PresMode extends React.Component {
     deltastage;
     scene;
     canvas;
-    ctx0; //canvas layer 0   (base)
-    ctx1; //canvas layer 1   (heat)
-    ctx2; //canvas layer 2   (gas)
-    ctx3; //canvas layer 3   (keeper)
+    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super() // I don't understand what this line does - Jack
+        super(); // I don't understand what this line does - Jack
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
+        this.canvas4 = React.createRef();
+        this.canvas5 = React.createRef();
 
         // bind handler function(s)
         this.nextButton_HandleClick = this.nextButton_HandleClick.bind(this);
@@ -662,10 +683,15 @@ class PresMode extends React.Component {
     componentDidMount() {
 
         // initialize instance variables for each canvas element/layer
-        this.ctx0 = this.canvas0.current.getContext('2d');
-        this.ctx1 = this.canvas1.current.getContext('2d');
-        this.ctx2 = this.canvas2.current.getContext('2d');
-        this.ctx3 = this.canvas3.current.getContext('2d');
+        const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
+        const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
+        const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
+        const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
+        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
+        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+
+        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
 
         this.scenarioRefresh();
     }
@@ -677,7 +703,7 @@ class PresMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        console.log("PresMode.scenarioRefresh() called") //:debug
+        console.log("PresMode.scenarioRefresh() called"); //:debug
 
         console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
@@ -705,10 +731,19 @@ class PresMode extends React.Component {
             this.draw_csv_gas_feed();
         }
 
+        // if internal plasma is active
+        if(this.state.scene[plasma] === true){
+            this.draw_csv_internal_plasma();
+        }
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
             this.draw_csv_keeper_electrode();
+        }
+
+        // if eject plasma is active
+        if(this.state.scene[eject] === true){
+            this.draw_csv_eject_plasma();
         }
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -724,7 +759,7 @@ class PresMode extends React.Component {
 
         // update the state
         if(this.state.deltastage === this.state.scene.length - 1){
-            // special case: loop to beginning
+            // special case: loop to beginning         note: this loop intentionally starts at 1 instead of zero
             for (let i = 1; i < this.state.scene.length; i++) {
                 newdeltastage = base;
                 newscene[i] = false;
@@ -751,104 +786,166 @@ class PresMode extends React.Component {
     }
 
     /**
+     * getLayer(layer)
+     * @param layer layer number which you want to get
+     * @returns ctx 2d canvas context for that layer
+     */
+    getLayer(layer){
+        return this.layers[layer];
+        // switch (layer) {
+        //     case base: return this.ctx0;
+        //     case heat: return this.ctx1;
+        //     case gas: return this.ctx2;
+        //     case keeper: return this.ctx3;
+        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
+        // }
+    }
+
+    /**
      * clearCanvas(layer)
      * Clears contents of a given canvas layer
      *
      * @param layer layer to clear
      */
     clearCanvas(layer){
-
-        switch (layer) {
-            case base: this.ctx0.clearRect(0, 0, canvas_width, canvas_height); break;
-            case heat: this.ctx1.clearRect(0, 0, canvas_width, canvas_height); break;
-            case gas: this.ctx2.clearRect(0, 0, canvas_width, canvas_height); break;
-            case keeper: this.ctx3.clearRect(0, 0, canvas_width, canvas_height); break;
-            default: console.error("clearCanvas(layer): Invalid layer = " + layer); return;
-        }
+        this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
     }
 
     /**
      * draw_baseDrawing()
-     * Function to draw the base cathode (currently only draws a gray square)
+     * Function to draw the base cathode visuals (currently only draws a red square)
      */
     draw_baseDrawing(){
         console.log(base, " draw_baseDrawing called") //:debug
 
         this.clearCanvas(base);
+        const ctx = this.getLayer(base);
 
         // draw rectangle
-        this.ctx0.fillStyle = 'rgba(255,255,255,0.4)'; //set the pen color
-        this.ctx0.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
 
         // // draw text
-        // this.ctx0.save();
-        // this.ctx0.font = "30px Arial";
-        // this.ctx0.fillStyle = 'rgb(255,255,255)';
-        // this.ctx0.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
-        // this.ctx0.restore();
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
+        // ctx.restore();
     }
 
 
     /**
      * draw_csv_Heat_Insert()
-     * Currently draws a dark grey square along with the text "Heat Insert"
+     * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
         console.log(heat, " draw_csv_Heat_Insert called") //:debug
 
         this.clearCanvas(heat);
+        const ctx = this.getLayer(heat);
 
         // draw rectangle
-        this.ctx1.fillStyle = 'rgba(63,63,63,0.4)';
-        this.ctx1.fillRect(300, 400, 200, 200);
+        ctx.fillStyle = 'rgba(255,136,0,0.5)';
+        ctx.fillRect(300, 400, 200, 200);
 
 
         // // draw text
-        // this.ctx1.save();
-        // this.ctx1.font = "30px Arial";
-        // this.ctx1.fillStyle = 'rgb(255,255,255)';
-        // this.ctx1.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
-        // this.ctx1.restore();
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
+        // ctx.restore();
     }
 
-
+    /**
+     * draw_csv_gas_feed()
+     * Function to draw the gas feed visuals (currently only draws a yellow square)
+     */
     draw_csv_gas_feed(){
         console.log(gas, " draw_csv_gas_feed called"); //:debug
 
-
         this.clearCanvas(gas);
+        const ctx = this.getLayer(gas);
 
         // draw rectangle
-        this.ctx2.fillStyle = 'rgba(31,100,84,0.65)';
-        this.ctx2.fillRect(400, 400, 200, 200);
+        ctx.fillStyle = 'rgba(247,255,0,0.5)';
+        ctx.fillRect(400, 400, 200, 200);
 
 
         // // draw text
-        // this.ctx2.save();
-        // this.ctx2.font = "30px Arial";
-        // this.ctx2.fillStyle = 'rgb(255,255,255)';
-        // this.ctx2.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        // this.ctx2.restore();
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
+        // ctx.restore();
     }
 
+    /**
+     * draw_csv_internal_plasma()
+     * Function to draw the internal plasma visuals (currently only draws a green square)
+     */
+    draw_csv_internal_plasma(){
+        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
 
+        this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(56,255,0,0.65)';
+        ctx.fillRect(500, 400, 200, 200);
+
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2 + 30);
+        // ctx.restore();
+    }
+
+    /**
+     * draw_csv_keeper_electrode()
+     * Function to draw the keeper electrode visuals (currently only draws a blue square)
+     */
     draw_csv_keeper_electrode(){
         console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
         this.clearCanvas(keeper);
+        const ctx = this.getLayer(keeper);
 
         // draw rectangle
-        this.ctx3.fillStyle = 'rgba(0,9,7,0.65)';
-        this.ctx3.fillRect(500, 400, 200, 200);
+        ctx.fillStyle = 'rgba(0,54,255,0.5)';
+        ctx.fillRect(600, 400, 200, 200);
 
 
         // // draw text
-        // this.ctx3.save();
-        // this.ctx3.font = "30px Arial";
-        // this.ctx3.fillStyle = 'rgb(255,255,255)';
-        // this.ctx3.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
-        // this.ctx3.restore();
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
+        // ctx.restore();
+    }
+
+    /**
+     * draw_csv_eject_plasma()
+     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
+     */
+    draw_csv_eject_plasma(){
+        console.log(eject, " draw_csv_eject_plasma called"); //:debug
+
+        this.clearCanvas(eject);
+        const ctx = this.getLayer(eject);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(59,0,255,0.5)';
+        ctx.fillRect(700, 400, 200, 200);
+
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Eject Plasma", canvas_width/2 + 100, canvas_height/2 - 30);
+        // ctx.restore();
     }
 
     render(){
@@ -859,6 +956,8 @@ class PresMode extends React.Component {
                 <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
