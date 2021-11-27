@@ -1,0 +1,293 @@
+/*<<<<<< HEAD
+=======*/
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  background-image: url("https://toppng.com/uploads/preview/starry-sky-stars-space-dark-astronomy-11569918929pqamlkdeje.jpg");
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+img{
+    display: inline-block;
+    max-width: 100%;
+}
+
+.page-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-wrap{
+    padding-bottom: 12rem;
+}
+
+.navbar{
+    min-height: 75px;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: auto;
+    padding-top: 1px;
+    padding-bottom: 3px;
+    background-image: url(./components/menu/assets/nav-bg.jpg);
+    background-color: transparent;
+    background-position: 50% 100%;
+    background-size: cover;
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur();
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    -webkit-transition: opacity 500ms ease;
+    transition: opacity 500ms ease;
+}
+
+.w-nav{
+    background-color: #dddddd;
+    z-index:1000;
+}
+
+.container{
+    position: sticky;
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 3px;
+    grid-auto-columns: 1fr;
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    -ms-grid-rows: auto auto;
+    opacity: 1;
+    -webkit-transition: opacity 200ms ease;
+    transition: opacity 200ms ease;
+    color: transparent;
+}
+
+.w-container{
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 940px;
+}
+
+.nav-menu{
+    display: flex;
+    float: right;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    background-color: transparent;
+}
+
+.w-nav-menu{
+    position: relative;
+}
+
+.nav-link{
+    color: #fff;
+    font-weight: 700;
+    font-size: 22px;
+    border-color: transparent;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 20px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*.w-nav-link{
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+  padding: 20px;
+  text-align: left;
+  margin-right: auto;
+  margin-left: auto;
+}*/
+
+.dropdown{
+    display: block;
+    position: relative;
+    margin-right: 35px;
+}
+
+.dropdown-list{
+    position: absolute;
+    color: black;
+    right: 0;
+    left:0;
+    background-color: #edeff2;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown.active > .text-block + .dropdown-list{
+    content: "▼";
+    opacity: 1;
+    transform: translateY(0px);
+    pointer-events: auto;
+}
+
+.dropdown-link{
+    color: black;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.brand{
+    color: transparent;
+}
+
+.w-nav-brand{
+    position: relative;
+    text-decoration: none;
+}
+
+.brand.w--current{
+    background-color: transparent;
+}
+
+.text-block{
+    color: #fff;
+    font-weight: 600;
+    font-size: 21px;
+    cursor: pointer;
+    background-color: transparent;
+    border-color: transparent;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 15px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    bottom: -5px;
+}
+
+.footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    background-image: url(./components/menu/assets/nav-bg.jpg);
+    background-position: 100% 100%;
+    background-size: cover;
+    text-align: center;
+}
+
+.footer-logo-link{
+    max-height: 60px;
+    min-width: 60px;
+    -webkit-box-flex: 0;
+}
+
+.footer-image{
+    width:100%;
+    height: 100%;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+
+.footer-heading{
+    margin-bottom: 20px;
+    color: #edeff2;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.footer-link{
+    display: block;
+    margin-bottom: 8px;
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+.w-list-unstyled{
+    list-style-type: none;
+}
+
+.wf-container{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 940px;
+}
+
+.footer-text-block{
+    width: 423px;
+    height: 50px;
+}
+
+.footer-flex-container{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 40px;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    text-align: left;
+}
+/*>>>>>>> master
+*/
