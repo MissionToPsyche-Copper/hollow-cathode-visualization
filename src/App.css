@@ -2,6 +2,8 @@
 =======*/
 .App {
   text-align: center;
+    height: auto;
+    width: auto;
 }
 
 .App-logo {

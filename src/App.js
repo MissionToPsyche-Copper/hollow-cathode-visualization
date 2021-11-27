@@ -1,29 +1,10 @@
-//<<<<<<< HEAD
-/*function App() {
-  return (
-    <div className="App">
-      <Header></Header>
-      <body>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-        <p>Test</p>
-      </body>
-      <Footer></Footer>
-    </div>
-=======*/
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
-const canvas_height = 750;
-const canvas_width = 1600;
+const canvas_height = '600';
+const canvas_width = '940';
 
 /**
  * Mapping layers via constants
@@ -39,9 +20,16 @@ const eject = 5; // ctx5 // scene[eject]
 
 function App() {
   return (
-      <div className="App">
-          <div id={"canvasHolder"}></div>
-          <LandingPage id={"LandingPage"}/>
+      <div>
+          <div id={"canvasHolder"}>
+              <LandingPage id={"LandingPage"}/>
+          </div>
+          <div>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+          </div>
       </div>
 //>>>>>>> master
   );
@@ -60,7 +48,7 @@ class LandingPage extends React.Component {
         super();
 
         // create a reference to the canvas element
-        this.canvas = React.createRef();
+        this.canvas = React.createRef()
     }
 
     /**
@@ -118,7 +106,7 @@ class LandingPage extends React.Component {
         return (
             <>
                 <canvas id={"canvas"} className={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height}> You need a better browser :( </canvas>
-                <button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick}> Learning Mode </button>
+                <button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick} height="auto" width="auto"> Learning Mode </button>
                 <button id={"PresModeButton"} onClick={this.PresMode_HandleClick}> Presentation Mode </button>
             </>
         )
