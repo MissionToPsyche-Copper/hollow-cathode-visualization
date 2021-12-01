@@ -62,7 +62,8 @@ img{
     bottom: auto;
     padding-top: 1px;
     padding-bottom: 3px;
-    background-image: url(./components/menu/assets/nav-bg.jpg);
+    /*background-image: url(./components/menu/assets/nav-bg.jpg);*/
+    background-image: linear-gradient(to left, #302144, #592651 33%, #A53F5B 66%, #EF5966);
     background-color: transparent;
     background-position: 50% 100%;
     background-size: cover;
@@ -231,7 +232,8 @@ img{
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
     align-items: flex-start;
-    background-image: url(./components/menu/assets/nav-bg.jpg);
+    /*background-image: url(./components/menu/assets/nav-bg.jpg);*/
+    background-image: linear-gradient(to left, #302144, #592651 33%, #A53F5B 66%, #EF5966);
     background-position: 100% 100%;
     background-size: cover;
     text-align: center;

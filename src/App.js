@@ -24,12 +24,6 @@ function App() {
           <div id={"canvasHolder"}>
               <LandingPage id={"LandingPage"}/>
           </div>
-          <div>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-          </div>
       </div>
 //>>>>>>> master
   );
