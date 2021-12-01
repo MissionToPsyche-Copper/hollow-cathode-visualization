@@ -18,29 +18,38 @@ code {
 }
 
 #HeatInsertToggle {
-  height: auto;
-  width: auto;
   position:absolute;
+  /*height: 120px;*/
+  height: auto;
+  /*width: 360px;*/
+  width: auto;
   right: 30px; /* relative to parent (canvasHolder) */
+  /*bottom: 270px;*/
   bottom: 90px;
   z-index: 10; /* exist on layer 4 (0 is bottom) */
 }
 
 #GasFeedToggle {
-  height: auto;
-  width: auto;
   position:absolute;
+  /*height: 120px;*/
+  height: auto;
+  /*width: 360px;*/
+  width: auto;
   right: 30px;
+  /*bottom: 150px;*/
   bottom: 10px;
   margin-bottom: 40px;
   z-index: 10;
 }
 
 #KeeperElectrodeToggle {
-  height: auto;
-  width: auto;
   position:absolute;
+  /*height: 120px;*/
+  height: auto;
+  /*width: 360px;*/
+  width: auto;
   right: 30px;
+  /*bottom: 30px;*/
   bottom: 10px;
   margin-bottom: 0px;
   z-index: 10;

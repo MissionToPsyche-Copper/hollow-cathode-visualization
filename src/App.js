@@ -3,8 +3,12 @@ import './App.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
+// Huy's Dimensions
 const canvas_height = '600';
 const canvas_width = '940';
+// Jack's Dimensions
+// const canvas_height = 750;
+// const canvas_width = 1600;
 
 /**
  * Mapping layers via constants
