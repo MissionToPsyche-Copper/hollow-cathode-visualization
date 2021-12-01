@@ -52,13 +52,13 @@ code {
 }
 
 #canvas0{
-  border: 1px rgba(255, 0, 0, 0.23);
+  /*border: 1px rgba(255, 0, 0, 0.23);*/
   z-index: 0;
 }
 
 #canvas1{
   position:absolute;
-  border: 1px rgba(0, 0, 255, 0.35);
+  /*border: 1px rgba(0, 0, 255, 0.35);*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
   z-index: 1;
@@ -66,7 +66,7 @@ code {
 
 #canvas2{
   position:absolute;
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
   z-index: 2;
@@ -74,7 +74,7 @@ code {
 
 #canvas3{
   position:absolute;
-  border: 1px solid white;
+  /*border: 1px solid white;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
   z-index: 3;
@@ -82,7 +82,7 @@ code {
 
 #canvas4{
   position:absolute;
-  border: 1px solid mediumpurple;
+  /*border: 1px solid mediumpurple;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
   z-index: 3;
@@ -90,7 +90,7 @@ code {
 
 #canvas5{
   position:absolute;
-  border: 1px solid orange;
+  /*border: 1px solid orange;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
   z-index: 3;
@@ -104,7 +104,7 @@ code {
   position:absolute;
   right: 30px;
   bottom: 90px;
-  z-index: 10;
+  z-index: 10; /* Top layer */
   font-size: medium;
 }
 
