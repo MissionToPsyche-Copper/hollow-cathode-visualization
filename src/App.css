@@ -20,7 +20,8 @@
 .App-header {
   background-color: #282c34;
   background-image: url("https://toppng.com/uploads/preview/starry-sky-stars-space-dark-astronomy-11569918929pqamlkdeje.jpg");
-  min-height: 100vh;
+  min-height: 80vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

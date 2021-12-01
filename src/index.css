@@ -22,7 +22,7 @@ code {
   width: auto;
   position:absolute;
   right: 30px; /* relative to parent (canvasHolder) */
-  bottom: 10px;
+  bottom: 90px;
   z-index: 10; /* exist on layer 4 (0 is bottom) */
 }
 
@@ -32,7 +32,7 @@ code {
   position:absolute;
   right: 30px;
   bottom: 10px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   z-index: 10;
 }
 
@@ -42,7 +42,7 @@ code {
   position:absolute;
   right: 30px;
   bottom: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
   z-index: 10;
 }
 
