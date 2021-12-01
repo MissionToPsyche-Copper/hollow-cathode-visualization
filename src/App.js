@@ -491,7 +491,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
+        ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
 
@@ -559,7 +559,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2 + 30);
+        ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
 
@@ -593,7 +593,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
+        ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
 
@@ -627,7 +627,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Eject Plasma", canvas_width/2 + 100, canvas_height/2 - 30);
+        ctx.fillText("Eject Plasma", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
 
@@ -800,13 +800,6 @@ class PresMode extends React.Component {
      */
     getLayer(layer){
         return this.layers[layer];
-        // switch (layer) {
-        //     case base: return this.ctx0;
-        //     case heat: return this.ctx1;
-        //     case gas: return this.ctx2;
-        //     case keeper: return this.ctx3;
-        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
-        // }
     }
 
     /**
