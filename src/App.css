@@ -1,5 +1,3 @@
-/*<<<<<< HEAD
-=======*/
 .App {
   text-align: center;
     height: auto;
@@ -138,17 +136,6 @@ img{
     margin-left: auto;
 }
 
-/*.w-nav-link{
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  text-decoration: none;
-  padding: 20px;
-  text-align: left;
-  margin-right: auto;
-  margin-left: auto;
-}*/
-
 .dropdown{
     display: block;
     position: relative;
@@ -156,6 +143,7 @@ img{
 }
 
 .dropdown-list{
+    display: none;
     position: absolute;
     color: black;
     right: 0;
@@ -174,6 +162,7 @@ img{
     content: "▼";
     opacity: 1;
     transform: translateY(0px);
+    display: block;
     pointer-events: auto;
 }
 
@@ -291,5 +280,3 @@ img{
     justify-content: space-between;
     text-align: left;
 }
-/*>>>>>>> master
-*/
