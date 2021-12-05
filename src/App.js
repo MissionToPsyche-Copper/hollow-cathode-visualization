@@ -710,7 +710,10 @@ class PresMode extends React.Component {
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super(); // I don't understand what this line does - Jack
+        super();
+
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -725,7 +728,6 @@ class PresMode extends React.Component {
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
-
     }
 
     /**
@@ -770,7 +772,10 @@ class PresMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            this.draw_baseDrawing();
+            //this.draw_csv_Base_Drawing();
+
+            //draw base cathode
+            this.base_cathode.onload = this.draw_csv_Base_Drawing();
         }
 
         // if heat insert is active
@@ -860,16 +865,17 @@ class PresMode extends React.Component {
      * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
-    draw_baseDrawing(){
+    draw_csv_Base_Drawing(){
         console.log(base, " draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
+        ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
 
         // // draw text
         // ctx.save();
