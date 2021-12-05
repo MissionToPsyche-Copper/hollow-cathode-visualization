@@ -24,14 +24,14 @@ const keeper = 4; // ctx4 // scene[keeper]
 const eject = 5; // ctx5 // scene[eject]
 
 function App() {
-  return (
-      <div>
-          <div id={"canvasHolder"}>
-              <LandingPage id={"LandingPage"}/>
-          </div>
-      </div>
+    return (
+        <div>
+            <div id={"canvasHolder"}>
+                <LandingPage id={"LandingPage"}/>
+            </div>
+        </div>
 //>>>>>>> master
-  );
+    );
 }
 
 export default App;
@@ -66,6 +66,8 @@ class LandingPage extends React.Component {
 
         // draw some test text
         this.draw_test();
+
+        //draw spacecraft
         this.psyche_spacecraft.onload = this.draw_spacecraft();
     }
 
@@ -99,12 +101,11 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     LearningMode_HandleClick() {
+
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"}
-                              deltastage={0}
-                              scene={[true,false,false,false,false,false]}/>
+                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -115,6 +116,7 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     PresMode_HandleClick() {
+
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
@@ -128,15 +130,15 @@ class LandingPage extends React.Component {
         return (
             <>
                 <canvas id={"canvas"}
-                    className={"canvas grow"}
-                    onClick={this.LearningMode_HandleClick}
-                    ref={this.canvas}
-                    width={canvas_width}
-                    height={canvas_height}> You need a better browser :(
+                        className={"canvas grow"}
+                        onClick={this.LearningMode_HandleClick}
+                        ref={this.canvas}
+                        width={canvas_width}
+                        height={canvas_height}> You need a better browser :(
                 </canvas>
 
                 <button id={"PresModeButton"}
-                    onClick={this.PresMode_HandleClick}> Presentation Mode
+                        onClick={this.PresMode_HandleClick}> Presentation Mode
                 </button>
             </>
         )
@@ -159,7 +161,6 @@ class LearningMode extends React.Component {
     constructor(props){
         super();
 
-        // add base cathode image
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
 
@@ -193,6 +194,7 @@ class LearningMode extends React.Component {
     componentDidMount() {
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
+
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
         const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
@@ -221,13 +223,13 @@ class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            //this.draw_csv_base_cathode();
-            this.base_cathode.onload = this.draw_csv_base_cathode();
-            console.log(base ,"got here");
+
+            //draw base cathode
+            this.base_cathode.onload = this.draw_csv_Base_Drawing();
 
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === undefined){
-                this.draw_csv_base_drawing_guide();
+                this.draw_csv_Base_Drawing_guide();
             }
         }
         else if (this.state.deltastage === base){
@@ -470,29 +472,28 @@ class LearningMode extends React.Component {
     }
 
     /**
-     * draw_csv_base_cathode()
+     * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
-    draw_csv_base_cathode(){
-        console.log(base ," draw_csv_base_cathode called") //:debug
-        console.log(this.base_cathode);
+    draw_csv_Base_Drawing(){
+        console.log(base ," draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, 500, 500, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
-
-        // // draw rectangle
+        // draw rectangle
         // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
         // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+
+        ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
     }
 
     /**
-     * draw_csv_base_drawing_guide()
+     * draw_csv_Base_Drawing_guide()
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
-    draw_csv_base_drawing_guide(){
-        // console.log(base, " draw_csv_base_drawing_guide called") //:debug
+    draw_csv_Base_Drawing_guide(){
+        // console.log(base, " draw_csv_Base_Drawing_guide called") //:debug
 
         // this.clearCanvas(base);
         const ctx = this.getLayer(base);
@@ -856,11 +857,11 @@ class PresMode extends React.Component {
     }
 
     /**
-     * draw_csv_base_cathode()
+     * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
     draw_baseDrawing(){
-        console.log(base, " draw_csv_base_cathode called") //:debug
+        console.log(base, " draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
