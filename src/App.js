@@ -82,7 +82,7 @@ class LandingPage extends React.Component {
     draw_spacecraft(){
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.psyche_spacecraft, canvas_height/10, canvas_width/10, this.psyche_spacecraft.width, this.psyche_spacecraft.height);
+        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
     }
 
     draw_test(){
@@ -128,8 +128,8 @@ class LandingPage extends React.Component {
     render() {
         return (
             <>
-                <canvas id={"canvas"} className={"canvas"} ref={this.canvas} width={canvas_width} height={canvas_height}> You need a better browser :( </canvas>
-                <button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick} height="auto" width="auto"> Learning Mode </button>
+                <canvas id={"canvas"} className={"canvas"} onClick={this.LearningMode_HandleClick} ref={this.canvas} width={canvas_width} height={canvas_height}> You need a better browser :( </canvas>
+                {/*<button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick} height="auto" width="auto"> Learning Mode </button>*/}
                 <button id={"PresModeButton"} onClick={this.PresMode_HandleClick}> Presentation Mode </button>
             </>
         )
