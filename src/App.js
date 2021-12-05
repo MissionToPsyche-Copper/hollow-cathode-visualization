@@ -54,20 +54,44 @@ class LandingPage extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-        this.ctx = this.canvas.current.getContext('2d'); // grab the canvas element
+        // initialize instance variables for each canvas element/layer
+        const ctx0 = this.canvas.current.getContext('2d'); // base = 0;
+
+        this.layers = [ctx0];
 
         this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
         this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
 
         // draw some test text
         this.draw_test();
+        this.draw_spacecraft();
+    }
+
+    /**
+     * getLayer(layer)
+     * @param layer layer number which you want to get
+     * @returns ctx 2d canvas context for that layer
+     */
+    getLayer(layer){
+        return this.layers[layer];
+    }
+
+    draw_spacecraft(){
+        const ctx = this.getLayer(base);
+
+        let psyche_spacecraft = new Image();
+        psyche_spacecraft.src = "public/images/psyche_spacecraft.png";
+        ctx.drawImage(psyche_spacecraft, canvas_height/2, canvas_width/2, 300, 300);
     }
 
     draw_test(){
+        // this.clearCanvas(base);
+        const ctx = this.getLayer(base);
+
         // draw text
-        this.ctx.font = "30px Arial";
-        this.ctx.fillStyle = 'rgb(255,255,255)';
-        this.ctx.fillText("Landing Page", canvas_width/2, canvas_height/2);
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Landing Page", canvas_width/2, canvas_height/2);
     }
 
     /**
