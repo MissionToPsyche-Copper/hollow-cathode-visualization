@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './landingPage.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
@@ -128,9 +129,17 @@ class LandingPage extends React.Component {
     render() {
         return (
             <>
-                <canvas id={"canvas"} className={"canvas"} onClick={this.LearningMode_HandleClick} ref={this.canvas} width={canvas_width} height={canvas_height}> You need a better browser :( </canvas>
-                {/*<button id={"LearningModeButton"} onClick={this.LearningMode_HandleClick} height="auto" width="auto"> Learning Mode </button>*/}
-                <button id={"PresModeButton"} onClick={this.PresMode_HandleClick}> Presentation Mode </button>
+                <canvas id={"canvas"}
+                    className={"canvas grow"}
+                    onClick={this.LearningMode_HandleClick}
+                    ref={this.canvas}
+                    width={canvas_width}
+                    height={canvas_height}> You need a better browser :(
+                </canvas>
+
+                <button id={"PresModeButton"}
+                    onClick={this.PresMode_HandleClick}> Presentation Mode
+                </button>
             </>
         )
     }
@@ -150,7 +159,7 @@ class LearningMode extends React.Component {
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super() // I don't understand what this line does - Jack
+        super()
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -170,7 +179,6 @@ class LearningMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
-
         // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
         // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
 
@@ -181,7 +189,6 @@ class LearningMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;

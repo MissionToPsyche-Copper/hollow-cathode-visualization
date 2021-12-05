@@ -60,6 +60,10 @@ code {
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
 }
 
+#canvas{
+  /*border: 1px solid orange;*/
+}
+
 #canvas0{
   /*border: 1px rgba(255, 0, 0, 0.23);*/
   z-index: 0;
