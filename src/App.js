@@ -45,6 +45,9 @@ class LandingPage extends React.Component {
     constructor(props) {
         super();
 
+        this.psyche_spacecraft = new Image();
+        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+
         // create a reference to the canvas element
         this.canvas = React.createRef()
     }
@@ -64,7 +67,7 @@ class LandingPage extends React.Component {
 
         // draw some test text
         this.draw_test();
-        this.draw_spacecraft();
+        this.psyche_spacecraft.onload = this.draw_spacecraft();
     }
 
     /**
@@ -79,9 +82,7 @@ class LandingPage extends React.Component {
     draw_spacecraft(){
         const ctx = this.getLayer(base);
 
-        let psyche_spacecraft = new Image();
-        psyche_spacecraft.src = "public/images/psyche_spacecraft.png";
-        ctx.drawImage(psyche_spacecraft, canvas_height/2, canvas_width/2, 300, 300);
+        ctx.drawImage(this.psyche_spacecraft, canvas_height/10, canvas_width/10, this.psyche_spacecraft.width, this.psyche_spacecraft.height);
     }
 
     draw_test(){
