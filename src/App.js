@@ -34,8 +34,6 @@ function App() {
   );
 }
 
-
-
 export default App;
 
 /**
@@ -101,11 +99,12 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     LearningMode_HandleClick() {
-
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
+                <LearningMode id={"LearningMode"}
+                              deltastage={0}
+                              scene={[true,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -116,7 +115,6 @@ class LandingPage extends React.Component {
      * Onclick handler for the learning mode button on the landing page
      */
     PresMode_HandleClick() {
-
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
@@ -159,7 +157,11 @@ class LearningMode extends React.Component {
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super()
+        super();
+
+        // add base cathode image
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -219,11 +221,13 @@ class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            this.draw_baseDrawing();
+            //this.draw_csv_base_cathode();
+            this.base_cathode.onload = this.draw_csv_base_cathode();
+            console.log(base ,"got here");
 
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === undefined){
-                this.draw_baseDrawing_guide();
+                this.draw_csv_base_drawing_guide();
             }
         }
         else if (this.state.deltastage === base){
@@ -466,26 +470,29 @@ class LearningMode extends React.Component {
     }
 
     /**
-     * draw_baseDrawing()
+     * draw_csv_base_cathode()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
-    draw_baseDrawing(){
-        console.log(base ," draw_baseDrawing called") //:debug
+    draw_csv_base_cathode(){
+        console.log(base ," draw_csv_base_cathode called") //:debug
+        console.log(this.base_cathode);
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        // draw rectangle
-        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        ctx.drawImage(this.base_cathode, 500, 500, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
+
+        // // draw rectangle
+        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
     }
 
     /**
-     * draw_baseDrawing_guide()
+     * draw_csv_base_drawing_guide()
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
-    draw_baseDrawing_guide(){
-        // console.log(base, " draw_baseDrawing_guide called") //:debug
+    draw_csv_base_drawing_guide(){
+        // console.log(base, " draw_csv_base_drawing_guide called") //:debug
 
         // this.clearCanvas(base);
         const ctx = this.getLayer(base);
@@ -849,11 +856,11 @@ class PresMode extends React.Component {
     }
 
     /**
-     * draw_baseDrawing()
+     * draw_csv_base_cathode()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
     draw_baseDrawing(){
-        console.log(base, " draw_baseDrawing called") //:debug
+        console.log(base, " draw_csv_base_cathode called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
