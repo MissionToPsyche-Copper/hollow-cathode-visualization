@@ -92,7 +92,7 @@ class LandingPage extends React.Component {
         // draw text
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Landing Page", canvas_width/2, canvas_height/2);
+        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
     }
 
     /**
