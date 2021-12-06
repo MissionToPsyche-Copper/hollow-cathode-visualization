@@ -485,7 +485,7 @@ class LearningMode extends React.Component {
         // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
         // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
-        ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
+        ctx.drawImage(this.base_cathode, 0, canvas_height * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
     }
 
     /**
@@ -493,8 +493,6 @@ class LearningMode extends React.Component {
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_csv_Base_Drawing_guide(){
-        // console.log(base, " draw_csv_Base_Drawing_guide called") //:debug
-
         // this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
@@ -502,7 +500,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
+        ctx.fillText("Hollow Cathode Turned Off", canvas_width * 0.05, canvas_height * 0.9);
         ctx.restore();
     }
 
@@ -539,7 +537,6 @@ class LearningMode extends React.Component {
         ctx.restore();
     }
 
-
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
@@ -572,7 +569,6 @@ class LearningMode extends React.Component {
         ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
-
 
     /**
      * draw_csv_internal_plasma()
@@ -871,11 +867,11 @@ class PresMode extends React.Component {
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        // draw rectangle
-        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        //draw rectangle
+        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
-        ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
+        //ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
 
         // // draw text
         // ctx.save();
