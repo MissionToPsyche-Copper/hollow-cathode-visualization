@@ -24,17 +24,15 @@ const keeper = 4; // ctx4 // scene[keeper]
 const eject = 5; // ctx5 // scene[eject]
 
 function App() {
-  return (
-      <div>
-          <div id={"canvasHolder"}>
-              <LandingPage id={"LandingPage"}/>
-          </div>
-      </div>
+    return (
+        <div>
+            <div id={"canvasHolder"}>
+                <LandingPage id={"LandingPage"}/>
+            </div>
+        </div>
 //>>>>>>> master
-  );
+    );
 }
-
-
 
 export default App;
 
@@ -68,6 +66,8 @@ class LandingPage extends React.Component {
 
         // draw some test text
         this.draw_test();
+
+        //draw spacecraft
         this.psyche_spacecraft.onload = this.draw_spacecraft();
     }
 
@@ -130,15 +130,15 @@ class LandingPage extends React.Component {
         return (
             <>
                 <canvas id={"canvas"}
-                    className={"canvas grow"}
-                    onClick={this.LearningMode_HandleClick}
-                    ref={this.canvas}
-                    width={canvas_width}
-                    height={canvas_height}> You need a better browser :(
+                        className={"canvas grow"}
+                        onClick={this.LearningMode_HandleClick}
+                        ref={this.canvas}
+                        width={canvas_width}
+                        height={canvas_height}> You need a better browser :(
                 </canvas>
 
                 <button id={"PresModeButton"}
-                    onClick={this.PresMode_HandleClick}> Presentation Mode
+                        onClick={this.PresMode_HandleClick}> Presentation Mode
                 </button>
             </>
         )
@@ -159,7 +159,10 @@ class LearningMode extends React.Component {
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super()
+        super();
+
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -191,6 +194,7 @@ class LearningMode extends React.Component {
     componentDidMount() {
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
+
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
         const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
@@ -219,11 +223,13 @@ class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            this.draw_baseDrawing();
+
+            //draw base cathode
+            this.base_cathode.onload = this.draw_csv_Base_Drawing();
 
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === undefined){
-                this.draw_baseDrawing_guide();
+                this.draw_csv_Base_Drawing_guide();
             }
         }
         else if (this.state.deltastage === base){
@@ -466,27 +472,27 @@ class LearningMode extends React.Component {
     }
 
     /**
-     * draw_baseDrawing()
+     * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
-    draw_baseDrawing(){
-        console.log(base ," draw_baseDrawing called") //:debug
+    draw_csv_Base_Drawing(){
+        console.log(base ," draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
         // draw rectangle
-        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+
+        ctx.drawImage(this.base_cathode, 0, canvas_height * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
     }
 
     /**
-     * draw_baseDrawing_guide()
+     * draw_csv_Base_Drawing_guide()
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
-    draw_baseDrawing_guide(){
-        // console.log(base, " draw_baseDrawing_guide called") //:debug
-
+    draw_csv_Base_Drawing_guide(){
         // this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
@@ -494,7 +500,7 @@ class LearningMode extends React.Component {
         ctx.save();
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
+        ctx.fillText("Hollow Cathode Turned Off", canvas_width * 0.05, canvas_height * 0.9);
         ctx.restore();
     }
 
@@ -531,7 +537,6 @@ class LearningMode extends React.Component {
         ctx.restore();
     }
 
-
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
@@ -564,7 +569,6 @@ class LearningMode extends React.Component {
         ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
-
 
     /**
      * draw_csv_internal_plasma()
@@ -702,7 +706,10 @@ class PresMode extends React.Component {
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
     constructor(props){
-        super(); // I don't understand what this line does - Jack
+        super();
+
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -717,7 +724,6 @@ class PresMode extends React.Component {
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
-
     }
 
     /**
@@ -762,7 +768,10 @@ class PresMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            this.draw_baseDrawing();
+            //this.draw_csv_Base_Drawing();
+
+            //draw base cathode
+            this.base_cathode.onload = this.draw_csv_Base_Drawing();
         }
 
         // if heat insert is active
@@ -849,19 +858,20 @@ class PresMode extends React.Component {
     }
 
     /**
-     * draw_baseDrawing()
+     * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws a red square)
      */
-    draw_baseDrawing(){
-        console.log(base, " draw_baseDrawing called") //:debug
+    draw_csv_Base_Drawing(){
+        console.log(base, " draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        // draw rectangle
+        //draw rectangle
         ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
         ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
+        //ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
 
         // // draw text
         // ctx.save();
