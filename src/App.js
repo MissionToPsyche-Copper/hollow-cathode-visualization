@@ -80,21 +80,7 @@ class LandingPage extends React.Component {
         return this.layers[layer];
     }
 
-    draw_spacecraft(){
-        const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
-    }
-
-    draw_test(){
-        // this.clearCanvas(base);
-        const ctx = this.getLayer(base);
-
-        // draw text
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
-    }
 
     /**
      * LearningMode_HandleClick()
@@ -145,20 +131,17 @@ class LandingPage extends React.Component {
     }
 }
 
-class Painter extends React.Component{
-    constructor(props) {
-        super(props);
+
+class Painter{
+    constructor(layers) {
+        this.layers = layers
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
+        this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
     }
 
     getLayer(layer){
         return this.layers[layer];
-        // switch (layer) {
-        //     case base: return this.ctx0;
-        //     case heat: return this.ctx1;
-        //     case gas: return this.ctx2;
-        //     case keeper: return this.ctx3;
-        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
-        // }
     }
 
     /**
@@ -389,10 +372,6 @@ class LearningMode extends React.Component {
     constructor(props){
         super();
 
-        this.base_cathode = new Image();
-        this.base_cathode.src = "/images/base_cathode.png";
-        this.painter = new Painter();
-
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
         this.canvas1 = React.createRef();
@@ -407,6 +386,8 @@ class LearningMode extends React.Component {
         this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
+
+
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -432,7 +413,7 @@ class LearningMode extends React.Component {
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
-
+        this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
 
@@ -452,10 +433,7 @@ class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-
-            //draw base cathode
-            this.base_cathode.onload = this.painter.draw_csv_Base_Drawing();
-
+                this.painter.draw_csv_Base_Drawing()
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === undefined){
                 this.painter.draw_csv_Base_Drawing_guide();
