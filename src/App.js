@@ -44,8 +44,7 @@ class LandingPage extends React.Component {
     constructor(props) {
         super();
 
-        this.psyche_spacecraft = new Image();
-        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+
 
         // create a reference to the canvas element
         this.canvas = React.createRef()
@@ -60,15 +59,15 @@ class LandingPage extends React.Component {
         const ctx0 = this.canvas.current.getContext('2d'); // base = 0;
 
         this.layers = [ctx0];
-
+        this.painter = new Painter(this.layers);
         this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
         this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
 
         // draw some test text
-        this.draw_test();
+        this.painter.draw_test();
 
         //draw spacecraft
-        this.psyche_spacecraft.onload = this.draw_spacecraft();
+        this.painter.draw_spacecraft();
     }
 
     /**
@@ -137,6 +136,8 @@ class Painter{
         this.layers = layers
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
+        this.psyche_spacecraft = new Image();
+        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
     }
 
@@ -158,6 +159,23 @@ class Painter{
      * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals (currently only draws csv png)
      */
+
+    draw_spacecraft(){
+        const ctx = this.getLayer(base);
+
+        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
+    }
+
+    draw_test(){
+        // this.clearCanvas(base);
+        const ctx = this.getLayer(base);
+
+        // draw text
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
+    }
+
     draw_csv_Base_Drawing(){
         console.log(base ," draw_csv_Base_Drawing called") //:debug
 
