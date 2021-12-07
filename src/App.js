@@ -47,8 +47,9 @@ class LandingPage extends React.Component {
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
 
+
         // create a reference to the canvas element
-        this.canvas = React.createRef()
+        this.canvas = React.createRef();
     }
 
     /**
@@ -671,6 +672,19 @@ class LearningMode extends React.Component {
         ctx.restore();
     }
 
+    /**
+     * backButton_HandleClick()
+     * Onclick handler for the "back" button, reloads the landing page
+     */
+    backButton_HandleClick() {
+        // render learning mode
+        ReactDOM.render(
+            <div id={"canvasHolder"}>
+                <LandingPage id={"landingPage"}/>
+            </div>,
+            document.getElementById('root')
+        );
+    }
 
     render(){
         // console.log("LearningMode.render called") //:debug
@@ -682,6 +696,9 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <div align={"left"}>
+                    <button id={"BackButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                </div>
                 <div id={"toggleButtonGroup"}>
                     <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
                     <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
@@ -995,6 +1012,20 @@ class PresMode extends React.Component {
         // ctx.restore();
     }
 
+    /**
+     * backButton_HandleClick()
+     * Onclick handler for the "back" button, reloads the landing page
+     */
+    backButton_HandleClick() {
+        // render learning mode
+        ReactDOM.render(
+            <div id={"canvasHolder"}>
+                <LandingPage id={"landingPage"}/>
+            </div>,
+            document.getElementById('root')
+        );
+    }
+
     render(){
         console.log("PresMode.render called") //:debug
         return (
@@ -1005,6 +1036,9 @@ class PresMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <div align={"left"}>
+                    <button id={"BackButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                </div>
                 <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
