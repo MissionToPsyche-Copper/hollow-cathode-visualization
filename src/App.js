@@ -870,7 +870,6 @@ class PresMode extends React.Component {
         // WARNING: code past setState will not be synchronously executed
     }
 
-
     /**
      * backButton_HandleClick()
      * Onclick handler for the "back" button, reloads the landing page
