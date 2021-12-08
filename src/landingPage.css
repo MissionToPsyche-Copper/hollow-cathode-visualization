@@ -1,0 +1,8 @@
+/*Add grow class to make an element grow upon mouse hovering*/
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.1);
+}
