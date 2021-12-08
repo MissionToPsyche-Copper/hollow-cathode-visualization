@@ -711,9 +711,7 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <div align={"left"}>
-                    <button id={"BackButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                </div>
+                <button id={"backButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 <div id={"toggleButtonGroup"}>
                     <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
                     <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
@@ -897,9 +895,7 @@ class PresMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <div align={"left"}>
-                    <button id={"BackButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                </div>
+                <button id={"backButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
