@@ -44,8 +44,7 @@ class LandingPage extends React.Component {
     constructor(props) {
         super();
 
-        this.psyche_spacecraft = new Image();
-        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+
 
 
         // create a reference to the canvas element
@@ -61,15 +60,15 @@ class LandingPage extends React.Component {
         const ctx0 = this.canvas.current.getContext('2d'); // base = 0;
 
         this.layers = [ctx0];
-
+        this.painter = new Painter(this.layers);
         this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
         this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
 
         // draw some test text
-        this.draw_test();
+        this.painter.draw_test();
 
         //draw spacecraft
-        this.psyche_spacecraft.onload = this.draw_spacecraft();
+        this.painter.draw_spacecraft();
     }
 
     /**
@@ -81,21 +80,7 @@ class LandingPage extends React.Component {
         return this.layers[layer];
     }
 
-    draw_spacecraft(){
-        const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
-    }
-
-    draw_test(){
-        // this.clearCanvas(base);
-        const ctx = this.getLayer(base);
-
-        // draw text
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
-    }
 
     /**
      * LearningMode_HandleClick()
@@ -146,321 +131,20 @@ class LandingPage extends React.Component {
     }
 }
 
-/**
- * Learning mode element
- * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false]}
- */
-class LearningMode extends React.Component {
-    // Instance variables:
-    // (all essentially cosmetic) (created in constructor)
-    deltastage;
-    scene;
-    canvas;
-    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
 
-    constructor(props){
-        super();
-
+class Painter{
+    constructor(layers) {
+        this.layers = layers
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
-
-        // initialize canvas instance variables
-        this.canvas0 = React.createRef();                              //// 1 - create ref
-        this.canvas1 = React.createRef();
-        this.canvas2 = React.createRef();
-        this.canvas3 = React.createRef();
-        this.canvas4 = React.createRef();
-        this.canvas5 = React.createRef();
-
-        // bind handler function(s)
-        this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
-        this.GasFeedToggle_HandleClick = this.GasFeedToggle_HandleClick.bind(this);
-        this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
-        this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
-        this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
-
-        // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene };
-
-        // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
-        // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
-
+        this.psyche_spacecraft = new Image();
+        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+        this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
     }
 
-    /**
-     * componentDidMount()
-     * Called when canvas element is mounted on page (canvas element is unusable up until this point)
-     */
-    componentDidMount() {
-        // initialize instance variables for each canvas element/layer
-        const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
-
-        const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
-        const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
-        const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
-        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
-        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
-
-        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
-        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
-
-        this.scenarioRefresh();
-    }
-
-    /**
-     * scenarioRefresh()
-     *
-     * Populates the canvas based on the current state, is hopefully called whenever a change is made (ex: the onClick functions)
-     * You can see the end of this function as the end of the current update/iteration.
-     */
-    scenarioRefresh() {
-        console.log("LearningMode.scenarioRefresh() called") //:debug
-
-        console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
-        console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
-
-        // Execute logic based on deltastage and scene
-
-        // if basedrawing is active
-        if(this.state.scene[base] === true){
-
-            //draw base cathode
-            this.base_cathode.onload = this.draw_csv_Base_Drawing();
-
-            // if the user just toggled basedrawing
-            if(this.state.deltastage === base || this.state.deltastage === undefined){
-                this.draw_csv_Base_Drawing_guide();
-            }
-        }
-        else if (this.state.deltastage === base){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // if heat insert is active
-        if(this.state.scene[heat] === true){
-            this.draw_csv_Heat_Insert();
-
-            // if the user just toggled heat insert
-            if(this.state.deltastage === heat){
-                this.draw_csv_Heat_Insert_guide();
-            }
-        }
-        else if (this.state.deltastage === heat){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // if gas feed is active
-        if(this.state.scene[gas] === true){
-            this.draw_csv_gas_feed();
-
-            // if the user just toggled the gas feed
-            if(this.state.deltastage === gas){
-                this.draw_csv_gas_feed_guide();
-            }
-        }
-        else if (this.state.deltastage === gas){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // if internal plasma is true
-        if(this.state.scene[plasma] === true){
-            this.draw_csv_internal_plasma();
-
-            // if the user just triggered the internal plasma
-            if(this.state.deltastage === plasma){
-                this.draw_csv_internal_plasma_guide();
-            }
-        }
-        else if (this.state.deltastage === plasma){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // SPECIAL CASE [trigger internal plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
-                console.log("   scenarioRefresh:: SPECIAL CASE: [Internal Plasma] TRIGGERED", this.state.deltastage, this.state.scene[heat], this.state.scene[gas]); //:debug
-                ReactDOM.render(
-                    <button id={"nextButton"} onClick={this.nextButton_plasma_HandleClick}> Next </button>,
-                    document.getElementById('toggleButtonGroup')
-                );
-            }
-        }
-
-        // if keeper electrode is active
-        if(this.state.scene[keeper] === true){
-            this.draw_csv_keeper_electrode();
-
-            // if the user just toggled the keeper electrode
-            if(this.state.deltastage === keeper){
-                this.draw_csv_keeper_electrode_guide();
-            }
-        }
-        else if (this.state.deltastage === keeper){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // if eject plasma is true
-        if(this.state.scene[eject] === true){
-            this.draw_csv_eject_plasma();
-
-            // if the user just triggered eject plasma
-            if(this.state.deltastage === eject){
-                this.draw_csv_eject_plasma_guide();
-            }
-        }
-        else if (this.state.deltastage === eject){
-            // the user deselected this option/layer
-            this.clearCanvas(this.state.deltastage);
-        }
-
-        // SPECIAL CASE [trigger eject plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
-            if (this.state.deltastage === keeper){
-                // Todo not super solid logic^
-                console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
-                ReactDOM.render(
-                    <button id={"nextButton"} onClick={this.nextButton_eject_HandleClick}> Next </button>,
-                    document.getElementById('toggleButtonGroup')
-                );
-            }
-        }
-
-        //TODO add one more for the 'finished' state where the controls disappear but do it better
-
-        // source: https://stackoverflow.com/questions/53897673/check-if-all-values-in-array-are-true-then-return-a-true-boolean-statement-jav
-        let checker = arr => arr.every(v => v === true);
-        if(checker(this.state.scene)){
-            ReactDOM.render(<></>, document.getElementById('toggleButtonGroup'));
-        }
-
-        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
-    }
-
-    /**
-     * HeatInsertToggle_HandleClick()
-     * Onclick handler for the heat insert toggle button
-     */
-    HeatInsertToggle_HandleClick() {
-        let newScene = this.state.scene;
-        newScene[heat] = !newScene[heat];
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        this.setState((state, props) => {
-            return { deltastage: heat, scene: newScene };
-        }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
-    }
-
-    /**
-     * GasFeedToggle_HandleClick()
-     * Onclick handler for the gas feed toggle button
-     */
-    GasFeedToggle_HandleClick() {
-        let newScene = this.state.scene;
-        newScene[gas] = !newScene[gas];
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        this.setState((state, props) => {
-            return { deltastage: gas, scene: newScene };
-        }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
-    }
-
-    /**
-     * KeeperElectrodeToggle_HandleClick()
-     * Onclick handler for the keeper electrode toggle button
-     */
-    KeeperElectrodeToggle_HandleClick() {
-        let newScene = this.state.scene;
-        newScene[keeper] = !newScene[keeper];
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        this.setState((state, props) => {
-            return { deltastage: keeper, scene: newScene };
-        }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
-    }
-
-    /**
-     * nextButton_plasma_HandleClick()
-     * Onclick handler for the "next" button for the internal plasma scene, updates the state and DOM via appropriate logic
-     */
-    nextButton_plasma_HandleClick() {
-        let newScene = this.state.scene;
-        newScene[plasma] = true;
-
-
-        // update DOM buttons (replace next with toggles)
-        ReactDOM.render(
-            <>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
-            </>,
-            document.getElementById('toggleButtonGroup')
-        );
-
-        console.log("   nextButton_plasma_HandleClick:: this.state.deltastage", this.state.deltastage); //:debug
-        console.log("   nextButton_plasma_HandleClick:: this.state.scene", this.state.scene); //:debug
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        this.setState((state, props) => {
-            return { deltastage: plasma, scene: newScene };
-        }, () => {this.scenarioRefresh()});
-
-    }
-
-    /**
-     * nextButton_eject_HandleClick()
-     * Onclick handler for the "next" button for the eject plasma scene, updates the state and DOM via appropriate logic
-     */
-    nextButton_eject_HandleClick() {
-        let newScene = this.state.scene;
-        newScene[eject] = !newScene[eject];
-
-        // update DOM buttons (replace next with toggles)
-        ReactDOM.render(
-            <>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
-            </>,
-            document.getElementById('toggleButtonGroup')
-        );
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        this.setState((state, props) => {
-            return { deltastage: eject, scene: newScene };
-        }, () => {this.scenarioRefresh()});
-
-    }
-
-    /**
-     * getLayer(layer)
-     * @param layer layer number which you want to get
-     * @returns ctx 2d canvas context for that layer
-     */
     getLayer(layer){
         return this.layers[layer];
-        // switch (layer) {
-        //     case base: return this.ctx0;
-        //     case heat: return this.ctx1;
-        //     case gas: return this.ctx2;
-        //     case keeper: return this.ctx3;
-        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
-        // }
     }
-
 
     /**
      * clearCanvas(layer)
@@ -474,8 +158,25 @@ class LearningMode extends React.Component {
 
     /**
      * draw_csv_Base_Drawing()
-     * Function to draw the base cathode visuals (currently only draws a red square)
+     * Function to draw the base cathode visuals (currently only draws csv png)
      */
+
+    draw_spacecraft(){
+        const ctx = this.getLayer(base);
+
+        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
+    }
+
+    draw_test(){
+        // this.clearCanvas(base);
+        const ctx = this.getLayer(base);
+
+        // draw text
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
+    }
+
     draw_csv_Base_Drawing(){
         console.log(base ," draw_csv_Base_Drawing called") //:debug
 
@@ -671,6 +372,319 @@ class LearningMode extends React.Component {
         ctx.fillText("Eject Plasma", canvas_width/2, canvas_height/2);
         ctx.restore();
     }
+}
+
+/**
+ * Learning mode element
+ * Should be rendered inside a <div id={"canvasHolder"}>
+ * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false]}
+ */
+class LearningMode extends React.Component {
+    // Instance variables:
+    // (all essentially cosmetic) (created in constructor)
+    deltastage;
+    scene;
+    canvas;
+    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+    painter;
+
+    constructor(props){
+        super();
+
+        // initialize canvas instance variables
+        this.canvas0 = React.createRef();                              //// 1 - create ref
+        this.canvas1 = React.createRef();
+        this.canvas2 = React.createRef();
+        this.canvas3 = React.createRef();
+        this.canvas4 = React.createRef();
+        this.canvas5 = React.createRef();
+
+        // bind handler function(s)
+        this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
+        this.GasFeedToggle_HandleClick = this.GasFeedToggle_HandleClick.bind(this);
+        this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
+        this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
+        this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
+
+
+
+        // initialize state
+        this.state = { deltastage: props.deltastage, scene: props.scene };
+
+        // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
+        // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
+
+    }
+
+    /**
+     * componentDidMount()
+     * Called when canvas element is mounted on page (canvas element is unusable up until this point)
+     */
+    componentDidMount() {
+        // initialize instance variables for each canvas element/layer
+        const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
+
+        const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
+        const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
+        const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
+        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
+        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+
+        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
+        this.painter = new Painter(this.layers);
+        this.scenarioRefresh();
+    }
+
+    /**
+     * scenarioRefresh()
+     *
+     * Populates the canvas based on the current state, is hopefully called whenever a change is made (ex: the onClick functions)
+     * You can see the end of this function as the end of the current update/iteration.
+     */
+    scenarioRefresh() {
+        console.log("LearningMode.scenarioRefresh() called") //:debug
+
+        console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
+        console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
+
+        // Execute logic based on deltastage and scene
+
+        // if basedrawing is active
+        if(this.state.scene[base] === true){
+                this.painter.draw_csv_Base_Drawing()
+            // if the user just toggled basedrawing
+            if(this.state.deltastage === base || this.state.deltastage === undefined){
+                this.painter.draw_csv_Base_Drawing_guide();
+            }
+        }
+        else if (this.state.deltastage === base){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // if heat insert is active
+        if(this.state.scene[heat] === true){
+            this.painter.draw_csv_Heat_Insert();
+
+            // if the user just toggled heat insert
+            if(this.state.deltastage === heat){
+                this.painter.draw_csv_Heat_Insert_guide();
+            }
+        }
+        else if (this.state.deltastage === heat){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // if gas feed is active
+        if(this.state.scene[gas] === true){
+            this.painter.draw_csv_gas_feed();
+
+            // if the user just toggled the gas feed
+            if(this.state.deltastage === gas){
+                this.painter.draw_csv_gas_feed_guide();
+            }
+        }
+        else if (this.state.deltastage === gas){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // if internal plasma is true
+        if(this.state.scene[plasma] === true){
+            this.painter.draw_csv_internal_plasma();
+
+            // if the user just triggered the internal plasma
+            if(this.state.deltastage === plasma){
+                this.painter.draw_csv_internal_plasma_guide();
+            }
+        }
+        else if (this.state.deltastage === plasma){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // SPECIAL CASE [trigger internal plasma] LOGIC
+        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
+            if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
+                console.log("   scenarioRefresh:: SPECIAL CASE: [Internal Plasma] TRIGGERED", this.state.deltastage, this.state.scene[heat], this.state.scene[gas]); //:debug
+                ReactDOM.render(
+                    <button id={"nextButton"} onClick={this.nextButton_plasma_HandleClick}> Next </button>,
+                    document.getElementById('toggleButtonGroup')
+                );
+            }
+        }
+
+        // if keeper electrode is active
+        if(this.state.scene[keeper] === true){
+            this.painter.draw_csv_keeper_electrode();
+
+            // if the user just toggled the keeper electrode
+            if(this.state.deltastage === keeper){
+                this.painter.draw_csv_keeper_electrode_guide();
+            }
+        }
+        else if (this.state.deltastage === keeper){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // if eject plasma is true
+        if(this.state.scene[eject] === true){
+            this.painter.draw_csv_eject_plasma();
+
+            // if the user just triggered eject plasma
+            if(this.state.deltastage === eject){
+                this.painter.draw_csv_eject_plasma_guide();
+            }
+        }
+        else if (this.state.deltastage === eject){
+            // the user deselected this option/layer
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
+        // SPECIAL CASE [trigger eject plasma] LOGIC
+        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
+            // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
+            if (this.state.deltastage === keeper){
+                // Todo not super solid logic^
+                console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
+                ReactDOM.render(
+                    <button id={"nextButton"} onClick={this.nextButton_eject_HandleClick}> Next </button>,
+                    document.getElementById('toggleButtonGroup')
+                );
+            }
+        }
+
+        //TODO add one more for the 'finished' state where the controls disappear but do it better
+
+        // source: https://stackoverflow.com/questions/53897673/check-if-all-values-in-array-are-true-then-return-a-true-boolean-statement-jav
+        let checker = arr => arr.every(v => v === true);
+        if(checker(this.state.scene)){
+            ReactDOM.render(<></>, document.getElementById('toggleButtonGroup'));
+        }
+
+        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
+    }
+
+    /**
+     * HeatInsertToggle_HandleClick()
+     * Onclick handler for the heat insert toggle button
+     */
+    HeatInsertToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[heat] = !newScene[heat];
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: heat, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+        // WARNING: code past setState will not be synchronously executed
+    }
+
+    /**
+     * GasFeedToggle_HandleClick()
+     * Onclick handler for the gas feed toggle button
+     */
+    GasFeedToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[gas] = !newScene[gas];
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: gas, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+        // WARNING: code past setState will not be synchronously executed
+    }
+
+    /**
+     * KeeperElectrodeToggle_HandleClick()
+     * Onclick handler for the keeper electrode toggle button
+     */
+    KeeperElectrodeToggle_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[keeper] = !newScene[keeper];
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: keeper, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+        // WARNING: code past setState will not be synchronously executed
+    }
+
+    /**
+     * nextButton_plasma_HandleClick()
+     * Onclick handler for the "next" button for the internal plasma scene, updates the state and DOM via appropriate logic
+     */
+    nextButton_plasma_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[plasma] = true;
+
+
+        // update DOM buttons (replace next with toggles)
+        ReactDOM.render(
+            <>
+                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
+                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+            </>,
+            document.getElementById('toggleButtonGroup')
+        );
+
+        console.log("   nextButton_plasma_HandleClick:: this.state.deltastage", this.state.deltastage); //:debug
+        console.log("   nextButton_plasma_HandleClick:: this.state.scene", this.state.scene); //:debug
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: plasma, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+    }
+
+    /**
+     * nextButton_eject_HandleClick()
+     * Onclick handler for the "next" button for the eject plasma scene, updates the state and DOM via appropriate logic
+     */
+    nextButton_eject_HandleClick() {
+        let newScene = this.state.scene;
+        newScene[eject] = !newScene[eject];
+
+        // update DOM buttons (replace next with toggles)
+        ReactDOM.render(
+            <>
+                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
+                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+            </>,
+            document.getElementById('toggleButtonGroup')
+        );
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: eject, scene: newScene };
+        }, () => {this.scenarioRefresh()});
+
+    }
+
+    /**
+     * getLayer(layer)
+     * @param layer layer number which you want to get
+     * @returns ctx 2d canvas context for that layer
+     */
+    getLayer(layer){
+        return this.layers[layer];
+        // switch (layer) {
+        //     case base: return this.ctx0;
+        //     case heat: return this.ctx1;
+        //     case gas: return this.ctx2;
+        //     case keeper: return this.ctx3;
+        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
+        // }
+    }
 
     /**
      * backButton_HandleClick()
@@ -685,6 +699,7 @@ class LearningMode extends React.Component {
             document.getElementById('root')
         );
     }
+
 
     render(){
         // console.log("LearningMode.render called") //:debug
@@ -721,11 +736,13 @@ class PresMode extends React.Component {
     scene;
     canvas;
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+    painter;
 
     constructor(props){
         super();
 
         this.base_cathode = new Image();
+        this.painter = new Painter();
         this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
@@ -759,7 +776,7 @@ class PresMode extends React.Component {
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
-
+        this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
 
@@ -779,7 +796,7 @@ class PresMode extends React.Component {
         if(this.state.scene[base] === true && this.state.scene[heat] === false){
             // clear every layer
             for (let i = base; i < this.state.scene.length; i++) {
-                this.clearCanvas(i);
+                this.painter.clearCanvas(i);
             }
         }
 
@@ -788,32 +805,32 @@ class PresMode extends React.Component {
             //this.draw_csv_Base_Drawing();
 
             //draw base cathode
-            this.base_cathode.onload = this.draw_csv_Base_Drawing();
+            this.painter.draw_csv_Base_Drawing();
         }
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
-            this.draw_csv_Heat_Insert();
+            this.painter.draw_csv_Heat_Insert();
         }
 
         // if gas feed is active
         if(this.state.scene[gas] === true){
-            this.draw_csv_gas_feed();
+            this.painter.draw_csv_gas_feed();
         }
 
         // if internal plasma is active
         if(this.state.scene[plasma] === true){
-            this.draw_csv_internal_plasma();
+            this.painter.draw_csv_internal_plasma();
         }
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
-            this.draw_csv_keeper_electrode();
+            this.painter.draw_csv_keeper_electrode();
         }
 
         // if eject plasma is active
         if(this.state.scene[eject] === true){
-            this.draw_csv_eject_plasma();
+            this.painter.draw_csv_eject_plasma();
         }
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -855,162 +872,6 @@ class PresMode extends React.Component {
         // WARNING: code past setState will not be synchronously executed
     }
 
-    /**
-     * getLayer(layer)
-     * @param layer layer number which you want to get
-     * @returns ctx 2d canvas context for that layer
-     */
-    getLayer(layer){
-        return this.layers[layer];
-    }
-
-    /**
-     * clearCanvas(layer)
-     * Clears contents of a given canvas layer
-     *
-     * @param layer layer to clear
-     */
-    clearCanvas(layer){
-        this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
-    }
-
-    /**
-     * draw_csv_Base_Drawing()
-     * Function to draw the base cathode visuals (currently only draws a red square)
-     */
-    draw_csv_Base_Drawing(){
-        console.log(base, " draw_csv_Base_Drawing called") //:debug
-
-        this.clearCanvas(base);
-        const ctx = this.getLayer(base);
-
-        //draw rectangle
-        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
-
-        //ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
-        // ctx.restore();
-    }
-
-
-    /**
-     * draw_csv_Heat_Insert()
-     * Function to draw the heat insert visuals (currently only draws an orange square)
-     */
-    draw_csv_Heat_Insert(){
-        console.log(heat, " draw_csv_Heat_Insert called") //:debug
-
-        this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(255,136,0,0.5)';
-        ctx.fillRect(300, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_gas_feed()
-     * Function to draw the gas feed visuals (currently only draws a yellow square)
-     */
-    draw_csv_gas_feed(){
-        console.log(gas, " draw_csv_gas_feed called"); //:debug
-
-        this.clearCanvas(gas);
-        const ctx = this.getLayer(gas);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(247,255,0,0.5)';
-        ctx.fillRect(400, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_internal_plasma()
-     * Function to draw the internal plasma visuals (currently only draws a green square)
-     */
-    draw_csv_internal_plasma(){
-        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
-
-        this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(56,255,0,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2 + 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_keeper_electrode()
-     * Function to draw the keeper electrode visuals (currently only draws a blue square)
-     */
-    draw_csv_keeper_electrode(){
-        console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
-
-        this.clearCanvas(keeper);
-        const ctx = this.getLayer(keeper);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(0,54,255,0.5)';
-        ctx.fillRect(600, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_eject_plasma()
-     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
-     */
-    draw_csv_eject_plasma(){
-        console.log(eject, " draw_csv_eject_plasma called"); //:debug
-
-        this.clearCanvas(eject);
-        const ctx = this.getLayer(eject);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(59,0,255,0.5)';
-        ctx.fillRect(700, 400, 200, 200);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Eject Plasma", canvas_width/2 + 100, canvas_height/2 - 30);
-        // ctx.restore();
-    }
 
     /**
      * backButton_HandleClick()
