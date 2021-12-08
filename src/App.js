@@ -759,7 +759,7 @@ class PresMode extends React.Component {
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
-
+        this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
 
@@ -779,7 +779,7 @@ class PresMode extends React.Component {
         if(this.state.scene[base] === true && this.state.scene[heat] === false){
             // clear every layer
             for (let i = base; i < this.state.scene.length; i++) {
-                this.clearCanvas(i);
+                this.painter.clearCanvas(i);
             }
         }
 
@@ -788,32 +788,32 @@ class PresMode extends React.Component {
             //this.draw_csv_Base_Drawing();
 
             //draw base cathode
-            this.base_cathode.onload = this.draw_csv_Base_Drawing();
+            this.painter.draw_csv_Base_Drawing();
         }
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
-            this.draw_csv_Heat_Insert();
+            this.painter.draw_csv_Heat_Insert();
         }
 
         // if gas feed is active
         if(this.state.scene[gas] === true){
-            this.draw_csv_gas_feed();
+            this.painter.draw_csv_gas_feed();
         }
 
         // if internal plasma is active
         if(this.state.scene[plasma] === true){
-            this.draw_csv_internal_plasma();
+            this.painter.draw_csv_internal_plasma();
         }
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
-            this.draw_csv_keeper_electrode();
+            this.painter.draw_csv_keeper_electrode();
         }
 
         // if eject plasma is active
         if(this.state.scene[eject] === true){
-            this.draw_csv_eject_plasma();
+            this.painter.draw_csv_eject_plasma();
         }
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -855,162 +855,6 @@ class PresMode extends React.Component {
         // WARNING: code past setState will not be synchronously executed
     }
 
-    /**
-     * getLayer(layer)
-     * @param layer layer number which you want to get
-     * @returns ctx 2d canvas context for that layer
-     */
-    getLayer(layer){
-        return this.layers[layer];
-    }
-
-    /**
-     * clearCanvas(layer)
-     * Clears contents of a given canvas layer
-     *
-     * @param layer layer to clear
-     */
-    clearCanvas(layer){
-        this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
-    }
-
-    /**
-     * draw_csv_Base_Drawing()
-     * Function to draw the base cathode visuals (currently only draws a red square)
-     */
-    draw_csv_Base_Drawing(){
-        console.log(base, " draw_csv_Base_Drawing called") //:debug
-
-        this.clearCanvas(base);
-        const ctx = this.getLayer(base);
-
-        //draw rectangle
-        ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
-
-        //ctx.drawImage(this.base_cathode, 0, 0, this.base_cathode.width * 0.7, this.base_cathode.height * 0.7);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Base Drawing", canvas_width/2, canvas_height/2 - 60);
-        // ctx.restore();
-    }
-
-
-    /**
-     * draw_csv_Heat_Insert()
-     * Function to draw the heat insert visuals (currently only draws an orange square)
-     */
-    draw_csv_Heat_Insert(){
-        console.log(heat, " draw_csv_Heat_Insert called") //:debug
-
-        this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(255,136,0,0.5)';
-        ctx.fillRect(300, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2 - 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_gas_feed()
-     * Function to draw the gas feed visuals (currently only draws a yellow square)
-     */
-    draw_csv_gas_feed(){
-        console.log(gas, " draw_csv_gas_feed called"); //:debug
-
-        this.clearCanvas(gas);
-        const ctx = this.getLayer(gas);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(247,255,0,0.5)';
-        ctx.fillRect(400, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_internal_plasma()
-     * Function to draw the internal plasma visuals (currently only draws a green square)
-     */
-    draw_csv_internal_plasma(){
-        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
-
-        this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(56,255,0,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2 + 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_keeper_electrode()
-     * Function to draw the keeper electrode visuals (currently only draws a blue square)
-     */
-    draw_csv_keeper_electrode(){
-        console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
-
-        this.clearCanvas(keeper);
-        const ctx = this.getLayer(keeper);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(0,54,255,0.5)';
-        ctx.fillRect(600, 400, 200, 200);
-
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2 + 30);
-        // ctx.restore();
-    }
-
-    /**
-     * draw_csv_eject_plasma()
-     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
-     */
-    draw_csv_eject_plasma(){
-        console.log(eject, " draw_csv_eject_plasma called"); //:debug
-
-        this.clearCanvas(eject);
-        const ctx = this.getLayer(eject);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(59,0,255,0.5)';
-        ctx.fillRect(700, 400, 200, 200);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Eject Plasma", canvas_width/2 + 100, canvas_height/2 - 30);
-        // ctx.restore();
-    }
 
     render(){
         console.log("PresMode.render called") //:debug
