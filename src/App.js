@@ -753,9 +753,10 @@ class PresMode extends React.Component {
 
         // bind handler function(s)
         this.nextButton_HandleClick = this.nextButton_HandleClick.bind(this);
+        this.prevButton_HandleClick = this.prevButton_HandleClick.bind(this);
 
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene };
+        this.state = { deltastage: props.deltastage, scene: props.scene, prevPressed: false };
     }
 
     /**
@@ -791,11 +792,12 @@ class PresMode extends React.Component {
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
-        if(this.state.scene[base] === true && this.state.scene[heat] === false){
+        if((this.state.scene[base] === true && this.state.scene[heat] === false) || this.state.prevPressed){
             // clear every layer
             for (let i = base; i < this.state.scene.length; i++) {
                 this.painter.clearCanvas(i);
             }
+            console.log("CLEAR SCREEN!"); //:debug
         }
 
         // if basedrawing is active
@@ -864,11 +866,45 @@ class PresMode extends React.Component {
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
-            return { deltastage: newdeltastage, scene: newscene };
+            return { deltastage: newdeltastage, scene: newscene, prevPressed: false };
         }, () => {this.scenarioRefresh()});
 
         // WARNING: code past setState will not be synchronously executed
     }
+
+    /**
+     * prevButton_HandleClick()
+     * Onclick handler for the "previous" button, updates the state via appropriate logic
+     */
+    prevButton_HandleClick() {
+        let newdeltastage = this.state.deltastage;
+        let newscene = this.state.scene;
+        // update the state
+        if(this.state.deltastage === 0){
+            // special case: loop to end         note: this loop intentionally starts at 1 instead of zero
+            for (let i = 1; i < this.state.scene.length; i++) {
+                newdeltastage = eject;
+                newscene[i] = true;
+            }
+        } else {
+            // normal case: move to next animation stage
+            for (let i = this.state.scene.length - 1; i >= 0; i--) {
+                if(this.state.scene[i] === true){
+                    newdeltastage = i - 1;
+                    newscene = this.state.scene;
+                    newscene[i] = false;
+                    break;
+                }
+            }
+        }
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        this.setState((state, props) => {
+            return { deltastage: newdeltastage, scene: newscene, prevPressed: true };
+        }, () => {this.scenarioRefresh()});
+        // WARNING: code past setState will not be synchronously executed
+    }
+
 
     /**
      * backButton_HandleClick()
@@ -895,6 +931,7 @@ class PresMode extends React.Component {
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"backButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                <button id={"prevButton"} onClick={this.prevButton_HandleClick}> Previous </button>
                 <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
