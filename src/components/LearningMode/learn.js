@@ -213,6 +213,8 @@ export default class LearningMode extends React.Component {
             newScene[eject]=false
             this.painter.clearCanvas(eject)
         }
+        if(newScene[keeper]===true && newScene[heat]===true && newScene[gas]===true)
+            this.painter.draw_csv_eject_plasma()
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: heat, scene: newScene };
@@ -234,6 +236,8 @@ export default class LearningMode extends React.Component {
             newScene[eject]=false
             this.painter.clearCanvas(eject)
         }
+        if(newScene[keeper]===true && newScene[heat]===true && newScene[gas]===true)
+            this.painter.draw_csv_eject_plasma()
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: gas, scene: newScene };
@@ -253,6 +257,8 @@ export default class LearningMode extends React.Component {
             newScene[eject] = false
             this.painter.clearCanvas(eject)
         }
+        if(newScene[keeper]===true && newScene[heat]===true && newScene[gas]===true)
+            this.painter.draw_csv_eject_plasma()
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: keeper, scene: newScene };

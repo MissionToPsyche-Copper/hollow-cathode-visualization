@@ -28,6 +28,12 @@ describe('PresentationModeTesting', function () {
         await driver.findElement(By.id("nextButton")).click()
         await driver.findElement(By.id("nextButton")).click()
         await driver.findElement(By.id("nextButton")).click()
+        await driver.findElement(By.id("prevButton")).click()
+        await driver.findElement(By.id("prevButton")).click()
+        await driver.findElement(By.id("prevButton")).click()
+        await driver.findElement(By.id("prevButton")).click()
+        await driver.findElement(By.id("nextButton")).click()
+        await driver.findElement(By.id("prevButton")).click()
         await driver.findElement(By.id("backButton")).click()
     })
 });
