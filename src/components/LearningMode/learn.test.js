@@ -33,42 +33,42 @@ describe('LearningModeTesting', function () {
     * |     1            |      1    |   1         | external | done
     * */
     it('BaseDrawingTesting', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
 
     it('HeatInsertTesting', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
         // deactivate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
 
     it('GasFeedTesting', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         // deactivate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
 
     it('InternalPlasmaTesting1', async function(){
         await driver.get("http://localhost:3000/")
         await driver.manage().window().setRect(839, 864)
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await driver.findElement(By.id('nextButton')).click()
-        await sleep(3000)
+        await sleep(2000)
         // deactivate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
     })
@@ -80,60 +80,60 @@ describe('LearningModeTesting', function () {
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await driver.findElement(By.id('nextButton')).click()
-        await sleep(3000)
+        await sleep(1000)
         //deactivate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
     })
 
     it('ElectrodeKeeperTesting', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
         // deactivate keeper electrode  scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
-        await sleep(3000)
+        await sleep(1000)
     })
 
     it('Keeper&HeaterTesting1', async function(){
         await driver.manage().window().setRect(839, 864)
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
         // activate heat insert  scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
-        await sleep(3000)
+        await sleep(1000)
     })
 
     it('Keeper&HeaterTesting2', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate heat insert  scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
-        await sleep(3000)
+        await sleep(1000)
     })
 
     it('Keeper&GasTesting1', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
         // activate gas feed  scene
         await driver.findElement(By.id("GasFeedToggle")).click()
-        await sleep(3000)
+        await sleep(1000)
     })
 
     it('Keeper&GasTesting2', async function(){
-        await sleep(3000)
+        await sleep(1000)
         await driver.findElement(By.id("canvasHolder")).click()
         // activate gas feed  scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
-        await sleep(3000)
+        await sleep(1000)
     })
 
     it('ExternalPlasmaPathTesting', async function(){

@@ -22,15 +22,16 @@ describe('Header&FooterTesting', function () {
         // Test name: Header&FooterTesting
         // Step # | name | target | value
         // 1 | click | id=Layer_1 |
-        await driver.findElement(By.id("Layer_1")).click()
+        await driver.findElement(By.css(".brand > img:nth-child(1)")).click()
     })
     it('HeaderDropDownMissionsTesting', async function() {
         // Step # | name | target | value
         // 3 | click | css=.text-block |
+        await sleep(1000)
         await driver.findElement(By.css(".text-block")).click()
         // 4 | click | linkText=Projects |
         await driver.findElement(By.linkText("Missions")).click()
-        await sleep(4000)
+        await sleep(1000)
     })
     it('HeaderDropDownEventsTesting', async function() {
         // Step # | name | target | value
@@ -38,7 +39,7 @@ describe('Header&FooterTesting', function () {
         await driver.findElement(By.css(".text-block")).click()
         // 4 | click | linkText=Projects |
         await driver.findElement(By.linkText("Events")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
     it('HeaderDropDownProjectTesting', async function() {
         // Step # | name | target | value
@@ -47,32 +48,32 @@ describe('Header&FooterTesting', function () {
         // 4 | click | linkText=Projects |
         await sleep(2000)
         await driver.findElement(By.linkText("Projects")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
     it('HeaderContactTesting', async function() {
         // Step # | name | target | value
         // 3 | click | css=.nav-link aka Contact |
         await driver.findElement(By.css(".nav-link")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
     it('FooterPSUTesting', async function() {
         // Step # | name | target | value
         // 3 | click | css=.nav-link aka Contact |
         await driver.findElement(By.linkText("Penn State Behrend")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
     it('FooterASUTesting', async function() {
         // Step # | name | target | value
         // 3 | click | css=.nav-link aka Contact |
         await driver.findElement(By.linkText("Arizona State University")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
     it('FooterNASATesting', async function() {
         // Unable to access NASA Page due to InsecureCertificateError
         // Step # | name | target | value
         // 3 | click | css=.nav-link aka Contact |
-        await sleep(3000)
+        await sleep(2000)
         await driver.findElement(By.linkText("NASA")).click()
-        await sleep(3000)
+        await sleep(2000)
     })
 });
