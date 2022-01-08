@@ -300,3 +300,6 @@ img{
 .button:hover {
     background-color:#bf484f;
 }
+.button:active {
+    transform: scale(0.96);
+}
