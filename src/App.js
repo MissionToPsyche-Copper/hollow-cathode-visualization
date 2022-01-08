@@ -122,6 +122,7 @@ class LandingPage extends React.Component {
                 </canvas>
 
                 <button id={"PresModeButton"}
+                        className={"button"}
                         onClick={this.PresMode_HandleClick}> Presentation Mode
                 </button>
             </>
@@ -508,7 +509,9 @@ class LearningMode extends React.Component {
             if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
                 console.log("   scenarioRefresh:: SPECIAL CASE: [Internal Plasma] TRIGGERED", this.state.deltastage, this.state.scene[heat], this.state.scene[gas]); //:debug
                 ReactDOM.render(
-                    <button id={"nextButton"} onClick={this.nextButton_plasma_HandleClick}> Next </button>,
+                    <button id={"nextButton"}
+                            className={"button"}
+                            onClick={this.nextButton_plasma_HandleClick}> Next </button>,
                     document.getElementById('toggleButtonGroup')
                 );
             }
@@ -549,7 +552,9 @@ class LearningMode extends React.Component {
                 // Todo not super solid logic^
                 console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
                 ReactDOM.render(
-                    <button id={"nextButton"} onClick={this.nextButton_eject_HandleClick}> Next </button>,
+                    <button id={"nextButton"}
+                            className={"button"}
+                            onClick={this.nextButton_eject_HandleClick}> Next </button>,
                     document.getElementById('toggleButtonGroup')
                 );
             }
@@ -626,9 +631,20 @@ class LearningMode extends React.Component {
         // update DOM buttons (replace next with toggles)
         ReactDOM.render(
             <>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                <button id={"KeeperElectrodeToggle"}
+                        className={"button"}
+                        onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                </button>
+
+                <button id={"GasFeedToggle"}
+                        className={"button"}
+                        onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                </button>
+
+                <button id={"HeatInsertToggle"}
+                        className={"button"}
+                        onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                </button>
             </>,
             document.getElementById('toggleButtonGroup')
         );
@@ -654,9 +670,19 @@ class LearningMode extends React.Component {
         // update DOM buttons (replace next with toggles)
         ReactDOM.render(
             <>
-                <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
-                <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                <button id={"KeeperElectrodeToggle"}
+                        className={"button"}
+                        onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
+
+                <button id={"GasFeedToggle"}
+                        className={"button"}
+                        onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                </button>
+
+                <button id={"HeatInsertToggle"}
+                        className={"button"}
+                        onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
             </>,
             document.getElementById('toggleButtonGroup')
         );
@@ -709,11 +735,11 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"backButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 <div id={"toggleButtonGroup"}>
-                    <button id={"KeeperElectrodeToggle"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
-                    <button id={"GasFeedToggle"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                    <button id={"HeatInsertToggle"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                    <button id={"KeeperElectrodeToggle"} className={"button"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
+                    <button id={"GasFeedToggle"} className={"button"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
+                    <button id={"HeatInsertToggle"} className={"button"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
                 </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
@@ -892,8 +918,8 @@ class PresMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"backButton"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                <button id={"nextButton"} onClick={this.nextButton_HandleClick}> Next </button>
+                <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }
