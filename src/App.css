@@ -292,11 +292,11 @@ img{
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
-    font-size:50px;
+    font-size:25px;
     font-weight:bold;
-    padding:16px 31px;
+    padding:20px 32px;
     text-decoration:none;
 }
 .button:hover {
-    background-color:#d7515a;
+    background-color:#bf484f;
 }
