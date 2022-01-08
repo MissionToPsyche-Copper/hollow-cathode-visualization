@@ -296,6 +296,8 @@ img{
     font-weight:bold;
     padding:20px 32px;
     text-decoration:none;
+    /*margin-top: 100px;*/
+    /*margin-bottom: 100px;*/
 }
 .button:hover {
     background-color:#bf484f;

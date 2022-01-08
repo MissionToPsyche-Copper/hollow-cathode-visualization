@@ -737,9 +737,18 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 <div id={"toggleButtonGroup"}>
-                    <button id={"KeeperElectrodeToggle"} className={"button"} onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode </button>
-                    <button id={"GasFeedToggle"} className={"button"} onClick={this.GasFeedToggle_HandleClick}> Gas Feed </button>
-                    <button id={"HeatInsertToggle"} className={"button"} onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
+                    <button id={"KeeperElectrodeToggle"}
+                            className={"button"}
+                            onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                    </button>
+                    <button id={"GasFeedToggle"}
+                            className={"button"}
+                            onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                    </button>
+                    <button id={"HeatInsertToggle"}
+                            className={"button"}
+                            onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                    </button>
                 </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
