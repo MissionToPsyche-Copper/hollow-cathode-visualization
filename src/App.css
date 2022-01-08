@@ -284,3 +284,23 @@ img{
     justify-content: space-between;
     text-align: left;
 }
+
+.button {
+    background-color:#ef5a64;
+    border-radius:42px;
+    border:1px solid #ffffff;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:17px;
+    padding:16px 31px;
+    text-decoration:none;
+}
+.button-hover {
+    background-color:#d7515a;
+}
+.button-active {
+    position:relative;
+    top:1px;
+}

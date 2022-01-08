@@ -16,12 +16,12 @@ const canvas_width = '940';
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-const base = 0; // ctx0 // scene[base]
-const heat = 1; // ctx1 // scene[heat]
-const gas = 2; // ctx2 // scene[gas]
-const plasma = 3; // ctx3 // scene[plasma]
-const keeper = 4; // ctx4 // scene[keeper]
-const eject = 5; // ctx5 // scene[eject]
+const base = 0;     // ctx0 // scene[base]
+const heat = 1;     // ctx1 // scene[heat]
+const gas = 2;      // ctx2 // scene[gas]
+const plasma = 3;   // ctx3 // scene[plasma]
+const keeper = 4;   // ctx4 // scene[keeper]
+const eject = 5;    // ctx5 // scene[eject]
 
 function App() {
     return (
@@ -79,8 +79,6 @@ class LandingPage extends React.Component {
     getLayer(layer){
         return this.layers[layer];
     }
-
-
 
     /**
      * LearningMode_HandleClick()
