@@ -4,9 +4,18 @@ import './landingPage.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
+// import './Sample_Particle.js';
+// import { Sample_Particle } from './Sample_Particle.js';
+// import { animate_ball } from './Sample_Particle.js';
+// import { stop_ball } from './Sample_Particle.js';
+
+// import { Test_Class } from 'src/Test_Class.js';
+import Test_Class from "Test_Class.js";
+let testingClass = new Test_Class();
+
 // Huy's Dimensions
-const canvas_height = '600';
-const canvas_width = '940';
+const canvas_height = 600;
+const canvas_width = 940;
 // Jack's Dimensions
 // const canvas_height = 750;
 // const canvas_width = 1600;
@@ -132,8 +141,9 @@ class LandingPage extends React.Component {
 
 
 class Painter{
+    myBall;
     constructor(layers) {
-        this.layers = layers
+        this.layers = layers;
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
         this.psyche_spacecraft = new Image();
@@ -251,7 +261,20 @@ class Painter{
         // draw rectangle
         ctx.fillStyle = 'rgba(247,255,0,0.5)';
         ctx.fillRect(400, 400, 200, 200);
+
+
+        // Jack
+        // Draw some particles
+        // this.myBall = new Sample_Particle();
+
+
+
+        // animate_ball();
+
+
     }
+
+
 
     /**
      * draw_csv_gas_feed_guide()
