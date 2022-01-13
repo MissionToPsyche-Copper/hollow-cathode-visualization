@@ -1,9 +1,7 @@
 // particle variables
-var accelerating = true; // array of all existing particles
 var particles_array = []; // array of all existing particles
-var interval = 3/60; // !WARNING! - affects all particles - essentially how many times a second accelerations and forces should be applied (delta time)
 
-class Sample_Particle {
+class ProtoParticle {
     ctx; // ctx element/layer the particle is drawn on, draw on this one
     canvas; // canvas element/layer the particle is drawn on, use this to look at the properties of the canvas, don't draw on it
     x; // int px, x position of center of particle
@@ -15,6 +13,9 @@ class Sample_Particle {
     radius; // int px, radius of particle
     color; // color string or hex string, color of particle
     anime_key; // animation frame reference used to cancel this particle's animation, see this.startAnimation(), defaults to -1
+    animate; // animation function and logic (pathing, boundaries, physics, etc.)
+    interval; // essentially the rate defining how many times a second accelerations and forces are applied (delta time)
+    accelerating = true; // toggle application of accelerations (for testing purposes)
 
 
     /**
@@ -80,11 +81,12 @@ class Sample_Particle {
         this.radius = r;
         this.color = color;
         this.anime_key = -1; // key/reference to current animation frame, given by browser, defaults to -1
+        this.interval = 3/60;
         particles_array.push(this); // add self to particles array
     }
 
     /**
-     * Definition of how a Sample_Particle should look
+     * Definition of how a ProtoParticle should look
      */
     draw(){
         this.ctx.beginPath();
@@ -98,9 +100,9 @@ class Sample_Particle {
      * Initialize/start this particle's rendering and animation.
      */
     startAnimation(){
-        // this.anime_key = window.requestAnimationFrame(animate_ball);
+        // this.anime_key = window.requestAnimationFrame(animate);
         let temp_this = this; // assign "this" (this particle) to a temporary variable so that it is defined when requestAnimationFrame calls it
-        this.anime_key = window.requestAnimationFrame(function() { animate_ball(temp_this) });
+        this.anime_key = window.requestAnimationFrame(function() { temp_this.animate(temp_this) });
     }
 
     /**
@@ -135,42 +137,12 @@ class Sample_Particle {
         this.ctx.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
     }
 
-}
-
-/**
- * Definition of how to animate a specific particle (a ball)
- */
-function animate_ball(ball) {
-    ball.clearPath();
-
-    //boundary checking and acceleration
-    //y direction
-    if (ball.y + ball.vy > ball.canvas.height - ball.radius || ball.y + ball.vy < 0 + ball.radius) {
-        ball.vy = -ball.vy;
-    } else if(accelerating) {
-        // y acceleration
-        // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-        // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        ball.vy = ball.vy + (ball.ay * interval);
+    /**
+     *
+     */
+    setAnimation(animate){
+        this.animate = animate;
     }
-
-    //x direction
-    if (ball.x + ball.vx > ball.canvas.width - ball.radius || ball.x + ball.vx < 0 + ball.radius) {
-        ball.vx = -ball.vx;
-    } else if(accelerating) {
-        // x acceleration
-        // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-        // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        ball.vx = ball.vx + (ball.ax * interval);
-    }
-
-    //move the ball at the given velocity
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    //draw the ball
-    ball.draw();
-
-    ball.raf = window.requestAnimationFrame(function() {animate_ball(ball)});
 }
 
 function stop_ball(){
@@ -182,7 +154,7 @@ function stop_ball(){
 }
 
 
-export default Sample_Particle;
+export default ProtoParticle;
 
-// var ball = new Sample_Particle();
+// var ball = new ProtoParticle();
 // ball.startAnimation();
