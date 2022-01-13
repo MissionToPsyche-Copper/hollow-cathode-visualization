@@ -1,51 +1,85 @@
 // particle variables
-var accelerating = false; // array of all existing particles
+var accelerating = true; // array of all existing particles
 var particles_array = []; // array of all existing particles
+var interval = 3/60; // !WARNING! - affects all particles - essentially how many times a second accelerations and forces should be applied (delta time)
 
 class Sample_Particle {
+    ctx; // ctx element/layer the particle is drawn on, draw on this one
+    canvas; // canvas element/layer the particle is drawn on, use this to look at the properties of the canvas, don't draw on it
     x; // int px, x position of center of particle
     y; // int px, y position of center of particle
     vx; // int px, x velocity
     vy; // int px, y velocity
-    a; // int px/tick^2, acceleration
+    ax; // int px/tick^2, x acceleration
+    ay; // int px/tick^2, y acceleration
     radius; // int px, radius of particle
     color; // color string or hex string, color of particle
-    canvas; // canvas element/layer the particle is drawn on
-    raf; // animation frame reference used to cancel this particle's animation, see this.startAnimation(), defaults to -1
+    anime_key; // animation frame reference used to cancel this particle's animation, see this.startAnimation(), defaults to -1
 
 
     /**
-     * Constructor for particle object with 8 optional parameters
+     * Constructor for particle object with 7 optional parameters and 1 mandatory parameter (layer)
      *
-     * @param x int px, initial x position of center of particle, defaults to a random value between 26 and 800
-     * @param y int px, initial y position of center of particle, defaults to a random value between 26 and 400
-     * @param vx int px/tick, initial x velocity, defaults to a random integer between 0 and 5
-     * @param vy int px/tick, initial y velocity, defaults to a random integer between 0 and 5
-     * @param a int px/tick^2, initial acceleration, defaults to a random integer between 1 and 5
-     * @param r int px, initial radius of particle, defaults to 25px
-     * @param color color string or hex string, defaults to 'white'
-     * @param layer canvas element/layer to draw the particle on
+     * @param layer ctx element/layer to draw the particle on
+     * @param x int px, initial x position of center of particle, defaults to a random value between 26 and 800  (optional)
+     * @param y int px, initial y position of center of particle, defaults to a random value between 26 and 400  (optional)
+     * @param vx int px/tick, initial x velocity, defaults to a random integer between 0 and 5  (optional)
+     * @param vy int px/tick, initial y velocity, defaults to a random integer between 0 and 5  (optional)
+     * @param ax int px/tick^2, initial x acceleration, defaults to a random integer between 1 and 5  (optional)
+     * @param ay int px/tick^2, initial y acceleration, defaults to a random integer between 1 and 5  (optional)
+     * @param r int px, initial radius of particle, defaults to 15px  (optional)
+     * @param color color string or hex string, defaults to 'white'  (optional)
      */
     constructor(
-        x = Math.floor(Math.random() * (800 - 26) + 26),
-        y = Math.floor(Math.random() * (400 - 26) + 26),
+        layer,
+        x = -999,
+        y = -999,
         vx = Math.floor(Math.random() * 5),
         vy = Math.floor(Math.random() * 5),
-        a = Math.floor(Math.random() * (5 - 1) + 1),
-        r = 25,
-        color = 'white',
-        layer = document.getElementById()
+        ax = Math.floor(Math.random() * (5 - 1) + 1),
+        ay = Math.floor(Math.random() * (5 - 1) + 1),
+        r = 15,
+        color = 'white'
     ) {
-        this.x = x;
-        this.y = y;
+        this.ctx = layer;
+        this.canvas = layer.canvas;
+
+        // x error checking
+        if(x > layer.canvas.width || x < 0){
+            console.error("invalid initial x coordinate of particle");
+        }
+        // y error checking
+        if(y > layer.canvas.height || y < 0){
+            console.error("invalid initial y coordinate of particle");
+        }
+
+        // y: randomize default value
+        if(x === -999){
+            // default to a random x position between min and max
+            let max = layer.canvas.width;
+            let min = r + 1;
+            this.x = Math.floor(Math.random() * (max - min) + min);
+        } else {
+            this.x = x;
+        }
+
+        // y: randomize default value
+        if(y === -999){
+            // default to a random x position between min and max
+            let max = layer.canvas.height;
+            let min = r + 1;
+            this.y = Math.floor(Math.random() * (max - min) + min);
+        } else {
+            this.y = y;
+        }
+
         this.vx = vx;
         this.vy = vy;
-        this.a = a;
+        this.ax = ax;
+        this.ay = ay;
         this.radius = r;
         this.color = color;
-        this.canvas = layer;
-        // this.canvas = ctx;
-        this.raf = -1; // key/reference to current animation frame, defaults to -1
+        this.anime_key = -1; // key/reference to current animation frame, given by browser, defaults to -1
         particles_array.push(this); // add self to particles array
     }
 
@@ -53,19 +87,20 @@ class Sample_Particle {
      * Definition of how a Sample_Particle should look
      */
     draw(){
-        this.canvas.beginPath();
-        this.canvas.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        this.canvas.closePath();
-        this.canvas.fillStyle = this.color;
-        this.canvas.fill();
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        this.ctx.closePath();
+        this.ctx.fillStyle = this.color;
+        this.ctx.fill();
     }
 
     /**
      * Initialize/start this particle's rendering and animation.
      */
     startAnimation(){
-        // this.raf = window.requestAnimationFrame(animate_ball);
-        this.raf = window.requestAnimationFrame(function() { animate_ball(this) });
+        // this.anime_key = window.requestAnimationFrame(animate_ball);
+        let temp_this = this; // assign "this" (this particle) to a temporary variable so that it is defined when requestAnimationFrame calls it
+        this.anime_key = window.requestAnimationFrame(function() { animate_ball(temp_this) });
     }
 
     /**
@@ -73,7 +108,7 @@ class Sample_Particle {
      * Stop this particle's rendering and animation *WITHOUT erasing the last frame of it.*
      */
     stopAnimation(){
-        window.cancelAnimationFrame(this.raf);
+        window.cancelAnimationFrame(this.anime_key);
     }
 
     /**
@@ -81,7 +116,7 @@ class Sample_Particle {
      * Stop this particle's rendering and animation *AND erase the last frame of it.*
      */
     clearAnimation(){
-        window.cancelAnimationFrame(this.raf);
+        window.cancelAnimationFrame(this.anime_key);
         this.clearPath();
     }
 
@@ -90,15 +125,14 @@ class Sample_Particle {
      */
     clearPath(){
         // method 0 - clear path using grey particle, no visible edges on overlap but leaves a trail
-        // this.canvas.beginPath();
-        // this.canvas.arc(this.x, this.y, this.radius+1, 0, Math.PI * 2, true);
-        // this.canvas.closePath();
-        // this.canvas.fillStyle = 'grey';
-        // this.canvas.fill();
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.x, this.y, this.radius+1, 0, Math.PI * 2, true);
+        // this.ctx.closePath();
+        // this.ctx.fillStyle = 'grey';
+        // this.ctx.fill();
 
         // method 1 - properly clear area as rectangle, visible edges on overlap
-        this.canvas.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
-        console.error(this.canvas);
+        this.ctx.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
     }
 
 }
@@ -109,7 +143,7 @@ class Sample_Particle {
 function animate_ball(ball) {
     ball.clearPath();
 
-    //boundary checking
+    //boundary checking and acceleration
     //y direction
     if (ball.y + ball.vy > ball.canvas.height - ball.radius || ball.y + ball.vy < 0 + ball.radius) {
         ball.vy = -ball.vy;
@@ -117,8 +151,9 @@ function animate_ball(ball) {
         // y acceleration
         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        ball.vy = ball.vy + (ball.a * (10/60));
+        ball.vy = ball.vy + (ball.ay * interval);
     }
+
     //x direction
     if (ball.x + ball.vx > ball.canvas.width - ball.radius || ball.x + ball.vx < 0 + ball.radius) {
         ball.vx = -ball.vx;
@@ -126,7 +161,7 @@ function animate_ball(ball) {
         // x acceleration
         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        ball.vx = ball.vx + (ball.a * (10/60));
+        ball.vx = ball.vx + (ball.ax * interval);
     }
 
     //move the ball at the given velocity
@@ -146,6 +181,8 @@ function stop_ball(){
     }
 }
 
+
+export default Sample_Particle;
 
 // var ball = new Sample_Particle();
 // ball.startAnimation();

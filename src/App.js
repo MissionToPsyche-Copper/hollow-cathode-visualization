@@ -4,14 +4,8 @@ import './landingPage.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
-// import './Sample_Particle.js';
-// import { Sample_Particle } from './Sample_Particle.js';
-// import { animate_ball } from './Sample_Particle.js';
-// import { stop_ball } from './Sample_Particle.js';
+import Sample_Particle from "./Sample_Particle.js"; // Jack's particle system
 
-// import { Test_Class } from 'src/Test_Class.js';
-import Test_Class from "Test_Class.js";
-let testingClass = new Test_Class();
 
 // Huy's Dimensions
 const canvas_height = 600;
@@ -141,7 +135,6 @@ class LandingPage extends React.Component {
 
 
 class Painter{
-    myBall;
     constructor(layers) {
         this.layers = layers;
         this.base_cathode = new Image();
@@ -264,14 +257,30 @@ class Painter{
 
 
         // Jack
+        this.draw_csv_gas_feed_particles();
+    }
+
+    /**
+     * draw_csv_gas_feed_particles()
+     * Draws some simulated particles for the gas feed as a demo
+     * Author: @Jack Blicha
+     */
+    draw_csv_gas_feed_particles(){
+        const ctx = this.getLayer(gas);
+
         // Draw some particles
-        // this.myBall = new Sample_Particle();
-
-
-
-        // animate_ball();
-
-
+        let particle0 = new Sample_Particle(ctx, canvas_width - 200, canvas_height - 200, 5, 0, 2, 0, 10, 'white');
+        let particle1 = new Sample_Particle(ctx, canvas_width - 300, canvas_height - 300, 2, 5, 0, 2, 10, 'red');
+        let particle2 = new Sample_Particle(ctx, canvas_width - 400, canvas_height - 400, 3, 1, -1, -1, 10, 'orange');
+        let particle3 = new Sample_Particle(ctx, canvas_width - 500, canvas_height - 500, 1, 3, -1, -1, 10, 'yellow');
+        let particle4 = new Sample_Particle(ctx);
+        let particle5 = new Sample_Particle(ctx);
+        particle0.startAnimation();
+        particle1.startAnimation();
+        particle2.startAnimation();
+        particle3.startAnimation();
+        particle4.startAnimation();
+        particle5.startAnimation();
     }
 
 
