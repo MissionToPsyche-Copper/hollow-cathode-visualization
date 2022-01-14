@@ -457,6 +457,7 @@ class LearningMode extends React.Component {
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
+        //
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
