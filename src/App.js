@@ -91,7 +91,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false,false,false]}/>
+                <LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -106,7 +106,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false,false,false,false,false]}/>
+                <PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
