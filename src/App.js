@@ -16,12 +16,14 @@ const canvas_width = '940';
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-const base = 0;     // ctx0 // scene[base]
-const heat = 1;     // ctx1 // scene[heat]
-const gas = 2;      // ctx2 // scene[gas]
-const plasma = 3;   // ctx3 // scene[plasma]
-const keeper = 4;   // ctx4 // scene[keeper]
-const eject = 5;    // ctx5 // scene[eject]
+const base = 0;             // ctx0 // scene[base]
+const heat = 1;             // ctx1 // scene[heat]
+const gas = 2;              // ctx2 // scene[gas]
+const plasma = 3;           // ctx3 // scene[plasma]
+const keeper = 4;           // ctx4 // scene[keeper]
+const eject = 5;            // ctx5 // scene[eject]
+const hallThrusterOff = 6;  // ctx6 // scene[hallThrusterOff]
+const hallThrusterOn = 7;   // ctx7 // scene[hallThrusterOn]
 
 function App() {
     return (
@@ -89,7 +91,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
+                <LearningMode id={"LearningMode"} deltastage={0} scene={[true,false,false,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -104,7 +106,7 @@ class LandingPage extends React.Component {
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
-                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false,false,false]}/>
+                <PresMode id={"presMode"} deltastage={0} scene={[true,false,false,false,false,false,false,false]}/>
             </div>,
             document.getElementById('root')
         );
@@ -129,7 +131,6 @@ class LandingPage extends React.Component {
         )
     }
 }
-
 
 class Painter{
     constructor(layers) {
@@ -376,7 +377,7 @@ class Painter{
 /**
  * Learning mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
- * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false]}
+ * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
 class LearningMode extends React.Component {
     // Instance variables:
