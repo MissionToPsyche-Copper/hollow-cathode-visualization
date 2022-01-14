@@ -14,12 +14,14 @@ import Painter from "./Painter";
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-import { base } from "./Galactic";     // ctx0 // scene[base]
-import { heat } from "./Galactic";     // ctx1 // scene[heat]
-import { gas } from "./Galactic";      // ctx2 // scene[gas]
-import { plasma } from "./Galactic";   // ctx3 // scene[plasma]
-import { keeper } from "./Galactic";   // ctx4 // scene[keeper]
-import { eject } from "./Galactic";    // ctx5 // scene[eject]
+import { base } from "./Galactic";              // ctx0 // scene[base]
+import { heat } from "./Galactic";              // ctx1 // scene[heat]
+import { gas } from "./Galactic";               // ctx2 // scene[gas]
+import { plasma } from "./Galactic";            // ctx3 // scene[plasma]
+import { keeper } from "./Galactic";            // ctx4 // scene[keeper]
+import { eject } from "./Galactic";             // ctx5 // scene[eject]
+import { hallThrusterOff } from "./Galactic";   // ctx6 // scene[hallThrusterOff]
+import { hallThrusterOn } from "./Galactic";    // ctx7 // scene[hallThrusterOn]
 
 import { canvas_height } from "./Galactic";
 import { canvas_width } from "./Galactic";
@@ -41,7 +43,7 @@ export default App;
  * Site landing page element
  * Should be rendered inside a <div id={"canvasHolder"}>
  */
-class LandingPage extends React.Component {
+export class LandingPage extends React.Component {
     constructor(props) {
         super();
 
