@@ -384,7 +384,7 @@ class LearningMode extends React.Component {
     deltastage;
     scene;
     canvas;
-    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
+    layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
     painter;
 
     constructor(props){
@@ -662,6 +662,24 @@ class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: plasma, scene: newScene };
         }, () => {this.scenarioRefresh()});
+
+    }
+
+    /**
+     * nextButton_hallThruster_HandleClick()
+     */
+    nextButton_hallThruster_HandleClick()
+    {
+
+    }
+
+    hallThrusterOnButton_HandleClick()
+    {
+
+    }
+
+    hallThrusterOffButton_HandleClick()
+    {
 
     }
 
