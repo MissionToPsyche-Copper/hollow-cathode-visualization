@@ -4,9 +4,12 @@ import './landingPage.css';
 import React from 'react';
 import ReactDOM from "react-dom";
 
+import ProtoParticle from "./ProtoParticle.js"; // Jack's particle system
+
+
 // Huy's Dimensions
-const canvas_height = '600';
-const canvas_width = '940';
+const canvas_height = 600;
+const canvas_width = 940;
 // Jack's Dimensions
 // const canvas_height = 750;
 // const canvas_width = 1600;
@@ -32,7 +35,6 @@ function App() {
                 <LandingPage id={"LandingPage"}/>
             </div>
         </div>
-//>>>>>>> master
     );
 }
 
@@ -134,7 +136,7 @@ class LandingPage extends React.Component {
 
 class Painter{
     constructor(layers) {
-        this.layers = layers
+        this.layers = layers;
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
         this.psyche_spacecraft = new Image();
@@ -266,7 +268,140 @@ class Painter{
         // draw rectangle
         ctx.fillStyle = 'rgba(247,255,0,0.5)';
         ctx.fillRect(400, 400, 200, 200);
+
+
+        // Jack
+        this.draw_csv_gas_feed_particles();
     }
+
+    /**
+     * draw_csv_gas_feed_particles()
+     * Draws some simulated particles for the gas feed as a demo
+     * Author: @Jack Blicha
+     */
+    draw_csv_gas_feed_particles(){
+        const ctx = this.getLayer(gas);
+        // Particle Experimentation //
+        // Draw some particles
+
+        // sample electron - bound to canvas element
+        let electron = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 9, 'blue');
+        let electronAnimation = function (particle){
+            particle.clearPath();
+
+            //boundary checking and acceleration
+            let max_height = particle.canvas.height - particle.radius;
+            let min_height = 0 + particle.radius;
+            let max_width = particle.canvas.width - particle.radius;
+            let min_width = 0 + particle.radius;
+
+            //y direction
+            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
+                particle.vy = -particle.vy;
+            } else if(particle.accelerating) {
+                // y acceleration
+                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+                particle.vy = particle.vy + (particle.ay * particle.interval);
+            }
+
+            //x direction
+            if (particle.x + particle.vx > max_width || particle.x + particle.vx < min_width) {
+                particle.vx = -particle.vx;
+            } else if(particle.accelerating) {
+                // x acceleration
+                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+                particle.vx = particle.vx + (particle.ax * particle.interval);
+            }
+
+            //move the particle at the given velocity
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            //draw the particle
+            particle.draw();
+
+            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        }
+        electron.setAnimation(electronAnimation);
+        electron.startAnimation();
+
+        // sample xenon - bound vertically to canvas element, bound horizontally to cathode
+        let xenon = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 15, 'purple');
+        let xenonAnimation = function (particle){
+            particle.clearPath();
+
+            //boundary checking and acceleration
+            let max_height = particle.canvas.height - particle.radius;
+            let min_height = 0 + particle.radius;
+            let max_width = (particle.canvas.width / 2) - particle.radius;
+            let min_width = 0 + particle.radius;
+
+            //y direction
+            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
+                particle.vy = -particle.vy;
+            } else if(particle.accelerating) {
+                // y acceleration
+                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+                particle.vy = particle.vy + (particle.ay * particle.interval);
+            }
+
+            //x direction
+            if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
+                particle.vx = -particle.vx;
+            } else if(particle.accelerating) {
+                // x acceleration
+                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+                particle.vx = particle.vx + (particle.ax * particle.interval);
+            }
+
+            //move the particle at the given velocity
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            //draw the particle
+            particle.draw();
+
+            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        }
+        xenon.setAnimation(xenonAnimation);
+        xenon.startAnimation();
+
+        // sample floater - bound canvas element, no accelerations
+        let floater = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 30, 'white');
+        let floaterAnimation = function (particle){
+            particle.clearPath();
+
+            //boundary checking and acceleration
+            let max_height = particle.canvas.height - particle.radius;
+            let min_height = 0 + particle.radius;
+            let max_width = particle.canvas.width - particle.radius;
+            let min_width = 0 + particle.radius;
+
+            //y direction
+            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
+                particle.vy = -particle.vy;
+            }
+
+            //x direction
+            if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
+                particle.vx = -particle.vx;
+            }
+
+            //move the particle at the given velocity
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            //draw the particle
+            particle.draw();
+
+            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        }
+        floater.setAnimation(floaterAnimation);
+        floater.startAnimation();
+    }
+
+
 
     /**
      * draw_csv_gas_feed_guide()
