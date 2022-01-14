@@ -177,6 +177,20 @@ class Painter{
         ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
     }
 
+    draw_csv_Hall_Truster_Off(){
+        console.log(base ," draw_csv_Hall_Truster_Off called") //:debug
+
+        this.clearCanvas(hallThrusterOff);
+        const ctx = this.getLayer(hallThrusterOff);
+    }
+
+    draw_csv_Hall_Truster_On(){
+        console.log(base ," draw_csv_Hall_Truster_On called") //:debug
+
+        this.clearCanvas(hallThrusterOn);
+        const ctx = this.getLayer(hallThrusterOn);
+    }
+
     draw_csv_Base_Drawing(){
         console.log(base ," draw_csv_Base_Drawing called") //:debug
 
@@ -420,6 +434,11 @@ class LearningMode extends React.Component {
 
     }
 
+    hideButton(buttonidName)
+    {
+        document.getElementById(buttonidName).style.visibility = 'hidden';
+    }
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -455,6 +474,12 @@ class LearningMode extends React.Component {
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
         // Execute logic based on deltastage and scene
+
+        if(this.state.scene[hallThrusterOff] === true) {
+            this.hideButton("KeeperElectrodeToggle");
+            this.hideButton("GasFeedToggle");
+            this.hideButton("HeatInsertToggle");
+        }
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
@@ -674,7 +699,7 @@ class LearningMode extends React.Component {
 
     }
 
-    hallThrusterToggleButton_HandleClick()
+    hallThrusterToggle_HandleClick()
     {
 
     }
