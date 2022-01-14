@@ -479,6 +479,8 @@ class LearningMode extends React.Component {
             this.hideButton("KeeperElectrodeToggle");
             this.hideButton("GasFeedToggle");
             this.hideButton("HeatInsertToggle");
+
+            this.painter.draw_csv_Hall_Truster_Off();
         }
 
         // if basedrawing is active
