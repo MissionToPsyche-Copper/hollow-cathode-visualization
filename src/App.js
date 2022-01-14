@@ -674,12 +674,7 @@ class LearningMode extends React.Component {
 
     }
 
-    hallThrusterOnButton_HandleClick()
-    {
-
-    }
-
-    hallThrusterOffButton_HandleClick()
+    hallThrusterToggleButton_HandleClick()
     {
 
     }
@@ -760,7 +755,17 @@ class LearningMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+
+                <div id={"hallThrusterButtonGroup"}>
+                    <button id={"HallThrusterToggle"}
+                            className={"button"}
+                            onClick={this.hallThrusterToggle_HandleClick}> Hall Thruster
+                    </button>
+                </div>
+
                 <div id={"toggleButtonGroup"}>
                     <button id={"KeeperElectrodeToggle"}
                             className={"button"}

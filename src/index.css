@@ -98,7 +98,7 @@ code {
   /*border: 1px solid mediumpurple;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
-  z-index: 3;
+  z-index: 4;
 }
 
 #canvas5{
@@ -106,9 +106,24 @@ code {
   /*border: 1px solid orange;*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
-  z-index: 3;
+  z-index: 5;
 }
 
+#canvas6{
+  position:absolute;
+  /*border: 1px solid orange;*/
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 6;
+}
+
+#canvas7{
+   position:absolute;
+   /*border: 1px solid orange;*/
+   right: 0px; /* relative to parent (canvasHolder) */
+   top: 0px;
+   z-index: 7;
+ }
 
 /* Landing Page */
 #LearningModeButton {
