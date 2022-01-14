@@ -391,6 +391,8 @@ class LearningMode extends React.Component {
         super();
 
         // initialize canvas instance variables
+
+        //Hollow Cathode Canvases:
         this.canvas0 = React.createRef();                              //// 1 - create ref
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
@@ -398,14 +400,16 @@ class LearningMode extends React.Component {
         this.canvas4 = React.createRef();
         this.canvas5 = React.createRef();
 
+        //Hall Thruster Canvases:
+        this.canvas6 = React.createRef();   //Hall Thruster OFF
+        this.canvas7 = React.createRef();   //Hall Thruster ON
+
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
         this.GasFeedToggle_HandleClick = this.GasFeedToggle_HandleClick.bind(this);
         this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
-
-
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -428,9 +432,11 @@ class LearningMode extends React.Component {
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
         const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
         const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+        const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
+        const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
-        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
-        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
+        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
+        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
