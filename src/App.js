@@ -226,7 +226,7 @@ export class LearningMode extends React.Component {
             this.hideButton("GasFeedToggle");
             this.hideButton("HeatInsertToggle");
 
-            this.painter.draw_csv_Hall_Thruster_Off();
+            //this.painter.draw_csv_Hall_Thruster_Off();
         }
 
         // if basedrawing is active
