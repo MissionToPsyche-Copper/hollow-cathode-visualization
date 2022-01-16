@@ -34,11 +34,17 @@ class Painter{
         this.thruster_on.src = "/images/plasma_sample.jpg";
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
     }
 
-    getLayer(layer){
-        return this.layers[layer];
+    /**
+     * Retrieves a layer by index (constant number)
+     * @param layer_number the number for the layer needed
+     * @returns {*} ctx reference/object for the layer
+     */
+    getLayer(layer_number){
+        return this.layers[layer_number];
     }
 
     /**
@@ -51,17 +57,19 @@ class Painter{
         this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height);
     }
 
+    /** Landing Page */
     /**
-     * draw_csv_Base_Drawing()
-     * Function to draw the base cathode visuals (currently only draws csv png)
+     * Psyche spaceship on landing page
      */
-
     draw_spacecraft(){
         const ctx = this.getLayer(base);
 
         ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
     }
 
+    /**
+     * Text prompting the user to click the spaceship
+     */
     draw_test(){
         // this.clearCanvas(base);
         const ctx = this.getLayer(base);
@@ -72,6 +80,10 @@ class Painter{
         ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
     }
 
+    /** Learning Mode */
+    /**
+     * Particle effect overlay to make the thruster and cathode appear to be on/operating
+     */
     draw_csv_Hall_Thruster_Off(){
         // console.log(hallThrusterOff ," draw_csv_Hall_Thruster_Off called") //:debug
 
@@ -85,6 +97,9 @@ class Painter{
         ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
     }
 
+    /**
+     * Particle effect overlay to make the thruster and cathode appear to be on/operating
+     */
     draw_csv_Hall_Thruster_On(){
         // console.log(hallThrusterOn ," draw_csv_Hall_Thruster_On called") //:debug
 
@@ -98,6 +113,11 @@ class Painter{
         ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
     }
 
+    /** Learning Mode and Presentation Mode */
+    /**
+     * draw_csv_Base_Drawing()
+     * Function to draw the base cathode visuals
+     */
     draw_csv_Base_Drawing(){
         // console.log(base ," draw_csv_Base_Drawing called") //:debug
 
