@@ -453,6 +453,10 @@ export class LearningMode extends React.Component {
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
                     </button>
+                    <button id={"HallThrusterNext"}
+                            className={"button"}
+                            onClick={this.nextButton_hallThruster_HandleClick}> Next
+                    </button>
                 </div>
 
                 <div id={"toggleButtonGroup"}>
