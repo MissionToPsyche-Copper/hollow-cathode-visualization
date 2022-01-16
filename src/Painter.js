@@ -73,7 +73,7 @@ class Painter{
     }
 
     draw_csv_Hall_Thruster_Off(){
-        console.log(hallThrusterOff ," draw_csv_Hall_Thruster_Off called") //:debug
+        // console.log(hallThrusterOff ," draw_csv_Hall_Thruster_Off called") //:debug
 
         this.clearCanvas(hallThrusterOff);
         const ctx = this.getLayer(hallThrusterOff);
@@ -86,7 +86,7 @@ class Painter{
     }
 
     draw_csv_Hall_Thruster_On(){
-        console.log(hallThrusterOn ," draw_csv_Hall_Thruster_On called") //:debug
+        // console.log(hallThrusterOn ," draw_csv_Hall_Thruster_On called") //:debug
 
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);
@@ -99,7 +99,7 @@ class Painter{
     }
 
     draw_csv_Base_Drawing(){
-        console.log(base ," draw_csv_Base_Drawing called") //:debug
+        // console.log(base ," draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
@@ -132,7 +132,7 @@ class Painter{
      * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
-        console.log(heat, " draw_csv_Heat_Insert called"); //:debug
+        // console.log(heat, " draw_csv_Heat_Insert called"); //:debug
 
         this.clearCanvas(heat);
         const ctx = this.getLayer(heat);
@@ -147,7 +147,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
+        // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
 
         // this.clearCanvas(heat);
         const ctx = this.getLayer(heat);
@@ -165,7 +165,7 @@ class Painter{
      * Function to draw the gas feed visuals (currently only draws a yellow square)
      */
     draw_csv_gas_feed(){
-        console.log(gas, " draw_csv_gas_feed called"); //:debug
+        // console.log(gas, " draw_csv_gas_feed called"); //:debug
 
         this.clearCanvas(gas);
         const ctx = this.getLayer(gas);
@@ -313,7 +313,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
-        console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
+        // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
         // this.clearCanvas(gas);
         const ctx = this.getLayer(gas);
@@ -331,7 +331,7 @@ class Painter{
      * Function to draw the internal plasma visuals (currently only draws a green square)
      */
     draw_csv_internal_plasma(){
-        console.log(plasma, " draw_csv_internal_plasma called"); //:debug
+        // console.log(plasma, " draw_csv_internal_plasma called"); //:debug
 
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
@@ -346,7 +346,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
      */
     draw_csv_internal_plasma_guide() {
-        console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
+        // console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
 
         // this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
@@ -365,7 +365,7 @@ class Painter{
      * Function to draw the keeper electrode visuals (currently only draws a blue square)
      */
     draw_csv_keeper_electrode(){
-        console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
+        // console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
 
         this.clearCanvas(keeper);
         const ctx = this.getLayer(keeper);
@@ -380,7 +380,7 @@ class Painter{
      * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
      */
     draw_csv_keeper_electrode_guide(){
-        console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
+        // console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
 
         // this.clearCanvas(keeper);
         const ctx = this.getLayer(keeper);
@@ -399,7 +399,7 @@ class Painter{
      * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
      */
     draw_csv_eject_plasma(){
-        console.log(eject, " draw_csv_eject_plasma called"); //:debug
+        // console.log(eject, " draw_csv_eject_plasma called"); //:debug
 
         this.clearCanvas(eject);
         const ctx = this.getLayer(eject);
@@ -414,7 +414,7 @@ class Painter{
      * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
      */
     draw_csv_eject_plasma_guide() {
-        console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
+        // console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
 
         // this.clearCanvas(eject);
         const ctx = this.getLayer(eject);

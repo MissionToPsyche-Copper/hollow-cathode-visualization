@@ -29,6 +29,7 @@ export class LearningMode extends React.Component {
     canvas;
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
     painter;
+    thrusterButtonText; // if the thruster is on, this text says "off", and vice versa
 
     constructor(props){
         super();
@@ -58,7 +59,15 @@ export class LearningMode extends React.Component {
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
-        console.log("constructor:: this.state: ", this.state);
+
+        // Hall Thruster toggle button text
+        if(this.state.scene[hallThrusterOn] === true){
+            this.thrusterButtonText = "Off";
+            console.log("off")
+        } else {
+            this.thrusterButtonText = "On";
+            console.log("on")
+        }
 
         // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
         // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
@@ -99,10 +108,10 @@ export class LearningMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        console.log("LearningMode.scenarioRefresh() called") //:debug
-
-        console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
-        console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
+        // console.log("LearningMode.scenarioRefresh() called") //:debug
+        //
+        // console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
+        // console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
 
         // Execute logic based on deltastage and scene
 
@@ -112,6 +121,14 @@ export class LearningMode extends React.Component {
             this.hideButton("HeatInsertToggle");
 
             this.painter.draw_csv_Hall_Thruster_Off();
+        }
+
+        // Hall Thruster toggle button text
+        // programed backwards because of order of execution
+        if(this.state.scene[hallThrusterOn] === true){
+            this.thrusterButtonText = "On";
+        } else {
+            this.thrusterButtonText = "Off";
         }
 
         if(this.state.scene[hallThrusterOn] === true) {
@@ -342,7 +359,6 @@ export class LearningMode extends React.Component {
     }
 
     hallThrusterToggle_HandleClick() {
-        console.log("hallThrusterToggle_HandleClick :: this.state:", this.state);
 
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = !newScene[hallThrusterOn];
@@ -435,7 +451,7 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterButtonGroup"}>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Hall Thruster
+                            onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
                     </button>
                 </div>
 
