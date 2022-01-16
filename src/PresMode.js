@@ -15,8 +15,6 @@ import {
     canvas_width,
     eject,
     gas,
-    hallThrusterOff,
-    hallThrusterOn,
     heat,
     keeper,
     plasma

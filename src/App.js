@@ -1,11 +1,8 @@
 import './App.css';
 import './landingPage.css';
 import React from 'react';
-import ReactDOM from "react-dom";
 
-import ProtoParticle from "./ProtoParticle.js"; // Jack's particle system
 import LandingPage from "./LandingPage";
-import Painter from "./Painter";
 
 
 

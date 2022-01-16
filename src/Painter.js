@@ -84,8 +84,8 @@ class Painter{
     /**
      * Particle effect overlay to make the thruster and cathode appear to be on/operating
      */
-    draw_csv_Hall_Thruster_Off(){
-        // console.log(hallThrusterOff ," draw_csv_Hall_Thruster_Off called") //:debug
+    draw_Hall_Thruster_Off(){
+        // console.log(hallThrusterOff ," draw_Hall_Thruster_Off called") //:debug
 
         this.clearCanvas(hallThrusterOff);
         const ctx = this.getLayer(hallThrusterOff);
@@ -100,8 +100,8 @@ class Painter{
     /**
      * Particle effect overlay to make the thruster and cathode appear to be on/operating
      */
-    draw_csv_Hall_Thruster_On(){
-        // console.log(hallThrusterOn ," draw_csv_Hall_Thruster_On called") //:debug
+    draw_Hall_Thruster_On(){
+        // console.log(hallThrusterOn ," draw_Hall_Thruster_On called") //:debug
 
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);

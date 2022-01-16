@@ -17,72 +17,6 @@ code {
     monospace;
 }
 
-/*#HeatInsertToggle {*/
-/*  position:absolute;*/
-/*  !*height: 120px;*!*/
-/*  height: auto;*/
-/*  !*width: 360px;*!*/
-/*  width: auto;*/
-/*  right: 30px; !* relative to parent (canvasHolder) *!*/
-/*  !*bottom: 270px;*!*/
-/*  bottom: 90px;*/
-/*  z-index: 10; !* exist on layer 4 (0 is bottom) *!*/
-/*}*/
-
-/*#GasFeedToggle {*/
-/*  position:absolute;*/
-/*  !*height: 120px;*!*/
-/*  height: auto;*/
-/*  !*width: 360px;*!*/
-/*  width: auto;*/
-/*  right: 30px;*/
-/*  !*bottom: 150px;*!*/
-/*  bottom: 10px;*/
-/*  margin-bottom: 40px;*/
-/*  z-index: 10;*/
-/*}*/
-
-/*#KeeperElectrodeToggle {*/
-/*  position:absolute;*/
-/*  !*height: 120px;*!*/
-/*  height: auto;*/
-/*  !*width: 360px;*!*/
-/*  width: auto;*/
-/*  right: 30px;*/
-/*  !*bottom: 30px;*!*/
-/*  bottom: 10px;*/
-/*  margin-bottom: 0px;*/
-/*  z-index: 10;*/
-/*}*/
-
-/*!* (same as #KeeperElectrodeToggle) *!*/
-/*#HallThrusterToggle {*/
-/*  position:absolute;*/
-/*  !*height: 120px;*!*/
-/*  height: auto;*/
-/*  !*width: 360px;*!*/
-/*  width: auto;*/
-/*  right: 30px;*/
-/*  !*bottom: 30px;*!*/
-/*  bottom: 10px;*/
-/*  margin-bottom: 0px;*/
-/*  z-index: 10;*/
-/*}*/
-
-/*!* (same as #GasFeedToggle) *!*/
-/*#HallThrusterNext {*/
-/*  position:absolute;*/
-/*  !*height: 120px;*!*/
-/*  height: auto;*/
-/*  !*width: 360px;*!*/
-/*  width: auto;*/
-/*  right: 30px;*/
-/*  !*bottom: 150px;*!*/
-/*  bottom: 10px;*/
-/*  margin-bottom: 40px;*/
-/*  z-index: 10;*/
-/*}*/
-
 
 
 
@@ -158,7 +92,8 @@ code {
 
 
 /* Buttons */
-
+/* vertically stack a div of buttons */
+/* use with bottom__align to align the group */
 .stackedButtonGroup{
   position: absolute;
   display: flex;
@@ -167,70 +102,20 @@ code {
   z-index: 10;
 }
 
+/* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   bottom: 0px;
   right: 0px;
 }
 
+/* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   bottom: 0px;
   left: 0px;
 }
 
+/* defines spacing between buttons */
 .stackedButtonGroup > button{
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
-
-/* Landing Page */
-/*#LearningModeButton {*/
-/*  height: auto;*/
-/*  width: auto;*/
-/*  position:absolute;*/
-/*  right: 30px;*/
-/*  bottom: 90px;*/
-/*  z-index: 10; !* Top layer *!*/
-/*  font-size: medium;*/
-/*}*/
-
-/*#PresModeButton {*/
-/*  height: auto;*/
-/*  width: auto;*/
-/*  font-size: 25px;*/
-/*  position:absolute;*/
-/*  right: 30px;*/
-/*  bottom: 30px;*/
-/*  z-index: 10;*/
-/*  font-size: medium;*/
-/*}*/
-
-/*#backButton {*/
-/*  height: auto;*/
-/*  width: auto;*/
-/*  position:absolute;*/
-/*  left: 30px;*/
-/*  bottom: 50px;*/
-/*  z-index: 10;*/
-/*  font-size: medium;*/
-/*}*/
-
-/* Presentation Mode Page */
-/*#nextButton {*/
-/*  height: auto;*/
-/*  width: auto;*/
-/*  position:absolute;*/
-/*  right: 30px;*/
-/*  bottom: 50px;*/
-/*  z-index: 10;*/
-/*  font-size: medium;*/
-/*}*/
-
-/*#prevButton {*/
-/*  height: auto;*/
-/*  width: auto;*/
-/*  position:absolute;*/
-/*  left: 30px;*/
-/*  bottom: 50px;*/
-/*  z-index: 10;*/
-/*  font-size: medium;*/
-/*}*/

@@ -63,14 +63,9 @@ export class LearningMode extends React.Component {
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true){
             this.thrusterButtonText = "Off";
-            console.log("off")
         } else {
             this.thrusterButtonText = "On";
-            console.log("on")
         }
-
-        // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
-        // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
 
     }
 
@@ -119,20 +114,12 @@ export class LearningMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        // console.log("LearningMode.scenarioRefresh() called") //:debug
-        //
-        // console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
-        // console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
-
         // Execute logic based on deltastage and scene
 
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideButton("toggleButtonGroup");
-            // this.hideButton("KeeperElectrodeToggle");
-            // this.hideButton("GasFeedToggle");
-            // this.hideButton("HeatInsertToggle");
 
-            this.painter.draw_csv_Hall_Thruster_Off();
+            this.painter.draw_Hall_Thruster_Off();
         } else {
             this.hideButton("hallThrusterButtonGroup");
         }
@@ -146,11 +133,7 @@ export class LearningMode extends React.Component {
         }
 
         if(this.state.scene[hallThrusterOn] === true) {
-            // this.hideButton("KeeperElectrodeToggle");
-            // this.hideButton("GasFeedToggle");
-            // this.hideButton("HeatInsertToggle");
-
-            this.painter.draw_csv_Hall_Thruster_On();
+            this.painter.draw_Hall_Thruster_On();
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
         }
@@ -213,7 +196,6 @@ export class LearningMode extends React.Component {
         // SPECIAL CASE [trigger internal plasma] LOGIC
         if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
             if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
-                console.log("   scenarioRefresh:: SPECIAL CASE: [Internal Plasma] TRIGGERED", this.state.deltastage, this.state.scene[heat], this.state.scene[gas]); //:debug
                 ReactDOM.render(
                     <button id={"nextButton"}
                             className={"button"}
@@ -256,7 +238,6 @@ export class LearningMode extends React.Component {
             // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
             if (this.state.deltastage === keeper){
                 // Todo not super solid logic^
-                console.log("   scenarioRefresh:: SPECIAL CASE: [Eject Plasma] TRIGGERED", this.state.deltastage, this.state.scene); //:debug
                 ReactDOM.render(
                     <button id={"nextButton"}
                             className={"button"}
@@ -276,7 +257,6 @@ export class LearningMode extends React.Component {
             this.hideButton("toggleButtonGroup");
         }
 
-        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
     /**
@@ -357,9 +337,6 @@ export class LearningMode extends React.Component {
             document.getElementById('toggleButtonGroup')
         );
 
-        console.log("   nextButton_plasma_HandleClick:: this.state.deltastage", this.state.deltastage); //:debug
-        console.log("   nextButton_plasma_HandleClick:: this.state.scene", this.state.scene); //:debug
-
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: plasma, scene: newScene };
@@ -431,13 +408,6 @@ export class LearningMode extends React.Component {
      */
     getLayer(layer){
         return this.layers[layer];
-        // switch (layer) {
-        //     case base: return this.ctx0;
-        //     case heat: return this.ctx1;
-        //     case gas: return this.ctx2;
-        //     case keeper: return this.ctx3;
-        //     default: console.error("LearningMode.getLayer:: invalid layer provided: ", layer); return null;
-        // }
     }
 
     /**
