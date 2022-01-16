@@ -17,7 +17,8 @@ import { hallThrusterOn } from "./Galactic";    // ctx7 // scene[hallThrusterOn]
 import { canvas_height } from "./Galactic";
 import { canvas_width } from "./Galactic";
 
-
+const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
+const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
 
 
@@ -26,6 +27,10 @@ class Painter{
         this.layers = layers;
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
+        this.thruster_off = new Image();
+        this.thruster_off.src = "/images/HallThrusterMockup.png";
+        this.thruster_on = new Image();
+        this.thruster_on.src = "/images/plasma_sample.jpg";
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
@@ -36,13 +41,13 @@ class Painter{
     }
 
     /**
-     * clearCanvas(layer)
+     * clearCanvas(layer number)
      * Clears contents of a given canvas layer
      *
-     * @param layer layer to clear
+     * @param layer_number layer number for layer to clear
      */
-    clearCanvas(layer){
-        this.getLayer(layer).clearRect(0, 0, canvas_width, canvas_height);
+    clearCanvas(layer_number){
+        this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height);
     }
 
     /**
@@ -64,6 +69,32 @@ class Painter{
         ctx.font = "30px Arial";
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
+    }
+
+    draw_csv_Hall_Thruster_Off(){
+        console.log(hallThrusterOff ," draw_csv_Hall_Thruster_Off called") //:debug
+
+        this.clearCanvas(hallThrusterOff);
+        const ctx = this.getLayer(hallThrusterOff);
+
+        // draw rectangle
+        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
+        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
+
+        ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
+    }
+
+    draw_csv_Hall_Thruster_On(){
+        console.log(hallThrusterOn ," draw_csv_Hall_Thruster_On called") //:debug
+
+        this.clearCanvas(hallThrusterOn);
+        const ctx = this.getLayer(hallThrusterOn);
+
+        // draw rectangle
+        ctx.fillStyle = 'rgba(0,217,255,0.5)'; //set the pen color
+        ctx.fillRect(hallThruster_x, hallThruster_y, 200, 200) //draw a filled in rectangle
+
+        ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
     }
 
     draw_csv_Base_Drawing(){

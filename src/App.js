@@ -170,17 +170,19 @@ export class LearningMode extends React.Component {
         this.KeeperElectrodeToggle_HandleClick = this.KeeperElectrodeToggle_HandleClick.bind(this);
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
+        this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
+        this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
+        console.log("constructor:: this.state: ", this.state);
 
         // console.log("   constructor:: this.state.scene", this.state.scene); //note: scene is defined here. //:debug
         // console.log("   constructor:: this.deltastage", this.deltastage); //note: deltastage is undefined here for some reason? //:debug
 
     }
 
-    hideButton(buttonidName)
-    {
+    hideButton(buttonidName){
         document.getElementById(buttonidName).style.visibility = 'hidden';
     }
 
@@ -227,6 +229,16 @@ export class LearningMode extends React.Component {
             this.hideButton("HeatInsertToggle");
 
             this.painter.draw_csv_Hall_Thruster_Off();
+        }
+
+        if(this.state.scene[hallThrusterOn] === true) {
+            // this.hideButton("KeeperElectrodeToggle");
+            // this.hideButton("GasFeedToggle");
+            // this.hideButton("HeatInsertToggle");
+
+            this.painter.draw_csv_Hall_Thruster_On();
+        } else if (this.state.deltastage === hallThrusterOn) {
+            this.painter.clearCanvas(hallThrusterOn);
         }
 
         // if basedrawing is active
@@ -442,14 +454,19 @@ export class LearningMode extends React.Component {
     /**
      * nextButton_hallThruster_HandleClick()
      */
-    nextButton_hallThruster_HandleClick()
-    {
-
+    nextButton_hallThruster_HandleClick() {
+        console.log("nextButton_hallThruster_HandleClick :: this.state:", this.state);
     }
 
-    hallThrusterToggle_HandleClick()
-    {
+    hallThrusterToggle_HandleClick() {
+        console.log("hallThrusterToggle_HandleClick :: this.state:", this.state);
 
+        let newScene = this.state.scene;
+        newScene[hallThrusterOn] = !newScene[hallThrusterOn];
+
+        this.setState((state, props) => {
+            return { deltastage: hallThrusterOn, scene: newScene };
+        }, () => {this.scenarioRefresh()});
     }
 
     /**
