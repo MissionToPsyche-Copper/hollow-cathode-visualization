@@ -195,8 +195,12 @@ class PresMode extends React.Component {
                 <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
+                <div className={"stackedButtonGroup bottomleftAlign"}>
+                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                </div>
+                <div className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
+                </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }

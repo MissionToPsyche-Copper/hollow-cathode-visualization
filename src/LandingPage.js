@@ -87,10 +87,12 @@ export class LandingPage extends React.Component {
                         height={canvas_height}> You need a better browser :(
                 </canvas>
 
-                <button id={"PresModeButton"}
-                        className={"button"}
-                        onClick={this.PresMode_HandleClick}> Presentation Mode
-                </button>
+                <div className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"PresModeButton"}
+                            className={"button"}
+                            onClick={this.PresMode_HandleClick}> Presentation Mode
+                    </button>
+                </div>
             </>
         )
     }

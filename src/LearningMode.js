@@ -74,8 +74,19 @@ export class LearningMode extends React.Component {
 
     }
 
+    /**
+     * Hides the element with the given id
+     * @param buttonidName id of element to hide
+     */
     hideButton(buttonidName){
         document.getElementById(buttonidName).style.visibility = 'hidden';
+    }
+    /**
+     * Un-hides the element with the given id
+     * @param buttonidName id of element to show
+     */
+    showButton(buttonidName){
+        document.getElementById(buttonidName).style.visibility = 'visible';
     }
 
     /**
@@ -116,11 +127,14 @@ export class LearningMode extends React.Component {
         // Execute logic based on deltastage and scene
 
         if(this.state.scene[hallThrusterOff] === true) {
-            this.hideButton("KeeperElectrodeToggle");
-            this.hideButton("GasFeedToggle");
-            this.hideButton("HeatInsertToggle");
+            this.hideButton("toggleButtonGroup");
+            // this.hideButton("KeeperElectrodeToggle");
+            // this.hideButton("GasFeedToggle");
+            // this.hideButton("HeatInsertToggle");
 
             this.painter.draw_csv_Hall_Thruster_Off();
+        } else {
+            this.hideButton("hallThrusterButtonGroup");
         }
 
         // Hall Thruster toggle button text
@@ -252,12 +266,14 @@ export class LearningMode extends React.Component {
             }
         }
 
-        //TODO add one more for the 'finished' state where the controls disappear but do it better
-
-        // source: https://stackoverflow.com/questions/53897673/check-if-all-values-in-array-are-true-then-return-a-true-boolean-statement-jav
-        let checker = arr => arr.every(v => v === true);
-        if(checker(this.state.scene)){
-            ReactDOM.render(<></>, document.getElementById('toggleButtonGroup'));
+        //TODO this is a bad solution for checking the user has completed learning mode
+        if(this.state.scene[base] === true
+            && this.state.scene[heat] === true
+            && this.state.scene[gas] === true
+            && this.state.scene[plasma] === true
+            && this.state.scene[keeper] === true
+            && this.state.scene[eject] === true){
+            this.hideButton("toggleButtonGroup");
         }
 
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -355,7 +371,12 @@ export class LearningMode extends React.Component {
      * nextButton_hallThruster_HandleClick()
      */
     nextButton_hallThruster_HandleClick() {
-        console.log("nextButton_hallThruster_HandleClick :: this.state:", this.state);
+        this.hideButton("hallThrusterButtonGroup");
+        this.showButton("toggleButtonGroup");
+
+        this.setState((state, props) => {
+            return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
+        }, () => {this.scenarioRefresh()});
     }
 
     hallThrusterToggle_HandleClick() {
@@ -446,9 +467,12 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
 
-                <div id={"hallThrusterButtonGroup"}>
+                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                </div>
+
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
@@ -459,7 +483,7 @@ export class LearningMode extends React.Component {
                     </button>
                 </div>
 
-                <div id={"toggleButtonGroup"}>
+                <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"KeeperElectrodeToggle"}
                             className={"button"}
                             onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
