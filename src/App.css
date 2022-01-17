@@ -327,7 +327,7 @@ img{
 {
     position: absolute;
     top: 225px;
-    right:45px;
+    right:35px;
     text-align: right;
 }
 .hallThrusterOffSublabelPos
@@ -356,7 +356,7 @@ img{
     text-align: left;
     position: absolute;
     top: 10px;
-    right: 800px;
+    right: calc(100% - 6em);
     /*left: -40px;*/
 }
 .hallThrusterNameSublabelPos
@@ -364,7 +364,7 @@ img{
     text-align: left;
     position: absolute;
     top: 60px;
-    right: 800px;
+    right: calc(100% - 8em);
     /*position: relative;*/
     /*left: 30px;*/
     /*border: 3px solid #73AD21;*/
