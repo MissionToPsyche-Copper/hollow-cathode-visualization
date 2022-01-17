@@ -122,6 +122,7 @@ export class LearningMode extends React.Component {
             this.painter.draw_Hall_Thruster_Off();
         } else {
             this.hideButton("hallThrusterButtonGroup");
+            this.hideButton("hallThrusterLabelDiv");
         }
 
         // Hall Thruster toggle button text
@@ -349,6 +350,7 @@ export class LearningMode extends React.Component {
      */
     nextButton_hallThruster_HandleClick() {
         this.hideButton("hallThrusterButtonGroup");
+        this.hideButton("hallThrusterLabelDiv");
         this.showButton("toggleButtonGroup");
 
         this.setState((state, props) => {
@@ -451,6 +453,12 @@ export class LearningMode extends React.Component {
                             className={"button"}
                             onClick={this.nextButton_hallThruster_HandleClick}> Next
                     </button>
+                </div>
+
+                <div id={"hallThrusterLabelDiv"}>
+                    <label id={"hallThrusterLabel"}
+                           className={"label"}> Lorem Ipsum
+                    </label>
                 </div>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>

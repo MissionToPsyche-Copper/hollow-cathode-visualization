@@ -303,3 +303,9 @@ img{
 .button:active {
     transform: scale(0.96);
 }
+
+.label {
+    color: white;
+    padding: 8px;
+    font-family: Arial;
+}
