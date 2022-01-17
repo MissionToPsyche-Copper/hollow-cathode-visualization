@@ -94,60 +94,50 @@ class PresMode extends React.Component {
 
         console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
-        if(!isAuto) {
-            // clear all drawings if the user just entered presentation mode or it looped back to the beginning
-            if (this.state.scene[base] === true && this.state.scene[heat] === false) {
-                // clear every layer
-                for (let i = base; i < this.state.scene.length; i++) {
-                    this.painter.clearCanvas(i);
-                }
-            }
-
-            // if basedrawing is active
-            if (this.state.scene[base] === true) {
-                //this.draw_csv_Base_Drawing();
-
-                //draw base cathode
-                this.painter.draw_csv_Base_Drawing();
-            }
-
-            // if heat insert is active
-            if (this.state.scene[heat] === true) {
-                this.painter.draw_csv_Heat_Insert();
-            }
-
-            // if gas feed is active
-            if (this.state.scene[gas] === true) {
-                this.painter.draw_csv_gas_feed();
-            }
-
-            // if internal plasma is active
-            if (this.state.scene[plasma] === true) {
-                this.painter.draw_csv_internal_plasma();
-            }
-
-            // if keeper electrode is active
-            if (this.state.scene[keeper] === true) {
-                this.painter.draw_csv_keeper_electrode();
-            }
-
-            // if eject plasma is active
-            if (this.state.scene[eject] === true) {
-                this.painter.draw_csv_eject_plasma();
+        // clear all drawings if the user just entered presentation mode or it looped back to the beginning
+        if (this.state.scene[base] === true && this.state.scene[heat] === false) {
+            // clear every layer
+            for (let i = base; i < this.state.scene.length; i++) {
+                this.painter.clearCanvas(i);
             }
         }
-
-        else {
-            while(isAuto){
-                setTimeout(this.painter.draw_csv_Base_Drawing(), 8);
-                setTimeout(this.painter.draw_csv_Heat_Insert, 8);
-                setTimeout(this.painter.draw_csv_gas_feed, 8);
-                setTimeout(this.painter.draw_csv_internal_plasma, 8);
-                setTimeout(this.painter.draw_csv_keeper_electrode, 8);
-                setTimeout(this.painter.draw_csv_eject_plasma, 8);
-
-            }
+        if(isAuto){
+            console.log("auto mode refresh")
         }
+
+        // if basedrawing is active
+        if (this.state.scene[base] === true) {
+            //this.draw_csv_Base_Drawing();
+
+            //draw base cathode
+            this.painter.draw_csv_Base_Drawing();
+        }
+
+        // if heat insert is active
+        if (this.state.scene[heat] === true) {
+            this.painter.draw_csv_Heat_Insert();
+        }
+
+        // if gas feed is active
+        if (this.state.scene[gas] === true) {
+            this.painter.draw_csv_gas_feed();
+        }
+
+        // if internal plasma is active
+        if (this.state.scene[plasma] === true) {
+            this.painter.draw_csv_internal_plasma();
+        }
+
+        // if keeper electrode is active
+        if (this.state.scene[keeper] === true) {
+            this.painter.draw_csv_keeper_electrode();
+        }
+
+        // if eject plasma is active
+        if (this.state.scene[eject] === true) {
+            this.painter.draw_csv_eject_plasma();
+        }
+
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
@@ -206,8 +196,8 @@ class PresMode extends React.Component {
      * Onclick handler for the "Autonomous/Manual" button, starts the looping progress
      */
     autoToggleButton_HandleClick() {
-        isAuto = !isAuto;
-        console.log(isAuto);
+        isAuto = !isAuto
+        this.setState(heat, [true, false, false, false, false, false, false])
     }
 
     render(){
