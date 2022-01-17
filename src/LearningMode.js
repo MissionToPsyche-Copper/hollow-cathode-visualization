@@ -61,27 +61,29 @@ export class LearningMode extends React.Component {
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
         // Hall Thruster toggle button text
-        if(this.state.scene[hallThrusterOn] === true){
+        if(this.state.scene[hallThrusterOn] === true)
+        {
             this.thrusterButtonText = "Off";
-        } else {
+        }
+        else
+        {
             this.thrusterButtonText = "On";
         }
-
     }
 
     /**
      * Hides the element with the given id
-     * @param buttonidName id of element to hide
+     * @param elementId id of element to hide
      */
-    hideElement(buttonidName){
-        document.getElementById(buttonidName).style.visibility = 'hidden';
+    hideElement(elementId){
+        document.getElementById(elementId).style.visibility = 'hidden';
     }
     /**
      * Un-hides the element with the given id
-     * @param buttonidName id of element to show
+     * @param elementId id of element to show
      */
-    showElement(buttonidName){
-        document.getElementById(buttonidName).style.visibility = 'visible';
+    showElement(elementId){
+        document.getElementById(elementId).style.visibility = 'visible';
     }
 
     /**
@@ -118,9 +120,16 @@ export class LearningMode extends React.Component {
 
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("toggleButtonGroup");
-
             this.painter.draw_Hall_Thruster_Off();
-        } else {
+
+            this.showElement("hallThrusterOffLabelDiv");
+            this.showElement("hallThrusterOffSublabelDiv");
+
+            this.hideElement("hallThrusterOnLabelDiv");
+            this.hideElement("hallThrusterOnSublabelDiv");
+        }
+        else
+        {
             this.hideElement("hallThrusterButtonGroup");
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOnLabelDiv");
@@ -128,6 +137,18 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
+        }
+
+        if (this.state.scene[hallThrusterOn] === true)
+        {
+            this.hideElement("toggleButtonGroup");
+            this.painter.draw_Hall_Thruster_On();
+
+            this.showElement("hallThrusterOnLabelDiv");
+            this.showElement("hallThrusterOnSublabelDiv");
+
+            this.hideElement("hallThrusterOffLabelDiv");
+            this.hideElement("hallThrusterOffSublabelDiv");
         }
 
         // Hall Thruster toggle button text
@@ -480,7 +501,7 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
                     </label>
                 </div>
 
