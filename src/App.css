@@ -303,3 +303,71 @@ img{
 .button:active {
     transform: scale(0.96);
 }
+
+.titleLabel {
+    color: white;
+    font-size: 35px;
+    padding: 8px;
+    font-family: Arial;
+    font-weight: bold;
+    width: 50%;
+}
+
+.sublabel {
+    color: white;
+    font-size: 18px;
+    padding: 8px;
+    font-family: Arial;
+    font-weight: normal;
+    width: 40%;
+}
+
+
+.hallThrusterOffTitleLabelPos
+{
+    position: absolute;
+    top: 225px;
+    right:35px;
+    text-align: right;
+}
+.hallThrusterOffSublabelPos
+{
+    position: absolute;
+    top: 275px;
+    right: 45px;
+    text-align: right;
+}
+.hallThrusterOnTitleLabelPos
+{
+    position: absolute;
+    top: 225px;
+    right:45px;
+    text-align: right;
+}
+.hallThrusterOnSublabelPos
+{
+    position: absolute;
+    top: 275px;
+    right: 45px;
+    text-align: right;
+}
+.hallThrusterNameTitleLabelPos
+{
+    text-align: left;
+    position: absolute;
+    top: 10px;
+    right: calc(100% - 6em);
+    /*left: -40px;*/
+}
+.hallThrusterNameSublabelPos
+{
+    text-align: left;
+    position: absolute;
+    top: 60px;
+    right: calc(100% - 8em);
+    /*position: relative;*/
+    /*left: 30px;*/
+    /*border: 3px solid #73AD21;*/
+
+}
+
