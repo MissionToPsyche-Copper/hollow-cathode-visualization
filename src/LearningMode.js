@@ -457,7 +457,25 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterLabelDiv"}>
                     <label id={"hallThrusterLabel"}
-                           className={"label"}> Lorem Ipsum
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                    </label>
+                </div>
+
+                <div id={"hallThrusterSublabelDiv"}>
+                    <label id={"hallThrusterSublabel"}
+                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"hallThrusterNameLabelDiv"}>
+                    <label id={"hallThrusterNameLabel"}
+                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                    </label>
+                </div>
+
+                <div id={"hallThrusterNameSublabelDiv"}>
+                    <label id={"hallThrusterNameSublabel"}
+                           className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
                     </label>
                 </div>
 
