@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { LandingPage } from "./App.js";
+import LandingPage from "./LandingPage.js";
 import Painter from "./Painter";
 
 /**
@@ -9,17 +9,16 @@ import Painter from "./Painter";
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-import { base } from "./Galactic";              // ctx0 // scene[base]
-import { heat } from "./Galactic";              // ctx1 // scene[heat]
-import { gas } from "./Galactic";               // ctx2 // scene[gas]
-import { plasma } from "./Galactic";            // ctx3 // scene[plasma]
-import { keeper } from "./Galactic";            // ctx4 // scene[keeper]
-import { eject } from "./Galactic";             // ctx5 // scene[eject]
-import { hallThrusterOff } from "./Galactic";   // ctx6 // scene[hallThrusterOff]
-import { hallThrusterOn } from "./Galactic";    // ctx7 // scene[hallThrusterOn]
-
-import { canvas_height } from "./Galactic";
-import { canvas_width } from "./Galactic";
+import {
+    base,
+    canvas_height,
+    canvas_width,
+    eject,
+    gas,
+    heat,
+    keeper,
+    plasma
+} from "./Galactic";
 
 var isAuto = false;
 /**
@@ -223,9 +222,14 @@ class PresMode extends React.Component {
                 <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
-                <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
+
+                <div className={"stackedButtonGroup bottomleftAlign"}>
+                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
+                </div>
+                <div className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
+                </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }

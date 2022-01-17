@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--  Standards / Reactjs items  -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="public/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!--  Pre-loading images  -->
     <link rel="preload" href="images/psyche_spacecraft.png" as="image"/>
     <link rel="preload" href="images/base_cathode.png" as="image"/>
     <!--
@@ -29,7 +28,9 @@
     <!-- Beginning Header Navigation Bar-->
     <header class="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner">
       <div class="container w-container">
-        <a href="https://psyche.asu.edu" class="brand w-nav-brand"><image src="images/psyche.svg" loading="lazy" width="75" alt=""></image></a>
+        <a  class="brand w-nav-brand">
+          <image src="images/psyche.svg" loading="lazy" width="75" alt="Psyche Mission Logo"></image>
+        </a>
         <nav role ="navigation" class="nav-menu w-nav-menu">
           <div class="dropdown" data-dropdown>
             <button class = "text-block" data-dropdown-button>About Us</button>
