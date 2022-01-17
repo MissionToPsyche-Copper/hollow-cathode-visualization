@@ -55,6 +55,7 @@ class Painter{
      */
     clearCanvas(layer_number){
         this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height);
+
     }
 
     /** Landing Page */

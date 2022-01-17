@@ -141,8 +141,10 @@ export class LearningMode extends React.Component {
         // if basedrawing is active
         if(this.state.scene[base] === true){
             this.painter.draw_csv_Base_Drawing()
+            this.painter.clearCanvas(hallThrusterOn)
+            this.painter.clearCanvas(hallThrusterOff)
             // if the user just toggled basedrawing
-            if(this.state.deltastage === base || this.state.deltastage === undefined){
+            if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
             }
         }
