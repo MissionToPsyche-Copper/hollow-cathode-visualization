@@ -73,14 +73,14 @@ export class LearningMode extends React.Component {
      * Hides the element with the given id
      * @param buttonidName id of element to hide
      */
-    hideButton(buttonidName){
+    hideElement(buttonidName){
         document.getElementById(buttonidName).style.visibility = 'hidden';
     }
     /**
      * Un-hides the element with the given id
      * @param buttonidName id of element to show
      */
-    showButton(buttonidName){
+    showElement(buttonidName){
         document.getElementById(buttonidName).style.visibility = 'visible';
     }
 
@@ -117,12 +117,17 @@ export class LearningMode extends React.Component {
         // Execute logic based on deltastage and scene
 
         if(this.state.scene[hallThrusterOff] === true) {
-            this.hideButton("toggleButtonGroup");
+            this.hideElement("toggleButtonGroup");
 
             this.painter.draw_Hall_Thruster_Off();
         } else {
-            this.hideButton("hallThrusterButtonGroup");
-            this.hideButton("hallThrusterOffLabelDiv");
+            this.hideElement("hallThrusterButtonGroup");
+            this.hideElement("hallThrusterOffLabelDiv");
+            this.hideElement("hallThrusterOnLabelDiv");
+            this.hideElement("hallThrusterOffSublabelDiv");
+            this.hideElement("hallThrusterOnSublabelDiv");
+            this.hideElement("hallThrusterNameLabelDiv");
+            this.hideElement("hallThrusterNameSublabelDiv");
         }
 
         // Hall Thruster toggle button text
@@ -255,7 +260,7 @@ export class LearningMode extends React.Component {
             && this.state.scene[plasma] === true
             && this.state.scene[keeper] === true
             && this.state.scene[eject] === true){
-            this.hideButton("toggleButtonGroup");
+            this.hideElement("toggleButtonGroup");
         }
 
     }
@@ -349,9 +354,15 @@ export class LearningMode extends React.Component {
      * nextButton_hallThruster_HandleClick()
      */
     nextButton_hallThruster_HandleClick() {
-        this.hideButton("hallThrusterButtonGroup");
-        this.hideButton("hallThrusterLabelDiv");
-        this.showButton("toggleButtonGroup");
+        this.hideElement("hallThrusterButtonGroup");
+        this.showElement("toggleButtonGroup");
+        this.hideElement("hallThrusterButtonGroup");
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("hallThrusterOffSublabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("hallThrusterNameLabelDiv");
+        this.hideElement("hallThrusterNameSublabelDiv");
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
@@ -456,13 +467,25 @@ export class LearningMode extends React.Component {
                 </div>
 
                 <div id={"hallThrusterOffLabelDiv"}>
-                    <label id={"hallThrusterLabel"}
+                    <label id={"hallThrusterOffLabel"}
                            className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
                     </label>
                 </div>
 
                 <div id={"hallThrusterOffSublabelDiv"}>
-                    <label id={"hallThrusterSublabel"}
+                    <label id={"hallThrusterOffSublabel"}
+                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"hallThrusterOnLabelDiv"}>
+                    <label id={"hallThrusterOnLabel"}
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                    </label>
+                </div>
+
+                <div id={"hallThrusterOnSublabelDiv"}>
+                    <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
                     </label>
                 </div>

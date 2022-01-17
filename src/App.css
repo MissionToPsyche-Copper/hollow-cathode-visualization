@@ -337,6 +337,20 @@ img{
     right: 45px;
     text-align: right;
 }
+.hallThrusterOnTitleLabelPos
+{
+    position: absolute;
+    top: 225px;
+    right:45px;
+    text-align: right;
+}
+.hallThrusterOnSublabelPos
+{
+    position: absolute;
+    top: 275px;
+    right: 45px;
+    text-align: right;
+}
 .hallThrusterNameTitleLabelPos
 {
     text-align: left;
