@@ -153,8 +153,8 @@ class PresMode extends React.Component {
         let newdeltastage = this.state.deltastage;
         let newscene = this.state.scene;
 
-        // update the state
-        if(this.state.deltastage === this.state.scene.length - 1){
+        // update the state, currently does not show hall thruster information, and skips those steps entirely by design
+        if(this.state.deltastage === this.state.scene.length - 3){
             // special case: loop to beginning         note: this loop intentionally starts at 1 instead of zero
             for (let i = 1; i < this.state.scene.length; i++) {
                 newdeltastage = base;
@@ -201,13 +201,13 @@ class PresMode extends React.Component {
      */
     autoToggleButton_HandleClick() {
         isAuto = !isAuto
-        console.log("clicked")
         if(isAuto){
+            //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
             this.autoID = setInterval(()=>{this.nextButton_HandleClick()}, this.delay)
         }
         else{
-            console.log("ended")
+            //when out of auto mode, the interval is stopped, and the 'next' button is returned
             document.getElementById("nextButton").style.visibility = 'visible'
             clearInterval(this.autoID)
         }
