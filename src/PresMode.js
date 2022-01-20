@@ -58,6 +58,10 @@ class PresMode extends React.Component {
         this.nextButton_HandleClick = this.nextButton_HandleClick.bind(this);
         this.autoToggleButton_HandleClick = this.autoToggleButton_HandleClick.bind(this)
 
+        //sets ID of the autonomous interval to an used value by default
+        this.autoID = 0
+        this.delay = 5000
+
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
     }
@@ -104,17 +108,7 @@ class PresMode extends React.Component {
                 this.painter.clearCanvas(i);
             }
         }
-        if (isAuto) {
-            console.log("in loop")
-            setTimeout(this.painter.draw_csv_Base_Drawing, 5000)
-            setTimeout(this.painter.draw_csv_Heat_Insert, 5000)
-            // setTimeout(this.painter.draw_csv_gas_feed, 8 )
-            // setTimeout(this.painter.draw_csv_internal_plasma, 8)
-            // setTimeout(this.painter.draw_csv_keeper_electrode, 8 )
-            // setTimeout(this.painter.draw_csv_eject_plasma, 8 )
-        }
 
-        else{
         // if basedrawing is active
         if (this.state.scene[base] === true) {
             //this.draw_csv_Base_Drawing();
@@ -147,7 +141,7 @@ class PresMode extends React.Component {
         if (this.state.scene[eject] === true) {
             this.painter.draw_csv_eject_plasma();
         }
-    }
+
         console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
@@ -207,10 +201,16 @@ class PresMode extends React.Component {
      */
     autoToggleButton_HandleClick() {
         isAuto = !isAuto
-        this.state.scene =[true,false,false,false,false,false,false,false]
-        this.state.deltastage = base
-        this.setState(this.state)
-        this.scenarioRefresh()
+        console.log("clicked")
+        if(isAuto){
+            document.getElementById("nextButton").style.visibility = 'hidden'
+            this.autoID = setInterval(()=>{this.nextButton_HandleClick()}, this.delay)
+        }
+        else{
+            console.log("ended")
+            document.getElementById("nextButton").style.visibility = 'visible'
+            clearInterval(this.autoID)
+        }
     }
 
     render(){
