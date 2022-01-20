@@ -65,7 +65,7 @@ class Painter{
     draw_spacecraft(){
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
+        //ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
     }
 
     /**

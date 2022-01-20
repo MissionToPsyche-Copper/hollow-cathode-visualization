@@ -91,6 +91,12 @@ code {
  }
 
 
+#spacecraft_image{
+  height: 100%;
+  width: 85%;
+  visibility: visible;
+}
+
 /* Buttons */
 /* vertically stack a div of buttons */
 /* use with bottom__align to align the group */
