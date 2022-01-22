@@ -22,10 +22,10 @@ class ProtoParticle {
      * Constructor for particle object with 7 optional parameters and 1 mandatory parameter (layer)
      *
      * @param layer ctx element/layer to draw the particle on
-     * @param x int px, initial x position of center of particle, defaults to a random value between 26 and 800  (optional)
-     * @param y int px, initial y position of center of particle, defaults to a random value between 26 and 400  (optional)
-     * @param vx int px/tick, initial x velocity, defaults to a random integer between 0 and 5  (optional)
-     * @param vy int px/tick, initial y velocity, defaults to a random integer between 0 and 5  (optional)
+     * @param x int px, initial x position of center of particle, if set to -999: defaults to a random value between 26 and 800
+     * @param y int px, initial y position of center of particle, if set to -999: defaults to a random value between 26 and 400
+     * @param vx int px/tick, initial x velocity, if set to -999: defaults to a random integer between 0 and 5
+     * @param vy int px/tick, initial y velocity, if set to -999: defaults to a random integer between 0 and 5
      * @param ax int px/tick^2, initial x acceleration, defaults to a random integer between 1 and 5  (optional)
      * @param ay int px/tick^2, initial y acceleration, defaults to a random integer between 1 and 5  (optional)
      * @param r int px, initial radius of particle, defaults to 15px  (optional)
@@ -33,10 +33,10 @@ class ProtoParticle {
      */
     constructor(
         layer,
-        x = -999,
-        y = -999,
-        vx = Math.floor(Math.random() * 5),
-        vy = Math.floor(Math.random() * 5),
+        x,
+        y,
+        vx,
+        vy,
         ax = Math.floor(Math.random() * (5 - 1) + 1),
         ay = Math.floor(Math.random() * (5 - 1) + 1),
         r = 15,
@@ -45,16 +45,8 @@ class ProtoParticle {
         this.ctx = layer;
         this.canvas = layer.canvas;
 
-        // x error checking
-        if(x > layer.canvas.width || x < 0){
-            console.error("invalid initial x coordinate of particle");
-        }
-        // y error checking
-        if(y > layer.canvas.height || y < 0){
-            console.error("invalid initial y coordinate of particle");
-        }
 
-        // y: randomize default value
+        // x: randomize if default value
         if(x === -999){
             // default to a random x position between min and max
             let max = layer.canvas.width;
@@ -64,7 +56,7 @@ class ProtoParticle {
             this.x = x;
         }
 
-        // y: randomize default value
+        // y: randomize if default value
         if(y === -999){
             // default to a random x position between min and max
             let max = layer.canvas.height;
@@ -74,8 +66,32 @@ class ProtoParticle {
             this.y = y;
         }
 
-        this.vx = vx;
-        this.vy = vy;
+        // x error checking
+        if(this.x > layer.canvas.width || this.x < 0){
+            console.error("invalid initial x coordinate of particle: ", this.x);
+        }
+        // y error checking
+        if(this.y > layer.canvas.height || this.y < 0){
+            console.error("invalid initial y coordinate of particle: ", this.y);
+        }
+
+
+
+        // vx: randomize if default value
+        if(vx === -999){
+            this.vx = Math.floor(Math.random() * 5);
+        } else {
+            this.vx = vx;
+        }
+
+        // vy: randomize if default value
+        if(vy === -999){
+            this.vy = Math.floor(Math.random() * 5);
+        } else {
+            this.vy = vy;
+        }
+
+
         this.ax = ax;
         this.ay = ay;
         this.radius = r;
