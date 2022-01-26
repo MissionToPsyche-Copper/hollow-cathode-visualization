@@ -37,7 +37,7 @@ export class LearningMode extends React.Component {
         // initialize canvas instance variables
 
         //Hollow Cathode Canvases:
-        this.canvas0 = React.createRef();                              //// 1 - create ref
+        this.canvas0 = React.createRef();   //// 1 - create ref
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
@@ -106,8 +106,8 @@ export class LearningMode extends React.Component {
         const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
-        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
-        //
+        //layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
+
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
@@ -173,13 +173,14 @@ export class LearningMode extends React.Component {
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
+
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
             }
         }
+        // the user deselected this option/layer
         else if (this.state.deltastage === base){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -192,8 +193,8 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_Heat_Insert_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === heat){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -206,11 +207,10 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_gas_feed_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === gas){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
-
 
         // INTERNAL PLASMA // -----------
         // if internal plasma is true
@@ -233,6 +233,7 @@ export class LearningMode extends React.Component {
                 }, () => {this.scenarioRefresh()});
             }
         }
+
         // if both heat and gas are true but internal plasma isn't
         else if (this.state.scene[heat] && this.state.scene[gas]){
             // there probably should be internal plasma?
@@ -251,7 +252,7 @@ export class LearningMode extends React.Component {
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
 
-            // if internal plasma stops bcz ___ call ___ explanation
+            // if internal plasma stops because ___ call ___ explanation
             if(!this.state.scene[heat]){
                 this.painter.draw_csv_internal_plasma_off_heat_guide();
             } else if(!this.state.scene[gas]){
@@ -268,8 +269,8 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_keeper_electrode_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === keeper){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -333,7 +334,6 @@ export class LearningMode extends React.Component {
             this.showElement("nextButton");
             document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
-
     }
 
     /**
@@ -392,7 +392,6 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[plasma] = true;
 
-
         // update DOM buttons (replace next with toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
@@ -424,7 +423,6 @@ export class LearningMode extends React.Component {
     }
 
     hallThrusterToggle_HandleClick() {
-
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = !newScene[hallThrusterOn];
 
@@ -445,12 +443,10 @@ export class LearningMode extends React.Component {
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
 
-
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
-
     }
 
     /**
@@ -487,9 +483,7 @@ export class LearningMode extends React.Component {
     sizeButton_HandleClick() {
         document.getElementById("canvas2").height = document.getElementById("baseCathode").height;
         document.getElementById("canvas2").width = document.getElementById("baseCathode").width;
-
     }
-
 
     render(){
         return (
@@ -577,7 +571,7 @@ export class LearningMode extends React.Component {
                         style={{display: "none"}}> Next
                 </button>
             </>
-        ) //// 2 - attach ref to node via ref = this.canvas#
+        )
     }
 }
 
