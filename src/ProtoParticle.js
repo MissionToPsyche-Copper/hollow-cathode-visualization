@@ -161,13 +161,13 @@ class ProtoParticle {
     }
 }
 
-function stop_ball(){
-    if(particles_array.length > 0){
-        particles_array.pop().clearAnimation();
-    } else {
-        console.error("stopBall(): particles_array is empty");
-    }
-}
+// function stop_ball(){
+//     if(particles_array.length > 0){
+//         particles_array.pop().clearAnimation();
+//     } else {
+//         console.error("stopBall(): particles_array is empty");
+//     }
+// }
 
 
 export default ProtoParticle;

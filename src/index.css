@@ -37,14 +37,23 @@ code {
   top: 0px;
 }
 
+.baseCathode{
+  /*transform: rotate(19deg);*/
+  position: absolute;
+  right: 20%;
+  top: 0px;
+  z-index: 0;
+}
+
 #canvas1{
   /*border: 1px rgba(0, 0, 255, 0.35);*/
   z-index: 1;
 }
 
 #canvas2{
-  /*border: 1px solid green;*/
+  border: 1px solid green;
   z-index: 2;
+  /*transform: rotate(19deg);*/
 }
 
 #canvas3{
@@ -80,7 +89,6 @@ code {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   z-index: 10;
 }
 
@@ -88,12 +96,14 @@ code {
 .stackedButtonGroup.bottomrightAlign{
   bottom: 0px;
   right: 0px;
+  align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   bottom: 0px;
   left: 0px;
+  align-items: flex-start;
 }
 
 /* defines spacing between buttons */
