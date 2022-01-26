@@ -126,7 +126,7 @@ class Painter{
      * Function to draw the base cathode visuals
      */
     draw_csv_Base_Drawing(){
-        console.log(base ," draw_csv_Base_Drawing called") //:debug
+        // console.log(base ," draw_csv_Base_Drawing called") //:debug
 
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
@@ -151,7 +151,7 @@ class Painter{
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_csv_Base_Drawing_guide(){
-        console.log("draw_csv_Base_Drawing_guide");
+        // console.log("draw_csv_Base_Drawing_guide");
         // this.clearCanvas(base);
         // const ctx = this.getLayer(base);
 
@@ -183,7 +183,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
+        // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
 
         // this.clearCanvas(heat);
         // const ctx = this.getLayer(heat);
@@ -376,7 +376,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
-        console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
+        // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
         // this.clearCanvas(gas);
         // const ctx = this.getLayer(gas);
@@ -409,7 +409,7 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
      */
     draw_csv_internal_plasma_guide() {
-        console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
+        // console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
 
         // because the user has the inserts heated and the gas feed toggled on, plasma is forming within the cathode tube/chamber(?), this plasma is super hot and stuff and is what we need
         // now we need to eject this plasma from the hollow cathode
@@ -423,6 +423,38 @@ class Painter{
         // ctx.fillStyle = 'rgb(255,255,255)';
         // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2);
         // ctx.restore();
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_off_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_gas_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
+     */
+    draw_csv_internal_plasma_off_gas_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_gas_guide called"); //:debug
     }
 
 
@@ -446,7 +478,7 @@ class Painter{
      * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
      */
     draw_csv_keeper_electrode_guide(){
-        console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
+        // console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
 
         // this.clearCanvas(keeper);
         // const ctx = this.getLayer(keeper);
@@ -480,7 +512,7 @@ class Painter{
      * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
      */
     draw_csv_eject_plasma_guide() {
-        console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
+        // console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
 
         // this.clearCanvas(eject);
         // const ctx = this.getLayer(eject);

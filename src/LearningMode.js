@@ -56,6 +56,7 @@ export class LearningMode extends React.Component {
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
         this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
         this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
+        this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -120,8 +121,6 @@ export class LearningMode extends React.Component {
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
 
-        console.log("this.state.scene: ", this.state.scene, "\n this.state.deltastage: ", this.state.deltastage);
-
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
@@ -170,7 +169,7 @@ export class LearningMode extends React.Component {
         }
 
         // if basedrawing is active
-        if(this.state.scene[base] === true && this.state.deltastage === base){
+        if(this.state.scene[base] === true){
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -251,12 +250,12 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
-        }
 
-        // SPECIAL CASE [trigger internal plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
-
+            // if internal plasma stops bcz ___ call ___ explanation
+            if(!this.state.scene[heat]){
+                this.painter.draw_csv_internal_plasma_off_heat_guide();
+            } else if(!this.state.scene[gas]){
+                this.painter.draw_csv_internal_plasma_off_gas_guide();
             }
         }
 
@@ -274,28 +273,53 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
         }
 
-        // if eject plasma is true
-        if(this.state.scene[eject] === true){
-            this.painter.draw_csv_eject_plasma();
+        // EJECT PLASMA // -----------
+        if(this.state.scene[eject]){
+            if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
+                this.painter.draw_csv_eject_plasma();
 
-            // if the user just triggered eject plasma
-            if(this.state.deltastage === eject){
-                this.painter.draw_csv_eject_plasma_guide();
+                // if the user just triggered eject plasma
+                if(this.state.deltastage === eject){
+                    this.painter.draw_csv_eject_plasma_guide();
+                }
+            } else {
+                // plasma shouldn't eject
+                let newScene = this.state.scene;
+                newScene[eject] = false;
+
+                // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+                this.setState((state, props) => {
+                    return { deltastage: eject, scene: newScene };
+                }, () => {this.scenarioRefresh()});
             }
         }
+        else if (this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
+            // there probably should be ejecting plasma?
+
+            // see if eject should be required to be next in line
+            if(this.state.deltastage === keeper){
+                // show next button (restrict user mobility)
+                this.painter.clearCanvas(eject);
+                this.hideElement("toggleButtonGroup");
+                this.showElement("nextButton");
+                document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
+            }
+        }
+        // if eject is false and deltastage is plasma
         else if (this.state.deltastage === eject){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
-        }
 
-        // SPECIAL CASE [trigger eject plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
-            if (this.state.deltastage === keeper){
-                // Todo not super solid logic^
-                this.hideElement("toggleButtonGroup");
-                document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
-            }
+            // if ejecting plasma stops bcz ___ call ___ explanation
+            // if(!this.state.scene[heat]){
+            //     this.painter.draw_csv_eject_plasma_off_heat_guide();
+            // } else if(!this.state.scene[gas]){
+            //     this.painter.draw_csv_eject_plasma_off_gas_guide();
+            // } else if(!this.state.scene[plasma]){
+            //     this.painter.draw_csv_eject_plasma_off_plasma_guide();
+            // } else if(!this.state.scene[keeper]){
+            //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
+            // }
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
@@ -306,6 +330,8 @@ export class LearningMode extends React.Component {
             && this.state.scene[keeper] === true
             && this.state.scene[eject] === true){
             this.hideElement("toggleButtonGroup");
+            this.showElement("nextButton");
+            document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
 
     }
@@ -419,11 +445,21 @@ export class LearningMode extends React.Component {
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
 
+
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
 
+    }
+
+    /**
+     * nextButton_end_HandleClick()
+     * Onclick handler for the "next" button for the eject plasma scene's ending
+     * this leads to the view were we show them some links to follow and such
+     */
+    nextButton_end_HandleClick() {
+        this.hideElement("nextButton");
     }
 
     /**
@@ -456,7 +492,6 @@ export class LearningMode extends React.Component {
 
 
     render(){
-        // console.log("LearningMode.render called") //:debug
         return (
             <>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -539,8 +574,7 @@ export class LearningMode extends React.Component {
                 </div>
                 <button id={"nextButton"}
                         className={"button stackedButtonGroup bottomrightAlign"}
-                        style={{display: "none"}}
-                        onClick={this.nextButton_plasma_HandleClick}> Next
+                        style={{display: "none"}}> Next
                 </button>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#
