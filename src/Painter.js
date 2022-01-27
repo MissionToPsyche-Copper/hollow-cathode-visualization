@@ -256,7 +256,7 @@ class Painter{
 
     draw_csv_Heat_Insert_Particle(){
         const ctx = this.getLayer(heat);
-        let electron = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'blue'); // randomized
+        let electron = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 6, 'blue'); // randomized
         electron.setAnimation(this.xenonAnimation);
         electron.startAnimation();
 
