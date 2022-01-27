@@ -21,11 +21,60 @@ import {
 const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
 const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
+let xenonAnimation = function (particle) {
+    particle.clearPath();
 
+    //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
+
+    // set overall boundary box to be the canvas edges
+    let max_y = (particle.canvas.height * 1.00) - particle.radius;
+    let min_y = 0 + particle.radius;
+    let max_x = (particle.canvas.width * 1.00) - particle.radius;
+    let min_x = 0 + particle.radius;
+
+    // set angled boundary box using a slop and a y-intercept
+    let m = 1; // slope
+    let b = 300; // y intercept
+
+    // check boundary using slope intercept form
+    if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
+        particle.vy = -particle.vy;
+    } else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
+        particle.vx = -particle.vx;
+    } else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
+
+
+        // do a proper angled bounce
+        let swap = particle.vx;
+        particle.vx = particle.vy;
+        particle.vy = swap;
+
+    } else if(particle.accelerating){
+        // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+        // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+
+        // y acceleration
+        particle.vy = particle.vy + (particle.ay * particle.interval);
+
+        // x acceleration
+        particle.vx = particle.vx + (particle.ax * particle.interval);
+    }
+
+    //move the particle at the given velocity
+    particle.x += particle.vx;
+    particle.y += particle.vy;
+
+    //draw the particle
+    particle.draw();
+
+    particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+}
 
 class Painter{
     constructor(layers) {
         this.layers = layers;
+
+        // pre-load images
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
         this.thruster_off = new Image();
@@ -34,6 +83,10 @@ class Painter{
         this.thruster_on.src = "/images/plasma_sample.jpg";
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+
+        // particle managing variables
+        this.xenon_particles = []; //array of all existing xenon particle objects
+        this.electron_particles = []; //array of all existing electron particle objects
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
     }
@@ -129,6 +182,14 @@ class Painter{
         // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
         // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
 
+        //particle barrier test 1
+        ctx.strokeStyle = "#FF0000";
+        ctx.beginPath();
+        ctx.moveTo(0, 300);
+        ctx.lineWidth = 10;
+        ctx.lineTo(900, 1200);
+        ctx.stroke();
+
         ctx.drawImage(this.base_cathode, 0, canvas_height * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
     }
 
@@ -137,15 +198,16 @@ class Painter{
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_csv_Base_Drawing_guide(){
+        // console.log("draw_csv_Base_Drawing_guide");
         // this.clearCanvas(base);
-        const ctx = this.getLayer(base);
+        // const ctx = this.getLayer(base);
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Hollow Cathode Turned Off", canvas_width * 0.05, canvas_height * 0.9);
-        ctx.restore();
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Hollow Cathode Turned Off", canvas_width * 0.05, canvas_height * 0.9);
+        // ctx.restore();
     }
 
     /**
@@ -171,14 +233,14 @@ class Painter{
         // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
 
         // this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
+        // const ctx = this.getLayer(heat);
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2);
-        ctx.restore();
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2);
+        // ctx.restore();
     }
 
     /**
@@ -207,124 +269,103 @@ class Painter{
      */
     draw_csv_gas_feed_particles(){
         const ctx = this.getLayer(gas);
-        // Particle Experimentation //
-        // Draw some particles
+        // Particle Experimentation // - Jack
+        // Drawing some particles //
 
-        // sample electron - bound to canvas element
-        let electron = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 9, 'blue');
-        let electronAnimation = function (particle){
-            particle.clearPath();
+        // // commented out since it is a test item that I don't need right now
+        // // sample electron - bound to canvas element
+        // let electron = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 0, 9, 'blue');
+        // let electronAnimation = function (particle){
+        //     particle.clearPath();
+        //
+        //     //boundary checking and acceleration
+        //     let max_height = particle.canvas.height - particle.radius;
+        //     let min_height = 0 + particle.radius;
+        //     let max_width = particle.canvas.width - particle.radius;
+        //     let min_width = 0 + particle.radius;
+        //
+        //     //y direction
+        //     if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
+        //         particle.vy = -particle.vy;
+        //     } else if(particle.accelerating) {
+        //         // y acceleration
+        //         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+        //         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+        //         particle.vy = particle.vy + (particle.ay * particle.interval);
+        //     }
+        //
+        //     //x direction
+        //     if (particle.x + particle.vx > max_width || particle.x + particle.vx < min_width) {
+        //         particle.vx = -particle.vx;
+        //     } else if(particle.accelerating) {
+        //         // x acceleration
+        //         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+        //         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+        //         particle.vx = particle.vx + (particle.ax * particle.interval);
+        //     }
+        //
+        //     //move the particle at the given velocity
+        //     particle.x += particle.vx;
+        //     particle.y += particle.vy;
+        //     //draw the particle
+        //     particle.draw();
+        //
+        //     particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        // }
+        // electron.setAnimation(electronAnimation);
+        // electron.startAnimation();
+        // this.electron_particles.push(electron);
 
-            //boundary checking and acceleration
-            let max_height = particle.canvas.height - particle.radius;
-            let min_height = 0 + particle.radius;
-            let max_width = particle.canvas.width - particle.radius;
-            let min_width = 0 + particle.radius;
 
-            //y direction
-            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
-                particle.vy = -particle.vy;
-            } else if(particle.accelerating) {
-                // y acceleration
-                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-                particle.vy = particle.vy + (particle.ay * particle.interval);
-            }
 
-            //x direction
-            if (particle.x + particle.vx > max_width || particle.x + particle.vx < min_width) {
-                particle.vx = -particle.vx;
-            } else if(particle.accelerating) {
-                // x acceleration
-                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-                particle.vx = particle.vx + (particle.ax * particle.interval);
-            }
 
-            //move the particle at the given velocity
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            //draw the particle
-            particle.draw();
+        // sample xenon - bound to canvas element AND y=mx+b (m and b are set in locally created xenonAnimation function)
+        // let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * 0.25, ctx.canvas.height * 0.15, 1, 1, 0, 0, 13, 'purple'); // spawn in set location
+        let xenon0 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 0, 13, 'purple'); // randomized
+        xenon0.setAnimation(xenonAnimation);
+        xenon0.startAnimation();
 
-            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        }
-        electron.setAnimation(electronAnimation);
-        electron.startAnimation();
-
+        this.xenon_particles.push(xenon0);
         // sample xenon - bound vertically to canvas element, bound horizontally to cathode
-        let xenon = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 15, 'purple');
-        let xenonAnimation = function (particle){
-            particle.clearPath();
+        let xenon1 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 2, 13, 'purple'); // randomized
+        xenon1.setAnimation(xenonAnimation);
+        xenon1.startAnimation();
 
-            //boundary checking and acceleration
-            let max_height = particle.canvas.height - particle.radius;
-            let min_height = 0 + particle.radius;
-            let max_width = (particle.canvas.width / 2) - particle.radius;
-            let min_width = 0 + particle.radius;
+        this.xenon_particles.push(xenon1);
 
-            //y direction
-            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
-                particle.vy = -particle.vy;
-            } else if(particle.accelerating) {
-                // y acceleration
-                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-                particle.vy = particle.vy + (particle.ay * particle.interval);
-            }
 
-            //x direction
-            if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
-                particle.vx = -particle.vx;
-            } else if(particle.accelerating) {
-                // x acceleration
-                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-                particle.vx = particle.vx + (particle.ax * particle.interval);
-            }
-
-            //move the particle at the given velocity
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            //draw the particle
-            particle.draw();
-
-            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        }
-        xenon.setAnimation(xenonAnimation);
-        xenon.startAnimation();
-
-        // sample floater - bound canvas element, no accelerations
-        let floater = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 30, 'white');
-        let floaterAnimation = function (particle){
-            particle.clearPath();
-
-            //boundary checking and acceleration
-            let max_height = particle.canvas.height - particle.radius;
-            let min_height = 0 + particle.radius;
-            let max_width = particle.canvas.width - particle.radius;
-            let min_width = 0 + particle.radius;
-
-            //y direction
-            if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
-                particle.vy = -particle.vy;
-            }
-
-            //x direction
-            if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
-                particle.vx = -particle.vx;
-            }
-
-            //move the particle at the given velocity
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            //draw the particle
-            particle.draw();
-
-            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        }
-        floater.setAnimation(floaterAnimation);
-        floater.startAnimation();
+        // // commented out since it is a test item that I don't need right now
+        // // sample floater - bound canvas element, no accelerations
+        // let floater = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 30, 'white');
+        // let floaterAnimation = function (particle){
+        //     particle.clearPath();
+        //
+        //     //boundary checking and acceleration
+        //     let max_height = particle.canvas.height - particle.radius;
+        //     let min_height = 0 + particle.radius;
+        //     let max_width = particle.canvas.width - particle.radius;
+        //     let min_width = 0 + particle.radius;
+        //
+        //     //y direction
+        //     if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
+        //         particle.vy = -particle.vy;
+        //     }
+        //
+        //     //x direction
+        //     if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
+        //         particle.vx = -particle.vx;
+        //     }
+        //
+        //     //move the particle at the given velocity
+        //     particle.x += particle.vx;
+        //     particle.y += particle.vy;
+        //     //draw the particle
+        //     particle.draw();
+        //
+        //     particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        // }
+        // floater.setAnimation(floaterAnimation);
+        // floater.startAnimation();
     }
 
 
@@ -337,14 +378,14 @@ class Painter{
         // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
         // this.clearCanvas(gas);
-        const ctx = this.getLayer(gas);
+        // const ctx = this.getLayer(gas);
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        ctx.restore();
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
+        // ctx.restore();
     }
 
     /**
@@ -369,15 +410,50 @@ class Painter{
     draw_csv_internal_plasma_guide() {
         // console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
 
-        // this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
+        // because the user has the inserts heated and the gas feed toggled on, plasma is forming within the cathode tube/chamber(?), this plasma is super hot and stuff and is what we need
+        // now we need to eject this plasma from the hollow cathode
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2);
-        ctx.restore();
+        // this.clearCanvas(plasma);
+        // const ctx = this.getLayer(plasma);
+
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2);
+        // ctx.restore();
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_off_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_gas_guide()
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
+     */
+    draw_csv_internal_plasma_off_gas_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_gas_guide called"); //:debug
     }
 
 
@@ -404,14 +480,14 @@ class Painter{
         // console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
 
         // this.clearCanvas(keeper);
-        const ctx = this.getLayer(keeper);
+        // const ctx = this.getLayer(keeper);
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2);
-        ctx.restore();
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2);
+        // ctx.restore();
     }
 
 
@@ -438,14 +514,14 @@ class Painter{
         // console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
 
         // this.clearCanvas(eject);
-        const ctx = this.getLayer(eject);
+        // const ctx = this.getLayer(eject);
 
-        // draw text
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Eject Plasma", canvas_width/2, canvas_height/2);
-        ctx.restore();
+        // // draw text
+        // ctx.save();
+        // ctx.font = "30px Arial";
+        // ctx.fillStyle = 'rgb(255,255,255)';
+        // ctx.fillText("Eject Plasma", canvas_width/2, canvas_height/2);
+        // ctx.restore();
     }
 }
 

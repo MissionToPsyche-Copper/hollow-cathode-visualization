@@ -11,7 +11,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
   }
 }
 
@@ -236,8 +236,6 @@ img{
 }
 
 .footer-image{
-    width:100%;
-    height: 100%;
     -o-object-fit: contain;
     object-fit: contain;
 }

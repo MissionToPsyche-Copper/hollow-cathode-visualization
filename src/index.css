@@ -12,11 +12,11 @@ header, h1, h2, h3, h4, h5, h6{
   font-family: "TradeGothic",sans-serif; /* header font from psyche website*/
 }
 
+/* I believe this is unused*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
 
 
 
@@ -25,68 +25,59 @@ code {
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
 }
 
-#canvas{
-  /*border: 1px solid orange;*/
-}
-
+/* the bottom-most canvas is the only one without absolute positioning*/
 #canvas0{
   /*border: 1px rgba(255, 0, 0, 0.23);*/
   z-index: 0;
 }
 
-#canvas1{
+.canvas ~ .canvas{
   position:absolute;
-  /*border: 1px rgba(0, 0, 255, 0.35);*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
+}
+
+.baseCathode{
+  /*transform: rotate(19deg);*/
+  position: absolute;
+  right: 20%;
+  top: 0px;
+  z-index: 0;
+}
+
+#canvas1{
+  /*border: 1px rgba(0, 0, 255, 0.35);*/
   z-index: 1;
 }
 
 #canvas2{
-  position:absolute;
-  /*border: 1px solid green;*/
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
+  border: 1px solid green;
   z-index: 2;
+  /*transform: rotate(19deg);*/
 }
 
 #canvas3{
-  position:absolute;
   /*border: 1px solid white;*/
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
   z-index: 3;
 }
 
 #canvas4{
-  position:absolute;
   /*border: 1px solid mediumpurple;*/
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
   z-index: 4;
 }
 
 #canvas5{
-  position:absolute;
   /*border: 1px solid orange;*/
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
   z-index: 5;
 }
 
 #canvas6{
-  position:absolute;
   /*border: 1px solid orange;*/
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
   z-index: 6;
 }
 
 #canvas7{
-   position:absolute;
    /*border: 1px solid orange;*/
-   right: 0px; /* relative to parent (canvasHolder) */
-   top: 0px;
    z-index: 7;
  }
 
@@ -104,7 +95,6 @@ code {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   z-index: 10;
 }
 
@@ -112,12 +102,14 @@ code {
 .stackedButtonGroup.bottomrightAlign{
   bottom: 0px;
   right: 0px;
+  align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   bottom: 0px;
   left: 0px;
+  align-items: flex-start;
 }
 
 /* defines spacing between buttons */
