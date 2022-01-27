@@ -17,9 +17,6 @@ code {
     monospace;
 }
 
-
-
-
 /* Div element that which holds the primary canvas element */
 #canvasHolder{
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
@@ -27,15 +24,20 @@ code {
 
 #canvas{
   /*border: 1px solid orange;*/
+  height: 80vh;
 }
 
 #canvas0{
   /*border: 1px rgba(255, 0, 0, 0.23);*/
+  height: 80vh;
+  min-height: 350px;
   z-index: 0;
 }
 
 #canvas1{
-  position:absolute;
+  height: 80vh;
+  min-height: 350px;
+  position: absolute;
   /*border: 1px rgba(0, 0, 255, 0.35);*/
   right: 0px; /* relative to parent (canvasHolder) */
   top: 0px;
@@ -43,6 +45,8 @@ code {
 }
 
 #canvas2{
+  height: 80vh;
+  min-height: 350px;
   position:absolute;
   /*border: 1px solid green;*/
   right: 0px; /* relative to parent (canvasHolder) */
@@ -51,6 +55,8 @@ code {
 }
 
 #canvas3{
+  height: 80vh;
+  min-height: 350px;
   position:absolute;
   /*border: 1px solid white;*/
   right: 0px; /* relative to parent (canvasHolder) */
@@ -59,6 +65,8 @@ code {
 }
 
 #canvas4{
+  height: 80vh;
+  min-height: 350px;
   position:absolute;
   /*border: 1px solid mediumpurple;*/
   right: 0px; /* relative to parent (canvasHolder) */
@@ -67,6 +75,8 @@ code {
 }
 
 #canvas5{
+  height: 80vh;
+  min-height: 350px;
   position:absolute;
   /*border: 1px solid orange;*/
   right: 0px; /* relative to parent (canvasHolder) */
@@ -75,6 +85,8 @@ code {
 }
 
 #canvas6{
+  height: 80vh;
+  min-height: 350px;
   position:absolute;
   /*border: 1px solid orange;*/
   right: 0px; /* relative to parent (canvasHolder) */
@@ -83,11 +95,13 @@ code {
 }
 
 #canvas7{
-   position:absolute;
-   /*border: 1px solid orange;*/
-   right: 0px; /* relative to parent (canvasHolder) */
-   top: 0px;
-   z-index: 7;
+  height: 80vh;
+  min-height: 350px;
+  position:absolute;
+  /*border: 1px solid orange;*/
+  right: 0px; /* relative to parent (canvasHolder) */
+  top: 0px;
+  z-index: 7;
  }
 
 

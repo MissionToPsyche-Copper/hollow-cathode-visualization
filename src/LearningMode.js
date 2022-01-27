@@ -463,79 +463,83 @@ export class LearningMode extends React.Component {
         // console.log("LearningMode.render called") //:debug
         return (
             <>
-                <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <div className={"LearningMode"}>
+                    <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                    <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
-                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                </div>
+                    <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                        <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    </div>
 
-                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
-                    <button id={"HallThrusterToggle"}
-                            className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
-                    </button>
-                    <button id={"HallThrusterNext"}
-                            className={"button"}
-                            onClick={this.nextButton_hallThruster_HandleClick}> Next
-                    </button>
-                </div>
+                    <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                        <button id={"HallThrusterToggle"}
+                                className={"button"}
+                                onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
+                        </button>
+                        <button id={"HallThrusterNext"}
+                                className={"button"}
+                                onClick={this.nextButton_hallThruster_HandleClick}> Next
+                        </button>
+                    </div>
 
-                <div id={"hallThrusterOffLabelDiv"}>
-                    <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
-                    </label>
-                </div>
 
-                <div id={"hallThrusterOffSublabelDiv"}>
-                    <label id={"hallThrusterOffSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
+                        <div id={"hallThrusterOffLabelDiv"}>
+                            <label id={"hallThrusterOffLabel"}
+                                   className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                            </label>
+                        </div>
 
-                <div id={"hallThrusterOnLabelDiv"}>
-                    <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
-                    </label>
-                </div>
+                        <div id={"hallThrusterOffSublabelDiv"}>
+                            <label id={"hallThrusterOffSublabel"}
+                                   className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                            </label>
+                        </div>
 
-                <div id={"hallThrusterOnSublabelDiv"}>
-                    <label id={"hallThrusterOnSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
 
-                <div id={"hallThrusterNameLabelDiv"}>
-                    <label id={"hallThrusterNameLabel"}
-                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
-                    </label>
-                </div>
+                    <div id={"hallThrusterOnLabelDiv"}>
+                        <label id={"hallThrusterOnLabel"}
+                               className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
+                        </label>
+                    </div>
 
-                <div id={"hallThrusterNameSublabelDiv"}>
-                    <label id={"hallThrusterNameSublabel"}
-                           className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
+                    <div id={"hallThrusterOnSublabelDiv"}>
+                        <label id={"hallThrusterOnSublabel"}
+                               className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                        </label>
+                    </div>
 
-                <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
-                    <button id={"KeeperElectrodeToggle"}
-                            className={"button"}
-                            onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
-                    </button>
-                    <button id={"GasFeedToggle"}
-                            className={"button"}
-                            onClick={this.GasFeedToggle_HandleClick}> Gas Feed
-                    </button>
-                    <button id={"HeatInsertToggle"}
-                            className={"button"}
-                            onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
-                    </button>
+                    <div id={"hallThrusterNameLabelDiv"}>
+                        <label id={"hallThrusterNameLabel"}
+                               className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                        </label>
+                    </div>
+
+                    <div id={"hallThrusterNameSublabelDiv"}>
+                        <label id={"hallThrusterNameSublabel"}
+                               className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                        </label>
+                    </div>
+
+                    <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                        <button id={"KeeperElectrodeToggle"}
+                                className={"button"}
+                                onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                        </button>
+                        <button id={"GasFeedToggle"}
+                                className={"button"}
+                                onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                        </button>
+                        <button id={"HeatInsertToggle"}
+                                className={"button"}
+                                onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                        </button>
+                    </div>
                 </div>
             </>
         ) //// 2 - attach ref to node via ref = this.canvas#

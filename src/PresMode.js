@@ -204,5 +204,4 @@ class PresMode extends React.Component {
     }
 }
 
-
 export default PresMode;
