@@ -484,11 +484,6 @@ export class LearningMode extends React.Component {
             document.getElementById('root')
         );
     }
-    sizeButton_HandleClick() {
-        document.getElementById("canvas2").height = document.getElementById("baseCathode").height;
-        document.getElementById("canvas2").width = document.getElementById("baseCathode").width;
-
-    }
 
 
     render(){
@@ -505,7 +500,6 @@ export class LearningMode extends React.Component {
                 {/*<img id={"baseCathode"} src={"/images/base_cathode.png"} className={"baseCathode grow"} alt={"Base Cathode"}/>*/}
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                    <button id={"sizeButton"} className={"button"} onClick={this.sizeButton_HandleClick}> Canvas size adjust </button>
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>

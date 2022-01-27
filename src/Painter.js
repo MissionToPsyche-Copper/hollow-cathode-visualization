@@ -21,7 +21,54 @@ import {
 const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
 const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
+let xenonAnimation = function (particle) {
+    particle.clearPath();
 
+    //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
+
+    // set overall boundary box to be the canvas edges
+    let max_y = (particle.canvas.height * 1.00) - particle.radius;
+    let min_y = 0 + particle.radius;
+    let max_x = (particle.canvas.width * 1.00) - particle.radius;
+    let min_x = 0 + particle.radius;
+
+    // set angled boundary box using a slop and a y-intercept
+    let m = 1; // slope
+    let b = 300; // y intercept
+
+    // check boundary using slope intercept form
+    if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
+        particle.vy = -particle.vy;
+    } else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
+        particle.vx = -particle.vx;
+    } else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
+
+
+        // do a proper angled bounce
+        let swap = particle.vx;
+        particle.vx = particle.vy;
+        particle.vy = swap;
+
+    } else if(particle.accelerating){
+        // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+        // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+
+        // y acceleration
+        particle.vy = particle.vy + (particle.ay * particle.interval);
+
+        // x acceleration
+        particle.vx = particle.vx + (particle.ax * particle.interval);
+    }
+
+    //move the particle at the given velocity
+    particle.x += particle.vx;
+    particle.y += particle.vy;
+
+    //draw the particle
+    particle.draw();
+
+    particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+}
 
 class Painter{
     constructor(layers) {
@@ -275,54 +322,6 @@ class Painter{
         // sample xenon - bound to canvas element AND y=mx+b (m and b are set in locally created xenonAnimation function)
         // let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * 0.25, ctx.canvas.height * 0.15, 1, 1, 0, 0, 13, 'purple'); // spawn in set location
         let xenon0 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 0, 13, 'purple'); // randomized
-        let xenonAnimation = function (particle) {
-            particle.clearPath();
-
-            //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
-
-            // set overall boundary box to be the canvas edges
-            let max_y = (particle.canvas.height * 1.00) - particle.radius;
-            let min_y = 0 + particle.radius;
-            let max_x = (particle.canvas.width * 1.00) - particle.radius;
-            let min_x = 0 + particle.radius;
-
-            // set angled boundary box using a slop and a y-intercept
-            let m = 1; // slope
-            let b = 300; // y intercept
-
-            // check boundary using slope intercept form
-            if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
-                particle.vy = -particle.vy;
-            } else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
-                particle.vx = -particle.vx;
-            } else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
-
-
-                // do a proper angled bounce
-                let swap = particle.vx;
-                particle.vx = particle.vy;
-                particle.vy = swap;
-
-            } else if(particle.accelerating){
-                // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-                // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-
-                // y acceleration
-                particle.vy = particle.vy + (particle.ay * particle.interval);
-
-                // x acceleration
-                particle.vx = particle.vx + (particle.ax * particle.interval);
-            }
-
-            //move the particle at the given velocity
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-
-            //draw the particle
-            particle.draw();
-
-            particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        }
         xenon0.setAnimation(xenonAnimation);
         xenon0.startAnimation();
 
