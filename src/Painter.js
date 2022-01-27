@@ -21,54 +21,7 @@ import {
 const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
 const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
-let xenonAnimation = function (particle) {
-    particle.clearPath();
 
-    //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
-
-    // set overall boundary box to be the canvas edges
-    let max_y = (particle.canvas.height * 1.00) - particle.radius;
-    let min_y = 0 + particle.radius;
-    let max_x = (particle.canvas.width * 1.00) - particle.radius;
-    let min_x = 0 + particle.radius;
-
-    // set angled boundary box using a slop and a y-intercept
-    let m = 1; // slope
-    let b = 300; // y intercept
-
-    // check boundary using slope intercept form
-    if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
-        particle.vy = -particle.vy;
-    } else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
-        particle.vx = -particle.vx;
-    } else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
-
-
-        // do a proper angled bounce
-        let swap = particle.vx;
-        particle.vx = particle.vy;
-        particle.vy = swap;
-
-    } else if(particle.accelerating){
-        // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-
-        // y acceleration
-        particle.vy = particle.vy + (particle.ay * particle.interval);
-
-        // x acceleration
-        particle.vx = particle.vx + (particle.ax * particle.interval);
-    }
-
-    //move the particle at the given velocity
-    particle.x += particle.vx;
-    particle.y += particle.vy;
-
-    //draw the particle
-    particle.draw();
-
-    particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-}
 
 class Painter{
     constructor(layers) {
@@ -89,6 +42,7 @@ class Painter{
         this.electron_particles = []; //array of all existing electron particle objects
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
+        this.xenonAnimation = this.xenonAnimation.bind(this);
     }
 
     /**
@@ -210,6 +164,61 @@ class Painter{
         // ctx.restore();
     }
 
+
+    xenonAnimation(particle){
+        particle.clearPath();
+
+        //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
+        let cathodeTop = canvas_height * .25;
+        let cathodeHeight = this.base_cathode.height *.4;
+        let cathodeLeft = canvas_width *.25;
+        let cathodeRight = this.base_cathode.width *.4;
+        // set overall boundary box to be the canvas edges
+
+        let max_y = (cathodeTop + cathodeHeight) - particle.radius;
+        let min_y = cathodeTop + particle.radius;
+        let max_x = (cathodeRight) - particle.radius;
+        let min_x = (cathodeLeft + particle.radius)*.9 ;
+
+        // set angled boundary box using a slope and a y-intercept
+        let m = 1; // slope
+        let b = 300; // y intercept
+
+        // check boundary using slope intercept form
+        if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
+            particle.vy = -particle.vy;
+        }
+        else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
+            particle.vx = -particle.vx;
+        }
+        else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
+
+            // do a proper angled bounce
+            let swap = particle.vx;
+            particle.vx = particle.vy;
+            particle.vy = swap;
+
+        } else if(particle.accelerating){
+            // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+            // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+
+            // y acceleration
+            particle.vy = particle.vy + (particle.ay * particle.interval);
+
+            // x acceleration
+            particle.vx = particle.vx + (particle.ax * particle.interval);
+        }
+
+        //move the particle at the given velocity
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        //draw the particle
+        particle.draw();
+
+        particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+    }
+
     /**
      * draw_csv_Heat_Insert()
      * Function to draw the heat insert visuals (currently only draws an orange square)
@@ -223,6 +232,8 @@ class Painter{
         // draw rectangle
         ctx.fillStyle = 'rgba(255,136,0,0.5)';
         ctx.fillRect(300, 400, 200, 200);
+
+        this.draw_csv_Heat_Insert_Particle()
     }
 
     /**
@@ -243,6 +254,15 @@ class Painter{
         // ctx.restore();
     }
 
+    draw_csv_Heat_Insert_Particle(){
+        const ctx = this.getLayer(heat);
+        let electron = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'blue'); // randomized
+        electron.setAnimation(this.xenonAnimation);
+        electron.startAnimation();
+
+        this.electron_particles.push(electron);
+    }
+
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
@@ -261,6 +281,7 @@ class Painter{
         // Jack
         this.draw_csv_gas_feed_particles();
     }
+
 
     /**
      * draw_csv_gas_feed_particles()
@@ -321,17 +342,17 @@ class Painter{
 
         // sample xenon - bound to canvas element AND y=mx+b (m and b are set in locally created xenonAnimation function)
         // let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * 0.25, ctx.canvas.height * 0.15, 1, 1, 0, 0, 13, 'purple'); // spawn in set location
-        let xenon0 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 0, 13, 'purple'); // randomized
-        xenon0.setAnimation(xenonAnimation);
+        let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'purple'); // randomized
+        xenon0.setAnimation(this.xenonAnimation);
         xenon0.startAnimation();
 
         this.xenon_particles.push(xenon0);
         // sample xenon - bound vertically to canvas element, bound horizontally to cathode
-        let xenon1 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 2, 13, 'purple'); // randomized
-        xenon1.setAnimation(xenonAnimation);
-        xenon1.startAnimation();
+        // let xenon1 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 2, 13, 'purple'); // randomized
+        // xenon1.setAnimation(this.xenonAnimation);
+        // xenon1.startAnimation();
 
-        this.xenon_particles.push(xenon1);
+        // this.xenon_particles.push(xenon1);
 
 
         // // commented out since it is a test item that I don't need right now

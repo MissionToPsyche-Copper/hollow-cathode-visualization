@@ -18,6 +18,7 @@ class ProtoParticle {
     accelerating = true; // toggle application of accelerations (for testing purposes)
 
 
+
     /**
      * Constructor for particle object with 7 optional parameters and 1 mandatory parameter (layer)
      *
@@ -76,17 +77,19 @@ class ProtoParticle {
         }
 
 
+        let vmax = 30;
+        let vmin = -30;
 
         // vx: randomize if default value
         if(vx === -999){
-            this.vx = Math.floor(Math.random() * 5);
+            this.vx = (Math.floor(Math.random() * 30 +1) / 10);
         } else {
             this.vx = vx;
         }
 
         // vy: randomize if default value
         if(vy === -999){
-            this.vy = Math.floor(Math.random() * 5);
+            this.vy = (Math.floor(Math.random() * (vmax - vmin) + vmin) / 10);
         } else {
             this.vy = vy;
         }
