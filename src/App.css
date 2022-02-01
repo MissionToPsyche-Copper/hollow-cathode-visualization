@@ -94,6 +94,8 @@ img{
     -webkit-transition: opacity 200ms ease;
     transition: opacity 200ms ease;
     color: transparent;
+    width: 1000px;
+    align-content: center;
 }
 
 .w-container{
@@ -290,8 +292,9 @@ img{
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
-    font-size:15px;
+    font-size: clamp(9px, 1vw, 16px);
     font-weight:bold;
+    height: clamp(25px, 4.5vh, 45px);
     padding:8px 20px;
     text-decoration:none;
 }
@@ -304,35 +307,36 @@ img{
 
 .titleLabel {
     color: white;
-    font-size: 35px;
+    font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
     font-family: Arial;
     font-weight: bold;
-    width: 50%;
+    width: 100%;
 }
 
 .sublabel {
     color: white;
-    font-size: 18px;
-    padding: 8px;
+    font-size: clamp(11px, 1vw, 20px);
     font-family: Arial;
     font-weight: normal;
-    width: 40%;
+    padding: 8px;
+    width: 50%;
 }
-
 
 .hallThrusterOffTitleLabelPos
 {
     position: absolute;
-    top: 225px;
-    right:35px;
     text-align: right;
+    top: 46%;
+    right: 0px;
 }
 .hallThrusterOffSublabelPos
 {
     position: absolute;
-    top: 275px;
-    right: 45px;
+    min-width: 40%;
+    max-width: 50%;
+    top: 53%;
+    right: 0px;
     text-align: right;
 }
 .hallThrusterOnTitleLabelPos
@@ -353,19 +357,19 @@ img{
 {
     text-align: left;
     position: absolute;
-    top: 10px;
-    right: calc(100% - 6em);
+    top: 11%;
+    left: -40px;
     /*left: -40px;*/
 }
 .hallThrusterNameSublabelPos
 {
     text-align: left;
     position: absolute;
-    top: 60px;
-    right: calc(100% - 8em);
+    top: 18%;
+    left: -40px;
+    width: 28%;
+    overflow: hidden;
     /*position: relative;*/
     /*left: 30px;*/
     /*border: 3px solid #73AD21;*/
-
 }
-
