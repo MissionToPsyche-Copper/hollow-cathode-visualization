@@ -80,12 +80,13 @@ export class LandingPage extends React.Component {
         return (
             <>
                 <canvas id={"canvas"}
-                        className={"canvas grow"}
                         onClick={this.LearningMode_HandleClick}
                         ref={this.canvas}
                         width={canvas_width}
+                        hidden={true}
                         height={canvas_height}> You need a better browser :(
                 </canvas>
+                <img src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"PresModeButton"}

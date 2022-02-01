@@ -20,7 +20,7 @@ import {
     plasma
 } from "./Galactic";
 
-
+var isAuto = false;
 /**
  * Presentation mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
@@ -34,6 +34,7 @@ class PresMode extends React.Component {
     canvas;
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
     painter;
+
 
     constructor(props){
         super();
@@ -50,8 +51,16 @@ class PresMode extends React.Component {
         this.canvas4 = React.createRef();
         this.canvas5 = React.createRef();
 
+        this.canvas6 = React.createRef();   //Hall Thruster OFF
+        this.canvas7 = React.createRef();   //Hall Thruster ON
+
         // bind handler function(s)
         this.nextButton_HandleClick = this.nextButton_HandleClick.bind(this);
+        this.autoToggleButton_HandleClick = this.autoToggleButton_HandleClick.bind(this)
+
+        //sets ID of the autonomous interval to an used value by default
+        this.autoID = 0
+        this.delay = 5000
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -70,12 +79,16 @@ class PresMode extends React.Component {
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
         const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
         const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+        const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
+        const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
-        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
-        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5];
+        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
+        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
+
+
 
     /**
      * scenarioRefresh()
@@ -88,9 +101,8 @@ class PresMode extends React.Component {
 
         console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
         console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
-
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
-        if(this.state.scene[base] === true && this.state.scene[heat] === false){
+        if (this.state.scene[base] === true && this.state.scene[heat] === false) {
             // clear every layer
             for (let i = base; i < this.state.scene.length; i++) {
                 this.painter.clearCanvas(i);
@@ -98,7 +110,7 @@ class PresMode extends React.Component {
         }
 
         // if basedrawing is active
-        if(this.state.scene[base] === true){
+        if (this.state.scene[base] === true) {
             //this.draw_csv_Base_Drawing();
 
             //draw base cathode
@@ -106,27 +118,27 @@ class PresMode extends React.Component {
         }
 
         // if heat insert is active
-        if(this.state.scene[heat] === true){
+        if (this.state.scene[heat] === true) {
             this.painter.draw_csv_Heat_Insert();
         }
 
         // if gas feed is active
-        if(this.state.scene[gas] === true){
+        if (this.state.scene[gas] === true) {
             this.painter.draw_csv_gas_feed();
         }
 
         // if internal plasma is active
-        if(this.state.scene[plasma] === true){
+        if (this.state.scene[plasma] === true) {
             this.painter.draw_csv_internal_plasma();
         }
 
         // if keeper electrode is active
-        if(this.state.scene[keeper] === true){
+        if (this.state.scene[keeper] === true) {
             this.painter.draw_csv_keeper_electrode();
         }
 
         // if eject plasma is active
-        if(this.state.scene[eject] === true){
+        if (this.state.scene[eject] === true) {
             this.painter.draw_csv_eject_plasma();
         }
 
@@ -141,8 +153,8 @@ class PresMode extends React.Component {
         let newdeltastage = this.state.deltastage;
         let newscene = this.state.scene;
 
-        // update the state
-        if(this.state.deltastage === this.state.scene.length - 1){
+        // update the state, currently does not show hall thruster information, and skips those steps entirely by design
+        if(this.state.deltastage === this.state.scene.length - 3){
             // special case: loop to beginning         note: this loop intentionally starts at 1 instead of zero
             for (let i = 1; i < this.state.scene.length; i++) {
                 newdeltastage = base;
@@ -183,18 +195,40 @@ class PresMode extends React.Component {
         );
     }
 
+    /**
+     * autoToggleButton_HandleClick()
+     * Onclick handler for the "Autonomous/Manual" button, starts the looping progress
+     */
+    autoToggleButton_HandleClick() {
+        isAuto = !isAuto
+        if(isAuto){
+            //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
+            document.getElementById("nextButton").style.visibility = 'hidden'
+            this.autoID = setInterval(()=>{this.nextButton_HandleClick()}, this.delay)
+        }
+        else{
+            //when out of auto mode, the interval is stopped, and the 'next' button is returned
+            document.getElementById("nextButton").style.visibility = 'visible'
+            clearInterval(this.autoID)
+        }
+    }
+
     render(){
         console.log("PresMode.render called") //:debug
         return (
             <>
-                <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+
                 <div className={"stackedButtonGroup bottomleftAlign"}>
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
                 </div>
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>

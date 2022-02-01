@@ -37,7 +37,7 @@ export class LearningMode extends React.Component {
         // initialize canvas instance variables
 
         //Hollow Cathode Canvases:
-        this.canvas0 = React.createRef();                              //// 1 - create ref
+        this.canvas0 = React.createRef();   //// 1 - create ref
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
@@ -56,6 +56,7 @@ export class LearningMode extends React.Component {
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
         this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
         this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
+        this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
@@ -76,14 +77,16 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        document.getElementById(elementId).style.visibility = 'hidden';
+        // document.getElementById(elementId).style.visibility = 'hidden';
+        document.getElementById(elementId).style.display = 'none';
     }
     /**
      * Un-hides the element with the given id
      * @param elementId id of element to show
      */
     showElement(elementId){
-        document.getElementById(elementId).style.visibility = 'visible';
+        // document.getElementById(elementId).style.visibility = 'visible';
+        document.getElementById(elementId).style.display = 'flex';
     }
 
     /**
@@ -168,13 +171,16 @@ export class LearningMode extends React.Component {
         // if basedrawing is active
         if(this.state.scene[base] === true){
             this.painter.draw_csv_Base_Drawing()
+            this.painter.clearCanvas(hallThrusterOn)
+            this.painter.clearCanvas(hallThrusterOff)
+
             // if the user just toggled basedrawing
-            if(this.state.deltastage === base || this.state.deltastage === undefined){
+            if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
             }
         }
+        // the user deselected this option/layer
         else if (this.state.deltastage === base){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -187,8 +193,8 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_Heat_Insert_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === heat){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -201,34 +207,56 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_gas_feed_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === gas){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
+        // INTERNAL PLASMA // -----------
         // if internal plasma is true
-        if(this.state.scene[plasma] === true){
-            this.painter.draw_csv_internal_plasma();
+        if(this.state.scene[plasma]){
+            if(this.state.scene[heat] && this.state.scene[gas]){
+                this.painter.draw_csv_internal_plasma();
 
-            // if the user just triggered the internal plasma
-            if(this.state.deltastage === plasma){
-                this.painter.draw_csv_internal_plasma_guide();
+                // if the user just triggered the internal plasma
+                if(this.state.deltastage === plasma){
+                    this.painter.draw_csv_internal_plasma_guide();
+                }
+            } else {
+                // plasma shouldn't exist
+                let newScene = this.state.scene;
+                newScene[plasma] = false;
+
+                // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+                this.setState((state, props) => {
+                    return { deltastage: plasma, scene: newScene };
+                }, () => {this.scenarioRefresh()});
             }
         }
+
+        // if both heat and gas are true but internal plasma isn't
+        else if (this.state.scene[heat] && this.state.scene[gas]){
+            // there probably should be internal plasma?
+
+            // see if plasma should be required to be next in line
+            if(this.state.deltastage === heat || this.state.deltastage === gas){
+                // show next button (restrict user mobility)
+                this.painter.clearCanvas(plasma);
+                this.hideElement("toggleButtonGroup");
+                this.showElement("nextButton");
+                document.getElementById("nextButton").onclick = this.nextButton_plasma_HandleClick;
+            }
+        }
+        // if plasma is false and deltastage is plasma
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
-        }
 
-        // SPECIAL CASE [trigger internal plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            if ((this.state.deltastage === heat) || (this.state.deltastage === gas)){
-                ReactDOM.render(
-                    <button id={"nextButton"}
-                            className={"button"}
-                            onClick={this.nextButton_plasma_HandleClick}> Next </button>,
-                    document.getElementById('toggleButtonGroup')
-                );
+            // if internal plasma stops because ___ call ___ explanation
+            if(!this.state.scene[heat]){
+                this.painter.draw_csv_internal_plasma_off_heat_guide();
+            } else if(!this.state.scene[gas]){
+                this.painter.draw_csv_internal_plasma_off_gas_guide();
             }
         }
 
@@ -241,37 +269,58 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_keeper_electrode_guide();
             }
         }
+        // if the user deselected this option/layer
         else if (this.state.deltastage === keeper){
-            // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
         }
 
-        // if eject plasma is true
-        if(this.state.scene[eject] === true){
-            this.painter.draw_csv_eject_plasma();
+        // EJECT PLASMA // -----------
+        if(this.state.scene[eject]){
+            if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
+                this.painter.draw_csv_eject_plasma();
 
-            // if the user just triggered eject plasma
-            if(this.state.deltastage === eject){
-                this.painter.draw_csv_eject_plasma_guide();
+                // if the user just triggered eject plasma
+                if(this.state.deltastage === eject){
+                    this.painter.draw_csv_eject_plasma_guide();
+                }
+            } else {
+                // plasma shouldn't eject
+                let newScene = this.state.scene;
+                newScene[eject] = false;
+
+                // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+                this.setState((state, props) => {
+                    return { deltastage: eject, scene: newScene };
+                }, () => {this.scenarioRefresh()});
             }
         }
+        else if (this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
+            // there probably should be ejecting plasma?
+
+            // see if eject should be required to be next in line
+            if(this.state.deltastage === keeper){
+                // show next button (restrict user mobility)
+                this.painter.clearCanvas(eject);
+                this.hideElement("toggleButtonGroup");
+                this.showElement("nextButton");
+                document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
+            }
+        }
+        // if eject is false and deltastage is plasma
         else if (this.state.deltastage === eject){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
-        }
 
-        // SPECIAL CASE [trigger eject plasma] LOGIC
-        if ((this.state.scene[heat] === true) && (this.state.scene[gas] === true)){
-            // Todo questionable logic, oddly enough, not checking for keeper here^ makes the model more accurate
-            if (this.state.deltastage === keeper){
-                // Todo not super solid logic^
-                ReactDOM.render(
-                    <button id={"nextButton"}
-                            className={"button"}
-                            onClick={this.nextButton_eject_HandleClick}> Next </button>,
-                    document.getElementById('toggleButtonGroup')
-                );
-            }
+            // if ejecting plasma stops bcz ___ call ___ explanation
+            // if(!this.state.scene[heat]){
+            //     this.painter.draw_csv_eject_plasma_off_heat_guide();
+            // } else if(!this.state.scene[gas]){
+            //     this.painter.draw_csv_eject_plasma_off_gas_guide();
+            // } else if(!this.state.scene[plasma]){
+            //     this.painter.draw_csv_eject_plasma_off_plasma_guide();
+            // } else if(!this.state.scene[keeper]){
+            //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
+            // }
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
@@ -282,8 +331,9 @@ export class LearningMode extends React.Component {
             && this.state.scene[keeper] === true
             && this.state.scene[eject] === true){
             this.hideElement("toggleButtonGroup");
+            this.showElement("nextButton");
+            document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
-
     }
 
     /**
@@ -342,27 +392,9 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[plasma] = true;
 
-
         // update DOM buttons (replace next with toggles)
-        ReactDOM.render(
-            <>
-                <button id={"KeeperElectrodeToggle"}
-                        className={"button"}
-                        onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
-                </button>
-
-                <button id={"GasFeedToggle"}
-                        className={"button"}
-                        onClick={this.GasFeedToggle_HandleClick}> Gas Feed
-                </button>
-
-                <button id={"HeatInsertToggle"}
-                        className={"button"}
-                        onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
-                </button>
-            </>,
-            document.getElementById('toggleButtonGroup')
-        );
+        this.hideElement("nextButton");
+        this.showElement("toggleButtonGroup");
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -391,7 +423,6 @@ export class LearningMode extends React.Component {
     }
 
     hallThrusterToggle_HandleClick() {
-
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = !newScene[hallThrusterOn];
 
@@ -408,31 +439,23 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[eject] = !newScene[eject];
 
-        // update DOM buttons (replace next with toggles)
-        ReactDOM.render(
-            <>
-                <button id={"KeeperElectrodeToggle"}
-                        className={"button"}
-                        onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
-                </button>  {/*Todo undecided logic (this way of doing this stinks)*/}
-
-                <button id={"GasFeedToggle"}
-                        className={"button"}
-                        onClick={this.GasFeedToggle_HandleClick}> Gas Feed
-                </button>
-
-                <button id={"HeatInsertToggle"}
-                        className={"button"}
-                        onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts </button>
-            </>,
-            document.getElementById('toggleButtonGroup')
-        );
+        // update DOM buttons (replace next with normal toggles)
+        this.hideElement("nextButton");
+        this.showElement("toggleButtonGroup");
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
+    }
 
+    /**
+     * nextButton_end_HandleClick()
+     * Onclick handler for the "next" button for the eject plasma scene's ending
+     * this leads to the view were we show them some links to follow and such
+     */
+    nextButton_end_HandleClick() {
+        this.hideElement("nextButton");
     }
 
     /**
@@ -460,89 +483,91 @@ export class LearningMode extends React.Component {
 
 
     render(){
-        // console.log("LearningMode.render called") //:debug
         return (
             <>
-                <div className={"LearningMode"}>
-                    <canvas id={"canvas0"} ref={this.canvas0} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas1"} ref={this.canvas1} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas2"} ref={this.canvas2} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas3"} ref={this.canvas3} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas4"} ref={this.canvas4} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas5"} ref={this.canvas5} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas6"} ref={this.canvas6} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                    <canvas id={"canvas7"} ref={this.canvas7} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-
-                    <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
-                        <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
-                    </div>
-
-                    <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
-                        <button id={"HallThrusterToggle"}
-                                className={"button"}
-                                onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
-                        </button>
-                        <button id={"HallThrusterNext"}
-                                className={"button"}
-                                onClick={this.nextButton_hallThruster_HandleClick}> Next
-                        </button>
-                    </div>
-
-
-                        <div id={"hallThrusterOffLabelDiv"}>
-                            <label id={"hallThrusterOffLabel"}
-                                   className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
-                            </label>
-                        </div>
-
-                        <div id={"hallThrusterOffSublabelDiv"}>
-                            <label id={"hallThrusterOffSublabel"}
-                                   className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                            </label>
-                        </div>
-
-
-                    <div id={"hallThrusterOnLabelDiv"}>
-                        <label id={"hallThrusterOnLabel"}
-                               className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
-                        </label>
-                    </div>
-
-                    <div id={"hallThrusterOnSublabelDiv"}>
-                        <label id={"hallThrusterOnSublabel"}
-                               className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                        </label>
-                    </div>
-
-                    <div id={"hallThrusterNameLabelDiv"}>
-                        <label id={"hallThrusterNameLabel"}
-                               className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
-                        </label>
-                    </div>
-
-                    <div id={"hallThrusterNameSublabelDiv"}>
-                        <label id={"hallThrusterNameSublabel"}
-                               className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                        </label>
-                    </div>
-
-                    <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
-                        <button id={"KeeperElectrodeToggle"}
-                                className={"button"}
-                                onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
-                        </button>
-                        <button id={"GasFeedToggle"}
-                                className={"button"}
-                                onClick={this.GasFeedToggle_HandleClick}> Gas Feed
-                        </button>
-                        <button id={"HeatInsertToggle"}
-                                className={"button"}
-                                onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
-                        </button>
-                    </div>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                {/*<img id={"baseCathode"} src={"/images/base_cathode.png"} className={"baseCathode grow"} alt={"Base Cathode"}/>*/}
+                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 </div>
+
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"HallThrusterToggle"}
+                            className={"button"}
+                            onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
+                    </button>
+                    <button id={"HallThrusterNext"}
+                            className={"button"}
+                            onClick={this.nextButton_hallThruster_HandleClick}> Next
+                    </button>
+                </div>
+
+                <div id={"hallThrusterOffLabelDiv"}>
+                    <label id={"hallThrusterOffLabel"}
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                    </label>
+                </div>
+
+                <div id={"hallThrusterOffSublabelDiv"}>
+                    <label id={"hallThrusterOffSublabel"}
+                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"hallThrusterOnLabelDiv"}>
+                    <label id={"hallThrusterOnLabel"}
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
+                    </label>
+                </div>
+
+                <div id={"hallThrusterOnSublabelDiv"}>
+                    <label id={"hallThrusterOnSublabel"}
+                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"hallThrusterNameLabelDiv"}>
+                    <label id={"hallThrusterNameLabel"}
+                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                    </label>
+                </div>
+
+                <div id={"hallThrusterNameSublabelDiv"}>
+                    <label id={"hallThrusterNameSublabel"}
+                           className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"} style={{display: "block"}}>
+                    <button id={"KeeperElectrodeToggle"}
+                            className={"button"}
+                            style={{display: "block"}}
+                            onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                    </button>
+                    <button id={"GasFeedToggle"}
+                            className={"button"}
+                            style={{display: "block"}}
+                            onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                    </button>
+                    <button id={"HeatInsertToggle"}
+                            className={"button"}
+                            style={{display: "block"}}
+                            onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                    </button>
+                </div>
+                <button id={"nextButton"}
+                        className={"button stackedButtonGroup bottomrightAlign"}
+                        style={{display: "none"}}> Next
+                </button>
             </>
-        ) //// 2 - attach ref to node via ref = this.canvas#
+        )
     }
 }
 
