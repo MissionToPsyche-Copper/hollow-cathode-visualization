@@ -86,7 +86,7 @@ export class LandingPage extends React.Component {
                         hidden={true}
                         height={canvas_height}> You need a better browser :(
                 </canvas>
-                <img src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
+                <img id={'spaceshipImage'} src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"PresModeButton"}
