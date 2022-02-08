@@ -398,15 +398,18 @@ class Painter{
     draw_csv_gas_feed_guide(){
         // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
-        // this.clearCanvas(gas);
-        // const ctx = this.getLayer(gas);
+         this.clearCanvas(gas);
+         const ctx = this.getLayer(gas);
 
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Gas Feed", canvas_width/2, canvas_height/2);
-        // ctx.restore();
+         // draw text
+         ctx.save();
+         ctx.font = "25px Arial";
+         ctx.fillStyle = 'rgb(255,255,255)';
+         ctx.fillText("This is the Gas feed filler text,",canvas_width/1.75, canvas_height/3)
+         ctx.fillText("this will be replaced by the factual",canvas_width/1.75, canvas_height/2.8)
+         ctx.fillText(" detailed description that jack and ",canvas_width/1.75, canvas_height/2.6)
+         ctx.fillText("huy are currently writing", canvas_width/1.75, canvas_height/2.4);
+         ctx.restore();
     }
 
     /**
