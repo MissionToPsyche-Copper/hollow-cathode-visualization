@@ -65,6 +65,14 @@ class Painter{
 
     }
 
+    /**
+     * Cancels the animations of all electrons from the electron_particles array
+     */
+    removeElectrons(){
+        console.log("removing electrons")
+        this.electron_particles[0].get_particles_array().pop_particles_array()
+    }
+
     /** Landing Page */
     /**
      * Psyche spaceship on landing page
@@ -167,6 +175,8 @@ class Painter{
 
     xenonAnimation(particle){
         particle.clearPath();
+        window.cancelAnimationFrame(particle.anime_key)
+        console.log(particle)
 
         //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
         let cathodeTop = canvas_height * .25;
@@ -216,7 +226,7 @@ class Painter{
         //draw the particle
         particle.draw();
 
-        particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+        particle.anime_key = window.requestAnimationFrame(function() {particle.animate(particle)});
     }
 
     /**
@@ -259,6 +269,8 @@ class Painter{
         let electron = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 6, 'blue'); // randomized
         electron.setAnimation(this.xenonAnimation);
         electron.startAnimation();
+
+        console.log(electron)
 
         this.electron_particles.push(electron);
     }
@@ -345,6 +357,8 @@ class Painter{
         let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'purple'); // randomized
         xenon0.setAnimation(this.xenonAnimation);
         xenon0.startAnimation();
+
+        xenon0.pop_particles_array()
 
         this.xenon_particles.push(xenon0);
         // sample xenon - bound vertically to canvas element, bound horizontally to cathode
@@ -460,7 +474,7 @@ class Painter{
      * draw_csv_internal_plasma_off_heat_guide()
      * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
      */
-    draw_csv_internal_plasma_on_heat_guide() {
+    draw_csv_internal_plasma_off_heat_guide() {
         // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
     }
 
