@@ -60,7 +60,7 @@ code {
 }
 
 #canvas2{
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   height: 80vh;
   min-height: 350px;
   z-index: 2;

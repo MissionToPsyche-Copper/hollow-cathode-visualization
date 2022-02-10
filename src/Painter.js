@@ -106,10 +106,6 @@ class Painter{
         this.clearCanvas(hallThrusterOff);
         const ctx = this.getLayer(hallThrusterOff);
 
-        // draw rectangle
-        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
-
         ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
     }
 
@@ -121,10 +117,6 @@ class Painter{
 
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(0,217,255,0.5)'; //set the pen color
-        ctx.fillRect(hallThruster_x, hallThruster_y, 200, 200) //draw a filled in rectangle
 
         ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
     }
@@ -140,18 +132,6 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        // draw rectangle
-        // ctx.fillStyle = 'rgba(255,0,0,0.5)'; //set the pen color
-        // ctx.fillRect(200, 400, 200, 200) //draw a filled in rectangle
-
-        //particle barrier test 1
-        ctx.strokeStyle = "#FF0000";
-        ctx.beginPath();
-        ctx.moveTo(0, 300);
-        ctx.lineWidth = 10;
-        ctx.lineTo(900, 1200);
-        ctx.stroke();
-
         ctx.drawImage(this.base_cathode, 0, canvas_height * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
     }
 
@@ -164,12 +144,6 @@ class Painter{
         // this.clearCanvas(base);
         // const ctx = this.getLayer(base);
 
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Hollow Cathode Turned Off", canvas_width * 0.05, canvas_height * 0.9);
-        // ctx.restore();
     }
 
 
@@ -239,10 +213,6 @@ class Painter{
         this.clearCanvas(heat);
         const ctx = this.getLayer(heat);
 
-        // draw rectangle
-        ctx.fillStyle = 'rgba(255,136,0,0.5)';
-        ctx.fillRect(300, 400, 200, 200);
-
         this.draw_csv_Heat_Insert_Particle()
     }
 
@@ -255,13 +225,6 @@ class Painter{
 
         // this.clearCanvas(heat);
         // const ctx = this.getLayer(heat);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Heat Insert", canvas_width/2, canvas_height/2);
-        // ctx.restore();
     }
 
     draw_csv_Heat_Insert_Particle(){
@@ -285,10 +248,6 @@ class Painter{
         this.clearCanvas(gas);
         const ctx = this.getLayer(gas);
 
-        // draw rectangle
-        ctx.fillStyle = 'rgba(247,255,0,0.5)';
-        ctx.fillRect(400, 400, 200, 200);
-
 
         // Jack
         this.draw_csv_gas_feed_particles();
@@ -302,58 +261,9 @@ class Painter{
      */
     draw_csv_gas_feed_particles(){
         const ctx = this.getLayer(gas);
-        // Particle Experimentation // - Jack
+
+
         // Drawing some particles //
-
-        // // commented out since it is a test item that I don't need right now
-        // // sample electron - bound to canvas element
-        // let electron = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 0, 9, 'blue');
-        // let electronAnimation = function (particle){
-        //     particle.clearPath();
-        //
-        //     //boundary checking and acceleration
-        //     let max_height = particle.canvas.height - particle.radius;
-        //     let min_height = 0 + particle.radius;
-        //     let max_width = particle.canvas.width - particle.radius;
-        //     let min_width = 0 + particle.radius;
-        //
-        //     //y direction
-        //     if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
-        //         particle.vy = -particle.vy;
-        //     } else if(particle.accelerating) {
-        //         // y acceleration
-        //         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-        //         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        //         particle.vy = particle.vy + (particle.ay * particle.interval);
-        //     }
-        //
-        //     //x direction
-        //     if (particle.x + particle.vx > max_width || particle.x + particle.vx < min_width) {
-        //         particle.vx = -particle.vx;
-        //     } else if(particle.accelerating) {
-        //         // x acceleration
-        //         // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-        //         // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-        //         particle.vx = particle.vx + (particle.ax * particle.interval);
-        //     }
-        //
-        //     //move the particle at the given velocity
-        //     particle.x += particle.vx;
-        //     particle.y += particle.vy;
-        //     //draw the particle
-        //     particle.draw();
-        //
-        //     particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        // }
-        // electron.setAnimation(electronAnimation);
-        // electron.startAnimation();
-        // this.electron_particles.push(electron);
-
-
-
-
-        // sample xenon - bound to canvas element AND y=mx+b (m and b are set in locally created xenonAnimation function)
-        // let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * 0.25, ctx.canvas.height * 0.15, 1, 1, 0, 0, 13, 'purple'); // spawn in set location
         let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'purple'); // randomized
         xenon0.setAnimation(this.xenonAnimation);
         xenon0.startAnimation();
@@ -361,46 +271,6 @@ class Painter{
         xenon0.pop_particles_array()
 
         this.xenon_particles.push(xenon0);
-        // sample xenon - bound vertically to canvas element, bound horizontally to cathode
-        // let xenon1 = new ProtoParticle(ctx, -999, -999, -999, -999, 0, 2, 13, 'purple'); // randomized
-        // xenon1.setAnimation(this.xenonAnimation);
-        // xenon1.startAnimation();
-
-        // this.xenon_particles.push(xenon1);
-
-
-        // // commented out since it is a test item that I don't need right now
-        // // sample floater - bound canvas element, no accelerations
-        // let floater = new ProtoParticle(ctx, ctx.canvas.width * 0.1, ctx.canvas.height * 0.25, 2, 3, 0, 2, 30, 'white');
-        // let floaterAnimation = function (particle){
-        //     particle.clearPath();
-        //
-        //     //boundary checking and acceleration
-        //     let max_height = particle.canvas.height - particle.radius;
-        //     let min_height = 0 + particle.radius;
-        //     let max_width = particle.canvas.width - particle.radius;
-        //     let min_width = 0 + particle.radius;
-        //
-        //     //y direction
-        //     if (particle.y + particle.vy > max_height || particle.y + particle.vy < min_height) {
-        //         particle.vy = -particle.vy;
-        //     }
-        //
-        //     //x direction
-        //     if (particle.x + particle.vx > max_width - particle.radius || particle.x + particle.vx < min_width) {
-        //         particle.vx = -particle.vx;
-        //     }
-        //
-        //     //move the particle at the given velocity
-        //     particle.x += particle.vx;
-        //     particle.y += particle.vy;
-        //     //draw the particle
-        //     particle.draw();
-        //
-        //     particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-        // }
-        // floater.setAnimation(floaterAnimation);
-        // floater.startAnimation();
     }
 
 
@@ -415,15 +285,6 @@ class Painter{
          this.clearCanvas(gas);
          const ctx = this.getLayer(gas);
 
-         // draw text
-         ctx.save();
-         ctx.font = "25px Arial";
-         ctx.fillStyle = 'rgb(255,255,255)';
-         ctx.fillText("This is the Gas feed filler text,",canvas_width/1.75, canvas_height/3)
-         ctx.fillText("this will be replaced by the factual",canvas_width/1.75, canvas_height/2.8)
-         ctx.fillText(" detailed description that jack and ",canvas_width/1.75, canvas_height/2.6)
-         ctx.fillText("huy are currently writing", canvas_width/1.75, canvas_height/2.4);
-         ctx.restore();
     }
 
     /**
@@ -436,9 +297,6 @@ class Painter{
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
 
-        // draw rectangle
-        ctx.fillStyle = 'rgba(56,255,0,0.65)';
-        ctx.fillRect(500, 400, 200, 200);
     }
 
     /**
@@ -454,12 +312,6 @@ class Painter{
         // this.clearCanvas(plasma);
         // const ctx = this.getLayer(plasma);
 
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Internal Plasma", canvas_width/2, canvas_height/2);
-        // ctx.restore();
     }
 
     /**
@@ -504,10 +356,6 @@ class Painter{
 
         this.clearCanvas(keeper);
         const ctx = this.getLayer(keeper);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(0,54,255,0.5)';
-        ctx.fillRect(600, 400, 200, 200);
     }
 
     /**
@@ -519,13 +367,6 @@ class Painter{
 
         // this.clearCanvas(keeper);
         // const ctx = this.getLayer(keeper);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Keeper Electrode", canvas_width/2, canvas_height/2);
-        // ctx.restore();
     }
 
 
@@ -538,10 +379,6 @@ class Painter{
 
         this.clearCanvas(eject);
         const ctx = this.getLayer(eject);
-
-        // draw rectangle
-        ctx.fillStyle = 'rgba(59,0,255,0.5)';
-        ctx.fillRect(700, 400, 200, 200);
     }
 
     /**
@@ -553,13 +390,6 @@ class Painter{
 
         // this.clearCanvas(eject);
         // const ctx = this.getLayer(eject);
-
-        // // draw text
-        // ctx.save();
-        // ctx.font = "30px Arial";
-        // ctx.fillStyle = 'rgb(255,255,255)';
-        // ctx.fillText("Eject Plasma", canvas_width/2, canvas_height/2);
-        // ctx.restore();
     }
 }
 
