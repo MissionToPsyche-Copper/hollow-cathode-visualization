@@ -108,7 +108,6 @@ class PresMode extends React.Component {
                 this.painter.clearCanvas(i);
             }
         }
-        console.log(this.painter.layers)
 
         // if basedrawing is active
         if (this.state.scene[base] === true) {
@@ -131,7 +130,6 @@ class PresMode extends React.Component {
         // if internal plasma is active
         if (this.state.scene[plasma] === true) {
             this.painter.draw_csv_internal_plasma();
-            this.painter.removeElectrons();
         }
 
         // if keeper electrode is active
@@ -154,7 +152,6 @@ class PresMode extends React.Component {
     nextButton_HandleClick() {
         let newdeltastage = this.state.deltastage;
         let newscene = this.state.scene;
-        console.log(this)
 
         // update the state, currently does not show hall thruster information, and skips those steps entirely by design
         if(this.state.deltastage === this.state.scene.length - 3){
@@ -189,13 +186,7 @@ class PresMode extends React.Component {
      * Onclick handler for the "back" button, reloads the landing page
      */
     backButton_HandleClick() {
-        console.log(this)
-        alert("removeElectrons called");
-        console.log(this.painter.layers)
-        // this.painter.removeElectrons();
-        alert("removeElectrons called");
-
-        // render landing page
+        // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
                 <LandingPage id={"landingPage"}/>

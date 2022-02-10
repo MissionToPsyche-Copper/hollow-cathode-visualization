@@ -104,16 +104,6 @@ class ProtoParticle {
         particles_array.push(this); // add self to particles array
     }
 
-    get_particles_array(){
-        return particles_array
-    }
-
-    pop_particles_array(){
-        while(particles_array.length > 0){
-            particles_array.pop().clearAnimation();
-        }
-    }
-
     /**
      * Definition of how a ProtoParticle should look
      */
@@ -132,7 +122,6 @@ class ProtoParticle {
         // this.anime_key = window.requestAnimationFrame(animate);
         let temp_this = this; // assign "this" (this particle) to a temporary variable so that it is defined when requestAnimationFrame calls it
         this.anime_key = window.requestAnimationFrame(function() { temp_this.animate(temp_this) });
-        console.log("startAnimation:: " + this.anime_key)
     }
 
     /**
@@ -140,7 +129,6 @@ class ProtoParticle {
      * Stop this particle's rendering and animation *WITHOUT erasing the last frame of it.*
      */
     stopAnimation(){
-        console.log("stopAnimation:: " + this.anime_key)
         window.cancelAnimationFrame(this.anime_key);
     }
 
