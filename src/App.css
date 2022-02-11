@@ -327,7 +327,7 @@ img{
 {
     position: absolute;
     text-align: right;
-    top: 46%;
+    top: 45%;
     right: 0px;
 }
 .hallThrusterOffSublabelPos
@@ -335,7 +335,7 @@ img{
     position: absolute;
     min-width: 40%;
     max-width: 50%;
-    top: 53%;
+    top: 52%;
     right: 0px;
     text-align: right;
 }
@@ -358,7 +358,7 @@ img{
     text-align: left;
     position: absolute;
     top: 11%;
-    left: -40px;
+    left: 0px;
     /*left: -40px;*/
 }
 .hallThrusterNameSublabelPos
@@ -366,10 +366,20 @@ img{
     text-align: left;
     position: absolute;
     top: 18%;
-    left: -40px;
+    left: 0px;
     width: 28%;
     overflow: hidden;
     /*position: relative;*/
     /*left: 30px;*/
     /*border: 3px solid #73AD21;*/
+}
+
+.learningModeGuide
+{
+    top: 28%;
+    left: 55%;
+    width: auto;
+    text-align: left;
+    position: absolute;
+    overflow-wrap: break-word;
 }

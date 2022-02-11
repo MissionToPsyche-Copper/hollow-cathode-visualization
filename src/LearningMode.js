@@ -77,7 +77,7 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        // document.getElementById(elementId).style.visibility = 'hidden';
+        //document.getElementById(elementId).style.visibility = 'hidden';
         document.getElementById(elementId).style.display = 'none';
     }
     /**
@@ -120,6 +120,11 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
+        this.hideElement("HeatInsertsLabelDiv")
+        this.hideElement("GasFeedLabelDiv")
+        this.hideElement("KeeperElectrodesLabelDiv")
+        this.hideElement("InternalPlasmaLabelDiv")
+        this.hideElement("EjectPlasmaLabelDiv")
 
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("toggleButtonGroup");
@@ -190,7 +195,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled heat insert
             if(this.state.deltastage === heat){
-                this.painter.draw_csv_Heat_Insert_guide();
+                this.showElement("HeatInsertsLabelDiv")
             }
         }
         // if the user deselected this option/layer
@@ -204,7 +209,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled the gas feed
             if(this.state.deltastage === gas){
-                this.painter.draw_csv_gas_feed_guide();
+                this.showElement("GasFeedLabelDiv")
             }
         }
         // if the user deselected this option/layer
@@ -220,7 +225,7 @@ export class LearningMode extends React.Component {
 
                 // if the user just triggered the internal plasma
                 if(this.state.deltastage === plasma){
-                    this.painter.draw_csv_internal_plasma_guide();
+                    this.showElement("InternalPlasmaLabelDiv")
                 }
             } else {
                 // plasma shouldn't exist
@@ -266,7 +271,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled the keeper electrode
             if(this.state.deltastage === keeper){
-                this.painter.draw_csv_keeper_electrode_guide();
+                this.showElement("KeeperElectrodesLabelDiv")
             }
         }
         // if the user deselected this option/layer
@@ -281,7 +286,7 @@ export class LearningMode extends React.Component {
 
                 // if the user just triggered eject plasma
                 if(this.state.deltastage === eject){
-                    this.painter.draw_csv_eject_plasma_guide();
+                    this.showElement("EjectPlasmaLabelDiv")
                 }
             } else {
                 // plasma shouldn't eject
@@ -542,6 +547,36 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
                            className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"HeatInsertsLabelDiv"}>
+                    <label id={"HeatInsertsLabel"}
+                           className={"sublabel learningModeGuide"}> Heat Inserts Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"GasFeedLabelDiv"}>
+                    <label id={"GasFeedLabel"}
+                           className={"sublabel learningModeGuide"}> Gas Feed Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"KeeperElectrodesLabelDiv"}>
+                    <label id={"KeeperElectrodeLabel"}
+                           className={"sublabel learningModeGuide"}> Keeper Electrode Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"InternalPlasmaLabelDiv"}>
+                    <label id={"InternalPlasmaLabel"}
+                           className={"sublabel learningModeGuide"}> Internal Plasma Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"EjectPlasmaLabelDiv"}>
+                    <label id={"EjectPlasmaLabel"}
+                           className={"sublabel learningModeGuide"}> Eject Plasma Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
                     </label>
                 </div>
 
