@@ -2,8 +2,6 @@ import React from "react";
 import Painter from "./Painter";
 import {
     base,
-    canvas_height,
-    canvas_width,
     eject,
     gas,
     hallThrusterOff,
@@ -15,6 +13,9 @@ import {
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
+
+let canvas_height = 750;
+let canvas_width = 1150;
 
 /**
  * Learning mode element
@@ -61,13 +62,14 @@ export class LearningMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
+        this.state.canvas_height = document.getElementById("root").clientHeight;
+        this.state.canvas_width = document.getElementById("root").clientWidth * 0.60;
+
         // Hall Thruster toggle button text
-        if(this.state.scene[hallThrusterOn] === true)
-        {
+        if(this.state.scene[hallThrusterOn] === true) {
             this.thrusterButtonText = "Off";
         }
-        else
-        {
+        else {
             this.thrusterButtonText = "On";
         }
     }
@@ -96,7 +98,6 @@ export class LearningMode extends React.Component {
     componentDidMount() {
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
-
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
         const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
@@ -107,7 +108,6 @@ export class LearningMode extends React.Component {
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
-        //
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
     }
@@ -412,6 +412,12 @@ export class LearningMode extends React.Component {
      * nextButton_hallThruster_HandleClick()
      */
     nextButton_hallThruster_HandleClick() {
+        // trigger zoom animation
+        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+        // add listener for end of animation
+        document.getElementById("hallThruster")
+            .addEventListener("animationend", () => { console.log("cathode zoom animation has finished") }, false);
+
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
         this.hideElement("hallThrusterButtonGroup");
@@ -490,15 +496,17 @@ export class LearningMode extends React.Component {
     render(){
         return (
             <>
-                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                {/*<img id={"baseCathode"} src={"/images/base_cathode.png"} className={"baseCathode grow"} alt={"Base Cathode"}/>*/}
+                <img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+
+
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 </div>

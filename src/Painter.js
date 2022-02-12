@@ -18,8 +18,9 @@ import {
     plasma
 } from "./Galactic";
 
-const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
-const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
+// const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
+// const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
+
 
 
 
@@ -43,6 +44,14 @@ class Painter{
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
         this.xenonAnimation = this.xenonAnimation.bind(this);
+
+        this.getCanvasHeight = this.getCanvasHeight.bind(this);
+        this.getCanvasHeight = this.getCanvasHeight.bind(this);
+
+        this.cathodeTop = this.getCanvasHeight() * 0.50;
+        this.cathodeHeight = this.getCanvasHeight() * 0.70;
+        this.cathodeLeft = this.getCanvasWidth() * 0.35;
+        this.cathodeRight = this.getCanvasWidth() * 0.55;
     }
 
     /**
@@ -54,6 +63,13 @@ class Painter{
         return this.layers[layer_number];
     }
 
+    getCanvasHeight(){
+        return this.getLayer(0).canvas.height;
+    }
+    getCanvasWidth(){
+        return this.getLayer(0).canvas.width;
+    }
+
     /**
      * clearCanvas(layer number)
      * Clears contents of a given canvas layer
@@ -61,31 +77,9 @@ class Painter{
      * @param layer_number layer number for layer to clear
      */
     clearCanvas(layer_number){
-        this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height);
+        // this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height); // depends on canvas_width & canvas_height
+        this.getLayer(layer_number).clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight()); // doesn't
 
-    }
-
-    /** Landing Page */
-    /**
-     * Psyche spaceship on landing page
-     */
-    draw_spacecraft(){
-        const ctx = this.getLayer(base);
-
-        //ctx.drawImage(this.psyche_spacecraft, 0, 0, this.psyche_spacecraft.width * 0.7, this.psyche_spacecraft.height * 0.7);
-    }
-
-    /**
-     * Text prompting the user to click the spaceship
-     */
-    draw_test(){
-        // this.clearCanvas(base);
-        const ctx = this.getLayer(base);
-
-        // draw text
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'rgb(255,255,255)';
-        ctx.fillText("Click the spacecraft to begin!", canvas_width * 0.45, canvas_height * 0.6);
     }
 
     /** Learning Mode */
@@ -98,7 +92,7 @@ class Painter{
         this.clearCanvas(hallThrusterOff);
         const ctx = this.getLayer(hallThrusterOff);
 
-        ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
+        // ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
     }
 
     /**
@@ -110,7 +104,7 @@ class Painter{
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);
 
-        ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
+        // ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
     }
 
     /** Learning Mode and Presentation Mode */
@@ -124,7 +118,46 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, 0, canvas_height * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
+        // ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
+        ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.getCanvasWidth() * 0.4, this.getCanvasHeight() * 0.4);
+        // ctx.drawImage(this.base_cathode, 0, 0, 300, 300);
+
+
+        // set overall boundary box to be the canvas edges
+
+        let max_y = this.cathodeHeight;
+        let min_y = this.cathodeTop;
+        let max_x = this.cathodeRight;
+        let min_x = this.cathodeLeft;
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
+        ctx.lineWidth = 6;
+
+        // right
+        ctx.beginPath();
+        ctx.moveTo(min_x, min_y);
+        ctx.lineTo(min_x, max_y);
+        ctx.stroke();
+
+        // left
+        ctx.beginPath();
+        ctx.moveTo(max_x, max_y);
+        ctx.lineTo(max_x, min_y);
+        ctx.stroke();
+
+        // top
+        ctx.beginPath();
+        ctx.moveTo(max_x, min_y);
+        ctx.lineTo(min_x, min_y);
+        ctx.stroke();
+
+        // bottom
+        ctx.beginPath();
+        ctx.moveTo(min_x, max_y);
+        ctx.lineTo(max_x, max_y);
+        ctx.stroke();
+
     }
 
     /**
@@ -142,17 +175,22 @@ class Painter{
     xenonAnimation(particle){
         particle.clearPath();
 
-        //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
-        let cathodeTop = canvas_height * .25;
-        let cathodeHeight = this.base_cathode.height *.4;
-        let cathodeLeft = canvas_width *.25;
-        let cathodeRight = this.base_cathode.width *.4;
-        // set overall boundary box to be the canvas edges
+        let max_y = this.cathodeHeight;
+        let min_y = this.cathodeTop;
+        let max_x = this.cathodeRight;
+        let min_x = this.cathodeLeft;
 
-        let max_y = (cathodeTop + cathodeHeight) - particle.radius;
-        let min_y = cathodeTop + particle.radius;
-        let max_x = (cathodeRight) - particle.radius;
-        let min_x = (cathodeLeft + particle.radius)*.9 ;
+        //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
+        // let cathodeTop = this.getCanvasHeight() * .25; // original canvas modifier: * .25
+        // let cathodeHeight = this.getCanvasHeight() * .25; // original canvas modifier: this.base_cathode.height *.4
+        // let cathodeLeft = this.getCanvasWidth() *.25; // original canvas modifier: * .25
+        // let cathodeRight = this.getCanvasWidth() *.25; // original canvas modifier: this.base_cathode.width *.4
+        // // set overall boundary box to be the canvas edges
+        //
+        // let max_y = (cathodeTop + cathodeHeight) - particle.radius;
+        // let min_y = cathodeTop + particle.radius;
+        // let max_x = (cathodeRight) - particle.radius;
+        // let min_x = (cathodeLeft + particle.radius)*.9;
 
         // set angled boundary box using a slope and a y-intercept
         let m = 1; // slope
@@ -167,10 +205,10 @@ class Painter{
         }
         else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
 
-            // do a proper angled bounce
-            let swap = particle.vx;
-            particle.vx = particle.vy;
-            particle.vy = swap;
+            // // do a proper angled bounce
+            // let swap = particle.vx;
+            // particle.vx = particle.vy;
+            // particle.vy = swap;
 
         } else if(particle.accelerating){
             // acceleration is only applied here to prevent logic errors accelerating particles through collisions
@@ -219,7 +257,8 @@ class Painter{
 
     draw_csv_Heat_Insert_Particle(){
         const ctx = this.getLayer(heat);
-        let electron = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 6, 'blue'); // randomized
+        // let electron = new ProtoParticle(ctx, ctx.canvas.width * .3, ctx.canvas.height *.6, -999, -999, 0, 0, 6, 'blue'); // randomized
+        let electron = new ProtoParticle(ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, -999, -999, 0, 0, 6, 'blue'); // randomized
         electron.setAnimation(this.xenonAnimation);
         electron.startAnimation();
 
@@ -252,7 +291,7 @@ class Painter{
 
 
         // Drawing some particles //
-        let xenon0 = new ProtoParticle(ctx, ctx.canvas.width * .25, ctx.canvas.height *.49, -999, -999, 0, 0, 10, 'purple'); // randomized
+        let xenon0 = new ProtoParticle(ctx,this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, -999, -999, 0, 0, 10, 'purple'); // randomized
         xenon0.setAnimation(this.xenonAnimation);
         xenon0.startAnimation();
 
