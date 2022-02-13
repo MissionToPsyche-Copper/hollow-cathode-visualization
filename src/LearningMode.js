@@ -123,6 +123,8 @@ export class LearningMode extends React.Component {
         this.hideElement("HeatInsertsLabelDiv")
         this.hideElement("GasFeedLabelDiv")
         this.hideElement("KeeperElectrodesLabelDiv")
+        this.hideElement("GasKeeperErrorDiv")
+        this.hideElement("HeatKeeperErrorDiv")
         this.hideElement("InternalPlasmaLabelDiv")
         this.hideElement("EjectPlasmaLabelDiv")
 
@@ -145,6 +147,7 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
+
         }
 
         if (this.state.scene[hallThrusterOn] === true)
@@ -217,13 +220,23 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
         }
 
+
+
+        //HEAT ON, KEEPER ON, NO PLASMA
+        if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
+            this.hideElement("HeatInsertsLabelDiv")
+            this.hideElement("KeeperElectrodesLabelDiv")
+            this.showElement(("HeatKeeperErrorDiv"))
+        }
+
+
         // INTERNAL PLASMA // -----------
         // if internal plasma is true
         if(this.state.scene[plasma]){
             if(this.state.scene[heat] && this.state.scene[gas]){
                 this.painter.draw_csv_internal_plasma();
 
-                // if the user just triggered the internal plasma
+                // if the user  just triggered the internal plasma
                 if(this.state.deltastage === plasma){
                     this.showElement("InternalPlasmaLabelDiv")
                 }
@@ -326,6 +339,13 @@ export class LearningMode extends React.Component {
             // } else if(!this.state.scene[keeper]){
             //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
             // }
+        }
+        //GAS ON, KEEPER ON, NO PLASMA
+        if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
+            console.log("test")
+            this.hideElement("GasFeedLabelDiv")
+            this.hideElement("KeeperElectrodesLabelDiv")
+            this.showElement(("GasKeeperErrorDiv"))
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
@@ -565,6 +585,18 @@ export class LearningMode extends React.Component {
                 <div id={"KeeperElectrodesLabelDiv"}>
                     <label id={"KeeperElectrodeLabel"}
                            className={"sublabel learningModeGuide"}> Keeper Electrode Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"GasKeeperErrorDiv"}>
+                    <label id={"GasKeeperErrorLabel"}
+                           className={"sublabel learningModeGuide"}> Gas=1 Keeper=1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                    </label>
+                </div>
+
+                <div id={"HeatKeeperErrorDiv"}>
+                    <label id={"HeatKeeperErrorLabel"}
+                           className={"sublabel learningModeGuide"}> Heat=1 Keeper=1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
                     </label>
                 </div>
 
