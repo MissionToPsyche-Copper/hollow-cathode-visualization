@@ -295,7 +295,7 @@ class Painter{
         xenon0.setAnimation(this.xenonAnimation);
         xenon0.startAnimation();
 
-        this.xenon_particles.push(xenon0);
+        this.xenon_particles.push(xenon0); //meaningless now
     }
 
 
@@ -322,6 +322,7 @@ class Painter{
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
 
+        ProtoParticle.ionizeParticles();
     }
 
     /**

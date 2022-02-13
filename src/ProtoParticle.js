@@ -162,18 +162,43 @@ class ProtoParticle {
     setAnimation(animate){
         this.animate = animate;
     }
-}
 
-// function stop_ball(){
-//     if(particles_array.length > 0){
-//         particles_array.pop().clearAnimation();
-//     } else {
-//         console.error("stopBall(): particles_array is empty");
-//     }
-// }
+    /**
+     * Ionize yourself
+     */
+    ionize(){
+        // if is xenon
+        if(this.color === 'purple'){
+            this.color = '#fff';
+            this.radius += 1;
+            this.vx = Math.floor(this.vx / 4);
+            this.yx = Math.floor(this.yx / 4);
+        }
+        // if is electron
+        else if(this.color === 'blue'){
+            // clone self?
+            // particles_array.push(this); // not quite how you'd do it
+        }
+    }
+
+    /**
+     * Ionizes the particle at particles_array[key]
+     * Essentially a wrapper for the call, this is needed since using setTimeout makes scoping issues
+     *
+     * @param index index in particles_array[]
+     */
+    static draw_ionize(index){
+        particles_array[index].ionize();
+    }
+
+    static ionizeParticles(){
+        // should avoid array usage here for efficiency
+        for (const key in particles_array) {
+            // should probably filter here instead of in this.ionize
+            setTimeout(ProtoParticle.draw_ionize, Math.random() * 3 * 1000, key); // random between 0 and 3 seconds
+        }
+    }
+}
 
 
 export default ProtoParticle;
-
-// var ball = new ProtoParticle();
-// ball.startAnimation();
