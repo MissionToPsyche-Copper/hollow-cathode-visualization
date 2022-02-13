@@ -15,14 +15,16 @@ describe('LearningModeTesting', function () {
         eyes = new Eyes(runner)
         let config = new Configuration()
         config.setBatch(new BatchInfo("Hollow Cathode Learning Batch"))
-        config.addBrowser(839, 864, BrowserType.CHROME);
-        config.setApiKey("LyBNg7PUAI2LrhPJLJBt3P0jNjupYxn0CXaZzfpIJhc110")
+        //To get API key, the tester needs Applitools account.
+        //Once having Applitools account, the tester clicks user icon then clicks "My API key" to get API key
+        const apiKey= "LyBNg7PUAI2LrhPJLJBt3P0jNjupYxn0CXaZzfpIJhc110"
+        config.setApiKey(apiKey)
         eyes.setConfiguration(config)
         await driver.get("http://localhost:3000/")
     })
     afterEach(async function () {
-        await driver.quit();
-        await eyes.abortAsync();
+        await driver.quit()
+        await eyes.abortAsync()
         const allTestResults= await runner.getAllTestResults()
         console.log(allTestResults)
     })
@@ -42,17 +44,17 @@ describe('LearningModeTesting', function () {
     * */
     it('BaseDrawingTesting', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'BaseDrawing demo', new RectangleSize(839, 864));
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'BaseDrawing demo');
         await eyes.check("BasDrawing Window", Target.window().fully());
-        await driver.findElement(By.id("canvasHolder")).click()
+        await toBaseDrawing()
         await sleep(2000)
         await eyes.close()
     })
 
     it('HeatInsertTesting', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'HeatInsert demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click();
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'HeatInsert demo');
+        await toBaseDrawing()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click();
         await eyes.check("Heat Insert Window", Target.window().fully());
@@ -64,8 +66,8 @@ describe('LearningModeTesting', function () {
 
     it('GasFeedTesting', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'GasFeed demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'GasFeed demo');
+        await toBaseDrawing()
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await eyes.check("Heat Insert Window", Target.window().fully());
@@ -76,10 +78,10 @@ describe('LearningModeTesting', function () {
     })
 
     it('InternalPlasmaTesting1', async function(){
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'InternalPlasma1 demo', new RectangleSize(839, 864));
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'InternalPlasma1 demo');
         await driver.manage().window().setRect(839, 864)
         await sleep(1000)
-        await driver.findElement(By.id("canvasHolder")).click()
+        await toBaseDrawing()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
         // activate gas feed scene
@@ -93,8 +95,8 @@ describe('LearningModeTesting', function () {
     })
 
     it('InternalPlasmaTesting2', async function(){
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'InternalPlasma2 demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'InternalPlasma2 demo');
+        await toBaseDrawing()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
         // activate gas feed scene
@@ -108,9 +110,9 @@ describe('LearningModeTesting', function () {
     })
 
     it('ElectrodeKeeperTesting', async function(){
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'ElectrodeKeeper demo', new RectangleSize(839, 864));
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'ElectrodeKeeper demo');
         await sleep(1000)
-        await driver.findElement(By.id("canvasHolder")).click()
+        await toBaseDrawing()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
         await eyes.check("ElectrodeKeeper Window", Target.window().fully());
@@ -121,24 +123,26 @@ describe('LearningModeTesting', function () {
     })
 
     it('Keeper&HeaterTesting1', async function(){
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Heater1 demo', new RectangleSize(839, 864));
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Heater1 demo');
         await sleep(1000)
-        await driver.findElement(By.id("canvasHolder")).click()
+        await toBaseDrawing()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
+        await eyes.check("Keeper&Heater1 Keeper Window", Target.window().fully());
         // activate heat insert  scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
-        await eyes.check("Keeper&Heater1 Window", Target.window().fully());
+        await eyes.check("Keeper&Heater1 Heat Window", Target.window().fully());
         await sleep(1000)
         await eyes.close()
     })
 
     it('Keeper&HeaterTesting2', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Heater2 demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Heater2 demo');
+        await toBaseDrawing()
         // activate heat insert  scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
+        await eyes.check("Keeper&Heat2 Heat Window", Target.window().fully());
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
         await eyes.check("Keeper&Heater2 Window", Target.window().fully());
@@ -148,51 +152,62 @@ describe('LearningModeTesting', function () {
 
     it('Keeper&GasTesting1', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Gas1 demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Gas1 demo');
+        await toBaseDrawing()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
+        await eyes.check("Keeper&Gas1 Keeper Window", Target.window().fully());
         // activate gas feed  scene
         await driver.findElement(By.id("GasFeedToggle")).click()
-        await eyes.check("Keeper&Gas1 Window", Target.window().fully());
+        await eyes.check("Keeper&Gas1 Gas Window", Target.window().fully());
         await sleep(1000)
         await eyes.close()
     })
 
     it('Keeper&GasTesting2', async function(){
         await sleep(1000)
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Gas2 demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Gas2 demo');
+        await toBaseDrawing()
         // activate gas feed  scene
         await driver.findElement(By.id("GasFeedToggle")).click()
+        await eyes.check("Keeper&Gas2 Gas Window", Target.window().fully());
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
-        await eyes.check("Keeper&Gas2 Window", Target.window().fully());
+        await eyes.check("Keeper&Gas2 Keeper Window", Target.window().fully());
         await sleep(1000)
         await eyes.close()
     })
 
     it('ExternalPlasmaPathTesting', async function(){
         let idList = ["HeatInsertToggle", "GasFeedToggle", "KeeperElectrodeToggle"]
-        await eyes.open(driver, 'Hollow Cathode Visualization App', 'IntegrateTesting demo', new RectangleSize(839, 864));
-        await driver.findElement(By.id("canvasHolder")).click()
+        await eyes.open(driver, 'Hollow Cathode Visualization App', 'IntegrateTesting demo');
+        await toBaseDrawing()
         await sleep(3000)
         await permute(idList, 0, idList.length-1, 0)
         await sleep(5000)
     })
 
+    async function toBaseDrawing(){
+        await sleep(3000)
+        await driver.findElement(By.id('canvasHolder')).click()
+        await sleep(1000)
+        await driver.findElement(By.id('HallThrusterNext')).click()
+        await sleep(3000)
+    }
+
     async function permute(list, l, r, times){
+        let traceTable = [];
         if(l==r){
-            console.log(list+"\n"+times)
+            console.log(list+"\n")
             let i=0
-            let elements
+            let element
             while(i<3){
-                await eyes.check(list[i], Target.window().fully());
+                traceTable[i]=list[i];
+                await eyes.check(list[i], Target.window().fully())
                 await driver.findElement(By.id(list[i++])).click()
-                elements= await driver.findElements(By.id('nextButton'))
-                if(elements.length!=0){
-                    await eyes.check('nextButton', Target.window().fully());
-                    await driver.findElement(By.id('nextButton')).click()
+                if((traceTable.includes("HeatInsertToggle") && traceTable.includes("GasFeedToggle")) || traceTable.length===3){
+                    await eyes.check('nextButton', Target.window().fully())
+                    await driver.findElement(By.id('nextButton')).click();
                 }
                 await sleep(500)
             }
@@ -200,7 +215,7 @@ describe('LearningModeTesting', function () {
         }else {
             for (let i = l; i <= r; i++) {
                 swap(list, l, i)
-                await permute(list, l + 1, r, ++times)
+                await permute(list, l + 1, r)
                 swap(list, l, i)
             }
         }
@@ -211,8 +226,9 @@ describe('LearningModeTesting', function () {
         list[r]= tmp;
     }
     async function reset(times){
-        await driver.findElement(By.id('backButton')).click()
+        await driver.get("http://localhost:3000/")
         await driver.findElement(By.id("canvasHolder")).click()
-        await eyes.check("Reset Window "+times, Target.window().fully());
+        await driver.findElement(By.id("HallThrusterNext")).click()
+        await eyes.check("Reset Window" + times, Target.window().fully())
     }
 });
