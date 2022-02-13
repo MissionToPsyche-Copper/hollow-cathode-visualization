@@ -48,10 +48,12 @@ class Painter{
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
 
-        this.cathodeTop = this.getCanvasHeight() * 0.50;
-        this.cathodeHeight = this.getCanvasHeight() * 0.70;
-        this.cathodeLeft = this.getCanvasWidth() * 0.35;
-        this.cathodeRight = this.getCanvasWidth() * 0.55;
+        // mounding box for cathode tube
+        // (measures are *from* the axis)
+        this.cathodeTop = this.getCanvasHeight() * 0.39; // previous value: * 0.50 // previous value's size likely matches larger cathode, idr exactly, worth keeping
+        this.cathodeHeight = this.getCanvasHeight() * 0.49; // previous value: * 0.70
+        this.cathodeLeft = this.getCanvasWidth() * 0.20; // previous value: * 0.35
+        this.cathodeRight = this.getCanvasWidth() * 0.35; // previous value: * 0.55
     }
 
     /**
@@ -123,40 +125,40 @@ class Painter{
         // ctx.drawImage(this.base_cathode, 0, 0, 300, 300);
 
 
-        // set overall boundary box to be the canvas edges
 
-        let max_y = this.cathodeHeight;
-        let min_y = this.cathodeTop;
-        let max_x = this.cathodeRight;
-        let min_x = this.cathodeLeft;
-
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
-        ctx.lineWidth = 6;
-
-        // right
-        ctx.beginPath();
-        ctx.moveTo(min_x, min_y);
-        ctx.lineTo(min_x, max_y);
-        ctx.stroke();
-
-        // left
-        ctx.beginPath();
-        ctx.moveTo(max_x, max_y);
-        ctx.lineTo(max_x, min_y);
-        ctx.stroke();
-
-        // top
-        ctx.beginPath();
-        ctx.moveTo(max_x, min_y);
-        ctx.lineTo(min_x, min_y);
-        ctx.stroke();
-
-        // bottom
-        ctx.beginPath();
-        ctx.moveTo(min_x, max_y);
-        ctx.lineTo(max_x, max_y);
-        ctx.stroke();
+        // // visualize cathode tube bounding box
+        // let max_y = this.cathodeHeight;
+        // let min_y = this.cathodeTop;
+        // let max_x = this.cathodeRight;
+        // let min_x = this.cathodeLeft;
+        //
+        // ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        // // ctx.fillStyle = 'rgba(194,62,62,0.3)';
+        // ctx.lineWidth = 6;
+        //
+        // // right
+        // ctx.beginPath();
+        // ctx.moveTo(min_x, min_y);
+        // ctx.lineTo(min_x, max_y);
+        // ctx.stroke();
+        //
+        // // left
+        // ctx.beginPath();
+        // ctx.moveTo(max_x, max_y);
+        // ctx.lineTo(max_x, min_y);
+        // ctx.stroke();
+        //
+        // // top
+        // ctx.beginPath();
+        // ctx.moveTo(max_x, min_y);
+        // ctx.lineTo(min_x, min_y);
+        // ctx.stroke();
+        //
+        // // bottom
+        // ctx.beginPath();
+        // ctx.moveTo(min_x, max_y);
+        // ctx.lineTo(max_x, max_y);
+        // ctx.stroke();
 
     }
 
