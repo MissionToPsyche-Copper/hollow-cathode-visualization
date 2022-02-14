@@ -19,6 +19,8 @@ class ProtoParticle {
 
 
 
+
+
     /**
      * Constructor for particle object with 7 optional parameters and 1 mandatory parameter (layer)
      *
@@ -41,7 +43,11 @@ class ProtoParticle {
         ax = Math.floor(Math.random() * (5 - 1) + 1),
         ay = Math.floor(Math.random() * (5 - 1) + 1),
         r = 15,
-        color = 'white'
+        color = 'white',
+        max_y,
+        min_y,
+        max_x,
+        min_x
     ) {
         this.ctx = layer;
         this.canvas = layer.canvas;
@@ -101,6 +107,13 @@ class ProtoParticle {
         this.color = color;
         this.anime_key = -1; // key/reference to current animation frame, given by browser, defaults to -1
         this.interval = 3/60;
+
+        // todo I ADDED 4 PARAMS TO THE CONSTRUCTOR BUT DIDN'T UPDATE ANY DEFINITIONS IN LEARNING MODE OR PAINTER !!!!!!!!!! plz don't forget, will seem like a weird bug for 4 hours
+        this.max_y = max_y;// layer.canvas.height * 0.39;
+        this.min_y = min_y;// layer.canvas.height * 0.49;
+        this.max_x = max_x;// layer.canvas.width * 0.20;
+        this.min_x = min_x;// layer.canvas.width * 0.35;
+
         particles_array.push(this); // add self to particles array
     }
 
@@ -193,9 +206,72 @@ class ProtoParticle {
 
     static ionizeParticles(){
         // should avoid array usage here for efficiency
-        for (const key in particles_array) {
+        for (const index in particles_array) {
             // should probably filter here instead of in this.ionize
-            setTimeout(ProtoParticle.draw_ionize, Math.random() * 3 * 1000, key); // random between 0 and 3 seconds
+            setTimeout(ProtoParticle.draw_ionize, Math.random() * 3 * 1000, index); // random between 0 and 3 seconds
+        }
+    }
+
+    static xenonAnimation(particle){
+        particle.clearPath();
+
+        // set angled boundary box using a slope and a y-intercept
+        let m = 1; // slope
+        let b = 300; // y intercept
+
+        // check boundary using slope intercept form
+        if (particle.y + particle.vy > particle.max_y || particle.y + particle.vy < particle.min_y) {
+            particle.vy = -particle.vy;
+        }
+        else if (particle.x + particle.vx > particle.max_x - particle.radius || particle.x + particle.vx < particle.min_x) {
+            particle.vx = -particle.vx;
+        }
+        else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
+
+            // // do a proper angled bounce
+            // let swap = particle.vx;
+            // particle.vx = particle.vy;
+            // particle.vy = swap;
+
+        } else if(particle.accelerating){
+            // acceleration is only applied here to prevent logic errors accelerating particles through collisions
+            // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+
+            // y acceleration
+            particle.vy = particle.vy + (particle.ay * particle.interval);
+
+            // x acceleration
+            particle.vx = particle.vx + (particle.ax * particle.interval);
+        }
+
+        //move the particle at the given velocity
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        //draw the particle
+        particle.draw();
+
+        particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
+    }
+
+
+    /**
+     * Generates a new xenon on a given layer at a given position
+     * @param ctx layer
+     * @param x initial x position
+     * @param y initial y position
+     */
+    static generateXenon(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
+        // Drawing some particles //
+        let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 10, 'purple', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
+        xenon0.setAnimation(ProtoParticle.xenonAnimation);
+        xenon0.startAnimation();
+    }
+
+    static killAllXenon(){
+        let limiti = particles_array.length;
+        for (let i = 0; i < limiti; i++) {
+            (particles_array.pop()).clearAnimation();
         }
     }
 }

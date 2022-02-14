@@ -39,11 +39,11 @@ class Painter{
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
 
         // particle managing variables
-        this.xenon_particles = []; //array of all existing xenon particle objects
-        this.electron_particles = []; //array of all existing electron particle objects
+        // this.xenon_particles = []; //array of all existing xenon particle objects // depreciating (moving to ProtoParticle)
+        this.electron_particles = []; //array of all existing electron particle objects // depreciating (moving to ProtoParticle)
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
-        this.xenonAnimation = this.xenonAnimation.bind(this);
+        this.electronAnimation = this.electronAnimation.bind(this);
 
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
@@ -54,6 +54,9 @@ class Painter{
         this.cathodeHeight = this.getCanvasHeight() * 0.49; // previous value: * 0.70
         this.cathodeLeft = this.getCanvasWidth() * 0.20; // previous value: * 0.35
         this.cathodeRight = this.getCanvasWidth() * 0.35; // previous value: * 0.55
+
+        this.plasma = false; // (flag) indicates when xenon should be ionizing
+        this.XenonGeneratorKey = -1;
     }
 
     /**
@@ -126,39 +129,39 @@ class Painter{
 
 
 
-        // // visualize cathode tube bounding box
-        // let max_y = this.cathodeHeight;
-        // let min_y = this.cathodeTop;
-        // let max_x = this.cathodeRight;
-        // let min_x = this.cathodeLeft;
-        //
-        // ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        // // ctx.fillStyle = 'rgba(194,62,62,0.3)';
-        // ctx.lineWidth = 6;
-        //
-        // // right
-        // ctx.beginPath();
-        // ctx.moveTo(min_x, min_y);
-        // ctx.lineTo(min_x, max_y);
-        // ctx.stroke();
-        //
-        // // left
-        // ctx.beginPath();
-        // ctx.moveTo(max_x, max_y);
-        // ctx.lineTo(max_x, min_y);
-        // ctx.stroke();
-        //
-        // // top
-        // ctx.beginPath();
-        // ctx.moveTo(max_x, min_y);
-        // ctx.lineTo(min_x, min_y);
-        // ctx.stroke();
-        //
-        // // bottom
-        // ctx.beginPath();
-        // ctx.moveTo(min_x, max_y);
-        // ctx.lineTo(max_x, max_y);
-        // ctx.stroke();
+        // visualize cathode tube bounding box
+        let max_y = this.cathodeHeight;
+        let min_y = this.cathodeTop;
+        let max_x = this.cathodeRight;
+        let min_x = this.cathodeLeft;
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
+        ctx.lineWidth = 6;
+
+        // right
+        ctx.beginPath();
+        ctx.moveTo(min_x, min_y);
+        ctx.lineTo(min_x, max_y);
+        ctx.stroke();
+
+        // left
+        ctx.beginPath();
+        ctx.moveTo(max_x, max_y);
+        ctx.lineTo(max_x, min_y);
+        ctx.stroke();
+
+        // top
+        ctx.beginPath();
+        ctx.moveTo(max_x, min_y);
+        ctx.lineTo(min_x, min_y);
+        ctx.stroke();
+
+        // bottom
+        ctx.beginPath();
+        ctx.moveTo(min_x, max_y);
+        ctx.lineTo(max_x, max_y);
+        ctx.stroke();
 
     }
 
@@ -174,35 +177,43 @@ class Painter{
     }
 
 
-    xenonAnimation(particle){
+
+    /**
+     * draw_csv_Heat_Insert()
+     * Function to draw the heat insert visuals (currently only draws an orange square)
+     */
+    draw_csv_Heat_Insert(){
+        // console.log(heat, " draw_csv_Heat_Insert called"); //:debug
+
+        this.clearCanvas(heat);
+        const ctx = this.getLayer(heat);
+
+        this.draw_csv_Heat_Insert_Particle()
+    }
+
+    /**
+     * draw_csv_Heat_Insert_guide()
+     * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
+     */
+    draw_csv_Heat_Insert_guide(){
+        // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
+
+        // this.clearCanvas(heat);
+        // const ctx = this.getLayer(heat);
+    }
+
+    electronAnimation(particle){
         particle.clearPath();
-
-        let max_y = this.cathodeHeight;
-        let min_y = this.cathodeTop;
-        let max_x = this.cathodeRight;
-        let min_x = this.cathodeLeft;
-
-        //boundary checking and acceleration - (combined to prevent logic errors on boundary AND acceleration at same time)
-        // let cathodeTop = this.getCanvasHeight() * .25; // original canvas modifier: * .25
-        // let cathodeHeight = this.getCanvasHeight() * .25; // original canvas modifier: this.base_cathode.height *.4
-        // let cathodeLeft = this.getCanvasWidth() *.25; // original canvas modifier: * .25
-        // let cathodeRight = this.getCanvasWidth() *.25; // original canvas modifier: this.base_cathode.width *.4
-        // // set overall boundary box to be the canvas edges
-        //
-        // let max_y = (cathodeTop + cathodeHeight) - particle.radius;
-        // let min_y = cathodeTop + particle.radius;
-        // let max_x = (cathodeRight) - particle.radius;
-        // let min_x = (cathodeLeft + particle.radius)*.9;
 
         // set angled boundary box using a slope and a y-intercept
         let m = 1; // slope
         let b = 300; // y intercept
 
         // check boundary using slope intercept form
-        if (particle.y + particle.vy > max_y || particle.y + particle.vy < min_y) {
+        if (particle.y + particle.vy > particle.max_y || particle.y + particle.vy < particle.min_y) {
             particle.vy = -particle.vy;
         }
-        else if (particle.x + particle.vx > max_x - particle.radius || particle.x + particle.vx < min_x) {
+        else if (particle.x + particle.vx > particle.max_x - particle.radius || particle.x + particle.vx < particle.min_x) {
             particle.vx = -particle.vx;
         }
         else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
@@ -233,35 +244,11 @@ class Painter{
         particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
     }
 
-    /**
-     * draw_csv_Heat_Insert()
-     * Function to draw the heat insert visuals (currently only draws an orange square)
-     */
-    draw_csv_Heat_Insert(){
-        // console.log(heat, " draw_csv_Heat_Insert called"); //:debug
-
-        this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
-
-        this.draw_csv_Heat_Insert_Particle()
-    }
-
-    /**
-     * draw_csv_Heat_Insert_guide()
-     * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
-     */
-    draw_csv_Heat_Insert_guide(){
-        // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
-
-        // this.clearCanvas(heat);
-        // const ctx = this.getLayer(heat);
-    }
-
     draw_csv_Heat_Insert_Particle(){
         const ctx = this.getLayer(heat);
         // let electron = new ProtoParticle(ctx, ctx.canvas.width * .3, ctx.canvas.height *.6, -999, -999, 0, 0, 6, 'blue'); // randomized
         let electron = new ProtoParticle(ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, -999, -999, 0, 0, 6, 'blue'); // randomized
-        electron.setAnimation(this.xenonAnimation);
+        electron.setAnimation(this.electronAnimation);
         electron.startAnimation();
 
         this.electron_particles.push(electron);
@@ -274,31 +261,43 @@ class Painter{
     draw_csv_gas_feed(){
         // console.log(gas, " draw_csv_gas_feed called"); //:debug
 
-        this.clearCanvas(gas);
+        // this.clearCanvas(gas);
         const ctx = this.getLayer(gas);
 
 
-        // Jack
-        this.draw_csv_gas_feed_particles();
+        // Jack - managing particles
+        // Turn on Xenon Generator, 1 xenon per 5 seconds
+        this.startXenonGenerator();
+
+        // ProtoParticle.generateXenon(ctx)
+        // this.draw_csv_gas_feed_particles();
     }
 
-
-    /**
-     * draw_csv_gas_feed_particles()
-     * Draws some simulated particles for the gas feed as a demo
-     * Author: @Jack Blicha
-     */
-    draw_csv_gas_feed_particles(){
+    startXenonGenerator(){
         const ctx = this.getLayer(gas);
 
+        // 1 xenon per 5 seconds
+        if(this.XenonGeneratorKey === -1){
 
-        // Drawing some particles //
-        let xenon0 = new ProtoParticle(ctx,this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, -999, -999, 0, 0, 10, 'purple'); // randomized
-        xenon0.setAnimation(this.xenonAnimation);
-        xenon0.startAnimation();
-
-        this.xenon_particles.push(xenon0); //meaningless now
+            ProtoParticle.generateXenon(ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, this.cathodeTop, this.cathodeHeight, this.cathodeLeft, this.cathodeRight); // generate an initial one to get it going right away
+            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, 2 * 1000, ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, this.cathodeTop, this.cathodeHeight, this.cathodeLeft, this.cathodeRight); // generate on a timer
+        }
     }
+
+    killXenonGenerator(){
+        clearInterval(this.XenonGeneratorKey); // kill interval
+        this.XenonGeneratorKey = -1; // reset key
+    }
+
+
+    // /**
+    //  * draw_csv_gas_feed_particles()
+    //  * Draws some simulated particles for the gas feed as a demo
+    //  * Author: @Jack Blicha
+    //  */
+    // draw_csv_gas_feed_particles(){
+    //
+    // }
 
 
 
@@ -320,6 +319,7 @@ class Painter{
      */
     draw_csv_internal_plasma(){
         // console.log(plasma, " draw_csv_internal_plasma called"); //:debug
+        this.plasma = true; // xenon should be ionizing
 
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);

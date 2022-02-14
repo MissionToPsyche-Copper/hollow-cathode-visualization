@@ -214,6 +214,7 @@ export class LearningMode extends React.Component {
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === gas){
+            this.painter.killXenonGenerator();
             this.painter.clearCanvas(this.state.deltastage);
         }
 
@@ -256,6 +257,7 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.plasma = false; // no plasma (flag)
 
             // if internal plasma stops because ___ call ___ explanation
             if(!this.state.scene[heat]){
