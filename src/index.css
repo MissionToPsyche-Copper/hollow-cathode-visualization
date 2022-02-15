@@ -21,7 +21,7 @@ code {
 
 
 /* Div element that which holds the primary canvas element */
-#root{
+#root {
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
   overflow: hidden; /*hide elements that move offscreen from within this container*/
 }
