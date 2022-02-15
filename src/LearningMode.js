@@ -8,7 +8,14 @@ import {
     hallThrusterOn,
     heat,
     keeper,
-    plasma
+    plasma,
+    heatText,
+    gasText,
+    plasmaText,
+    keeperText,
+    ejectText,
+    heatKeeperErrorText,
+    gasKeeperText
 } from "./Galactic";
 
 import ReactDOM from "react-dom";
@@ -60,7 +67,7 @@ export class LearningMode extends React.Component {
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene };
+        this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
         this.state.canvas_height = document.getElementById("root").clientHeight;
         this.state.canvas_width = document.getElementById("root").clientWidth * 0.60;
@@ -120,12 +127,7 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
-        this.hideElement("HeatInsertsLabelDiv")
-        this.hideElement("GasFeedLabelDiv")
-        this.hideElement("KeeperElectrodesLabelDiv")
-        this.hideElement("InternalPlasmaLabelDiv")
-        this.hideElement("EjectPlasmaLabelDiv")
-
+        this.setState({text: " "})
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
@@ -145,6 +147,7 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
+
         }
 
         if (this.state.scene[hallThrusterOn] === true)
@@ -195,7 +198,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled heat insert
             if(this.state.deltastage === heat){
-                this.showElement("HeatInsertsLabelDiv")
+                this.setState({text: heatText})
             }
         }
         // if the user deselected this option/layer
@@ -210,7 +213,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled the gas feed
             if(this.state.deltastage === gas){
-                this.showElement("GasFeedLabelDiv")
+                this.setState({text: gasText})
             }
         }
         // if the user deselected this option/layer
@@ -225,9 +228,9 @@ export class LearningMode extends React.Component {
             if(this.state.scene[heat] && this.state.scene[gas]){
                 this.painter.draw_csv_internal_plasma();
 
-                // if the user just triggered the internal plasma
+                // if the user  just triggered the internal plasma
                 if(this.state.deltastage === plasma){
-                    this.showElement("InternalPlasmaLabelDiv")
+                    this.setState({text: plasmaText})
                 }
             } else {
                 // plasma shouldn't exist
@@ -274,7 +277,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled the keeper electrode
             if(this.state.deltastage === keeper){
-                this.showElement("KeeperElectrodesLabelDiv")
+                this.setState({text: keeperText})
             }
         }
         // if the user deselected this option/layer
@@ -289,7 +292,7 @@ export class LearningMode extends React.Component {
 
                 // if the user just triggered eject plasma
                 if(this.state.deltastage === eject){
-                    this.showElement("EjectPlasmaLabelDiv")
+                    this.setState({text: ejectText})
                 }
             } else {
                 // plasma shouldn't eject
@@ -329,6 +332,14 @@ export class LearningMode extends React.Component {
             // } else if(!this.state.scene[keeper]){
             //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
             // }
+        }
+        //GAS ON, KEEPER ON, NO PLASMA
+        if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
+            this.setState({text: gasKeeperText})
+        }
+        //HEAT ON, KEEPER ON, NO PLASMA
+        if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
+            this.setState({text: heatKeeperErrorText})
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
@@ -561,35 +572,7 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-                <div id={"HeatInsertsLabelDiv"}>
-                    <label id={"HeatInsertsLabel"}
-                           className={"sublabel learningModeGuide"}> Heat Inserts Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
-
-                <div id={"GasFeedLabelDiv"}>
-                    <label id={"GasFeedLabel"}
-                           className={"sublabel learningModeGuide"}> Gas Feed Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
-
-                <div id={"KeeperElectrodesLabelDiv"}>
-                    <label id={"KeeperElectrodeLabel"}
-                           className={"sublabel learningModeGuide"}> Keeper Electrode Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
-
-                <div id={"InternalPlasmaLabelDiv"}>
-                    <label id={"InternalPlasmaLabel"}
-                           className={"sublabel learningModeGuide"}> Internal Plasma Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
-
-                <div id={"EjectPlasmaLabelDiv"}>
-                    <label id={"EjectPlasmaLabel"}
-                           className={"sublabel learningModeGuide"}> Eject Plasma Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
-                    </label>
-                </div>
+                <div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"} style={{display: "block"}}>
                     <button id={"KeeperElectrodeToggle"}
