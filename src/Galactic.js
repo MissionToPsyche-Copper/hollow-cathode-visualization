@@ -1,9 +1,9 @@
 // Huy's Dimensions
-export const canvas_height = 600;
-export const canvas_width = 940;
+export const canvas_height = 600; // becoming depreciated
+export const canvas_width = 940; // becoming depreciated
 // Jack's Dimensions
-// export const canvas_height = 750;
-// export const canvas_width = 1600;
+// export const canvas_height = 750; // becoming depreciated
+// export const canvas_width = 1600; // becoming depreciated
 
 /**
  * Mapping layers via constants

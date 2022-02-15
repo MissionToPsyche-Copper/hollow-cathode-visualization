@@ -18,30 +18,32 @@ code {
     monospace;
 }
 
+
+
 /* Div element that which holds the primary canvas element */
-#canvasHolder{
+#root{
   position: relative; /* MUST be relative so that buttons can be positioned relative to it */
+  overflow: hidden; /*hide elements that move offscreen from within this container*/
 }
 
-/* the bottom-most canvas is the only one without absolute positioning*/
-#canvas0{
-  /*border: 1px rgba(255, 0, 0, 0.23);*/
+.canvas{
+  position:absolute;
   height: 80vh;
   min-height: 350px;
-  z-index: 0;
-}
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
 
-.canvas ~ .canvas{
-  position:absolute;
-  right: 0px; /* relative to parent (canvasHolder) */
-  top: 0px;
+  top: 0;
+  bottom: 0;
+  left: 20vw; /* relative to parent (canvasHolder) */
+  right: 20vw; /* relative to parent (canvasHolder) */
+
 }
 
 .baseCathode{
-  /*transform: rotate(19deg);*/
   position: absolute;
-  right: 20%;
-  top: 0px;
+  top: 0;
+  left: 0;
   z-index: 0;
 }
 
@@ -50,65 +52,88 @@ code {
   min-height: 350px;
 }
 
-#canvas1{
-  /*border: 1px rgba(0, 0, 255, 0.35);*/
+#hallThruster{
+  position: absolute;
   height: 80vh;
   min-height: 350px;
+
+  top: 0;
+  left: 20vw;
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
+/* CLASS for animation for zooming on on cathode from hall thruster */
+.hallThrusterToCathodeZoom{
+  animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
+  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-duration: 3s;
+  animation-name: cathodeZoomIn;
+  /*animation-direction: alternate;*/
+}
+/* animation for zooming on on cathode from hall thruster */
+@keyframes cathodeZoomIn {
+  from {
+    height: 80vh;
+    left: 20vw;
+  }
+
+  to {
+    height: 375vh;
+    left: 1vw;
+  }
+}
+
+/* layering */
+#canvas0{
+  /*border: 1px rgba(255, 0, 0, 0.23);*/
+  /*transform: translate(85px, 96px) rotate(15deg);*/
+  z-index: 0;
+}
+
+#canvas1{
+  /*border: 1px rgba(0, 0, 255, 0.35);*/
   z-index: 1;
 }
 
 #canvas2{
   /*border: 1px solid green;*/
-  height: 80vh;
-  min-height: 350px;
   z-index: 2;
-  /*transform: rotate(19deg);*/
 }
 
 #canvas3{
   /*border: 1px solid white;*/
-  height: 80vh;
-  min-height: 350px;
   z-index: 3;
 }
 
 #canvas4{
   /*border: 1px solid mediumpurple;*/
-  height: 80vh;
-  min-height: 350px;
   z-index: 4;
 }
 
 #canvas5{
   /*border: 1px solid orange;*/
-  height: 80vh;
-  min-height: 350px;
   z-index: 5;
 }
 
 #canvas6{
   /*border: 1px solid orange;*/
-  height: 80vh;
-  left: 5vh;
-  min-height: 350px;
-  top: -4vh;
   z-index: 6;
 }
 
 #canvas7{
    /*border: 1px solid orange;*/
-  height: 80vh;
-  left: 6vh;
-  min-height: 350px;
-  top: -8vh;
   z-index: 7;
  }
 
-
+/* (landing page spacecraft) */
 #spacecraft_image{
-  height: 0%;
-  width: 85%;
   height: 80vh;
+  width: 85%;
   min-height: 350px;
   visibility: visible;
 }
@@ -120,20 +145,21 @@ code {
   position: absolute;
   display: flex;
   flex-direction: column;
+
   z-index: 10;
 }
 
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
-  bottom: 1vh;
-  right: 0px;
+  bottom: 0;
+  right: 18vw;
   align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
-  bottom: 1vh;
-  left: 0px;
+  bottom: 0;
+  left: 18vw;
   align-items: flex-start;
 }
 

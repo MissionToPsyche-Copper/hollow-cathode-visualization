@@ -1,7 +1,7 @@
 import React from "react";
 import Painter from "./Painter";
 import ReactDOM from "react-dom";
-import {base, canvas_height, canvas_width, hallThrusterOff} from "./Galactic";
+import {base, hallThrusterOff} from "./Galactic";
 import PresMode from "./PresMode";
 import LearningMode from "./LearningMode";
 
@@ -29,12 +29,6 @@ export class LandingPage extends React.Component {
         this.painter = new Painter(this.layers);
         this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
         this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
-
-        // draw some test text
-        this.painter.draw_test();
-
-        //draw spacecraft
-        this.painter.draw_spacecraft();
     }
 
     /**
@@ -82,9 +76,7 @@ export class LandingPage extends React.Component {
                 <canvas id={"canvas"}
                         onClick={this.LearningMode_HandleClick}
                         ref={this.canvas}
-                        width={canvas_width}
-                        hidden={true}
-                        height={canvas_height}> You need a better browser :(
+                        hidden={true}> You need a better browser :(
                 </canvas>
                 <img id={'spaceshipImage'} src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 

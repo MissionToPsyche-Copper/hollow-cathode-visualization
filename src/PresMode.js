@@ -19,6 +19,7 @@ import {
     keeper,
     plasma
 } from "./Galactic";
+import ProtoParticle from "./ProtoParticle";
 
 var isAuto = false;
 /**
@@ -40,7 +41,6 @@ class PresMode extends React.Component {
         super();
 
         this.base_cathode = new Image();
-        this.painter = new Painter();
         this.base_cathode.src = "/images/base_cathode.png";
 
         // initialize canvas instance variables
@@ -71,7 +71,6 @@ class PresMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
@@ -97,13 +96,17 @@ class PresMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        console.log("PresMode.scenarioRefresh() called"); //:debug
+        // console.log("PresMode.scenarioRefresh() called"); //:debug
 
-        console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
-        console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
+        // console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
+        // console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
         if (this.state.scene[base] === true && this.state.scene[heat] === false) {
-            // clear every layer
+            // clear every layer, and all particles, and all generators
+            this.painter.killElectronGenerator();
+            this.painter.killXenonGenerator();
+            ProtoParticle.killAllElectron();
+            ProtoParticle.killAllXenon();
             for (let i = base; i < this.state.scene.length; i++) {
                 this.painter.clearCanvas(i);
             }
@@ -142,7 +145,7 @@ class PresMode extends React.Component {
             this.painter.draw_csv_eject_plasma();
         }
 
-        console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
+        // console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
     /**
@@ -214,7 +217,7 @@ class PresMode extends React.Component {
     }
 
     render(){
-        console.log("PresMode.render called") //:debug
+        // console.log("PresMode.render called") //:debug
         return (
             <>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={canvas_width} height={canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>

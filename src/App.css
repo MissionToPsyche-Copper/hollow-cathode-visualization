@@ -291,7 +291,7 @@ img{
     border:none;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
+    font-family: Arial, serif;
     font-size: clamp(9px, 1vw, 16px);
     font-weight:bold;
     height: clamp(25px, 4.5vh, 45px);
@@ -306,10 +306,10 @@ img{
 }
 
 .titleLabel {
-    color: white;
+    color: #A53F5B;
     font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
-    font-family: Arial;
+    font-family: Arial, serif;
     font-weight: bold;
     width: 100%;
 }
@@ -317,67 +317,76 @@ img{
 .sublabel {
     color: white;
     font-size: clamp(11px, 1vw, 20px);
-    font-family: Arial;
+    font-family: Arial, serif;
     font-weight: normal;
     padding: 8px;
     width: 50%;
+
+    min-width: 20vw;
+    max-width: 30vw;
 }
 
-.hallThrusterOffTitleLabelPos
-{
+.hallThrusterOffTitleLabelPos {
     position: absolute;
+    top: calc(53vh - 1.2em);
+    right: 15vw;
+
     text-align: right;
-    top: 45%;
-    right: 0px;
+
+    min-width: 20vw;
+    max-width: 30vw;
 }
-.hallThrusterOffSublabelPos
-{
+.hallThrusterOffSublabelPos {
     position: absolute;
-    min-width: 40%;
-    max-width: 50%;
-    top: 52%;
-    right: 0px;
+    top: 53vh;
+    right: 15vw;
+
     text-align: right;
+
+    min-width: 20vw;
+    max-width: 30vw;
 }
-.hallThrusterOnTitleLabelPos
-{
+.hallThrusterOnTitleLabelPos {
     position: absolute;
     top: 225px;
     right:45px;
+
+    min-width: 20vw;
+    max-width: 30vw;
+
     text-align: right;
 }
-.hallThrusterOnSublabelPos
-{
+.hallThrusterOnSublabelPos {
     position: absolute;
     top: 275px;
     right: 45px;
+
     text-align: right;
 }
-.hallThrusterNameTitleLabelPos
-{
+.hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
     top: 11%;
-    left: 0px;
-    /*left: -40px;*/
+    left: 15vw;
+
+    width: 30vw;
+    min-width: 20vw;
 }
-.hallThrusterNameSublabelPos
-{
-    text-align: left;
+.hallThrusterNameSublabelPos {
     position: absolute;
     top: 18%;
-    left: 0px;
-    width: 28%;
+    left: 15vw;
+    text-align: left;
+
+    width: 30vw;
+    min-width: 20vw;
+
     overflow: hidden;
-    /*position: relative;*/
-    /*left: 30px;*/
-    /*border: 3px solid #73AD21;*/
 }
 
-.learningModeGuide
-{
+.learningModeGuide {
     top: 28%;
-    left: 55%;
+    left: 55vw;
     width: auto;
     text-align: left;
     position: absolute;
