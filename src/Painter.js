@@ -38,25 +38,22 @@ class Painter{
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
 
-        // particle managing variables
-        // this.xenon_particles = []; //array of all existing xenon particle objects // depreciating (moving to ProtoParticle)
-        this.electron_particles = []; //array of all existing electron particle objects // depreciating (moving to ProtoParticle)
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
-        this.electronAnimation = this.electronAnimation.bind(this);
 
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
         this.getCanvasHeight = this.getCanvasHeight.bind(this);
 
         // mounding box for cathode tube
         // (measures are *from* the axis)
-        this.cathodeTop = this.getCanvasHeight() * 0.39; // previous value: * 0.50 // previous value's size likely matches larger cathode, idr exactly, worth keeping
-        this.cathodeHeight = this.getCanvasHeight() * 0.49; // previous value: * 0.70
-        this.cathodeLeft = this.getCanvasWidth() * 0.20; // previous value: * 0.35
-        this.cathodeRight = this.getCanvasWidth() * 0.35; // previous value: * 0.55
+        this.min_y = this.getCanvasHeight() * 0.39; // previous value: * 0.50 // previous value's size likely matches larger cathode, idr exactly, worth keeping
+        this.max_y = this.getCanvasHeight() * 0.49; // previous value: * 0.70
+        this.min_x = this.getCanvasWidth() * 0.20; // previous value: * 0.35
+        this.max_x = this.getCanvasWidth() * 0.35; // previous value: * 0.55
 
         this.plasma = false; // (flag) indicates when xenon should be ionizing
         this.XenonGeneratorKey = -1;
+        this.ElectronGeneratorKey = -1;
     }
 
     /**
@@ -130,37 +127,32 @@ class Painter{
 
 
         // visualize cathode tube bounding box
-        let max_y = this.cathodeHeight;
-        let min_y = this.cathodeTop;
-        let max_x = this.cathodeRight;
-        let min_x = this.cathodeLeft;
-
         ctx.strokeStyle = 'rgba(255,255,255,0.6)';
         // ctx.fillStyle = 'rgba(194,62,62,0.3)';
         ctx.lineWidth = 6;
 
         // right
         ctx.beginPath();
-        ctx.moveTo(min_x, min_y);
-        ctx.lineTo(min_x, max_y);
+        ctx.moveTo(this.min_x, this.min_y);
+        ctx.lineTo(this.min_x, this.max_y);
         ctx.stroke();
 
         // left
         ctx.beginPath();
-        ctx.moveTo(max_x, max_y);
-        ctx.lineTo(max_x, min_y);
+        ctx.moveTo(this.max_x, this.max_y);
+        ctx.lineTo(this.max_x, this.min_y);
         ctx.stroke();
 
         // top
         ctx.beginPath();
-        ctx.moveTo(max_x, min_y);
-        ctx.lineTo(min_x, min_y);
+        ctx.moveTo(this.max_x, this.min_y);
+        ctx.lineTo(this.min_x, this.min_y);
         ctx.stroke();
 
         // bottom
         ctx.beginPath();
-        ctx.moveTo(min_x, max_y);
-        ctx.lineTo(max_x, max_y);
+        ctx.moveTo(this.min_x, this.max_y);
+        ctx.lineTo(this.max_x, this.max_y);
         ctx.stroke();
 
     }
@@ -188,7 +180,9 @@ class Painter{
         this.clearCanvas(heat);
         const ctx = this.getLayer(heat);
 
-        this.draw_csv_Heat_Insert_Particle()
+        // Managing particles
+        // Turn on Electron Generator, 1 electron per 4 seconds
+        this.startElectronGenerator(4);
     }
 
     /**
@@ -202,57 +196,16 @@ class Painter{
         // const ctx = this.getLayer(heat);
     }
 
-    electronAnimation(particle){
-        particle.clearPath();
-
-        // set angled boundary box using a slope and a y-intercept
-        let m = 1; // slope
-        let b = 300; // y intercept
-
-        // check boundary using slope intercept form
-        if (particle.y + particle.vy > particle.max_y || particle.y + particle.vy < particle.min_y) {
-            particle.vy = -particle.vy;
-        }
-        else if (particle.x + particle.vx > particle.max_x - particle.radius || particle.x + particle.vx < particle.min_x) {
-            particle.vx = -particle.vx;
-        }
-        else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
-
-            // // do a proper angled bounce
-            // let swap = particle.vx;
-            // particle.vx = particle.vy;
-            // particle.vy = swap;
-
-        } else if(particle.accelerating){
-            // acceleration is only applied here to prevent logic errors accelerating particles through collisions
-            // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
-
-            // y acceleration
-            particle.vy = particle.vy + (particle.ay * particle.interval);
-
-            // x acceleration
-            particle.vx = particle.vx + (particle.ax * particle.interval);
-        }
-
-        //move the particle at the given velocity
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        //draw the particle
-        particle.draw();
-
-        particle.raf = window.requestAnimationFrame(function() {particle.animate(particle)});
-    }
-
-    draw_csv_Heat_Insert_Particle(){
-        const ctx = this.getLayer(heat);
-        // let electron = new ProtoParticle(ctx, ctx.canvas.width * .3, ctx.canvas.height *.6, -999, -999, 0, 0, 6, 'blue'); // randomized
-        let electron = new ProtoParticle(ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, -999, -999, 0, 0, 6, 'blue'); // randomized
-        electron.setAnimation(this.electronAnimation);
-        electron.startAnimation();
-
-        this.electron_particles.push(electron);
-    }
+    // draw_csv_Heat_Insert_Particle(){
+    //     const ctx = this.getLayer(heat);
+    //
+    //     // let electron = new ProtoParticle(ctx, ctx.canvas.width * .3, ctx.canvas.height *.6, -999, -999, 0, 0, 6, 'blue'); // randomized
+    //     let electron = new ProtoParticle(ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, -999, -999, 0, 0, 6, 'blue', this.max_y, this.min_y, this.max_x, this.min_x); // randomized
+    //     electron.setAnimation(this.electronAnimation);
+    //     electron.startAnimation();
+    //
+    //     this.electron_particles.push(electron);
+    // }
 
     /**
      * draw_csv_gas_feed()
@@ -267,26 +220,79 @@ class Painter{
 
         // Jack - managing particles
         // Turn on Xenon Generator, 1 xenon per 5 seconds
-        this.startXenonGenerator();
+        this.startXenonGenerator(5);
 
         // ProtoParticle.generateXenon(ctx)
         // this.draw_csv_gas_feed_particles();
     }
 
-    startXenonGenerator(){
+
+    /**
+     * Spawns xenon particles every [spawn_rate] seconds, simulates the gas feed.
+     * @author Jack
+     *
+     * @param spawn_rate time in SECONDS between each particle spawn.
+     */
+    startXenonGenerator(spawn_rate){
         const ctx = this.getLayer(gas);
 
-        // 1 xenon per 5 seconds
+        // 1 xenon per 3 seconds
         if(this.XenonGeneratorKey === -1){
-
-            ProtoParticle.generateXenon(ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, this.cathodeTop, this.cathodeHeight, this.cathodeLeft, this.cathodeRight); // generate an initial one to get it going right away
-            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, 2 * 1000, ctx, this.cathodeLeft + 12, (this.cathodeHeight + this.cathodeTop) / 2, this.cathodeTop, this.cathodeHeight, this.cathodeLeft, this.cathodeRight); // generate on a timer
+            ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
+            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
         }
     }
 
+    /**
+     * Restarts the xenon generator with the desired spawn rate, likely to slow it down
+     *
+     * @param new_spawn_rate time in seconds between each particle spawn
+     */
+    slowXenonGenerator(new_spawn_rate){
+        this.killXenonGenerator();
+        this.startXenonGenerator(new_spawn_rate);
+    }
+
+    /**
+     * Stops the generation of xenon immediately
+     */
     killXenonGenerator(){
         clearInterval(this.XenonGeneratorKey); // kill interval
         this.XenonGeneratorKey = -1; // reset key
+    }
+
+    /**
+     * Spawns xenon particles every [spawn_rate] seconds, simulates heated cathode inserts.
+     * @author Jack
+     *
+     * @param spawn_rate time in SECONDS between each particle spawn.
+     */
+    startElectronGenerator(spawn_rate){
+        const ctx = this.getLayer(heat);
+
+        // 2 electrons per 4 seconds
+        if(this.ElectronGeneratorKey === -1){
+            ProtoParticle.generateElectron(ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
+        }
+    }
+
+    /**
+     * Restarts the electron generator with the desired spawn rate, likely to slow it down
+     *
+     * @param new_spawn_rate time in seconds between each particle spawn
+     */
+    slowElectronGenerator(new_spawn_rate){
+        this.killElectronGenerator();
+        this.startElectronGenerator(new_spawn_rate);
+    }
+
+    /**
+     * Stops the generation of electrons immediately
+     */
+    killElectronGenerator(){
+        clearInterval(this.ElectronGeneratorKey); // kill interval
+        this.ElectronGeneratorKey = -1; // reset key
     }
 
 

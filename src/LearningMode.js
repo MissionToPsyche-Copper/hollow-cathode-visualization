@@ -200,6 +200,7 @@ export class LearningMode extends React.Component {
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === heat){
+            this.painter.killElectronGenerator();
             this.painter.clearCanvas(this.state.deltastage);
         }
 
