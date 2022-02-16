@@ -101,7 +101,7 @@ img{
 .w-container{
     margin-right: auto;
     margin-left: auto;
-    max-width: 940px;
+    max-width: 90vw;
 }
 
 .nav-menu{
@@ -218,7 +218,7 @@ img{
     bottom: 0;
     width: 100%;
     height: auto;
-    padding-top: 60px;
+    padding-top: 3rem;
     padding-bottom: 40px;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
@@ -263,7 +263,7 @@ img{
 .wf-container{
     margin-left: auto;
     margin-right: auto;
-    max-width: 940px;
+    max-width: 65vw;
 }
 
 .footer-text-block{
@@ -276,7 +276,7 @@ img{
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 3rem;
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -325,9 +325,9 @@ img{
     max-width: 30vw;
 }
 
-.hallThrusterOffTitleLabelPos {
+.hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: calc(53vh - 1.2em);
+    top: calc(42vh - 1.2em);
     right: 15vw;
 
     text-align: right;
@@ -335,33 +335,17 @@ img{
     min-width: 20vw;
     max-width: 30vw;
 }
-.hallThrusterOffSublabelPos {
+.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 53vh;
+    top: 42vh;
     right: 15vw;
 
-    text-align: right;
+    text-align: justify;
 
     min-width: 20vw;
-    max-width: 30vw;
+    max-width: 24vw;
 }
-.hallThrusterOnTitleLabelPos {
-    position: absolute;
-    top: 225px;
-    right:45px;
 
-    min-width: 20vw;
-    max-width: 30vw;
-
-    text-align: right;
-}
-.hallThrusterOnSublabelPos {
-    position: absolute;
-    top: 275px;
-    right: 45px;
-
-    text-align: right;
-}
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
@@ -377,7 +361,7 @@ img{
     left: 15vw;
     text-align: left;
 
-    width: 30vw;
+    width: 20vw;
     min-width: 20vw;
 
     overflow: hidden;

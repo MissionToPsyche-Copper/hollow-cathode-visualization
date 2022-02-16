@@ -538,25 +538,36 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is Off
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is Off
                     </label>
                 </div>
 
                 <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                           className={"sublabel hallThrusterOffSublabelPos"}>
+                        The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic
+                        plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal
+                        plasma. Another role of the hollow cathode, which is not least significant, is to neutralize the
+                        rocket. Without the hollow cathode, when Hall thruster emits plasma, the Hall thruster is
+                        negatively charging the entire rocket. This phenomenon can cause spacecraft erosion and reduce
+                        the thrust force.
                     </label>
                 </div>
 
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster is On
+                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is On
                     </label>
                 </div>
 
                 <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                           className={"sublabel hallThrusterOffSublabelPos"}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit
+                        viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas
+                        pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc
+                        et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet
+                        sagittis semper, nibh.
                     </label>
                 </div>
 
@@ -568,7 +579,11 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
-                           className={"sublabel hallThrusterNameSublabelPos"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet sagittis semper, nibh.
+                           className={"sublabel hallThrusterNameSublabelPos"}>
+                        Hall thruster is advanced electric propulsion used in electric rockets. This technology is
+                        replacing the old chemical thruster since the Hall thruster consumes less energy but produces
+                        an incredibly <i>specific impulse</i> (the amount of force generated for an interval of time) and
+                        significantly reduces the payload mass.
                     </label>
                 </div>
 
