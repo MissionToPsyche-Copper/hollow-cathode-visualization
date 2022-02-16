@@ -430,6 +430,7 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterOnSublabelDiv");
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
+        this.hideElement("HallThrusterNext");
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
@@ -509,6 +510,10 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
+                <button id={"HallThrusterNext"}
+                        className={"zoom"}
+                        onClick={this.nextButton_hallThruster_HandleClick}>
+                </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
@@ -518,10 +523,6 @@ export class LearningMode extends React.Component {
                     <button id={"HallThrusterToggle"}
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
-                    </button>
-                    <button id={"HallThrusterNext"}
-                            className={"button"}
-                            onClick={this.nextButton_hallThruster_HandleClick}> Next
                     </button>
                 </div>
 

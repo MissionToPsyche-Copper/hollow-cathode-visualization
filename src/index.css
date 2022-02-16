@@ -52,6 +52,17 @@ code {
   min-height: 350px;
 }
 
+#HallThrusterNext{
+  background-color: rgba(165, 63, 91, 0.33);
+  position: absolute;
+  top: 5%;
+  bottom: 45%;
+  left: 20vw;
+  right: 50%;
+
+  z-index: 10;
+}
+
 #hallThruster{
   position: absolute;
   height: 80vh;
