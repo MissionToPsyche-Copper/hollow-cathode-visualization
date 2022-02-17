@@ -328,7 +328,7 @@ img{
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
     top: calc(42vh - 1.2em);
-    right: 15vw;
+    right: 15%;
 
     text-align: right;
 
