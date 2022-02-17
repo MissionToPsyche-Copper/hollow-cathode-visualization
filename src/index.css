@@ -152,19 +152,19 @@ code {
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   bottom: 0;
-  right: 18vw;
+  right: 15%;
   align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   bottom: 0;
-  left: 18vw;
+  left: 15%;
   align-items: flex-start;
 }
 
 /* defines spacing between buttons */
 .stackedButtonGroup > button{
   margin-top: 0.25em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.4em;
 }
