@@ -50,14 +50,16 @@ code {
 
   /* alternative */
   position: absolute;
-  height: 90vh;
+  height: 80vh;
   min-height: 350px;
-  /* width: 60vw; */
-  /* min-width: 60vw; */
-  top: -5vh;
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  top: 0;
   bottom: 0;
-  left: 17vw;
-  right: 20vw;
+  left: 20vw; /* relative to parent (canvasHolder) */
+  right: 20vw; /* relative to parent (canvasHolder) */
+
 }
 
 .baseCathode{
@@ -110,41 +112,11 @@ code {
 
 #hallThruster{
   position: absolute;
-  height: 82vh;
+  height: 80vh;
   min-height: 350px;
 
-  top: -1vw;
-  left: 10vw;
-  right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  z-index: 0;
-}
-
-#hallThrusterOn-fadeIn{
-  position: absolute;
-  height: 82vh;
-  min-height: 350px;
-
-  top: -1vw;
-  left: 10vw;
-  right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  z-index: 0;
-}
-
-#hallThrusterOn-fadeOut{
-  position: absolute;
-  height: 82vh;
-  min-height: 350px;
-
-  top: -1vw;
-  left: 10vw;
+  top: 0;
+  left: 35vw;
   right: 20vw;
 
   /*width: 60vw;*/
@@ -165,27 +137,14 @@ code {
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
-    top: -1vw;
-    height: 82vh;
-    left: 10vw;
+    height: 80vh;
+    left: 20vw;
   }
 
   to {
-    /* alternative to display 1 */
-    /*top: -13vw;*/
-    /*height: 355vh;*/
-    /*left: -70vw;*/
-
-    /* alternative to display 2 */
-    top: -5vw;
-    height: 355vh;
+    height: 375vh;
     left: -42vw;
     transform: rotate(-28deg);
-
-    /* alternative to display 3*/
-    /*top: -150vw;*/
-    /*height: 3000vh;*/
-    /*left: -708vw;*/
   }
 }
 
@@ -252,8 +211,8 @@ code {
 
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
-  right: 18vw;
-  bottom: 1vh;
+  bottom: 0;
+  right: 15%;
   align-items: flex-end;
 }
 
@@ -288,7 +247,7 @@ code {
 /* defines spacing between buttons */
 .stackedButtonGroup > button{
   margin-top: 0.25em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.4em;
 }
 
 .fade-in {
