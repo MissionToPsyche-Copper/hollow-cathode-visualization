@@ -128,6 +128,7 @@ export class LearningMode extends React.Component {
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
         this.setState({text: " "})
+
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
@@ -519,7 +520,6 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>

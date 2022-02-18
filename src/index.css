@@ -163,6 +163,27 @@ code {
   align-items: flex-start;
 }
 
+/* landing page title */
+.stackedButtonGroup.landingPageTitleAlign{
+  top: 10vw;
+  left: 7vw;
+  align-items: flex-start;
+}
+
+/* landing page subtitle */
+.stackedButtonGroup.landingPageSubTitleAlign{
+  top: 15vw;
+  left: 10vw;
+  align-items: flex-start;
+}
+
+/* landing page learning mode prompt */
+.stackedButtonGroup.landingPageLModePromptAlign{
+  bottom: 8vw;
+  right: 35vw;
+  align-items: flex-start;
+}
+
 /* defines spacing between buttons */
 .stackedButtonGroup > button{
   margin-top: 0.25em;

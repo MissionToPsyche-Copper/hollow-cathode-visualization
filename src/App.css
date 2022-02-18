@@ -313,6 +313,33 @@ img{
     width: 100%;
 }
 
+.landingPageTitleLabel {
+    font-family: "Courier New";
+    color: #A53F5B;
+    font-size: clamp(70px, 2.2vw, 70px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.landingPageSubTitleLabel {
+    font-family: "Courier New";
+    color: #a7a7a7;
+    font-size: clamp(25px, 2.2vw, 45px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.landingPageLModePromptLabel {
+    font-family: "Courier New";
+    color: #a7a7a7;
+    font-size: clamp(25px, 2.2vw, 25px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
 .sublabel {
     color: white;
     font-size: clamp(11px, 1vw, 20px);
