@@ -64,7 +64,7 @@ code {
 }
 
 .CathodeHitBox_zoomed_out{
-  background-color: rgba(165, 63, 91, 0.33);
+  background-color: rgba(165, 63, 91, 0.06);
   position: absolute;
   top: 1%;
   bottom: 72%;
