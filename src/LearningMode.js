@@ -420,6 +420,8 @@ export class LearningMode extends React.Component {
         document.getElementById("hallThruster")
             .addEventListener("animationend", () => { console.log("cathode zoom animation has finished") }, false);
 
+        document.getElementById("HallThrusterNext").classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
         this.hideElement("hallThrusterButtonGroup");
@@ -499,7 +501,8 @@ export class LearningMode extends React.Component {
     render(){
         return (
             <>
-                <img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>
+                {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Base Cathode"}/>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -510,7 +513,7 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <button id={"HallThrusterNext"}
-                        className={"zoom"}
+                        className={"CathodeHitBox_zoomed_out"}
                         onClick={this.nextButton_hallThruster_HandleClick}>
                 </button>
 
