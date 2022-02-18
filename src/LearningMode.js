@@ -9,12 +9,19 @@ import {
     heat,
     keeper,
     plasma,
+    heatTitleText,
     heatText,
+    gasTitleText2,
     gasText,
+    plasmaTitleText,
     plasmaText,
+    keeperTitleText,
     keeperText,
+    ejectTitleText,
     ejectText,
+    heatKeeperErrorTitleText,
     heatKeeperErrorText,
+    gasKeeperTitleText,
     gasKeeperText
 } from "./Galactic";
 
@@ -198,7 +205,8 @@ export class LearningMode extends React.Component {
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
-            if(this.state.deltastage === heat){
+            if(this.state.deltastage === heat)
+            {
                 this.setState({text: heatText})
             }
         }

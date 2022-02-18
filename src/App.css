@@ -308,7 +308,6 @@ img{
     color: #A53F5B;
     font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
-    font-family: Arial, serif;
     font-weight: bold;
     width: 100%;
 }
