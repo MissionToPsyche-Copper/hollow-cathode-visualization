@@ -95,31 +95,35 @@ export class LandingPage extends React.Component {
     render() {
         return (
             <>
-                <canvas id={"canvas"}
+                <canvas id={"canvas"} className={"canvas visualization"}
                         onClick={this.LearningMode_HandleClick}
                         ref={this.canvas}
                         hidden={true}> You need a better browser :(
                 </canvas>
-                <img id={'spaceshipImage'} src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
-                <div className={"stackedButtonGroup bottomrightAlign"}>
+                <img id={'spaceshipImage'} src={"/images/psyche_spacecraft.png"} className={"grow visualization"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
+
+                <p className={"warning landingPageWarning"}>For best results, please increase the size of your window.</p>
+
+                <div className={"stackedButtonGroup bottomrightAlign visualization"}>
                     <button id={"PresModeButton"}
                             className={"button"}
                             onClick={this.PresMode_HandleClick}> Presentation Mode
                     </button>
                 </div>
 
-                <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >
+                <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign visualization"} >
                     <label id={"landingPageTitle"} className={"landingPageTitleLabel"} > Hollow Cathode </label>
                 </div>
 
-                <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign"} >
+                <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign visualization"} >
                     <label id={"landingPageSubTitle"} className={"landingPageSubTitleLabel"} > Visualization </label>
                 </div>
 
-                <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
+                <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign visualization"} >
                     <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"} > click the spacecraft to begin </label>
                 </div>
+
             </>
         )
     }

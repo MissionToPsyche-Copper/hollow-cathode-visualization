@@ -342,6 +342,13 @@ img{
     width: 100%;
 }
 
+.landingPageWarning {
+    position: absolute;
+    left: 0%;
+    top: 25%;
+    color: #61dafb;
+}
+
 .sublabel {
     color: white;
     font-size: clamp(11px, 1vw, 20px);
@@ -352,6 +359,38 @@ img{
 
     min-width: 20vw;
     max-width: 30vw;
+}
+
+@media screen and (max-width: 1000px) {
+    .visualization {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .visualization {
+        visibility: hidden;
+    }
+}
+
+.warning {
+    bottom: 50%;
+    color: #ef5a64;
+    font-size: 9vh;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+@media screen and (max-width: 1000px) {
+    .warning {
+        visibility: visible;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .warning {
+        visibility: visible;
+    }
 }
 
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {

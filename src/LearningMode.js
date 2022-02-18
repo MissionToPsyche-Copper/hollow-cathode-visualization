@@ -514,26 +514,28 @@ export class LearningMode extends React.Component {
         return (
             <>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
-                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Base Cathode"}/>
-                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={"visualization"} alt={"Base Cathode"}/>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas visualization"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+
+                <p className={"warning"}>For best results, please increase the size of your window.</p>
 
                 <button id={"HallThrusterNext"}
-                        className={"CathodeHitBox_zoomed_out"}
+                        className={"CathodeHitBox_zoomed_out visualization"}
                         onClick={this.nextButton_hallThruster_HandleClick}>
                 </button>
 
-                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign visualization"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 </div>
 
-                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign visualization"}>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
@@ -542,13 +544,13 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is Off
+                           className={"titleLabel hallThrusterOffTitleLabelPos visualization"}> The Hall Thruster Is Off
                     </label>
                 </div>
 
                 <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}>
+                           className={"sublabel hallThrusterOffSublabelPos visualization"}>
                         The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic
                         plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal
                         plasma. Another role of the hollow cathode, which is not least significant, is to neutralize the
@@ -560,13 +562,13 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is On
+                           className={"titleLabel hallThrusterOffTitleLabelPos visualization"}> The Hall Thruster Is On
                     </label>
                 </div>
 
                 <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}>
+                           className={"sublabel hallThrusterOffSublabelPos visualization"}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit
                         viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas
                         pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc
@@ -577,13 +579,13 @@ export class LearningMode extends React.Component {
 
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
-                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                           className={"titleLabel hallThrusterNameTitleLabelPos visualization"}> Hall Thruster
                     </label>
                 </div>
 
                 <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
-                           className={"sublabel hallThrusterNameSublabelPos"}>
+                           className={"sublabel hallThrusterNameSublabelPos visualization"}>
                         Hall thruster is advanced electric propulsion used in electric rockets. This technology is
                         replacing the old chemical thruster since the Hall thruster consumes less energy but produces
                         an incredibly <i>specific impulse</i> (the amount of force generated for an interval of time) and
@@ -591,21 +593,21 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-                <div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>
+                <div id={"learningModeGuide"} className={"sublabel visualization"}>{this.state.text}</div>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"} style={{display: "block"}}>
                     <button id={"KeeperElectrodeToggle"}
-                            className={"button"}
+                            className={"button visualization"}
                             style={{display: "block"}}
                             onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
                     </button>
                     <button id={"GasFeedToggle"}
-                            className={"button"}
+                            className={"button visualization"}
                             style={{display: "block"}}
                             onClick={this.GasFeedToggle_HandleClick}> Gas Feed
                     </button>
                     <button id={"HeatInsertToggle"}
-                            className={"button"}
+                            className={"button visualization"}
                             style={{display: "block"}}
                             onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
                     </button>
