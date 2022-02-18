@@ -18,7 +18,9 @@
 
 .App-header {
   background-color: #282c34;
-  background-image: url("https://toppng.com/uploads/preview/starry-sky-stars-space-dark-astronomy-11569918929pqamlkdeje.jpg");
+  background-image: url("star_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 80vh;
   max-height: 100vh;
   display: flex;
