@@ -52,13 +52,36 @@ code {
   min-height: 350px;
 }
 
+.CathodeHitBox_zoomed_in{
+  background-color: rgba(165, 63, 91, 0.33);
+  position: absolute;
+  top: 9%;
+  bottom: 4%;
+  left: 10vw;
+  right: 42%;
+
+  z-index: 10;
+}
+
+.CathodeHitBox_zoomed_out{
+  background-color: rgba(165, 63, 91, 0.33);
+  position: absolute;
+  top: 1%;
+  bottom: 72%;
+  left: 20vw;
+  right: 57%;
+
+  z-index: 10;
+}
+
+
 #hallThruster{
   position: absolute;
-  height: 80vh;
+  height: 82vh;
   min-height: 350px;
 
-  top: 0;
-  left: 35vw;
+  top: -1vw;
+  left: 10vw;
   right: 20vw;
 
   /*width: 60vw;*/
@@ -71,20 +94,23 @@ code {
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
   animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
-  animation-duration: 3s;
+  animation-duration: 2.8s;
+  animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
   /*animation-direction: alternate;*/
 }
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
-    height: 80vh;
-    left: 20vw;
+    top: -1vw;
+    height: 82vh;
+    left: 10vw;
   }
 
   to {
-    height: 375vh;
-    left: 1vw;
+    top: -5vw;
+    height: 355vh;
+    left: -65vw;
   }
 }
 

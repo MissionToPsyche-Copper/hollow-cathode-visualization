@@ -29,14 +29,14 @@ class Painter{
         this.layers = layers;
 
         // pre-load images
-        this.base_cathode = new Image();
-        this.base_cathode.src = "/images/base_cathode.png";
-        this.thruster_off = new Image();
-        this.thruster_off.src = "/images/HallThrusterMockup.png";
-        this.thruster_on = new Image();
-        this.thruster_on.src = "/images/plasma_sample.jpg";
         this.psyche_spacecraft = new Image();
         this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+        this.thruster_on = new Image();
+        this.thruster_on.src = "/images/plasma_sample.jpg";
+        this.thruster_off = new Image();
+        this.thruster_off.src = "/images/HallThrusterMockup.png";
+        this.base_cathode = new Image();
+        this.base_cathode.src = "/images/base_cathode.png";
 
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
@@ -51,7 +51,6 @@ class Painter{
         this.min_x = this.getCanvasWidth() * 0.20; // previous value: * 0.35
         this.max_x = this.getCanvasWidth() * 0.35; // previous value: * 0.55
 
-        this.plasma = false; // (flag) indicates when xenon should be ionizing
         this.XenonGeneratorKey = -1;
         this.ElectronGeneratorKey = -1;
     }
@@ -325,7 +324,6 @@ class Painter{
      */
     draw_csv_internal_plasma(){
         // console.log(plasma, " draw_csv_internal_plasma called"); //:debug
-        this.plasma = true; // xenon should be ionizing
 
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
