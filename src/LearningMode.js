@@ -173,9 +173,9 @@ export class LearningMode extends React.Component {
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
         if(this.state.scene[hallThrusterOn] === true){
-            this.thrusterButtonText = "On";
-        } else {
             this.thrusterButtonText = "Off";
+        } else {
+            this.thrusterButtonText = "On";
         }
 
         if(this.state.scene[hallThrusterOn] === true) {
@@ -544,7 +544,7 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
+                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
                     </button>
                 </div>
 
