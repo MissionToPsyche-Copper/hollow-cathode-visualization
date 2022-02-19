@@ -125,7 +125,16 @@ img{
 }
 
 .w-nav-menu{
+    color: #f5f5f5;
+    font-weight: 700;
+    font-size: 22px;
+    border-color: transparent;
     position: relative;
+    vertical-align: top;
+    text-decoration: none;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .nav-link{
