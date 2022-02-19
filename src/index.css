@@ -177,8 +177,8 @@ code {
 
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
-  bottom: 0;
   right: 18vw;
+  bottom: 2vw;
   align-items: flex-end;
 }
 
@@ -186,6 +186,7 @@ code {
 .stackedButtonGroup.bottomleftAlign{
   bottom: 0;
   left: 18vw;
+  bottom: 2vw;
   align-items: flex-start;
 }
 
