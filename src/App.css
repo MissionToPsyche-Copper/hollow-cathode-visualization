@@ -198,7 +198,7 @@ img{
 }
 
 .text-block{
-    color: #fff;
+    color: #f5f5f5;
     font-weight: 600;
     font-size: 21px;
     cursor: pointer;
@@ -246,7 +246,7 @@ img{
 
 .footer-heading{
     margin-bottom: 20px;
-    color: #edeff2;
+    color: #f5f5f5;
     font-size: 15px;
     line-height: 1.5;
 }
@@ -254,7 +254,7 @@ img{
 .footer-link{
     display: block;
     margin-bottom: 8px;
-    color: #f0f0f0;
+    color: #f5f5f5;
     text-decoration: none;
 }
 
@@ -291,7 +291,7 @@ img{
     border-radius:42px;
     border:none;
     cursor:pointer;
-    color:#ffffff;
+    color: #f5f5f5;
     font-family: Arial, serif;
     font-size: clamp(9px, 1vw, 16px);
     font-weight:bold;
@@ -325,7 +325,7 @@ img{
 
 .landingPageSubTitleLabel {
     font-family: "Courier New";
-    color: whitesmoke;
+    color: #f5f5f5;
     font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
     font-weight: bold;
@@ -334,7 +334,7 @@ img{
 
 .landingPageLModePromptLabel {
     font-family: "Courier New";
-    color: whitesmoke;
+    color: #f5f5f5;
     font-size: clamp(25px, 2.2vw, 25px);
     padding: 8px;
     font-weight: bold;
@@ -342,7 +342,7 @@ img{
 }
 
 .sublabel {
-    color: white;
+    color: #f5f5f5;
     font-size: clamp(11px, 1vw, 20px);
     font-family: Arial, serif;
     font-weight: normal;
@@ -372,6 +372,8 @@ img{
 
     min-width: 20vw;
     max-width: 24vw;
+
+    color: #f5f5f5;
 }
 
 .hallThrusterNameTitleLabelPos {
@@ -393,6 +395,8 @@ img{
     min-width: 20vw;
 
     overflow: hidden;
+
+    color: #f5f5f5;
 }
 
 #learningModeGuide {
