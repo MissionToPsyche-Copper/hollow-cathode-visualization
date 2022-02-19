@@ -377,16 +377,16 @@ img{
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 11%;
-    left: 15vw;
+    top: 8%;
+    right: 17vw;
 
     width: 30vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
     position: absolute;
-    top: 18%;
-    left: 15vw;
+    top: 14%;
+    right: 27vw;
     text-align: left;
 
     width: 20vw;
