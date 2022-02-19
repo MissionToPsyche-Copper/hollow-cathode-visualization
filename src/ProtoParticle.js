@@ -2,6 +2,13 @@
 var xenon_particles_array = []; // array of all existing xenon particles
 var electron_particles_array = []; // array of all existing electron particles
 
+const electronImage = new Image();
+electronImage.src = "/images/electron.png";
+const xenonImage = new Image();
+xenonImage.src = "/images/xenon.png";
+const ionizedXenonImage = new Image();
+ionizedXenonImage.src = "/images/ionized_xenon.png";
+
 class ProtoParticle {
     ctx; // ctx element/layer the particle is drawn on, draw on this one
     canvas; // canvas element/layer the particle is drawn on, use this to look at the properties of the canvas, don't draw on it
@@ -33,7 +40,6 @@ class ProtoParticle {
      * @param ax int px/tick^2, initial x acceleration, defaults to a random integer between 1 and 5  (optional)
      * @param ay int px/tick^2, initial y acceleration, defaults to a random integer between 1 and 5  (optional)
      * @param r int px, initial radius of particle, defaults to 15px  (optional)
-     * @param color color string or hex string, defaults to 'white'  (optional)
      * @param particle_type either 'electron' or 'xenon' or [(future addition)]
      * @param max_y bounding box
      * @param min_y bounding box
@@ -49,7 +55,6 @@ class ProtoParticle {
         ax = Math.floor(Math.random() * (5 - 1) + 1),
         ay = Math.floor(Math.random() * (5 - 1) + 1),
         r = 15,
-        color = 'white',
         particle_type,
         max_y,
         min_y,
@@ -95,14 +100,14 @@ class ProtoParticle {
 
         // vx: randomize if default value
         if(vx === -999){
-            this.vx = (Math.floor(Math.random() * 30 +1) / 10);
+            this.vx = (Math.floor(Math.random() * 30 +1) / 10 / 2);
         } else {
             this.vx = vx;
         }
 
         // vy: randomize if default value
         if(vy === -999){
-            this.vy = (Math.floor(Math.random() * (vmax - vmin) + vmin) / 10);
+            this.vy = (Math.floor(Math.random() * (vmax - vmin) + vmin) / 10 / 2);
         } else {
             this.vy = vy;
         }
@@ -110,11 +115,11 @@ class ProtoParticle {
         this.ax = ax;
         this.ay = ay;
         this.radius = r;
-        this.color = color;
+        // this.color = color; // depreciated now that we have images from the artist
         this.anime_key = -1; // key/reference to current animation frame, given by browser, defaults to -1
         this.interval = 3/60;
 
-        this.max_y = max_y; // set bounding box
+        this.max_y = max_y; // set bounding box // operates off of distance from axis
         this.min_y = min_y; // set bounding box
         this.max_x = max_x; // set bounding box
         this.min_x = min_x; // set bounding box
@@ -124,10 +129,13 @@ class ProtoParticle {
         // classification
         // add self to particles array
         if(particle_type === 'electron'){
+            this.image = electronImage;
             electron_particles_array.push(this);
         } else if(particle_type === 'xenon'){
+            this.image = xenonImage;
             xenon_particles_array.push(this);
         } else {
+            this.image = 'none';
             console.error("invalid particle_type: ", this.particle_type);
         }
     }
@@ -136,11 +144,15 @@ class ProtoParticle {
      * Definition of how a ProtoParticle should look
      */
     draw(){
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        this.ctx.closePath();
-        this.ctx.fillStyle = this.color;
-        this.ctx.fill();
+        // colored circle
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        // this.ctx.closePath();
+        // this.ctx.fillStyle = this.color;
+        // this.ctx.fill();
+
+        // proper image
+        this.ctx.drawImage(this.image, this.x, this.y, this.radius * 2, this.radius * 2)
     }
 
     /**
@@ -174,6 +186,7 @@ class ProtoParticle {
      */
     clearPath(){
         // method 0 - clear path using grey particle, no visible edges on overlap but leaves a trail
+        // clear circle
         // this.ctx.beginPath();
         // this.ctx.arc(this.x, this.y, this.radius+1, 0, Math.PI * 2, true);
         // this.ctx.closePath();
@@ -181,14 +194,42 @@ class ProtoParticle {
         // this.ctx.fill();
 
         // method 1 - properly clear area as rectangle, visible edges on overlap
-        this.ctx.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
+        // clear circle
+        // this.ctx.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
+
+        // clear image
+        this.ctx.clearRect(this.x, this.y, this.radius * 2, this.radius * 2);
     }
 
     /**
-     *
+     * Sets the animation function
+     * @param animate (function)
      */
     setAnimation(animate){
         this.animate = animate;
+    }
+
+    /**
+     * Input should be 'electron', 'xenon', 'ionized xenon', or 'none'
+     * @param type (string) string representing the particle type, is mapped to appropriate particle image
+     */
+    setImage(type){
+        if(type === 'electron'){
+            this.particle_type = 'electron';
+            this.image = electronImage;
+        } else if(type === 'xenon'){
+            this.particle_type = 'xenon';
+            this.image = xenonImage;
+        } else if(type === 'ionized xenon'){
+            this.particle_type = 'ionized xenon';
+            this.image = ionizedXenonImage;
+        } else if(type === 'none'){
+            this.particle_type = 'none';
+            console.error('ProtoParticle:: setImage: Invalid type provided: ', type);
+        } else {
+            this.particle_type = 'none';
+            console.error('ProtoParticle:: setImage: Invalid type provided: ', type);
+        }
     }
 
     /**
@@ -197,10 +238,11 @@ class ProtoParticle {
     ionize(){
         // if is xenon
         if(this.particle_type === 'xenon'){
-            this.color = '#fff';
-            this.radius += 1;
-            this.vx = Math.floor(this.vx / 4);
-            this.yx = Math.floor(this.yx / 4);
+            // this.color = '#fff';
+            // this.radius += 1;
+            this.setImage('ionized xenon');
+            // this.vx = Math.floor(this.vx / 4);
+            // this.yx = Math.floor(this.yx / 4);
         }
         // if is electron
         else if(this.particle_type === 'electron'){
@@ -240,13 +282,15 @@ class ProtoParticle {
         let m = 1; // slope
         let b = 300; // y intercept
 
-        // check boundary using slope intercept form
-        if (particle.y + particle.vy > particle.max_y || particle.y + particle.vy < particle.min_y) {
+        // check y boundary using normal bounding box
+        if (particle.y + particle.vy > particle.max_y - particle.radius * 2 || particle.y + particle.vy < particle.min_y) {
             particle.vy = -particle.vy;
         }
-        else if (particle.x + particle.vx > particle.max_x - particle.radius || particle.x + particle.vx < particle.min_x) {
+        // check x boundary using normal bounding box
+        else if (particle.x + particle.vx > particle.max_x - particle.radius * 2 || particle.x + particle.vx < particle.min_x) {
             particle.vx = -particle.vx;
         }
+        // check boundary using slope intercept form (doesn't account for square objects yet) (for squares, pov = top left instead of center)
         else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
 
             // // do a proper angled bounce
@@ -288,7 +332,7 @@ class ProtoParticle {
      */
     static generateXenon(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
         // Drawing some particles //
-        let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 10, 'purple', 'xenon', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
+        let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 10, 'xenon', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         xenon0.setAnimation(ProtoParticle.xenonAnimation);
         xenon0.startAnimation();
     }
@@ -309,13 +353,15 @@ class ProtoParticle {
         let m = 1; // slope
         let b = 300; // y intercept
 
-        // check boundary using slope intercept form
-        if (particle.y + particle.vy > particle.max_y || particle.y + particle.vy < particle.min_y) {
+        // check y boundary using slope intercept form
+        if (particle.y + particle.vy > particle.max_y - particle.radius * 2 || particle.y + particle.vy < particle.min_y) {
             particle.vy = -particle.vy;
         }
-        else if (particle.x + particle.vx > particle.max_x - particle.radius || particle.x + particle.vx < particle.min_x) {
+        // check x boundary using normal bounding box
+        else if (particle.x + particle.vx > particle.max_x - particle.radius * 2 || particle.x + particle.vx < particle.min_x) {
             particle.vx = -particle.vx;
         }
+        // check boundary using slope intercept form (doesn't account for square objects yet) (for squares, pov = top left instead of center)
         else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
 
             // // do a proper angled bounce
@@ -356,7 +402,7 @@ class ProtoParticle {
      */
     static generateElectron(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
         // Drawing some particles //
-        let electron0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 6, 'blue', 'electron', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
+        let electron0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 6, 'electron', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         electron0.setAnimation(ProtoParticle.electronAnimation);
         electron0.startAnimation();
     }
