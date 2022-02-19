@@ -325,7 +325,7 @@ img{
 
 .landingPageSubTitleLabel {
     font-family: "Courier New";
-    color: #a7a7a7;
+    color: whitesmoke;
     font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
     font-weight: bold;
@@ -334,7 +334,7 @@ img{
 
 .landingPageLModePromptLabel {
     font-family: "Courier New";
-    color: #a7a7a7;
+    color: whitesmoke;
     font-size: clamp(25px, 2.2vw, 25px);
     padding: 8px;
     font-weight: bold;
