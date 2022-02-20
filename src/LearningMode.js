@@ -532,6 +532,8 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
+                <img id={"hallThrusterOn"} src={"/images/hallThrusterOn.png"} className={""} alt={"Hall Thruster On"}/>
+
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}
                         onClick={this.nextButton_hallThruster_HandleClick}>
