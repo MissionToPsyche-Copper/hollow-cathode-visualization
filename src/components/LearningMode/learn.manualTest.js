@@ -6,7 +6,7 @@ const sleep= promisify(setTimeout)
 //const {config} = require("chai");
 
 describe('LearningModeTesting', function () {
-    this.timeout(300000)
+    this.timeout("1 day")
     let driver
     let eyes, runner
     beforeEach(async function () {
@@ -57,10 +57,11 @@ describe('LearningModeTesting', function () {
         await toBaseDrawing()
         // activate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click();
+        await sleep(500)
         await eyes.check("Heat Insert Window", Target.window().fully());
         // deactivate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
-        await sleep(2000)
+        await sleep(500)
         await eyes.close()
     })
 
@@ -70,6 +71,7 @@ describe('LearningModeTesting', function () {
         await toBaseDrawing()
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
+        await sleep(500)
         await eyes.check("Heat Insert Window", Target.window().fully());
         // deactivate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
@@ -87,8 +89,8 @@ describe('LearningModeTesting', function () {
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await driver.findElement(By.id('nextButton')).click()
+        await sleep(500)
         await eyes.check("Internal Plasma Window 1", Target.window().fully());
-        await sleep(2000)
         // deactivate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await eyes.close()
@@ -102,7 +104,7 @@ describe('LearningModeTesting', function () {
         // activate gas feed scene
         await driver.findElement(By.id("GasFeedToggle")).click()
         await driver.findElement(By.id('nextButton')).click()
-        await sleep(1000)
+        await sleep(500)
         await eyes.check("Heat Insert Window 2", Target.window().fully());
         //deactivate heat insert scene
         await driver.findElement(By.id("HeatInsertToggle")).click()
@@ -111,14 +113,15 @@ describe('LearningModeTesting', function () {
 
     it('ElectrodeKeeperTesting', async function(){
         await eyes.open(driver, 'Hollow Cathode Visualization App', 'ElectrodeKeeper demo');
-        await sleep(1000)
+        await sleep(600)
         await toBaseDrawing()
         // activate keeper electrode scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
+        await sleep(500)
         await eyes.check("ElectrodeKeeper Window", Target.window().fully());
         // deactivate keeper electrode  scene
         await driver.findElement(By.id("KeeperElectrodeToggle")).click()
-        await sleep(1000)
+        await sleep(100)
         await eyes.close()
     })
 
@@ -151,7 +154,6 @@ describe('LearningModeTesting', function () {
     })
 
     it('Keeper&GasTesting1', async function(){
-        await sleep(1000)
         await eyes.open(driver, 'Hollow Cathode Visualization App', 'Keeper&Gas1 demo');
         await toBaseDrawing()
         // activate keeper electrode scene
@@ -159,8 +161,8 @@ describe('LearningModeTesting', function () {
         await eyes.check("Keeper&Gas1 Keeper Window", Target.window().fully());
         // activate gas feed  scene
         await driver.findElement(By.id("GasFeedToggle")).click()
+        await sleep(500)
         await eyes.check("Keeper&Gas1 Gas Window", Target.window().fully());
-        await sleep(1000)
         await eyes.close()
     })
 
@@ -182,9 +184,9 @@ describe('LearningModeTesting', function () {
         let idList = ["HeatInsertToggle", "GasFeedToggle", "KeeperElectrodeToggle"]
         await eyes.open(driver, 'Hollow Cathode Visualization App', 'IntegrateTesting demo');
         await toBaseDrawing()
-        await sleep(3000)
+        await sleep(500)
         await permute(idList, 0, idList.length-1, 0)
-        await sleep(5000)
+        await sleep(1000)
     })
 
     async function toBaseDrawing(){
@@ -200,18 +202,18 @@ describe('LearningModeTesting', function () {
         if(l==r){
             console.log(list+"\n")
             let i=0
-            let element
             while(i<3){
                 traceTable[i]=list[i];
+                await sleep(500)
                 await eyes.check(list[i], Target.window().fully())
                 await driver.findElement(By.id(list[i++])).click()
                 if((traceTable.includes("HeatInsertToggle") && traceTable.includes("GasFeedToggle")) || traceTable.length===3){
+                    await sleep(500)
                     await eyes.check('nextButton', Target.window().fully())
                     await driver.findElement(By.id('nextButton')).click();
                 }
-                await sleep(500)
             }
-            await reset(times)
+            await reset(++times)
         }else {
             for (let i = l; i <= r; i++) {
                 swap(list, l, i)
