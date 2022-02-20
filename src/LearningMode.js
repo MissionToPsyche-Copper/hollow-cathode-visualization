@@ -22,7 +22,7 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperText
+    gasKeeperErrorText
 } from "./Galactic";
 
 import ReactDOM from "react-dom";
@@ -343,7 +343,7 @@ export class LearningMode extends React.Component {
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
-            this.setState({text: gasKeeperText})
+            this.setState({text: gasKeeperErrorText})
         }
         //HEAT ON, KEEPER ON, NO PLASMA
         if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
