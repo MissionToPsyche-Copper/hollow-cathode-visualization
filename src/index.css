@@ -66,12 +66,17 @@ code {
 .CathodeHitBox_zoomed_out{
   background-color: rgba(165, 63, 91, 0.06);
   position: absolute;
-  top: 1%;
+  top: 0%;
   bottom: 72%;
-  left: 20vw;
+  left: 15vw;
   right: 57%;
-
+  width: 400px;
   z-index: 10;
+}
+
+.CathodeHitBox_zoomed_out:hover{
+  color: rgba(165, 63, 91, 0.06);
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }
 
 
