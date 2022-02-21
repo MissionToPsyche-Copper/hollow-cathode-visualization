@@ -36,7 +36,11 @@ let canvas_width = 1150;
  * Should be rendered inside a <div id={"canvasHolder"}>
  * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
+
+var HALL_THRUSTER_ON = false;
+
 export class LearningMode extends React.Component {
+
     // Instance variables:
     // (all essentially cosmetic) (created in constructor)
     deltastage;
@@ -106,7 +110,7 @@ export class LearningMode extends React.Component {
     }
 
     isElementShown(elementId){
-        if((document.getElementById(elementId).style.display = 'flex') === true) {
+        if(document.getElementById(elementId).style.display === 'flex') {
             return true;
         }
         else{
@@ -184,21 +188,33 @@ export class LearningMode extends React.Component {
 
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
+
+        //If the user turns the hall thruster on
         if(this.state.scene[hallThrusterOn] === true){
-            console.log("TEST")
+            HALL_THRUSTER_ON = true;
             this.showElement("hallThrusterOn-fadeIn")
+
             this.thrusterButtonText = "Off";
+
         }
-        else if( this.state.scene[hallThrusterOff] === true && this.isElementShown("hallThrusterOn-fadeIn") === true )
+        //If the user turns the hall thruster off after it was just on
+        else if(HALL_THRUSTER_ON === true)
         {
             this.showElement("hallThrusterOn-fadeOut")
+            this.thrusterButtonText = "On";
+
+            //HALL_THRUSTER_ON = false;
         }
-        else {
+        //If the hall thruster is off
+        //Also the first thing to happen in Hall Thruster view
+        else
+        {
             this.hideElement("hallThrusterOn-fadeIn")
             this.hideElement("hallThrusterOn-fadeOut")
 
             this.thrusterButtonText = "On";
         }
+
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
