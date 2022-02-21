@@ -546,6 +546,8 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "back" button, reloads the landing page
      */
     backButton_HandleClick() {
+
+        HALL_THRUSTER_ON = false;
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
