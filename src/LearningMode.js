@@ -575,11 +575,10 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit
-                        viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas
-                        pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc
-                        et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet
-                        sagittis semper, nibh.
+                        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and
+                        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall
+                        thruster, both emitting blue plasma.
+                        <p><b id={"guideText"}>Click on the cathode to learn more about it</b></p>
                     </label>
                 </div>
 
