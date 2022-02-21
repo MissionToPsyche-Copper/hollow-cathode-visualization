@@ -36,7 +36,11 @@ let canvas_width = 1150;
  * Should be rendered inside a <div id={"canvasHolder"}>
  * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
+
+var HALL_THRUSTER_ON = false;
+
 export class LearningMode extends React.Component {
+
     // Instance variables:
     // (all essentially cosmetic) (created in constructor)
     deltastage;
@@ -105,6 +109,15 @@ export class LearningMode extends React.Component {
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    isElementShown(elementId){
+        if(document.getElementById(elementId).style.display === 'flex') {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -137,6 +150,9 @@ export class LearningMode extends React.Component {
         this.setState({text: " "})
 
         if(this.state.scene[hallThrusterOff] === true) {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
 
@@ -172,11 +188,33 @@ export class LearningMode extends React.Component {
 
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
+
+        //If the user turns the hall thruster on
         if(this.state.scene[hallThrusterOn] === true){
+            HALL_THRUSTER_ON = true;
+            this.showElement("hallThrusterOn-fadeIn")
+
             this.thrusterButtonText = "Off";
-        } else {
+
+        }
+        //If the user turns the hall thruster off after it was just on
+        else if(HALL_THRUSTER_ON === true)
+        {
+            this.showElement("hallThrusterOn-fadeOut")
+            this.thrusterButtonText = "On";
+
+            //HALL_THRUSTER_ON = false;
+        }
+        //If the hall thruster is off
+        //Also the first thing to happen in Hall Thruster view
+        else
+        {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
             this.thrusterButtonText = "On";
         }
+
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
@@ -508,6 +546,8 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "back" button, reloads the landing page
      */
     backButton_HandleClick() {
+
+        HALL_THRUSTER_ON = false;
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
@@ -531,6 +571,9 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+
+                <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in"} alt={"Hall Thruster On: Fade In"}/>
+                <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}

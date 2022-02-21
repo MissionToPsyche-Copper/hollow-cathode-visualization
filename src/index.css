@@ -95,6 +95,36 @@ code {
   z-index: 0;
 }
 
+#hallThrusterOn-fadeIn{
+  position: absolute;
+  height: 82vh;
+  min-height: 350px;
+
+  top: -1vw;
+  left: -12.85vw;
+  /*right: 50vw;*/
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
+#hallThrusterOn-fadeOut{
+  position: absolute;
+  height: 82vh;
+  min-height: 350px;
+
+  top: -1vw;
+  left: -12.85vw;
+  /*right: 50vw;*/
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
@@ -234,6 +264,36 @@ code {
   margin-bottom: 0.25em;
 }
 
-#guideText{
-  color: #a83c5c;
+.fade-in {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+  -ms-animation: fadeIn ease 3s;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut ease 3s;
+  -webkit-animation: fadeOut ease 3s;
+  -moz-animation: fadeOut ease 3s;
+  -o-animation: fadeOut ease 3s;
+  -ms-animation: fadeOut ease 3s;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
