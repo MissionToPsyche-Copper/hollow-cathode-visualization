@@ -105,6 +105,15 @@ export class LearningMode extends React.Component {
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    isElementShown(elementId){
+        if((document.getElementById(elementId).style.display = 'flex') === true) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -176,11 +185,19 @@ export class LearningMode extends React.Component {
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
         if(this.state.scene[hallThrusterOn] === true){
+            console.log("TEST")
             this.showElement("hallThrusterOn-fadeIn")
             this.thrusterButtonText = "Off";
-        } else {
-            // this.hideElement("hallThrusterOn")
-            //this.thrusterButtonText = "On";
+        }
+        else if( this.state.scene[hallThrusterOff] === true && this.isElementShown("hallThrusterOn-fadeIn") === true )
+        {
+            this.showElement("hallThrusterOn-fadeOut")
+        }
+        else {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
+            this.thrusterButtonText = "On";
         }
 
         if(this.state.scene[hallThrusterOn] === true) {
