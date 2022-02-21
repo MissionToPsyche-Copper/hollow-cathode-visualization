@@ -137,6 +137,7 @@ export class LearningMode extends React.Component {
         this.setState({text: " "})
 
         if(this.state.scene[hallThrusterOff] === true) {
+            this.hideElement("hallThrusterOn")
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
 
@@ -173,8 +174,10 @@ export class LearningMode extends React.Component {
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
         if(this.state.scene[hallThrusterOn] === true){
+            this.showElement("hallThrusterOn")
             this.thrusterButtonText = "Off";
         } else {
+            this.hideElement("hallThrusterOn")
             this.thrusterButtonText = "On";
         }
 

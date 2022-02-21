@@ -95,6 +95,21 @@ code {
   z-index: 0;
 }
 
+#hallThrusterOn{
+  position: absolute;
+  height: 82vh;
+  min-height: 350px;
+
+  top: -1vw;
+  left: 10vw;
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
