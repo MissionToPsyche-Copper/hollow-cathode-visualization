@@ -176,11 +176,11 @@ export class LearningMode extends React.Component {
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
         if(this.state.scene[hallThrusterOn] === true){
-            this.showElement("hallThrusterOn")
+            // this.showElement("hallThrusterOn")
             this.thrusterButtonText = "Off";
         } else {
-            this.hideElement("hallThrusterOn")
-            this.thrusterButtonText = "On";
+            // this.hideElement("hallThrusterOn")
+            //this.thrusterButtonText = "On";
         }
 
         if(this.state.scene[hallThrusterOn] === true) {
