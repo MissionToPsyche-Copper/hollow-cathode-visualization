@@ -137,7 +137,9 @@ export class LearningMode extends React.Component {
         this.setState({text: " "})
 
         if(this.state.scene[hallThrusterOff] === true) {
-            this.hideElement("hallThrusterOn")
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
 
@@ -535,7 +537,8 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <img id={"hallThrusterOn"} src={"/images/hallThrusterOn.png"} className={""} alt={"Hall Thruster On"}/>
+                <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in"} alt={"Hall Thruster On: Fade In"}/>
+                <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}
