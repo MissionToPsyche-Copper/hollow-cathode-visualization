@@ -113,9 +113,15 @@ code {
   }
 
   to {
-    top: -5vw;
+    top: -13vw;
     height: 355vh;
-    left: -65vw;
+    left: -70vw;
+
+    /* alternative to display */
+    /*top: -5vw;*/
+    /*height: 355vh;*/
+    /*left: -42vw;*/
+    /*transform: rotate(-28deg);*/
   }
 }
 
