@@ -241,8 +241,8 @@ code {
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 8vw;
-  right: 35vw;
+  bottom: 9vw;
+  right: 30vw;
   align-items: flex-start;
 }
 
