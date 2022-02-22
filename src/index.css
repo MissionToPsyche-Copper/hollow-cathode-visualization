@@ -253,8 +253,8 @@ code {
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 8vw;
-  right: 35vw;
+  bottom: 9vw;
+  right: 30vw;
   align-items: flex-start;
 }
 
@@ -270,6 +270,8 @@ code {
   -moz-animation: fadeIn ease 3s;
   -o-animation: fadeIn ease 3s;
   -ms-animation: fadeIn ease 3s;
+
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -287,6 +289,8 @@ code {
   -moz-animation: fadeOut ease 3s;
   -o-animation: fadeOut ease 3s;
   -ms-animation: fadeOut ease 3s;
+
+  animation-fill-mode: forwards;
 }
 @keyframes fadeOut {
   0% {
