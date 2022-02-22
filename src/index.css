@@ -258,6 +258,8 @@ code {
   -moz-animation: fadeIn ease 3s;
   -o-animation: fadeIn ease 3s;
   -ms-animation: fadeIn ease 3s;
+
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -275,6 +277,8 @@ code {
   -moz-animation: fadeOut ease 3s;
   -o-animation: fadeOut ease 3s;
   -ms-animation: fadeOut ease 3s;
+
+  animation-fill-mode: forwards;
 }
 @keyframes fadeOut {
   0% {
