@@ -215,6 +215,12 @@ export class LearningMode extends React.Component {
             this.thrusterButtonText = "On";
         }
 
+        if(this.state.scene[hallThrusterOn] === false && this.state.scene[hallThrusterOff] === false)
+        {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+        }
+
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
