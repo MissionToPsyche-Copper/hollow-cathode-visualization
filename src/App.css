@@ -398,7 +398,7 @@ img{
     position: absolute;
     top: 14%;
     right: 18vw;
-    text-align: left;
+    text-align: justify;
 
     width: 20vw;
     min-width: 20vw;
@@ -412,7 +412,7 @@ img{
     top: 28%;
     left: 55vw;
     width: auto;
-    text-align: left;
+    text-align: justify;
     position: absolute;
     overflow-wrap: break-word;
 }
