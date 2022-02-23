@@ -653,6 +653,8 @@ export class LearningMode extends React.Component {
                         rocket. Without the hollow cathode, when Hall thruster emits plasma, the Hall thruster is
                         negatively charging the entire rocket. This phenomenon can cause spacecraft erosion and reduce
                         the thrust force.
+
+                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
@@ -668,7 +670,7 @@ export class LearningMode extends React.Component {
                         The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and
                         neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall
                         thruster, both emitting blue plasma.
-                        <p><b id={"guideText"}>Click on the cathode to learn more about it</b></p>
+                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
