@@ -27,17 +27,28 @@ code {
 }
 
 .canvas{
-  position:absolute;
-  height: 80vh;
+  /* original */
+  /*position:absolute;*/
+  /*height: 80vh;*/
+  /*min-height: 350px;*/
+  /*!*width: 60vw;*!*/
+  /*!*min-width: 60vw;*!*/
+
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 20vw; !* relative to parent (canvasHolder) *!*/
+  /*right: 20vw; !* relative to parent (canvasHolder) *!*/
+
+  /* alternative */
+  position: absolute;
+  height: 90vh;
   min-height: 350px;
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  top: 0;
+  /* width: 60vw; */
+  /* min-width: 60vw; */
+  top: -5vh;
   bottom: 0;
-  left: 20vw; /* relative to parent (canvasHolder) */
-  right: 20vw; /* relative to parent (canvasHolder) */
-
+  left: 17vw;
+  right: 20vw;
 }
 
 .baseCathode{
@@ -227,14 +238,14 @@ code {
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   right: 18vw;
-  bottom: 1vw;
+  bottom: 1vh;
   align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  bottom: 1vw;
+  bottom: 1vh;
   align-items: flex-start;
 }
 
