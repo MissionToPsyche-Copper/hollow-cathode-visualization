@@ -23,7 +23,7 @@ import {
     heatKeeperErrorText,
     gasKeeperTitleText,
     gasKeeperErrorText
-} from "./Galactic";
+}from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
@@ -204,7 +204,6 @@ export class LearningMode extends React.Component {
         else if(HALL_THRUSTER_ON === true)
         {
             this.showElement("hallThrusterOn-fadeOut")
-            this.hideElement("hallThrusterOn-fadeOut")
             this.thrusterButtonText = "On";
 
             //HALL_THRUSTER_ON = false;

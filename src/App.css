@@ -229,7 +229,7 @@ img{
     bottom: 0;
     width: 100%;
     height: auto;
-    padding-top: 5rem;
+    padding-top: 15rem;
     padding-bottom: 40px;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
@@ -389,7 +389,7 @@ img{
     text-align: left;
     position: absolute;
     top: 8%;
-    right: 17vw;
+    right: 8vw;
 
     width: 30vw;
     min-width: 20vw;
@@ -397,7 +397,7 @@ img{
 .hallThrusterNameSublabelPos {
     position: absolute;
     top: 14%;
-    right: 27vw;
+    right: 18vw;
     text-align: left;
 
     width: 20vw;
