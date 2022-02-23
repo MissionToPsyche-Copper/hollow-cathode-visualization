@@ -126,33 +126,33 @@ class Painter{
 
 
         // visualize cathode tube bounding box
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
-        ctx.lineWidth = 6;
-
-        // right
-        ctx.beginPath();
-        ctx.moveTo(this.min_x, this.min_y);
-        ctx.lineTo(this.min_x, this.max_y);
-        ctx.stroke();
-
-        // left
-        ctx.beginPath();
-        ctx.moveTo(this.max_x, this.max_y);
-        ctx.lineTo(this.max_x, this.min_y);
-        ctx.stroke();
-
-        // top
-        ctx.beginPath();
-        ctx.moveTo(this.max_x, this.min_y);
-        ctx.lineTo(this.min_x, this.min_y);
-        ctx.stroke();
-
-        // bottom
-        ctx.beginPath();
-        ctx.moveTo(this.min_x, this.max_y);
-        ctx.lineTo(this.max_x, this.max_y);
-        ctx.stroke();
+        // ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        // // ctx.fillStyle = 'rgba(194,62,62,0.3)';
+        // ctx.lineWidth = 6;
+        //
+        // // right
+        // ctx.beginPath();
+        // ctx.moveTo(this.min_x, this.min_y);
+        // ctx.lineTo(this.min_x, this.max_y);
+        // ctx.stroke();
+        //
+        // // left
+        // ctx.beginPath();
+        // ctx.moveTo(this.max_x, this.max_y);
+        // ctx.lineTo(this.max_x, this.min_y);
+        // ctx.stroke();
+        //
+        // // top
+        // ctx.beginPath();
+        // ctx.moveTo(this.max_x, this.min_y);
+        // ctx.lineTo(this.min_x, this.min_y);
+        // ctx.stroke();
+        //
+        // // bottom
+        // ctx.beginPath();
+        // ctx.moveTo(this.min_x, this.max_y);
+        // ctx.lineTo(this.max_x, this.max_y);
+        // ctx.stroke();
 
     }
 
@@ -411,6 +411,8 @@ class Painter{
 
         this.clearCanvas(eject);
         const ctx = this.getLayer(eject);
+
+        ProtoParticle.ejectParticles();
     }
 
     /**

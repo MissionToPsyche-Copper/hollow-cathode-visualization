@@ -77,7 +77,8 @@ export class LearningMode extends React.Component {
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
         this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
-        this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
+        this.nextButton_hallThrusterToShell_HandleClick = this.nextButton_hallThrusterToShell_HandleClick.bind(this);
+        this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
@@ -481,19 +482,13 @@ export class LearningMode extends React.Component {
     }
 
     /**
-     * nextButton_hallThruster_HandleClick()
+     * nextButton_shellToLearningModeCore_HandleClick()
      */
-    nextButton_hallThruster_HandleClick() {
-        // trigger zoom animation
-        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
-        // add listener for end of animation
-        document.getElementById("hallThruster")
-            .addEventListener("animationend", () => { console.log("cathode zoom animation has finished") }, false);
-
-        document.getElementById("HallThrusterNext").classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+    nextButton_shellToLearningModeCore_HandleClick() {
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
+
         this.hideElement("hallThrusterButtonGroup");
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
@@ -506,6 +501,28 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
+
+    }//nextButton_hallThruster_HandleClick
+
+    /**
+     * nextButton_hallThrusterToShell_HandleClick()
+     */
+    nextButton_hallThrusterToShell_HandleClick() {
+        // trigger zoom animation
+        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+
+        let nextButton = document.getElementById("HallThrusterNext");
+        document.getElementById("hallThrusterNameLabel").innerText = "The Hollow Cathode";
+        let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
+        nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+        nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+        nextButton_Accessible.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("hallThrusterOffSublabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("HallThrusterToggle");
     }
 
     hallThrusterToggle_HandleClick() {
@@ -589,7 +606,7 @@ export class LearningMode extends React.Component {
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}
-                        onClick={this.nextButton_hallThruster_HandleClick}>
+                        onClick={this.nextButton_hallThrusterToShell_HandleClick}>
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
@@ -597,6 +614,10 @@ export class LearningMode extends React.Component {
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"HallThrusterNext_Accessible"}
+                            className={"button"}
+                            onClick={this.nextButton_hallThrusterToShell_HandleClick}> Next
+                    </button>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
