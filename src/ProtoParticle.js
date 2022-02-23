@@ -252,6 +252,22 @@ class ProtoParticle {
     }
 
     /**
+     * Eject yourself
+     */
+    eject(){
+        // if is xenon
+        if(this.particle_type === 'xenon' || this.particle_type === 'ionized xenon'){
+            this.max_x = this.canvas.width * 4;
+            this.setAnimation(ProtoParticle.xenonEjectedAnimation)
+        }
+        // if is electron
+        else if(this.particle_type === 'electron'){
+            // clone self?
+            // electron_particles_array.push(this); // not quite how you'd do it
+        }
+    }
+
+    /**
      * Ionizes the particle at xenon_particles_array[key]
      * Essentially a wrapper for the call, this is needed since using setTimeout makes scoping issues
      *
@@ -267,11 +283,30 @@ class ProtoParticle {
 
     }
 
+    static draw_eject(index){
+        try {
+            xenon_particles_array[index].eject();
+        } catch (error) {
+            // Expected error: TypeError
+            // This happens when a particle is deleted before it can ionize, this is normal (in presMode)
+        }
+
+    }
+
     static ionizeParticles(){
+        console.log("xenon_particles_array.length: ", xenon_particles_array.length)
         // should avoid array usage here for efficiency
         for (const index in xenon_particles_array) {
             // should probably filter here instead of in this.ionize
             setTimeout(ProtoParticle.draw_ionize, Math.random() * 3 * 1000, index); // random between 0 and 3 seconds
+        }
+    }
+
+    static ejectParticles(){
+        // should avoid array usage here for efficiency
+        for (const index in xenon_particles_array) {
+            // should probably filter here instead of in this.ionize
+            setTimeout(ProtoParticle.draw_eject, Math.random() * 0.5 * 1000, index); // random between 0 and 3 seconds
         }
     }
 
@@ -283,7 +318,7 @@ class ProtoParticle {
         let b = 300; // y intercept
 
         // check y boundary using normal bounding box
-        if (particle.y + particle.vy > particle.max_y - particle.radius * 2 || particle.y + particle.vy < particle.min_y) {
+        if (particle.y + particle.vy > particle.max_y - particle.radius * 2 || particle.y + particle.vy < particle.min_y ) {
             particle.vy = -particle.vy;
         }
         // check x boundary using normal bounding box
@@ -298,9 +333,50 @@ class ProtoParticle {
             // particle.vx = particle.vy;
             // particle.vy = swap;
 
-        } else if(particle.accelerating){
+        }
+
+        //move the particle at the given velocity
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        //draw the particle
+        particle.draw();
+
+        particle.anime_key = window.requestAnimationFrame(function() {particle.animate(particle)});
+    }
+    static xenonEjectedAnimation(particle){
+        particle.clearPath();
+
+        // set angled boundary box using a slope and a y-intercept
+        let m = 1; // slope
+        let b = 300; // y intercept
+
+        // check y boundary using normal bounding box
+        if (particle.y + particle.vy > particle.max_y - particle.radius * 2 || particle.y + particle.vy < particle.min_y ) {
+            particle.vy = -particle.vy;
+        }
+        // check x boundary using normal bounding box
+        else if (particle.x + particle.vx > particle.max_x - particle.radius * 2 || particle.x + particle.vx < particle.min_x) {
+            particle.vx = -particle.vx;
+        }
+        // check boundary using slope intercept form (doesn't account for square objects yet) (for squares, pov = top left instead of center)
+        else if((particle.y + particle.vy) >= m * (particle.x + particle.vx) + b){
+
+            // // do a proper angled bounce
+            // let swap = particle.vx;
+            // particle.vx = particle.vy;
+            // particle.vy = swap;
+
+        } else{
             // acceleration is only applied here to prevent logic errors accelerating particles through collisions
             // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
+
+            particle.ax = 5 * 10/particle.x; //keeper force (kqq/r)
+
+            if(particle.x > particle.canvas.width * 2){
+                // stop it from returning
+                particle.min_x = particle.canvas.width;
+            }
 
             // y acceleration
             particle.vy = particle.vy + (particle.ay * particle.interval);
@@ -318,7 +394,6 @@ class ProtoParticle {
 
         particle.anime_key = window.requestAnimationFrame(function() {particle.animate(particle)});
     }
-
 
     /**
      * Generates a new xenon on a given layer at a given position

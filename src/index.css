@@ -27,17 +27,28 @@ code {
 }
 
 .canvas{
-  position:absolute;
-  height: 80vh;
+  /* original */
+  /*position:absolute;*/
+  /*height: 80vh;*/
+  /*min-height: 350px;*/
+  /*!*width: 60vw;*!*/
+  /*!*min-width: 60vw;*!*/
+
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 20vw; !* relative to parent (canvasHolder) *!*/
+  /*right: 20vw; !* relative to parent (canvasHolder) *!*/
+
+  /* alternative */
+  position: absolute;
+  height: 90vh;
   min-height: 350px;
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  top: 0;
+  /* width: 60vw; */
+  /* min-width: 60vw; */
+  top: -5vh;
   bottom: 0;
-  left: 20vw; /* relative to parent (canvasHolder) */
-  right: 20vw; /* relative to parent (canvasHolder) */
-
+  left: 17vw;
+  right: 20vw;
 }
 
 .baseCathode{
@@ -53,12 +64,12 @@ code {
 }
 
 .CathodeHitBox_zoomed_in{
-  background-color: rgba(165, 63, 91, 0.33);
+  background-color: rgba(165, 63, 91, 0.06);
   position: absolute;
   top: 9%;
-  bottom: 4%;
+  bottom: 10vh;
   left: 10vw;
-  right: 42%;
+  right: 50%;
 
   z-index: 10;
 }
@@ -67,10 +78,12 @@ code {
   background-color: rgba(165, 63, 91, 0.06);
   position: absolute;
   top: 0%;
-  bottom: 72%;
+  bottom: 75%;
   left: 15vw;
-  right: 57%;
-  width: 400px;
+  right: 55%;
+
+  /* width: 400px; */
+
   z-index: 10;
 }
 
@@ -101,8 +114,8 @@ code {
   min-height: 350px;
 
   top: -1vw;
-  left: -12.7vw;
-  /*right: 50vw;*/
+  left: 10vw;
+  right: 20vw;
 
   /*width: 60vw;*/
   /*min-width: 60vw;*/
@@ -116,8 +129,8 @@ code {
   min-height: 350px;
 
   top: -1vw;
-  left: -12.7vw;
-  /*right: 50vw;*/
+  left: 10vw;
+  right: 20vw;
 
   /*width: 60vw;*/
   /*min-width: 60vw;*/
@@ -144,15 +157,15 @@ code {
 
   to {
     /* alternative to display 1 */
-    top: -13vw;
-    height: 355vh;
-    left: -70vw;
+    /*top: -13vw;*/
+    /*height: 355vh;*/
+    /*left: -70vw;*/
 
     /* alternative to display 2 */
-    /*top: -5vw;*/
-    /*height: 355vh;*/
-    /*left: -42vw;*/
-    /*transform: rotate(-28deg);*/
+    top: -5vw;
+    height: 355vh;
+    left: -42vw;
+    transform: rotate(-28deg);
 
     /* alternative to display 3*/
     /*top: -150vw;*/
@@ -225,14 +238,14 @@ code {
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   right: 18vw;
-  bottom: 1vw;
+  bottom: 1vh;
   align-items: flex-end;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  bottom: 1vw;
+  bottom: 1vh;
   align-items: flex-start;
 }
 

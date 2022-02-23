@@ -77,7 +77,8 @@ export class LearningMode extends React.Component {
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
         this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
-        this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
+        this.nextButton_hallThrusterToShell_HandleClick = this.nextButton_hallThrusterToShell_HandleClick.bind(this);
+        this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
@@ -136,10 +137,14 @@ export class LearningMode extends React.Component {
         const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
         const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
+        document.getElementById("HallThrusterNext").onclick = this.nextButton_hallThrusterToShell_HandleClick
+        document.getElementById("HallThrusterNext_Accessible").onclick = this.nextButton_hallThrusterToShell_HandleClick
+
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
+
     }
 
     /**
@@ -481,19 +486,13 @@ export class LearningMode extends React.Component {
     }
 
     /**
-     * nextButton_hallThruster_HandleClick()
+     * nextButton_shellToLearningModeCore_HandleClick()
      */
-    nextButton_hallThruster_HandleClick() {
-        // trigger zoom animation
-        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
-        // add listener for end of animation
-        document.getElementById("hallThruster")
-            .addEventListener("animationend", () => { console.log("cathode zoom animation has finished") }, false);
-
-        document.getElementById("HallThrusterNext").classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+    nextButton_shellToLearningModeCore_HandleClick() {
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
+
         this.hideElement("hallThrusterButtonGroup");
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
@@ -505,6 +504,40 @@ export class LearningMode extends React.Component {
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
+        }, () => {this.scenarioRefresh()});
+        this.scenarioRefresh()
+
+    }
+
+    /**
+     * nextButton_hallThrusterToShell_HandleClick()
+     */
+    nextButton_hallThrusterToShell_HandleClick() {
+        // transition out of "on" state before zooming
+        this.hideElement("hallThrusterOn-fadeIn");
+        this.hideElement("hallThrusterOn-fadeOut");
+
+        let nextButton = document.getElementById("HallThrusterNext");
+        let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
+
+        nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+        nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+        nextButton_Accessible.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+
+        // trigger zoom animation
+        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+
+        // todo - change text (bad temporary implementation)
+        document.getElementById("hallThrusterNameLabel").innerText = "The Hollow Cathode";
+
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("hallThrusterOffSublabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("HallThrusterToggle");
+
+        this.setState((state, props) => {
+            return { deltastage: base, scene: [false,false,false,false,false,false,true,false] };
         }, () => {this.scenarioRefresh()});
     }
 
@@ -574,7 +607,7 @@ export class LearningMode extends React.Component {
         return (
             <>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
-                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Base Cathode"}/>
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Hall Thruster Off"}/>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -588,8 +621,7 @@ export class LearningMode extends React.Component {
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
 
                 <button id={"HallThrusterNext"}
-                        className={"CathodeHitBox_zoomed_out"}
-                        onClick={this.nextButton_hallThruster_HandleClick}>
+                        className={"CathodeHitBox_zoomed_out"}>
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
@@ -597,6 +629,9 @@ export class LearningMode extends React.Component {
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"HallThrusterNext_Accessible"}
+                            className={"button"}> Next
+                    </button>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
                             onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
