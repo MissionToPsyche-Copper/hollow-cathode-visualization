@@ -28,6 +28,9 @@ import {
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
 
+const {promisify} = require('util')
+const sleep= promisify(setTimeout)
+
 let canvas_height = 750;
 let canvas_width = 1150;
 
@@ -201,6 +204,7 @@ export class LearningMode extends React.Component {
         else if(HALL_THRUSTER_ON === true)
         {
             this.showElement("hallThrusterOn-fadeOut")
+            this.hideElement("hallThrusterOn-fadeOut")
             this.thrusterButtonText = "On";
 
             //HALL_THRUSTER_ON = false;
@@ -226,6 +230,9 @@ export class LearningMode extends React.Component {
             this.painter.draw_Hall_Thruster_On();
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
+        }else{
+            this.hideElement("hallThrusterOn-fadeOut")
+            this.hideElement("hallThrusterOn-fadeIn")
         }
 
         // if basedrawing is active
