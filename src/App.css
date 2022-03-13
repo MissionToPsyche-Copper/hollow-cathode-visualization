@@ -389,21 +389,20 @@ img{
     text-align: left;
     position: absolute;
     top: 8%;
-    right: 8vw;
+    left: 54vw;
 
-    width: 30vw;
+
+    max-width: 35vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
+    text-align: justify;
     position: absolute;
     top: 14%;
-    right: 18vw;
-    text-align: justify;
+    left: 54vw;
 
-    width: 20vw;
+    max-width: 35vw;
     min-width: 20vw;
-
-    overflow: hidden;
 
     color: #f5f5f5;
 }
@@ -414,5 +413,5 @@ img{
     width: auto;
     text-align: justify;
     position: absolute;
-    overflow-wrap: break-word;
+    overflow-wrap: normal;
 }

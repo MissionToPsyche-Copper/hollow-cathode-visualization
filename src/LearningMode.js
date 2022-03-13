@@ -9,6 +9,11 @@ import {
     heat,
     keeper,
     plasma,
+    hallThrusterPrimaryText,
+    hallThrusterSecondaryOnText,
+    hallThrusterSecondaryOffText,
+    cathodeShellPrimaryTitleText,
+    cathodeShellPrimaryText,
     heatTitleText,
     heatText,
     gasTitleText2,
@@ -23,7 +28,7 @@ import {
     heatKeeperErrorText,
     gasKeeperTitleText,
     gasKeeperErrorText
-}from "./Galactic";
+} from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
@@ -528,7 +533,9 @@ export class LearningMode extends React.Component {
         document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
 
         // todo - change text (bad temporary implementation)
-        document.getElementById("hallThrusterNameLabel").innerText = "The Hollow Cathode";
+        document.getElementById("hallThrusterNameLabel").innerText = cathodeShellPrimaryTitleText;
+        document.getElementById("hallThrusterNameSublabel").innerText = cathodeShellPrimaryText;
+        // todo - update red text to tell user to click the cathode again to remove its outer shell
 
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
@@ -608,14 +615,14 @@ export class LearningMode extends React.Component {
             <>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
                 <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Hall Thruster Off"}/>
-                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in"} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
@@ -638,38 +645,34 @@ export class LearningMode extends React.Component {
                     </button>
                 </div>
 
+                {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
                            className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is Off
                     </label>
                 </div>
-
+                {/*Hall thruster powered off text*/}
                 <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}>
-                        The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic
-                        plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal
-                        plasma. Another role of the hollow cathode, which is not least significant, is to neutralize the
-                        rocket. Without the hollow cathode, when Hall thruster emits plasma, the Hall thruster is
-                        negatively charging the entire rocket. This phenomenon can cause spacecraft erosion and reduce
-                        the thrust force.
+                        {hallThrusterSecondaryOffText}
 
                         <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
+                {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
                            className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is On
                     </label>
                 </div>
 
+                {/*Hall thruster powered on text*/}
                 <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}>
-                        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and
-                        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall
-                        thruster, both emitting blue plasma.
+                        {hallThrusterSecondaryOnText}
                         <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
@@ -683,30 +686,27 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
                            className={"sublabel hallThrusterNameSublabelPos"}>
-                        Hall thruster is advanced electric propulsion used in electric rockets. This technology is
-                        replacing the old chemical thruster since the Hall thruster consumes less energy but produces
-                        an incredibly <i>specific impulse</i> (the amount of force generated for an interval of time) and
-                        significantly reduces the payload mass.
+                        {hallThrusterPrimaryText}
                     </label>
                 </div>
 
                 <div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"} style={{display: "block"}}>
-                    <button id={"KeeperElectrodeToggle"}
+                    <button id={"HeatInsertToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                            onClick={this.HeatInsertToggle_HandleClick}> Toggle Heaters
                     </button>
                     <button id={"GasFeedToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                            onClick={this.GasFeedToggle_HandleClick}> Toggle Gas Feed
                     </button>
-                    <button id={"HeatInsertToggle"}
+                    <button id={"KeeperElectrodeToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                            onClick={this.KeeperElectrodeToggle_HandleClick}> Toggle Keeper Electrode
                     </button>
                 </div>
                 <button id={"nextButton"}

@@ -98,9 +98,10 @@ export class LandingPage extends React.Component {
                 <canvas id={"canvas"}
                         onClick={this.LearningMode_HandleClick}
                         ref={this.canvas}
+                        className={"unselectable"}
                         hidden={true}> You need a better browser :(
                 </canvas>
-                <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
+                <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow unselectable"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"PresModeButton"}
