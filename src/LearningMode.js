@@ -22,7 +22,8 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText
+    gasKeeperErrorText,
+    hallThusterOffText
 }from "./Galactic";
 
 import ReactDOM from "react-dom";
@@ -166,9 +167,10 @@ export class LearningMode extends React.Component {
 
             this.showElement("hallThrusterOffLabelDiv");
             this.showElement("hallThrusterOffSublabelDiv");
+            this.setState({text : hallThusterOffText})
 
             this.hideElement("hallThrusterOnLabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
+            //this.hideElement("hallThrusterOnSublabelDiv");
         }
         else
         {
@@ -176,7 +178,7 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOffSublabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
+            //this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
 
@@ -188,7 +190,7 @@ export class LearningMode extends React.Component {
             this.painter.draw_Hall_Thruster_On();
 
             this.showElement("hallThrusterOnLabelDiv");
-            this.showElement("hallThrusterOnSublabelDiv");
+            //this.showElement("hallThrusterOnSublabelDiv");
 
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOffSublabelDiv");
@@ -497,7 +499,7 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
         this.hideElement("hallThrusterOffSublabelDiv");
-        this.hideElement("hallThrusterOnSublabelDiv");
+        //this.hideElement("hallThrusterOnSublabelDiv");
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
         this.hideElement("HallThrusterNext");
@@ -533,7 +535,7 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
         this.hideElement("hallThrusterOffSublabelDiv");
-        this.hideElement("hallThrusterOnSublabelDiv");
+        // this.hideElement("hallThrusterOnSublabelDiv");
         this.hideElement("HallThrusterToggle");
 
         this.setState((state, props) => {
@@ -647,12 +649,7 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}>
-                        The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic
-                        plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal
-                        plasma. Another role of the hollow cathode, which is not least significant, is to neutralize the
-                        rocket. Without the hollow cathode, when Hall thruster emits plasma, the Hall thruster is
-                        negatively charging the entire rocket. This phenomenon can cause spacecraft erosion and reduce
-                        the thrust force.
+                                {this.state.text}
 
                         <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
@@ -664,15 +661,15 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-                <div id={"hallThrusterOnSublabelDiv"}>
-                    <label id={"hallThrusterOnSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}>
-                        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and
-                        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall
-                        thruster, both emitting blue plasma.
-                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
-                    </label>
-                </div>
+                {/*<div id={"hallThrusterOnSublabelDiv"}>*/}
+                {/*    <label id={"hallThrusterOnSublabel"}*/}
+                {/*           className={"sublabel hallThrusterOffSublabelPos"}>*/}
+                {/*        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and*/}
+                {/*        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall*/}
+                {/*        thruster, both emitting blue plasma.*/}
+                {/*        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>*/}
+                {/*    </label>*/}
+                {/*</div>*/}
 
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
