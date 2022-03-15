@@ -27,7 +27,7 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText
+    gasKeeperErrorText, cathodeCSVTitleText, cathodeCSVText
 } from "./Galactic";
 
 import ReactDOM from "react-dom";
@@ -253,6 +253,7 @@ export class LearningMode extends React.Component {
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
+                this.setState({text: cathodeCSVText})
             }
         }
         // the user deselected this option/layer
@@ -508,7 +509,7 @@ export class LearningMode extends React.Component {
         this.hideElement("HallThrusterNext");
 
         this.setState((state, props) => {
-            return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
+            return { deltastage: base, scene: [true,false,false,false,false,false,false,false], title: cathodeCSVTitleText, text: cathodeCSVText };
         }, () => {this.scenarioRefresh()});
         this.scenarioRefresh()
 
