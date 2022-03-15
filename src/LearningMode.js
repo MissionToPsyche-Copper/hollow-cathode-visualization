@@ -537,10 +537,10 @@ export class LearningMode extends React.Component {
         document.getElementById("hallThrusterNameSublabel").innerText = cathodeShellPrimaryText;
         // todo - update red text to tell user to click the cathode again to remove its outer shell
 
-        this.hideElement("hallThrusterOffLabelDiv");
-        this.hideElement("hallThrusterOnLabelDiv");
-        this.hideElement("hallThrusterOffSublabelDiv");
-        this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("hallThrusterOffLabel");
+        this.hideElement("hallThrusterOnLabel");
+        this.hideElement("hallThrusterOffSublabel");
+        this.hideElement("hallThrusterOnSublabel");
         this.hideElement("HallThrusterToggle");
 
         this.setState((state, props) => {
