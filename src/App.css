@@ -364,7 +364,7 @@ img{
 
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: calc(42vh - 2.8em);
+    top: 21%;
     right: 5vw;
 
     text-align: left;
@@ -374,7 +374,7 @@ img{
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 36.5vh;
+    top: 27%;
     right: 10vw;
 
     text-align: justify;
@@ -388,7 +388,7 @@ img{
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 8%;
+    top: 1.5%;
     left: 54vw;
 
 
@@ -398,7 +398,7 @@ img{
 .hallThrusterNameSublabelPos {
     text-align: justify;
     position: absolute;
-    top: 14%;
+    top: 7.5%;
     left: 54vw;
 
     max-width: 35vw;
