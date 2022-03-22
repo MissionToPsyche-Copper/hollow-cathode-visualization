@@ -395,7 +395,7 @@ img{
     min-width: 20vw;
     max-width: 30vw;
 }
-.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
+.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos, .referenceLabelPos{
     position: absolute;
     top: 32%;
     left: 64vw;
@@ -428,6 +428,13 @@ img{
     min-width: 20vw;
 
     color: #f5f5f5;
+}
+
+.referenceLabelPos{
+    display: block;
+    overflow: hidden;
+    width: 20vw;
+    top: 28%;
 }
 
 #learningModeGuide {
