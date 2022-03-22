@@ -9,17 +9,27 @@ import {
     heat,
     keeper,
     plasma,
+    heatTitleText,
     heatText,
+    gasTitleText2,
     gasText,
+    plasmaTitleText,
     plasmaText,
+    keeperTitleText,
     keeperText,
+    ejectTitleText,
     ejectText,
+    heatKeeperErrorTitleText,
     heatKeeperErrorText,
-    gasKeeperText
-} from "./Galactic";
+    gasKeeperTitleText,
+    gasKeeperErrorText
+}from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
+
+const {promisify} = require('util')
+const sleep= promisify(setTimeout)
 
 let canvas_height = 750;
 let canvas_width = 1150;
@@ -29,7 +39,11 @@ let canvas_width = 1150;
  * Should be rendered inside a <div id={"canvasHolder"}>
  * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
+
+var HALL_THRUSTER_ON = false;
+
 export class LearningMode extends React.Component {
+
     // Instance variables:
     // (all essentially cosmetic) (created in constructor)
     deltastage;
@@ -63,7 +77,8 @@ export class LearningMode extends React.Component {
         this.nextButton_plasma_HandleClick = this.nextButton_plasma_HandleClick.bind(this);
         this.nextButton_eject_HandleClick = this.nextButton_eject_HandleClick.bind(this);
         this.hallThrusterToggle_HandleClick = this.hallThrusterToggle_HandleClick.bind(this);
-        this.nextButton_hallThruster_HandleClick = this.nextButton_hallThruster_HandleClick.bind(this);
+        this.nextButton_hallThrusterToShell_HandleClick = this.nextButton_hallThrusterToShell_HandleClick.bind(this);
+        this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
         // initialize state
@@ -98,6 +113,15 @@ export class LearningMode extends React.Component {
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    isElementShown(elementId){
+        if(document.getElementById(elementId).style.display === 'flex') {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -113,10 +137,14 @@ export class LearningMode extends React.Component {
         const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
         const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
+        document.getElementById("HallThrusterNext").onclick = this.nextButton_hallThrusterToShell_HandleClick
+        document.getElementById("HallThrusterNext_Accessible").onclick = this.nextButton_hallThrusterToShell_HandleClick
+
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
+
     }
 
     /**
@@ -128,7 +156,11 @@ export class LearningMode extends React.Component {
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
         this.setState({text: " "})
+
         if(this.state.scene[hallThrusterOff] === true) {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
             this.hideElement("toggleButtonGroup");
             this.painter.draw_Hall_Thruster_Off();
 
@@ -164,16 +196,47 @@ export class LearningMode extends React.Component {
 
         // Hall Thruster toggle button text
         // programed backwards because of order of execution
+
+        //If the user turns the hall thruster on
         if(this.state.scene[hallThrusterOn] === true){
-            this.thrusterButtonText = "On";
-        } else {
+            HALL_THRUSTER_ON = true;
+            this.showElement("hallThrusterOn-fadeIn")
+
             this.thrusterButtonText = "Off";
+
         }
+        //If the user turns the hall thruster off after it was just on
+        else if(HALL_THRUSTER_ON === true)
+        {
+            this.showElement("hallThrusterOn-fadeOut")
+            this.thrusterButtonText = "On";
+
+            //HALL_THRUSTER_ON = false;
+        }
+        //If the hall thruster is off
+        //Also the first thing to happen in Hall Thruster view
+        else
+        {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+
+            this.thrusterButtonText = "On";
+        }
+
+        if(this.state.scene[hallThrusterOn] === false && this.state.scene[hallThrusterOff] === false)
+        {
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOn-fadeOut")
+        }
+
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
+        }else{
+            this.hideElement("hallThrusterOn-fadeOut")
+            this.hideElement("hallThrusterOn-fadeIn")
         }
 
         // if basedrawing is active
@@ -197,7 +260,8 @@ export class LearningMode extends React.Component {
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
-            if(this.state.deltastage === heat){
+            if(this.state.deltastage === heat)
+            {
                 this.setState({text: heatText})
             }
         }
@@ -261,7 +325,6 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
-            this.painter.plasma = false; // no plasma (flag)
 
             // if internal plasma stops because ___ call ___ explanation
             if(!this.state.scene[heat]){
@@ -335,7 +398,7 @@ export class LearningMode extends React.Component {
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
-            this.setState({text: gasKeeperText})
+            this.setState({text: gasKeeperErrorText})
         }
         //HEAT ON, KEEPER ON, NO PLASMA
         if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
@@ -423,17 +486,13 @@ export class LearningMode extends React.Component {
     }
 
     /**
-     * nextButton_hallThruster_HandleClick()
+     * nextButton_shellToLearningModeCore_HandleClick()
      */
-    nextButton_hallThruster_HandleClick() {
-        // trigger zoom animation
-        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
-        // add listener for end of animation
-        document.getElementById("hallThruster")
-            .addEventListener("animationend", () => { console.log("cathode zoom animation has finished") }, false);
+    nextButton_shellToLearningModeCore_HandleClick() {
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
+
         this.hideElement("hallThrusterButtonGroup");
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
@@ -441,9 +500,44 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterOnSublabelDiv");
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
+        this.hideElement("HallThrusterNext");
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
+        }, () => {this.scenarioRefresh()});
+        this.scenarioRefresh()
+
+    }
+
+    /**
+     * nextButton_hallThrusterToShell_HandleClick()
+     */
+    nextButton_hallThrusterToShell_HandleClick() {
+        // transition out of "on" state before zooming
+        this.hideElement("hallThrusterOn-fadeIn");
+        this.hideElement("hallThrusterOn-fadeOut");
+
+        let nextButton = document.getElementById("HallThrusterNext");
+        let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
+
+        nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+        nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+        nextButton_Accessible.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
+
+        // trigger zoom animation
+        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+
+        // todo - change text (bad temporary implementation)
+        document.getElementById("hallThrusterNameLabel").innerText = "The Hollow Cathode";
+
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("hallThrusterOffSublabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("HallThrusterToggle");
+
+        this.setState((state, props) => {
+            return { deltastage: base, scene: [false,false,false,false,false,false,true,false] };
         }, () => {this.scenarioRefresh()});
     }
 
@@ -497,6 +591,8 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "back" button, reloads the landing page
      */
     backButton_HandleClick() {
+
+        HALL_THRUSTER_ON = false;
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>
@@ -510,7 +606,8 @@ export class LearningMode extends React.Component {
     render(){
         return (
             <>
-                <img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>
+                {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Hall Thruster Off"}/>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -520,19 +617,24 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
+                <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in"} alt={"Hall Thruster On: Fade In"}/>
+                <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
+
+                <button id={"HallThrusterNext"}
+                        className={"CathodeHitBox_zoomed_out"}>
+                </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                    <button id={"HallThrusterNext_Accessible"}
+                            className={"button"}> Next
+                    </button>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Toggle Power {this.thrusterButtonText}
-                    </button>
-                    <button id={"HallThrusterNext"}
-                            className={"button"}
-                            onClick={this.nextButton_hallThruster_HandleClick}> Next
+                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
                     </button>
                 </div>
 
@@ -551,6 +653,8 @@ export class LearningMode extends React.Component {
                         rocket. Without the hollow cathode, when Hall thruster emits plasma, the Hall thruster is
                         negatively charging the entire rocket. This phenomenon can cause spacecraft erosion and reduce
                         the thrust force.
+
+                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
@@ -563,11 +667,10 @@ export class LearningMode extends React.Component {
                 <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos"}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur posuere magna eu blandit
-                        viverra. Suspendisse pulvinar sit amet magna in elementum. Nulla ac nibh in magna egestas
-                        pharetra sit amet et nibh. Sed gravida metus eleifend, elementum diam et, hendrerit risus. Nunc
-                        et nibh faucibus, facilisis elit eu, euismod est. Pellentesque pellentesque, massa sit amet
-                        sagittis semper, nibh.
+                        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and
+                        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall
+                        thruster, both emitting blue plasma.
+                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 

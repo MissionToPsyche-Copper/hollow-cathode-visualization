@@ -27,6 +27,11 @@ export class LandingPage extends React.Component {
 
         this.layers = [ctx0];
         this.painter = new Painter(this.layers);
+
+        this.showElement("landingPageTitleDiv")
+        this.showElement("landingPageSubTitleDiv")
+        this.showElement("landingPageLModePromptDiv")
+
         this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
         this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
     }
@@ -70,6 +75,23 @@ export class LandingPage extends React.Component {
         );
     }
 
+    /**
+     * Hides the element with the given id
+     * @param elementId id of element to hide
+     */
+    hideElement(elementId){
+        //document.getElementById(elementId).style.visibility = 'hidden';
+        document.getElementById(elementId).style.display = 'none';
+    }
+    /**
+     * Un-hides the element with the given id
+     * @param elementId id of element to show
+     */
+    showElement(elementId){
+        // document.getElementById(elementId).style.visibility = 'visible';
+        document.getElementById(elementId).style.display = 'flex';
+    }
+
     render() {
         return (
             <>
@@ -78,13 +100,25 @@ export class LandingPage extends React.Component {
                         ref={this.canvas}
                         hidden={true}> You need a better browser :(
                 </canvas>
-                <img id={'spaceshipImage'} src={"/images/psyche_spacecraft.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
+                <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"PresModeButton"}
                             className={"button"}
                             onClick={this.PresMode_HandleClick}> Presentation Mode
                     </button>
+                </div>
+
+                <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >
+                    <label id={"landingPageTitle"} className={"landingPageTitleLabel"} > Hollow Cathode </label>
+                </div>
+
+                <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign"} >
+                    <label id={"landingPageSubTitle"} className={"landingPageSubTitleLabel"} > Visualization </label>
+                </div>
+
+                <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
+                    <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"} > click the spacecraft to begin </label>
                 </div>
             </>
         )

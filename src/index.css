@@ -27,17 +27,28 @@ code {
 }
 
 .canvas{
-  position:absolute;
-  height: 80vh;
+  /* original */
+  /*position:absolute;*/
+  /*height: 80vh;*/
+  /*min-height: 350px;*/
+  /*!*width: 60vw;*!*/
+  /*!*min-width: 60vw;*!*/
+
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 20vw; !* relative to parent (canvasHolder) *!*/
+  /*right: 20vw; !* relative to parent (canvasHolder) *!*/
+
+  /* alternative */
+  position: absolute;
+  height: 90vh;
   min-height: 350px;
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  top: 0;
+  /* width: 60vw; */
+  /* min-width: 60vw; */
+  top: -5vh;
   bottom: 0;
-  left: 20vw; /* relative to parent (canvasHolder) */
-  right: 20vw; /* relative to parent (canvasHolder) */
-
+  left: 17vw;
+  right: 20vw;
 }
 
 .baseCathode{
@@ -52,13 +63,75 @@ code {
   min-height: 350px;
 }
 
+.CathodeHitBox_zoomed_in{
+  background-color: rgba(165, 63, 91, 0.06);
+  position: absolute;
+  top: 18%;
+  bottom: 75%;
+  left: 9vw;
+  right: 50%;
+  width: 38em;
+  height: 23em;
+  z-index: 10;
+}
+
+.CathodeHitBox_zoomed_out{
+  background-color: rgba(165, 63, 91, 0.06);
+  position: absolute;
+  top: 0%;
+  bottom: 75%;
+  left: 15vw;
+  right: 55%;
+
+  width: 400px;
+
+  z-index: 10;
+}
+
+.CathodeHitBox_zoomed_out:hover{
+  color: rgba(165, 63, 91, 0.06);
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+  width: 400px;
+}
+
+
 #hallThruster{
   position: absolute;
-  height: 80vh;
+  height: 82vh;
   min-height: 350px;
 
-  top: 0;
-  left: 35vw;
+  top: -1vw;
+  left: 10vw;
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
+#hallThrusterOn-fadeIn{
+  position: absolute;
+  height: 82vh;
+  min-height: 350px;
+
+  top: -1vw;
+  left: 10vw;
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+}
+
+#hallThrusterOn-fadeOut{
+  position: absolute;
+  height: 82vh;
+  min-height: 350px;
+
+  top: -1vw;
+  left: 10vw;
   right: 20vw;
 
   /*width: 60vw;*/
@@ -71,20 +144,35 @@ code {
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
   animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
-  animation-duration: 3s;
+  animation-duration: 2.8s;
+  animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
   /*animation-direction: alternate;*/
 }
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
-    height: 80vh;
-    left: 20vw;
+    top: -1vw;
+    height: 82vh;
+    left: 10vw;
   }
 
   to {
-    height: 375vh;
-    left: 1vw;
+    /* alternative to display 1 */
+    /*top: -13vw;*/
+    /*height: 355vh;*/
+    /*left: -70vw;*/
+
+    /* alternative to display 2 */
+    top: -5vw;
+    height: 355vh;
+    left: -42vw;
+    transform: rotate(-28deg);
+
+    /* alternative to display 3*/
+    /*top: -150vw;*/
+    /*height: 3000vh;*/
+    /*left: -708vw;*/
   }
 }
 
@@ -151,23 +239,83 @@ code {
 
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
-  bottom: 0;
-  right: 15%;
+  right: 18vw;
+  bottom: 1vh;
   align-items: flex-end;
 }
 
-
-
-
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
-  bottom: 0;
-  left: 15%;
+  left: 18vw;
+  bottom: 1vh;
+  align-items: flex-start;
+}
+
+/* landing page title */
+.stackedButtonGroup.landingPageTitleAlign{
+  top: 10vw;
+  left: 7vw;
+  align-items: flex-start;
+}
+
+/* landing page subtitle */
+.stackedButtonGroup.landingPageSubTitleAlign{
+  top: 15vw;
+  left: 10vw;
+  align-items: flex-start;
+}
+
+/* landing page learning mode prompt */
+.stackedButtonGroup.landingPageLModePromptAlign{
+  bottom: 9vw;
+  right: 30vw;
   align-items: flex-start;
 }
 
 /* defines spacing between buttons */
 .stackedButtonGroup > button{
   margin-top: 0.25em;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.25em;
+}
+
+.fade-in {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+  -ms-animation: fadeIn ease 3s;
+
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut ease 3s;
+  -webkit-animation: fadeOut ease 3s;
+  -moz-animation: fadeOut ease 3s;
+  -o-animation: fadeOut ease 3s;
+  -ms-animation: fadeOut ease 3s;
+
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+#guideText{
+  color: #a83c5c;
+  font-size: 1.2em;
 }

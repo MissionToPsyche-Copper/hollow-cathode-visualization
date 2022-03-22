@@ -18,7 +18,9 @@
 
 .App-header {
   background-color: #282c34;
-  background-image: url("https://toppng.com/uploads/preview/starry-sky-stars-space-dark-astronomy-11569918929pqamlkdeje.jpg");
+  background-image: url("star_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 80vh;
   max-height: 100vh;
   display: flex;
@@ -26,7 +28,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f5f5f5;
 }
 
 .App-link {
@@ -77,7 +79,7 @@ img{
 }
 
 .w-nav{
-    background-color: #dddddd;
+    background-color: #f5f5f5;
     z-index:1000;
 }
 
@@ -123,11 +125,20 @@ img{
 }
 
 .w-nav-menu{
+    color: #f5f5f5;
+    font-weight: 700;
+    font-size: 22px;
+    border-color: transparent;
     position: relative;
+    vertical-align: top;
+    text-decoration: none;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .nav-link{
-    color: #fff;
+    color: #f5f5f5;
     font-weight: 700;
     font-size: 22px;
     border-color: transparent;
@@ -153,7 +164,7 @@ img{
     color: black;
     right: 0;
     left:0;
-    background-color: #edeff2;
+    background-color: #f5f5f5;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -196,7 +207,7 @@ img{
 }
 
 .text-block{
-    color: #fff;
+    color: #f5f5f5;
     font-weight: 600;
     font-size: 21px;
     cursor: pointer;
@@ -218,7 +229,7 @@ img{
     bottom: 0;
     width: 100%;
     height: auto;
-    padding-top: 3rem;
+    padding-top: 15rem;
     padding-bottom: 40px;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
@@ -244,7 +255,7 @@ img{
 
 .footer-heading{
     margin-bottom: 20px;
-    color: #edeff2;
+    color: #f5f5f5;
     font-size: 15px;
     line-height: 1.5;
 }
@@ -252,7 +263,7 @@ img{
 .footer-link{
     display: block;
     margin-bottom: 8px;
-    color: #f0f0f0;
+    color: #f5f5f5;
     text-decoration: none;
 }
 
@@ -285,11 +296,11 @@ img{
 }
 
 .button {
-    background-color:#ef5a64;
+    background-color:#a83c5c;
     border-radius:42px;
     border:none;
     cursor:pointer;
-    color:#ffffff;
+    color: #f5f5f5;
     font-family: Arial, serif;
     font-size: clamp(9px, 1vw, 16px);
     font-weight:bold;
@@ -298,7 +309,7 @@ img{
     text-decoration:none;
 }
 .button:hover {
-    background-color:#bf484f;
+    background-color: #b1506c;
 }
 .button:active {
     transform: scale(0.96);
@@ -308,13 +319,39 @@ img{
     color: #A53F5B;
     font-size: clamp(25px, 2.2vw, 45px);
     padding: 8px;
-    font-family: Arial, serif;
+    font-weight: bold;
+    width: 100%;
+}
+
+.landingPageTitleLabel {
+    font-family: "Courier New";
+    color: #A53F5B;
+    font-size: clamp(70px, 2.2vw, 70px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.landingPageSubTitleLabel {
+    font-family: "Courier New";
+    color: #f5f5f5;
+    font-size: clamp(25px, 2.2vw, 45px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.landingPageLModePromptLabel {
+    font-family: "Courier New";
+    color: #f5f5f5;
+    font-size: clamp(25px, 2.2vw, 25px);
+    padding: 8px;
     font-weight: bold;
     width: 100%;
 }
 
 .sublabel {
-    color: white;
+    color: #f5f5f5;
     font-size: clamp(11px, 1vw, 20px);
     font-family: Arial, serif;
     font-weight: normal;
@@ -327,51 +364,55 @@ img{
 
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: calc(42vh - 1.2em);
-    right: 15%;
+    top: calc(42vh - 2.8em);
+    right: 5vw;
 
-    text-align: right;
+    text-align: left;
 
     min-width: 20vw;
     max-width: 30vw;
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 42vh;
-    right: 15%;
+    top: 36.5vh;
+    right: 10vw;
 
     text-align: justify;
 
     min-width: 20vw;
     max-width: 24vw;
+
+    color: #f5f5f5;
 }
 
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 11%;
-    left: 15%;
+    top: 8%;
+    right: 8vw;
 
     width: 30vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
     position: absolute;
-    top: 18%;
-    left: 15%;
-    text-align: left;
+    top: 14%;
+    right: 18vw;
+    text-align: justify;
 
     width: 20vw;
     min-width: 20vw;
 
     overflow: hidden;
+
+    color: #f5f5f5;
 }
 
 #learningModeGuide {
     top: 28%;
     left: 55vw;
     width: auto;
-    text-align: left;
+    text-align: justify;
     position: absolute;
     overflow-wrap: break-word;
 }
