@@ -22,8 +22,9 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText
-}from "./Galactic";
+    gasKeeperErrorText,
+    references,
+} from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
@@ -156,7 +157,7 @@ export class LearningMode extends React.Component {
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
         this.setState({text: " "})
-
+        this.hideElement('referenceDiv');
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("hallThrusterOn-fadeIn")
             this.hideElement("hallThrusterOn-fadeOut")
@@ -574,7 +575,10 @@ export class LearningMode extends React.Component {
      * this leads to the view were we show them some links to follow and such
      */
     nextButton_end_HandleClick() {
-        this.hideElement("nextButton");
+        this.hideElement("learningModeGuide");
+        this.showElement("referenceDiv");
+        document.getElementById('referenceDiv').style.display='block';
+        this.hideElement('nextButton');
     }
 
     /**
@@ -713,6 +717,17 @@ export class LearningMode extends React.Component {
                         className={"button stackedButtonGroup bottomrightAlign"}
                         style={{display: "none"}}> Next
                 </button>
+
+                <div id={'referenceDiv'} className={"sublabel referenceLabelPos"}>
+                    <label>
+                        “Glossary,” Glossary | MIT Plasma Science and Fusion Center, 2021. [Online]. Available:
+                        <a href={"https://www.psfc.mit.edu/vision/glossary."}>https://www.psfc.mit.edu/vision/glossary.</a> [Accessed: 09-Oct-2021].
+                    </label>
+                    <br></br>
+                    <label>
+                        J. D. Frieman, “CHARACTERIZATION OF BACKGROUND NEUTRAL FLOWS IN VACUUM TEST FACILITIES AND IMPACTS ON HALL EFFECT THRUSTER OPERATION,” dissertation, Georgia Institute of Technology, Atlanta, GA, 2017.
+                    </label>
+                </div>
             </>
         )
     }
