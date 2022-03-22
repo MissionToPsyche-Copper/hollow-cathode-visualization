@@ -130,12 +130,15 @@ class ProtoParticle {
         // add self to particles array
         if(particle_type === 'electron'){
             this.image = electronImage;
+            this.charge = -1;
             electron_particles_array.push(this);
         } else if(particle_type === 'xenon'){
             this.image = xenonImage;
+            this.charge = 1;
             xenon_particles_array.push(this);
         } else {
             this.image = 'none';
+            this.charge = 1;
             console.error("invalid particle_type: ", this.particle_type);
         }
     }
@@ -256,15 +259,15 @@ class ProtoParticle {
      */
     eject(){
         // if is xenon
-        if(this.particle_type === 'xenon' || this.particle_type === 'ionized xenon'){
-            this.max_x = this.canvas.width * 4;
-            this.setAnimation(ProtoParticle.xenonEjectedAnimation)
-        }
-        // if is electron
-        else if(this.particle_type === 'electron'){
-            // clone self?
-            // electron_particles_array.push(this); // not quite how you'd do it
-        }
+        this.setAnimation(ProtoParticle.xenonEjectedAnimation)
+        // if(this.particle_type === 'xenon' || this.particle_type === 'ionized xenon'){
+        //     this.max_x = this.canvas.width * 4;
+        // }
+        // // if is electron
+        // else if(this.particle_type === 'electron'){
+        //     // clone self?
+        //     // electron_particles_array.push(this); // not quite how you'd do it
+        // }
     }
 
     /**
@@ -286,6 +289,7 @@ class ProtoParticle {
     static draw_eject(index){
         try {
             xenon_particles_array[index].eject();
+            electron_particles_array[index].eject();
         } catch (error) {
             // Expected error: TypeError
             // This happens when a particle is deleted before it can ionize, this is normal (in presMode)
@@ -371,18 +375,22 @@ class ProtoParticle {
             // acceleration is only applied here to prevent logic errors accelerating particles through collisions
             // v_f = v_o + a*t (kinematic) (where t is the interval or intensity) (good values are like 1/60 or 5/60)
 
-            particle.ax = 5 * 10/particle.x; //keeper force (kqq/r)
+            particle.ax = -5 * 10/particle.x * particle.charge; //keeper force (kqq/r)
 
-            if(particle.x > particle.canvas.width * 2){
+            if(particle.x > particle.canvas.width/2 + particle.radius * 2){
                 // stop it from returning
-                particle.min_x = particle.canvas.width;
+                particle.min_x = particle.canvas.width/2;
+                particle.max_x = particle.canvas.width;
+                particle.min_y = 0;
+                particle.max_y = particle.canvas.height;
+            } else {
+                // y acceleration
+                particle.vy = particle.vy + (particle.ay * particle.interval);
+
+                // x acceleration
+                particle.vx = particle.vx + (particle.ax * particle.interval);
             }
 
-            // y acceleration
-            particle.vy = particle.vy + (particle.ay * particle.interval);
-
-            // x acceleration
-            particle.vx = particle.vx + (particle.ax * particle.interval);
         }
 
         //move the particle at the given velocity
