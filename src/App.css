@@ -335,6 +335,33 @@ img{
     max-width: 30vw;
 }
 
+@media only screen and (max-width: 930px) {
+    .hideWhenTooSmall {
+        visibility: hidden;
+    }
+
+    .showWhenTooSmall {
+        visibility: visible;
+    }
+}
+
+@media only screen and (min-width: 930px) {
+    .showWhenTooSmall {
+        visibility: hidden;
+    }
+}
+
+.showWhenTooSmall {
+    position: absolute;
+    color: #EF5966;
+    font-size: 40px;
+    font-weight: bold;
+    top: 15%;
+    left: 0%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .landingPageTitleLabel {
     font-family: "Courier New";
     color: #A53F5B;
