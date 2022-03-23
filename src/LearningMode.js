@@ -149,7 +149,6 @@ export class LearningMode extends React.Component {
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
-
     }
 
     /**
@@ -208,8 +207,8 @@ export class LearningMode extends React.Component {
             this.showElement("hallThrusterOn-fadeIn")
 
             this.thrusterButtonText = "Off";
-
         }
+
         //If the user turns the hall thruster off after it was just on
         else if(HALL_THRUSTER_ON === true)
         {
@@ -218,6 +217,7 @@ export class LearningMode extends React.Component {
 
             //HALL_THRUSTER_ON = false;
         }
+
         //If the hall thruster is off
         //Also the first thing to happen in Hall Thruster view
         else
@@ -233,7 +233,6 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOn-fadeIn")
             this.hideElement("hallThrusterOn-fadeOut")
         }
-
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
@@ -293,7 +292,7 @@ export class LearningMode extends React.Component {
         }
 
         // INTERNAL PLASMA // -----------
-        // if internal plasma is true
+        //------
         if(this.state.scene[plasma]){
             if(this.state.scene[heat] && this.state.scene[gas]){
                 this.painter.draw_csv_internal_plasma();
@@ -314,7 +313,9 @@ export class LearningMode extends React.Component {
             }
         }
 
-        // if both heat and gas are true but internal plasma isn't
+        // heat     ON
+        // gas      ON
+        // keeper   OFF
         else if (this.state.scene[heat] && this.state.scene[gas]){
             // there probably should be internal plasma?
 
@@ -327,6 +328,7 @@ export class LearningMode extends React.Component {
                 document.getElementById("nextButton").onclick = this.nextButton_plasma_HandleClick;
             }
         }
+
         // if plasma is false and deltastage is plasma
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
@@ -355,6 +357,12 @@ export class LearningMode extends React.Component {
         }
 
         // EJECT PLASMA // -----------
+        // User triggered eject plasma
+        // ----AND----
+        // heat     ON
+        // gas      ON
+        // keeper   ON
+        // plasma   ACTIVE
         if(this.state.scene[eject]){
             if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
                 this.painter.draw_csv_eject_plasma();
@@ -374,6 +382,12 @@ export class LearningMode extends React.Component {
                 }, () => {this.scenarioRefresh()});
             }
         }
+        // AFTER User triggered eject plasma
+        // ----AND----
+        // heat     ON
+        // gas      ON
+        // keeper   ON
+        // plasma   ACTIVE
         else if (this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
             // there probably should be ejecting plasma?
 
@@ -412,6 +426,9 @@ export class LearningMode extends React.Component {
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
+        /**
+         * LINK THIS TO SUMMARY USING nextButton_end_HandleClick FUNCTION
+         */
         if(this.state.scene[base] === true
             && this.state.scene[heat] === true
             && this.state.scene[gas] === true
