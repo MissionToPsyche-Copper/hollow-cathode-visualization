@@ -317,10 +317,49 @@ img{
 
 .titleLabel {
     color: #A53F5B;
-    font-size: clamp(25px, 2.2vw, 45px);
+    font-size: clamp(25px, 2.1vw, 45px);
     padding: 8px;
     font-weight: bold;
     width: 100%;
+}
+
+.sublabel {
+    color: #f5f5f5;
+    font-size: clamp(11px, 0.9vw, 20px);
+    font-family: Arial, serif;
+    font-weight: normal;
+    padding: 8px;
+    width: 50%;
+
+    min-width: 20vw;
+    max-width: 30vw;
+}
+
+@media only screen and (max-width: 930px) {
+    .hideWhenTooSmall {
+        visibility: hidden;
+    }
+
+    .showWhenTooSmall {
+        visibility: visible;
+    }
+}
+
+@media only screen and (min-width: 930px) {
+    .showWhenTooSmall {
+        visibility: hidden;
+    }
+}
+
+.showWhenTooSmall {
+    position: absolute;
+    color: #EF5966;
+    font-size: 40px;
+    font-weight: bold;
+    top: 15%;
+    left: 0%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .landingPageTitleLabel {
@@ -350,22 +389,10 @@ img{
     width: 100%;
 }
 
-.sublabel {
-    color: #f5f5f5;
-    font-size: clamp(11px, 1vw, 20px);
-    font-family: Arial, serif;
-    font-weight: normal;
-    padding: 8px;
-    width: 50%;
-
-    min-width: 20vw;
-    max-width: 30vw;
-}
-
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: calc(42vh - 2.8em);
-    right: 5vw;
+    top: 26%;
+    left: 64vw;
 
     text-align: left;
 
@@ -374,8 +401,8 @@ img{
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 36.5vh;
-    right: 10vw;
+    top: 32%;
+    left: 64vw;
 
     text-align: justify;
 
@@ -388,22 +415,21 @@ img{
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 8%;
-    right: 8vw;
+    top: 5%;
+    left: 54vw;
 
-    width: 30vw;
+
+    max-width: 35vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
-    position: absolute;
-    top: 14%;
-    right: 18vw;
     text-align: justify;
+    position: absolute;
+    top: 11%;
+    left: 54vw;
 
-    width: 20vw;
+    max-width: 35vw;
     min-width: 20vw;
-
-    overflow: hidden;
 
     color: #f5f5f5;
 }
@@ -414,5 +440,5 @@ img{
     width: auto;
     text-align: justify;
     position: absolute;
-    overflow-wrap: break-word;
+    overflow-wrap: normal;
 }

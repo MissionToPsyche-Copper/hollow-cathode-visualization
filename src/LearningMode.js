@@ -9,6 +9,11 @@ import {
     heat,
     keeper,
     plasma,
+    hallThrusterPrimaryText,
+    hallThrusterSecondaryOnText,
+    hallThrusterSecondaryOffText,
+    cathodeShellPrimaryTitleText,
+    cathodeShellPrimaryText,
     heatTitleText,
     heatText,
     gasTitleText2,
@@ -22,9 +27,8 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText,
-    hallThusterOffText
-}from "./Galactic";
+    gasKeeperErrorText, cathodeCSVTitleText, cathodeCSVText
+} from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
@@ -167,10 +171,9 @@ export class LearningMode extends React.Component {
 
             this.showElement("hallThrusterOffLabelDiv");
             this.showElement("hallThrusterOffSublabelDiv");
-            this.setState({text : hallThusterOffText})
 
             this.hideElement("hallThrusterOnLabelDiv");
-            //this.hideElement("hallThrusterOnSublabelDiv");
+            this.hideElement("hallThrusterOnSublabelDiv");
         }
         else
         {
@@ -178,7 +181,7 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOffSublabelDiv");
-            //this.hideElement("hallThrusterOnSublabelDiv");
+            this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
 
@@ -190,7 +193,7 @@ export class LearningMode extends React.Component {
             this.painter.draw_Hall_Thruster_On();
 
             this.showElement("hallThrusterOnLabelDiv");
-            //this.showElement("hallThrusterOnSublabelDiv");
+            this.showElement("hallThrusterOnSublabelDiv");
 
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOffSublabelDiv");
@@ -250,6 +253,7 @@ export class LearningMode extends React.Component {
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
+                this.setState({text: cathodeCSVText})
             }
         }
         // the user deselected this option/layer
@@ -257,8 +261,23 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
         }
 
+        // if keeper electrode is active
+        if(this.state.scene[keeper] === true){
+            this.painter.draw_csv_keeper_electrode();
+
+            // if the user just toggled the keeper electrode
+            if(this.state.deltastage === keeper){
+                this.setState({text: keeperText})
+            }
+        }
+        // if the user deselected this option/layer
+        else if (this.state.deltastage === keeper){
+            this.painter.clearCanvas(this.state.deltastage);
+        }
+
         // if heat insert is active
         if(this.state.scene[heat] === true){
+
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
@@ -269,6 +288,7 @@ export class LearningMode extends React.Component {
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === heat){
+
             this.painter.killElectronGenerator();
             this.painter.clearCanvas(this.state.deltastage);
         }
@@ -336,20 +356,6 @@ export class LearningMode extends React.Component {
             }
         }
 
-        // if keeper electrode is active
-        if(this.state.scene[keeper] === true){
-            this.painter.draw_csv_keeper_electrode();
-
-            // if the user just toggled the keeper electrode
-            if(this.state.deltastage === keeper){
-                this.setState({text: keeperText})
-            }
-        }
-        // if the user deselected this option/layer
-        else if (this.state.deltastage === keeper){
-            this.painter.clearCanvas(this.state.deltastage);
-        }
-
         // EJECT PLASMA // -----------
         if(this.state.scene[eject]){
             if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
@@ -398,12 +404,14 @@ export class LearningMode extends React.Component {
             //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
             // }
         }
+
         //GAS ON, KEEPER ON, NO PLASMA
-        if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
-            this.setState({text: gasKeeperErrorText})
+        if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
+            this.setState({text: gasKeeperErrorText});
         }
+
         //HEAT ON, KEEPER ON, NO PLASMA
-        if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
+        if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.state.deltastage === heat || this.state.deltastage === keeper)) {
             this.setState({text: heatKeeperErrorText})
         }
 
@@ -499,13 +507,13 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
         this.hideElement("hallThrusterOffSublabelDiv");
-        //this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
         this.hideElement("HallThrusterNext");
 
         this.setState((state, props) => {
-            return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
+            return { deltastage: base, scene: [true,false,false,false,false,false,false,false], title: cathodeCSVTitleText, text: cathodeCSVText };
         }, () => {this.scenarioRefresh()});
         this.scenarioRefresh()
 
@@ -530,12 +538,14 @@ export class LearningMode extends React.Component {
         document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
 
         // todo - change text (bad temporary implementation)
-        document.getElementById("hallThrusterNameLabel").innerText = "The Hollow Cathode";
+        document.getElementById("hallThrusterNameLabel").innerText = cathodeShellPrimaryTitleText;
+        document.getElementById("hallThrusterNameSublabel").innerText = cathodeShellPrimaryText;
+        // todo - update red text to tell user to click the cathode again to remove its outer shell
 
-        this.hideElement("hallThrusterOffLabelDiv");
-        this.hideElement("hallThrusterOnLabelDiv");
-        this.hideElement("hallThrusterOffSublabelDiv");
-        // this.hideElement("hallThrusterOnSublabelDiv");
+        this.hideElement("hallThrusterOffLabel");
+        this.hideElement("hallThrusterOnLabel");
+        this.hideElement("hallThrusterOffSublabel");
+        this.hideElement("hallThrusterOnSublabel");
         this.hideElement("HallThrusterToggle");
 
         this.setState((state, props) => {
@@ -575,6 +585,10 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "next" button for the eject plasma scene's ending
      * this leads to the view were we show them some links to follow and such
      */
+
+    /**
+     * LINK TO SUMMARY PAGE HERE!!!!
+     */
     nextButton_end_HandleClick() {
         this.hideElement("nextButton");
     }
@@ -609,28 +623,33 @@ export class LearningMode extends React.Component {
         return (
             <>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
-                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={""} alt={"Hall Thruster Off"}/>
-                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={"hideWhenTooSmall"} alt={"Hall Thruster Off"}/>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in"} alt={"Hall Thruster On: Fade In"}/>
-                <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out"} alt={"Hall Thruster On: Fade Out"}/>
+                <p id={"warning"} className={"showWhenTooSmall"}>
+                    Your window size is too small for this visualization.
+                    Please increase your window size before continuing.
+                </p>
+
+                <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in hideWhenTooSmall"} alt={"Hall Thruster On: Fade In"}/>
+                <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out hideWhenTooSmall"} alt={"Hall Thruster On: Fade Out"}/>
 
                 <button id={"HallThrusterNext"}
-                        className={"CathodeHitBox_zoomed_out"}>
+                        className={"CathodeHitBox_zoomed_out hideWhenTooSmall"}>
                 </button>
 
-                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup hideWhenTooSmall bottomleftAlign"} >
                     <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
                 </div>
 
-                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign hideWhenTooSmall"}>
                     <button id={"HallThrusterNext_Accessible"}
                             className={"button"}> Next
                     </button>
@@ -640,74 +659,72 @@ export class LearningMode extends React.Component {
                     </button>
                 </div>
 
+                {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is Off
+                           className={"titleLabel hallThrusterOffTitleLabelPos hideWhenTooSmall"}> The Hall Thruster Is Off
                     </label>
                 </div>
-
+                {/*Hall thruster powered off text*/}
                 <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
-                           className={"sublabel hallThrusterOffSublabelPos"}>
-                                {this.state.text}
+                           className={"sublabel hallThrusterOffSublabelPos hideWhenTooSmall"}>
+                        {hallThrusterSecondaryOffText}
 
                         <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
+                {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos"}> The Hall Thruster Is On
+                           className={"titleLabel hallThrusterOffTitleLabelPos hideWhenTooSmall"}> The Hall Thruster Is On
                     </label>
                 </div>
 
-                {/*<div id={"hallThrusterOnSublabelDiv"}>*/}
-                {/*    <label id={"hallThrusterOnSublabel"}*/}
-                {/*           className={"sublabel hallThrusterOffSublabelPos"}>*/}
-                {/*        The hollow cathode has two primary functions, it provides electrons for the Hall thruster, and*/}
-                {/*        neutralizes ions ejected by the Hall thruster. The hollow cathode can be seen above the Hall*/}
-                {/*        thruster, both emitting blue plasma.*/}
-                {/*        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>*/}
-                {/*    </label>*/}
-                {/*</div>*/}
+                {/*Hall thruster powered on text*/}
+                <div id={"hallThrusterOnSublabelDiv"}>
+                    <label id={"hallThrusterOnSublabel"}
+                           className={"sublabel hallThrusterOffSublabelPos hideWhenTooSmall"}>
+                        {hallThrusterSecondaryOnText}
+                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
+                    </label>
+                </div>
 
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
-                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                           className={"titleLabel hallThrusterNameTitleLabelPos hideWhenTooSmall"}> Hall Thruster
                     </label>
                 </div>
 
                 <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
-                           className={"sublabel hallThrusterNameSublabelPos"}>
-                        Hall thruster is advanced electric propulsion used in electric rockets. This technology is
-                        replacing the old chemical thruster since the Hall thruster consumes less energy but produces
-                        an incredibly <i>specific impulse</i> (the amount of force generated for an interval of time) and
-                        significantly reduces the payload mass.
+                           className={"sublabel hallThrusterNameSublabelPos hideWhenTooSmall"}>
+                        {hallThrusterPrimaryText}
                     </label>
                 </div>
 
-                <div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>
+                <div id={"learningModeGuide"} className={"sublabel hideWhenTooSmall"}>{this.state.text}</div>
 
-                <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign"} style={{display: "block"}}>
-                    <button id={"KeeperElectrodeToggle"}
+                <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign hideWhenTooSmall"} style={{display: "block"}}>
+                    <button id={"HeatInsertToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.KeeperElectrodeToggle_HandleClick}> Keeper Electrode
+                            onClick={this.HeatInsertToggle_HandleClick}> Toggle Heaters
                     </button>
                     <button id={"GasFeedToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.GasFeedToggle_HandleClick}> Gas Feed
+                            onClick={this.GasFeedToggle_HandleClick}> Toggle Gas Feed
                     </button>
-                    <button id={"HeatInsertToggle"}
+                    <button id={"KeeperElectrodeToggle"}
                             className={"button"}
                             style={{display: "block"}}
-                            onClick={this.HeatInsertToggle_HandleClick}> Heat Inserts
+                            onClick={this.KeeperElectrodeToggle_HandleClick}> Toggle Keeper Electrode
                     </button>
                 </div>
                 <button id={"nextButton"}
-                        className={"button stackedButtonGroup bottomrightAlign"}
+                        className={"button stackedButtonGroup hideWhenTooSmall bottomrightAlign"}
                         style={{display: "none"}}> Next
                 </button>
             </>

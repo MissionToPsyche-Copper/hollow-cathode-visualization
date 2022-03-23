@@ -18,6 +18,15 @@ code {
     monospace;
 }
 
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /*-khtml-user-select: none;*/
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /*-o-user-select: none;*/
+  user-select: none;
+}
 
 
 /* Div element that which holds the primary canvas element */
@@ -64,34 +73,38 @@ code {
 }
 
 .CathodeHitBox_zoomed_in{
-  background-color: rgba(165, 63, 91, 0.06);
+  background-color: transparent;
+  border: none;
   position: absolute;
   top: 18%;
   bottom: 75%;
   left: 9vw;
   right: 50%;
-  width: 38em;
-  height: 23em;
+
+  width: 40vw;
+  height: 42vh;
+
   z-index: 10;
+}
+.CathodeHitBox_zoomed_in:hover{
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }
 
 .CathodeHitBox_zoomed_out{
-  background-color: rgba(165, 63, 91, 0.06);
+  background-color: transparent;
+  border: none;
   position: absolute;
   top: 0%;
-  bottom: 75%;
-  left: 15vw;
-  right: 55%;
+  left: 19vw;
 
-  width: 400px;
+  width: 22vw;
+  height: 21vh;
 
   z-index: 10;
 }
 
 .CathodeHitBox_zoomed_out:hover{
-  color: rgba(165, 63, 91, 0.06);
   box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
-  width: 400px;
 }
 
 

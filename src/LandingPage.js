@@ -95,30 +95,39 @@ export class LandingPage extends React.Component {
     render() {
         return (
             <>
-                <canvas id={"canvas"}
-                        onClick={this.LearningMode_HandleClick}
-                        ref={this.canvas}
-                        hidden={true}> You need a better browser :(
-                </canvas>
-                <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
-
-                <div className={"stackedButtonGroup bottomrightAlign"}>
-                    <button id={"PresModeButton"}
-                            className={"button"}
-                            onClick={this.PresMode_HandleClick}> Presentation Mode
-                    </button>
+                <div className={"showWhenTooSmall"}>
+                    <p>
+                        Your window size is too small for this visualization.
+                        Please increase your window size before continuing.
+                    </p>
                 </div>
+                <div className={"hideWhenTooSmall"}>
+                    <canvas id={"canvas"}
+                            onClick={this.LearningMode_HandleClick}
+                            ref={this.canvas}
+                            className={"unselectable"}
+                            hidden={true}> You need a better browser :(
+                    </canvas>
+                    <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow unselectable"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
 
-                <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >
-                    <label id={"landingPageTitle"} className={"landingPageTitleLabel"} > Hollow Cathode </label>
-                </div>
+                    <div className={"stackedButtonGroup bottomrightAlign"}>
+                        <button id={"PresModeButton"}
+                                className={"button"}
+                                onClick={this.PresMode_HandleClick}> Presentation Mode
+                        </button>
+                    </div>
 
-                <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign"} >
-                    <label id={"landingPageSubTitle"} className={"landingPageSubTitleLabel"} > Visualization </label>
-                </div>
+                    <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >
+                        <label id={"landingPageTitle"} className={"landingPageTitleLabel"}> Hollow Cathode </label>
+                    </div>
 
-                <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
-                    <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"} > click the spacecraft to begin </label>
+                    <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign"} >
+                        <label id={"landingPageSubTitle"} className={"landingPageSubTitleLabel"}> Visualization </label>
+                    </div>
+
+                    <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
+                        <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"}> click the spacecraft to begin </label>
+                    </div>
                 </div>
             </>
         )
