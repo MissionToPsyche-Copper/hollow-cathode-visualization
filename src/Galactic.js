@@ -59,7 +59,8 @@ export const keeperTitleText = "The Keeper Electrode"
 export const keeperText = "A positive voltage is placed on the keeper electrode, which pulls the electrons out of the orifice at the end of the cathode where they can then be used by the Hall thruster. ";
 
 export const ejectTitleText = "Ejecting Plasma via the Keeper Electrode"
-export const ejectText = "The plasma is pushed out of the cathode tube. This hot plasma of ions and electrons neutralizes ions as they are ejected from the Hall thruster and many of the electrons are pulled into the Hall thruster and used to ionize its propellant. ";
+//export const ejectText = "The plasma is pushed out of the cathode tube. This hot plasma of ions and electrons neutralizes ions as they are ejected from the Hall thruster and many of the electrons are pulled into the Hall thruster and used to ionize its propellant. ";
+export const ejectText = "EJECT TEXT"
 
 export const recapTitleText = "A Quick Recap"
 export const recapText = "First, a heater heats the cathode insert until it begins to emit electrons. Next, gas is injected near the insert and is ionized by the emitted electrons to form a plasma of ions and even more electrons. Lastly, a positive voltage is placed on the keeper electrode, pulling the electrons particles out of the end of the cathode where they can then be used by the Hall thruster. The hollow cathode is a critical component of the Hall thruster as it provides electrons needed to ionize its propellant and also neutralizes the ionized propellant as it leaves the thruster such that it doesn’t negatively affect the spacecraft. ";
@@ -71,5 +72,7 @@ export const link2url = "https://psyche.asu.edu/";
 export const link3url = "https://psyche.asu.edu/";
 
 export const heatKeeperErrorTitleText = "Heat Keeper Error"
-export const heatKeeperErrorText = " Heat Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
-export const gasKeeperErrorText = " Gas Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+//export const heatKeeperErrorText = " Heat Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+export const heatKeeperErrorText = "HEAT KEEPER ERROR TEXT"
+//export const gasKeeperErrorText = " Gas Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+export const gasKeeperErrorText = "GAS KEEPER ERROR TEXT"
