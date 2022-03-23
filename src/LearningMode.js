@@ -416,16 +416,26 @@ export class LearningMode extends React.Component {
             //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
             // }
         }
+
         // Gas      ON
         // Keeper   ON
         // Plasma   OFF
-        if(this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.deltastage === gas || this.deltastage === keeper)) {
+        if( this.state.scene[gas] === true  &&
+            this.state.scene[keeper] === true &&
+            this.state.scene[plasma] === false &&
+            (this.deltastage === gas || this.deltastage === keeper))
+        {
+            this.showElement("hallThruster-fadeOut")
             this.setState({text: gasKeeperErrorText})
         }
         // Heat     ON
         // Keeper   ON
         // Plasma   OFF
-        if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.deltastage === heat || this.deltastage === keeper)) {
+        if( this.state.scene[heat] &&
+            this.state.scene[keeper] &&
+            !this.state.scene[plasma] &&
+            (this.deltastage === heat || this.deltastage === keeper))
+        {
             this.setState({text: heatKeeperErrorText})
         }
 
