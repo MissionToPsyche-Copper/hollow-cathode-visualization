@@ -585,6 +585,10 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "next" button for the eject plasma scene's ending
      * this leads to the view were we show them some links to follow and such
      */
+
+    /**
+     * LINK TO SUMMARY PAGE HERE!!!!
+     */
     nextButton_end_HandleClick() {
         this.hideElement("nextButton");
     }
