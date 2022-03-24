@@ -237,8 +237,10 @@ export class LearningMode extends React.Component {
 
         if(this.state.scene[hallThrusterOn] === true) {
             this.painter.draw_Hall_Thruster_On();
+
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
+
         }else{
             this.hideElement("hallThrusterOn-fadeOut")
             this.hideElement("hallThrusterOn-fadeIn")
@@ -257,6 +259,7 @@ export class LearningMode extends React.Component {
             }
 
             this.hideElement("hallThruster")
+           // this.hideElement()
         }
         //hide some elements that shouldn't be seen outside cross-sectional view
         else if(this.state.scene[base] === false)

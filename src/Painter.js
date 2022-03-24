@@ -37,6 +37,8 @@ class Painter{
         this.thruster_off.src = "/images/HallThrusterMockup.png";
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/base_cathode.png";
+        this.cross_section = new Image();
+        this.cross_section.src = "/images/cross_section.png";
 
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
