@@ -11,8 +11,6 @@ import Painter from "./Painter";
  */
 import {
     base,
-    canvas_height,
-    canvas_width,
     eject,
     gas,
     heat,
