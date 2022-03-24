@@ -597,6 +597,8 @@ export class LearningMode extends React.Component {
     backButton_HandleClick() {
 
         HALL_THRUSTER_ON = false;
+        //this.painter.killElectronGenerator()
+        // this.painter.killXenonGenerator()
         // render learning mode
         ReactDOM.render(
             <div id={"canvasHolder"}>

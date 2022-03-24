@@ -477,9 +477,11 @@ class ProtoParticle {
      */
     static generateElectron(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
         // Drawing some particles //
+        //if (electron_particles_array.length >= 15) return;
         let electron0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, 6, 'electron', mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         electron0.setAnimation(ProtoParticle.electronAnimation);
         electron0.startAnimation();
+        console.log(electron_particles_array.length);
     }
 
     static killAllElectron(){

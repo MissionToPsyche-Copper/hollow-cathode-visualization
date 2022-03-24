@@ -25,6 +25,7 @@ import {
 
 
 class Painter{
+    spawn_rate = 5;
     constructor(layers) {
         this.layers = layers;
 
@@ -181,7 +182,7 @@ class Painter{
 
         // Managing particles
         // Turn on Electron Generator, 1 electron per 4 seconds
-        this.startElectronGenerator(4);
+        this.startElectronGenerator();
     }
 
     /**
@@ -219,8 +220,8 @@ class Painter{
 
         // Jack - managing particles
         // Turn on Xenon Generator, 1 xenon per 5 seconds
-        this.startXenonGenerator(5);
-
+        this.startXenonGenerator();
+        this.startXenonGenerator();
         // ProtoParticle.generateXenon(ctx)
         // this.draw_csv_gas_feed_particles();
     }
@@ -232,13 +233,13 @@ class Painter{
      *
      * @param spawn_rate time in SECONDS between each particle spawn.
      */
-    startXenonGenerator(spawn_rate){
+    startXenonGenerator(){
         const ctx = this.getLayer(gas);
-
+        this.spawn_rate= 5;
         // 1 xenon per 3 seconds
         if(this.XenonGeneratorKey === -1){
             ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
-            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
+            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, this.spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
         }
     }
 
@@ -248,14 +249,16 @@ class Painter{
      * @param new_spawn_rate time in seconds between each particle spawn
      */
     slowXenonGenerator(new_spawn_rate){
+        this.spawn_rate= new_spawn_rate
         this.killXenonGenerator();
-        this.startXenonGenerator(new_spawn_rate);
+        //this.startXenonGenerator();
     }
 
     /**
      * Stops the generation of xenon immediately
      */
     killXenonGenerator(){
+        this.spawn_rate=0;
         clearInterval(this.XenonGeneratorKey); // kill interval
         this.XenonGeneratorKey = -1; // reset key
     }
@@ -266,13 +269,13 @@ class Painter{
      *
      * @param spawn_rate time in SECONDS between each particle spawn.
      */
-    startElectronGenerator(spawn_rate){
+    startElectronGenerator(){
         const ctx = this.getLayer(heat);
-
+        this.spawn_rate= 5;
         // 2 electrons per 4 seconds
         if(this.ElectronGeneratorKey === -1){
             ProtoParticle.generateElectron(ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, this.spawn_rate * 1000, ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
         }
     }
 
@@ -282,15 +285,18 @@ class Painter{
      * @param new_spawn_rate time in seconds between each particle spawn
      */
     slowElectronGenerator(new_spawn_rate){
+        this.spawn_rate = new_spawn_rate
         this.killElectronGenerator();
-        this.startElectronGenerator(new_spawn_rate);
+        //this.startElectronGenerator(new_spawn_rate);
     }
 
     /**
      * Stops the generation of electrons immediately
      */
     killElectronGenerator(){
+        this.spawn_rate=0;
         clearInterval(this.ElectronGeneratorKey); // kill interval
+        ProtoParticle.killAllElectron()
         this.ElectronGeneratorKey = -1; // reset key
     }
 
