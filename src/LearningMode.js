@@ -110,7 +110,7 @@ export class LearningMode extends React.Component {
         document.getElementById(elementId).style.display = 'none';
     }
     /**
-     * Un-hides the element with the given id
+     * Shows the element with the given id
      * @param elementId id of element to show
      */
     showElement(elementId){
@@ -184,7 +184,6 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
-
         }
 
         if (this.state.scene[hallThrusterOn] === true)
@@ -208,7 +207,6 @@ export class LearningMode extends React.Component {
             this.showElement("hallThrusterOn-fadeIn")
 
             this.thrusterButtonText = "Off";
-
         }
         //If the user turns the hall thruster off after it was just on
         else if(HALL_THRUSTER_ON === true)
@@ -259,14 +257,19 @@ export class LearningMode extends React.Component {
             }
 
             this.hideElement("hallThruster")
-           // this.hideElement()
+
+            //this.showElement("baseCathode")
         }
         //hide some elements that shouldn't be seen outside cross-sectional view
         else if(this.state.scene[base] === false)
         {
-            this.hideElement("crossSectionalCathode-fadeIn");
-            this.hideElement("crossSectionalCathode-fadeOut");
+            this.hideElement("baseCathode-fadeIn");
+            this.hideElement("baseCathode-fadeOut");
             this.hideElement("thrusterAndCathode-fadeOut");
+
+            this.hideElement("baseCathode")
+
+            this.hideElement("testBaseCathode")
         }
         // the user deselected this option/layer
         else if (this.state.deltastage === base){
@@ -631,7 +634,6 @@ export class LearningMode extends React.Component {
         );
     }
 
-
     render(){
         return (
             <>
@@ -655,9 +657,11 @@ export class LearningMode extends React.Component {
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in hideWhenTooSmall"} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out hideWhenTooSmall"} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"crossSectionalCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in hideWhenTooSmall"}/>
-                <img id={"crossSectionalCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out hideWhenTooSmall"}/>
+                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in hideWhenTooSmall"}/>
+                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out hideWhenTooSmall"}/>
                 <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out hideWhenTooSmall"}/>
+                <img id={"baseCathode"} src={"/images/cross_section.png"}/>
+                <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"}/>
 
 
                 <button id={"HallThrusterNext"}

@@ -35,11 +35,10 @@ class Painter{
         this.thruster_on.src = "/images/plasma_sample.jpg";
         this.thruster_off = new Image();
         this.thruster_off.src = "/images/HallThrusterMockup.png";
+        // this.base_cathode = new Image();
+        // this.base_cathode.src = "/images/cross_section.png";
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/base_cathode.png";
-        this.cross_section = new Image();
-        this.cross_section.src = "/images/cross_section.png";
-
+        this.base_cathode.src = "/images/spacecraft2.png";
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 
@@ -121,9 +120,8 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        // ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.base_cathode.width * 0.4, this.base_cathode.height * 0.4);
         ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.getCanvasWidth() * 0.4, this.getCanvasHeight() * 0.4);
-        // ctx.drawImage(this.base_cathode, 0, 0, 300, 300);
+
 
 
 

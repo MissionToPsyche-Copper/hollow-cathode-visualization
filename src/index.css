@@ -67,6 +67,19 @@ code {
   z-index: 0;
 }
 
+#crossSection{
+  height: 80vh;
+  width: 85%;
+  min-height: 350px;
+  visibility: visible;
+}
+#ugh{
+  height: 80vh;
+  width: 85%;
+  min-height: 350px;
+  visibility: visible;
+}
+
 #spaceshipImage{
   height: 80vh;
   min-height: 350px;
