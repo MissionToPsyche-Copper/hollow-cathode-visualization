@@ -433,8 +433,13 @@ img{
 .referenceLabelPos{
     display: block;
     overflow: hidden;
-    width: 20vw;
     top: 28%;
+    z-index: 10;
+}
+
+#referenceDiv{
+    min-width: 20vw;
+    max-width: 30vw;
 }
 
 #learningModeGuide {
