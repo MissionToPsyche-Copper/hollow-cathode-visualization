@@ -255,6 +255,15 @@ export class LearningMode extends React.Component {
                 this.painter.draw_csv_Base_Drawing_guide();
                 this.setState({text: cathodeCSVText})
             }
+
+            this.hideElement("hallThruster")
+        }
+        //hide some elements that shouldn't be seen outside cross-sectional view
+        else if(this.state.scene[base] === false)
+        {
+            this.hideElement("crossSectionalCathode-fadeIn");
+            this.hideElement("crossSectionalCathode-fadeOut");
+            this.hideElement("thrusterAndCathode-fadeOut");
         }
         // the user deselected this option/layer
         else if (this.state.deltastage === base){
@@ -536,6 +545,7 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+        //this.hideElement("hallThruster")
 
         // todo - change text (bad temporary implementation)
         document.getElementById("hallThrusterNameLabel").innerText = cathodeShellPrimaryTitleText;
@@ -623,7 +633,6 @@ export class LearningMode extends React.Component {
         return (
             <>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
-                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={"hideWhenTooSmall"} alt={"Hall Thruster Off"}/>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -633,6 +642,8 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
+                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={"hideWhenTooSmall"} alt={"Hall Thruster Off"}/>
+
                 <p id={"warning"} className={"showWhenTooSmall"}>
                     Your window size is too small for this visualization.
                     Please increase your window size before continuing.
@@ -640,6 +651,11 @@ export class LearningMode extends React.Component {
 
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in hideWhenTooSmall"} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out hideWhenTooSmall"} alt={"Hall Thruster On: Fade Out"}/>
+
+                <img id={"crossSectionalCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in hideWhenTooSmall"}/>
+                <img id={"crossSectionalCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out hideWhenTooSmall"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out hideWhenTooSmall"}/>
+
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out hideWhenTooSmall"}>
