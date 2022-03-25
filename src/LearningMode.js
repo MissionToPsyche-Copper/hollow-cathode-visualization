@@ -28,6 +28,7 @@ import {
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
+import {Link} from "react-router-dom";
 
 const {promisify} = require('util')
 const sleep= promisify(setTimeout)
@@ -576,9 +577,11 @@ export class LearningMode extends React.Component {
      */
     nextButton_end_HandleClick() {
         this.hideElement("learningModeGuide");
-        this.showElement("referenceDiv");
-        document.getElementById('referenceDiv').style.display='block';
-        this.hideElement('nextButton');
+        console.log(this.state.deltastage);
+        if(this.state.deltastage===5){
+            let url = window.location.hostname;
+            window.location.replace('/summary');
+        }
     }
 
     /**
@@ -594,19 +597,19 @@ export class LearningMode extends React.Component {
      * backButton_HandleClick()
      * Onclick handler for the "back" button, reloads the landing page
      */
-    backButton_HandleClick() {
-
-        HALL_THRUSTER_ON = false;
-        //this.painter.killElectronGenerator()
-        // this.painter.killXenonGenerator()
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <LandingPage id={"landingPage"}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // backButton_HandleClick() {
+    //
+    //     HALL_THRUSTER_ON = false;
+    //     //this.painter.killElectronGenerator()
+    //     // this.painter.killXenonGenerator()
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <LandingPage id={"landingPage"}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
 
     render(){
@@ -631,7 +634,9 @@ export class LearningMode extends React.Component {
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
-                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    <Link to={'/'}>
+                        <button id={"backButton"} className={"button"}> Back to Landing Page </button>
+                    </Link>
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>

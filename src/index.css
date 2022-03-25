@@ -45,10 +45,15 @@ code {
   min-height: 350px;
   /* width: 60vw; */
   /* min-width: 60vw; */
-  top: -5vh;
+  top: 4vh;
   bottom: 0;
   left: 17vw;
   right: 20vw;
+}
+
+#canvasHolder{
+  height: 80vh;
+  top: 50vh;
 }
 
 .baseCathode{
@@ -95,12 +100,10 @@ code {
 }
 
 
-#hallThruster{
+#hallThruster, #hallThrusterOn-fadeIn, #hallThrusterOn-fadeOut{
   position: absolute;
   height: 82vh;
   min-height: 350px;
-
-  top: -1vw;
   left: 10vw;
   right: 20vw;
 
@@ -110,40 +113,38 @@ code {
   z-index: 0;
 }
 
-#hallThrusterOn-fadeIn{
-  position: absolute;
-  height: 82vh;
-  min-height: 350px;
+/*#hallThrusterOn-fadeIn{*/
+/*  position: absolute;*/
+/*  height: 82vh;*/
+/*  min-height: 350px;*/
 
-  top: -1vw;
-  left: 10vw;
-  right: 20vw;
+/*  left: 10vw;*/
+/*  right: 20vw;*/
 
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
+/*  !*width: 60vw;*!*/
+/*  !*min-width: 60vw;*!*/
 
-  z-index: 0;
-}
+/*  z-index: 0;*/
+/*}*/
 
-#hallThrusterOn-fadeOut{
-  position: absolute;
-  height: 82vh;
-  min-height: 350px;
+/*#hallThrusterOn-fadeOut{*/
+/*  position: absolute;*/
+/*  height: 82vh;*/
+/*  min-height: 350px;*/
 
-  top: -1vw;
-  left: 10vw;
-  right: 20vw;
+/*  left: 10vw;*/
+/*  right: 20vw;*/
 
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
+/*  !*width: 60vw;*!*/
+/*  !*min-width: 60vw;*!*/
 
-  z-index: 0;
-}
+/*  z-index: 0;*/
+/*}*/
 
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
-  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-delay: 0.3s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
   animation-duration: 2.8s;
   animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
@@ -152,7 +153,6 @@ code {
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
-    top: -1vw;
     height: 82vh;
     left: 10vw;
   }
@@ -164,7 +164,7 @@ code {
     /*left: -70vw;*/
 
     /* alternative to display 2 */
-    top: -5vw;
+    top: 0vh;
     height: 355vh;
     left: -42vw;
     transform: rotate(-28deg);
@@ -240,14 +240,15 @@ code {
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   right: 18vw;
-  bottom: 1vh;
+  top: 75vh;
   align-items: flex-end;
+  z-index: 11;
 }
 
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  bottom: 1vh;
+  top: 75vh;
   align-items: flex-start;
 }
 
@@ -267,8 +268,8 @@ code {
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 9vw;
-  right: 30vw;
+  top: 70vh;
+  right: 10vw;
   align-items: flex-start;
 }
 

@@ -20,6 +20,7 @@ import {
     plasma
 } from "./Galactic";
 import ProtoParticle from "./ProtoParticle";
+import {Link} from "react-router-dom";
 
 var isAuto = false;
 /**
@@ -191,15 +192,15 @@ class PresMode extends React.Component {
      * backButton_HandleClick()
      * Onclick handler for the "back" button, reloads the landing page
      */
-    backButton_HandleClick() {
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <LandingPage id={"landingPage"}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // backButton_HandleClick() {
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <LandingPage id={"landingPage"}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
     /**
      * autoToggleButton_HandleClick()
@@ -233,7 +234,9 @@ class PresMode extends React.Component {
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <div className={"stackedButtonGroup bottomleftAlign"}>
-                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    <Link to={'/'}>
+                        <button id={"backButton"} className={"button"}> Back to Landing Page </button>
+                    </Link>
                     <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
                 </div>
                 <div className={"stackedButtonGroup bottomrightAlign"}>
