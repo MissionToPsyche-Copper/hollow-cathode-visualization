@@ -21,9 +21,6 @@ import {
 // const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
 // const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
-
-
-
 class Painter{
     constructor(layers) {
         this.layers = layers;
@@ -35,8 +32,6 @@ class Painter{
         this.thruster_on.src = "/images/plasma_sample.jpg";
         this.thruster_off = new Image();
         this.thruster_off.src = "/images/HallThrusterMockup.png";
-        // this.base_cathode = new Image();
-        // this.base_cathode.src = "/images/cross_section.png";
         this.base_cathode = new Image();
         this.base_cathode.src = "/images/spacecraft2.png";
 
