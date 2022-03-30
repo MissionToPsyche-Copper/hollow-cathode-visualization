@@ -30,10 +30,7 @@ class FooterComponent extends React.Component{
                         <h1 className="footer-heading">About</h1>
                         <u1 role="list" className="w-list-unstyled">
                             <li>
-                                <a href="#" className="footer-link">Our Products</a>
-                            </li>
-                            <li>
-                                <a href="#" className="footer-link">Careers</a>
+                                <a href="https://psyche.asu.edu/get-involved/careers-and-internships/" className="footer-link">Careers</a>
                             </li>
                         </u1>
                     </div>
@@ -41,13 +38,16 @@ class FooterComponent extends React.Component{
                         <h1 className="footer-heading">Follow Us:</h1>
                         <u1 role="list" className="w-list-unstyled">
                             <li>
-                                <a href="#" className="footer-link">Facebook</a>
+                                <a href="https://www.facebook.com/MissionToPsyche" className="footer-link">Facebook</a>
                             </li>
                             <li>
-                                <a href="#" className="footer-link">Instagram</a>
+                                <a href="https://www.instagram.com/accounts/login/?next=/missiontopsyche/" className="footer-link">Instagram</a>
                             </li>
                             <li>
-                                <a href="#" className="footer-link">LinkedIn</a>
+                                <a href="https://twitter.com/MissionToPsyche" className="footer-link">Twitter</a>
+                            </li>
+                            <li>
+                                <a href={'https://www.youtube.com/channel/UC2BGcbPW8mxryXnjQcBqk6A/'} className={'footer-link'}>YouTube</a>
                             </li>
                         </u1>
                     </div>

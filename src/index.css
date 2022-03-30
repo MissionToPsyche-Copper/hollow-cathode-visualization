@@ -15,9 +15,18 @@ header, h1, h2, h3, h4, h5, h6{
 /* I believe this is unused*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /*-khtml-user-select: none;*/
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /*-o-user-select: none;*/
+  user-select: none;
+}
 
 
 /* Div element that which holds the primary canvas element */
@@ -53,7 +62,6 @@ code {
 
 #canvasHolder{
   height: 80vh;
-  top: 50vh;
 }
 
 .baseCathode{
@@ -113,38 +121,10 @@ code {
   z-index: 0;
 }
 
-/*#hallThrusterOn-fadeIn{*/
-/*  position: absolute;*/
-/*  height: 82vh;*/
-/*  min-height: 350px;*/
-
-/*  left: 10vw;*/
-/*  right: 20vw;*/
-
-/*  !*width: 60vw;*!*/
-/*  !*min-width: 60vw;*!*/
-
-/*  z-index: 0;*/
-/*}*/
-
-/*#hallThrusterOn-fadeOut{*/
-/*  position: absolute;*/
-/*  height: 82vh;*/
-/*  min-height: 350px;*/
-
-/*  left: 10vw;*/
-/*  right: 20vw;*/
-
-/*  !*width: 60vw;*!*/
-/*  !*min-width: 60vw;*!*/
-
-/*  z-index: 0;*/
-/*}*/
-
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
-  animation-delay: 0.3s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
   animation-duration: 2.8s;
   animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
@@ -153,6 +133,7 @@ code {
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
+    top: 6.2vw;
     height: 82vh;
     left: 10vw;
   }
@@ -164,7 +145,7 @@ code {
     /*left: -70vw;*/
 
     /* alternative to display 2 */
-    top: 0vh;
+    top: 0vw;
     height: 355vh;
     left: -42vw;
     transform: rotate(-28deg);
@@ -214,9 +195,9 @@ code {
 }
 
 #canvas7{
-   /*border: 1px solid orange;*/
+  /*border: 1px solid orange;*/
   z-index: 7;
- }
+}
 
 /* (landing page spacecraft) */
 #spacecraft_image{
@@ -248,7 +229,7 @@ code {
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  top: 75vh;
+  top: 81vh;
   align-items: flex-start;
 }
 

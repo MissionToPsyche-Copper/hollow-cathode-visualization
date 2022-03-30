@@ -97,7 +97,6 @@ export class LandingPage extends React.Component {
         return (
             <>
                 <canvas id={"canvas"}
-                        onClick={this.LearningMode_HandleClick}
                         ref={this.canvas}
                         hidden={true}> You need a better browser :(
                 </canvas>

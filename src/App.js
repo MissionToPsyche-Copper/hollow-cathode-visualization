@@ -19,7 +19,7 @@ function App() {
         <Router>
             <div className={'App App-header'}>
                 <HeaderComponent/>
-                <div id={"canvasHolder"}>
+                {/*<div id={"canvasHolder"}>*/}
                     <Routes>
                         <Route path={'/'} element={<LandingPage/>}></Route>
                         <Route path={'/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>}></Route>
@@ -28,7 +28,7 @@ function App() {
                     </Routes>
                 </div>
                 <FooterComponent/>
-            </div>
+            {/*</div>*/}
         </Router>
     );
 }

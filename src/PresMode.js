@@ -89,6 +89,7 @@ class PresMode extends React.Component {
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
+        document.getElementsByClassName('stackedButtonGroup bottomrightAlign')[0].style.top='81vh';
     }
 
 
@@ -223,7 +224,7 @@ class PresMode extends React.Component {
     render(){
         // console.log("PresMode.render called") //:debug
         return (
-            <>
+            <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -242,7 +243,7 @@ class PresMode extends React.Component {
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
                 </div>
-            </>
+            </div>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }
 }
