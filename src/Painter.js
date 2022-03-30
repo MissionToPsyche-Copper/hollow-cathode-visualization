@@ -145,8 +145,8 @@ class Painter{
      * Function to draw the base cathode visuals
      */
     draw_csv_Base_Drawing(){
-        // console.log(base ," draw_csv_Base_Drawing called") //:debug
-
+        console.log(base ," draw_csv_Base_Drawing called") //:debug
+        console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 

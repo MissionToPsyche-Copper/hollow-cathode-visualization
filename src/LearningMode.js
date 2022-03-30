@@ -33,7 +33,7 @@ import {
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
-import {Link} from "react-router-dom";
+import {Link, useLinkClickHandler} from "react-router-dom";
 
 const {promisify} = require('util')
 const sleep= promisify(setTimeout)
@@ -92,7 +92,7 @@ export class LearningMode extends React.Component {
         this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
         this.state.canvas_height = document.getElementById("root").clientHeight;
-        this.state.canvas_width = document.getElementById("root").clientWidth * 0.60;
+        this.state.canvas_width = document.getElementById("root").clientWidth * 1.3;
 
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true) {
@@ -162,8 +162,8 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
+        console.log('scenarioRefresh active: '+this.scene);
         this.setState({text: " "})
-        this.hideElement('referenceDiv');
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("hallThrusterOn-fadeIn")
             this.hideElement("hallThrusterOn-fadeOut")
@@ -248,6 +248,7 @@ export class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
+            console.log('base cathode is drawing')
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -342,6 +343,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(plasma);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
+                document.getElementById('nextButton').style.top='81vh';
                 document.getElementById("nextButton").onclick = this.nextButton_plasma_HandleClick;
             }
         }
@@ -387,6 +389,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
+                document.getElementById('nextButton').style.top='81vh';
                 document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
@@ -425,6 +428,7 @@ export class LearningMode extends React.Component {
             && this.state.scene[eject] === true){
             this.hideElement("toggleButtonGroup");
             this.showElement("nextButton");
+            document.getElementById('nextButton').style.top='81vh';
             document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
     }
@@ -531,6 +535,8 @@ export class LearningMode extends React.Component {
         let nextButton = document.getElementById("HallThrusterNext");
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
 
+        document.getElementById('hallThrusterButtonGroup').style.top='81vh'
+
         nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
         nextButton_Accessible.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
@@ -570,7 +576,6 @@ export class LearningMode extends React.Component {
     nextButton_eject_HandleClick() {
         let newScene = this.state.scene;
         newScene[eject] = !newScene[eject];
-
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
@@ -594,8 +599,8 @@ export class LearningMode extends React.Component {
         this.hideElement("learningModeGuide");
         console.log(this.state.deltastage);
         if(this.state.deltastage===5){
-            let url = window.location.hostname;
-            window.location.replace('/summary');
+            this.hideElement('nextButton');
+            this.showElement('summaryButton');
         }
     }
 
@@ -629,7 +634,7 @@ export class LearningMode extends React.Component {
 
     render(){
         return (
-            <>
+            <div id={'canvasHolder'}>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
                 <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={"hideWhenTooSmall"} alt={"Hall Thruster Off"}/>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -738,17 +743,12 @@ export class LearningMode extends React.Component {
                         style={{display: "none"}}> Next
                 </button>
 
-                <div id={'referenceDiv'} className={"sublabel referenceLabelPos"}>
-                    <label>
-                        “Glossary,” Glossary | MIT Plasma Science and Fusion Center, 2021. [Online]. Available:
-                        <a href={"https://www.psfc.mit.edu/vision/glossary."}>https://www.psfc.mit.edu/vision/glossary.</a> [Accessed: 09-Oct-2021].
-                    </label>
-                    <br></br>
-                    <label>
-                        J. D. Frieman, “CHARACTERIZATION OF BACKGROUND NEUTRAL FLOWS IN VACUUM TEST FACILITIES AND IMPACTS ON HALL EFFECT THRUSTER OPERATION,” dissertation, Georgia Institute of Technology, Atlanta, GA, 2017.
-                    </label>
-                </div>
-            </>
+                <Link to={'/summary'}>
+                    <button id={'summaryButton'} className={"button"} style={{"display": "none"}}>
+                        Summary
+                    </button>
+                </Link>
+            </div>
         )
     }
 }

@@ -15,7 +15,7 @@ header, h1, h2, h3, h4, h5, h6{
 /* I believe this is unused*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
 .unselectable {
@@ -128,35 +128,6 @@ code {
   z-index: 0;
 }
 
-/*#hallThrusterOn-fadeIn{*/
-/*  position: absolute;*/
-/*  height: 82vh;*/
-/*  min-height: 350px;*/
-
-/*  left: 10vw;*/
-/*  right: 20vw;*/
-
-/*  !*width: 60vw;*!*/
-/*  !*min-width: 60vw;*!*/
-
-/*  z-index: 0;*/
-/*}*/
-
-/*#hallThrusterOn-fadeOut{*/
-/*  position: absolute;*/
-/*  height: 82vh;*/
-/*  min-height: 350px;*/
-
-  /*top: 0;*/
-  /*left: 35vw;*/
-  /*right: 20vw;*/
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-/*  z-index: 0;*/
-/*}*/
-
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
@@ -169,12 +140,13 @@ code {
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
+    top: 6.2vw;
     height: 82vh;
     left: 10vw;
   }
 
   to {
-    top: 0vh;
+    top: 0vw;
     height: 355vh;
     left: -42vw;
     transform: rotate(-28deg);
@@ -219,9 +191,9 @@ code {
 }
 
 #canvas7{
-   /*border: 1px solid orange;*/
+  /*border: 1px solid orange;*/
   z-index: 7;
- }
+}
 
 /* (landing page spacecraft) */
 #spacecraft_image{
@@ -256,7 +228,7 @@ code {
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  top: 75vh;
+  top: 81vh;
   align-items: flex-start;
 }
 

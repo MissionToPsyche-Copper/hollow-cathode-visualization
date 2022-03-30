@@ -305,9 +305,20 @@ img{
     padding:8px 20px;
     text-decoration:none;
 }
+
+#summaryButton{
+    right: 18vw;
+    top: 81vh;
+    align-items: flex-end;
+    z-index: 11;
+    display: flex;
+    position: absolute;
+}
+
 .button:hover {
     background-color: #b1506c;
 }
+
 .button:active {
     transform: scale(0.96);
 }
@@ -420,6 +431,7 @@ img{
     max-width: 35vw;
     min-width: 20vw;
 }
+
 .hallThrusterNameSublabelPos {
     text-align: justify;
     position: absolute;
@@ -433,6 +445,7 @@ img{
 }
 
 .referenceLabelPos{
+    bottom: 0;
     display: block;
     overflow: hidden;
     top: 28%;
@@ -440,8 +453,10 @@ img{
 }
 
 #referenceDiv{
+    float: bottom;
     min-width: 20vw;
     max-width: 30vw;
+    z-index: 12;
 }
 
 #learningModeGuide {
@@ -451,4 +466,38 @@ img{
     text-align: justify;
     position: absolute;
     overflow-wrap: normal;
+}
+
+#summary{
+    float: right;
+    text-align: left;
+}
+
+.summarySubLabelPos{
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.summaryTitlePos{
+    text-align: center;
+    font-family: "Courier New";
+    color: #A53F5B;
+    font-size: clamp(30px, 2.2vw, 70px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+    z-index: 14;
+}
+
+.summarySubLabel{
+    text-align: justify;
+}
+
+#summary{
+    display: flex;
+}
+
+#summaryContent{
+    margin-top: 5rem;
+    margin-left:50%;
 }
