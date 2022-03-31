@@ -115,7 +115,7 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.getCanvasWidth() * 0.4, this.getCanvasHeight() * 0.4);
+        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.15, this.getCanvasWidth() * .9, this.getCanvasHeight() * 0.75);
 
 
 
