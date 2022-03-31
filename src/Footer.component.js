@@ -32,6 +32,9 @@ class FooterComponent extends React.Component{
                             <li>
                                 <a href="https://psyche.asu.edu/get-involved/careers-and-internships/" className="footer-link">Careers</a>
                             </li>
+                            <li>
+                                <a href={'/ref'} className={'footer-link'}>References</a>
+                            </li>
                         </u1>
                     </div>
                     <div>
@@ -52,8 +55,10 @@ class FooterComponent extends React.Component{
                         </u1>
                     </div>
                 </div>
-                <div>
-                    Copyright @ 2021 [My Company]. All rights reserved
+                <div style={{color: '#f5f5f5'}}>
+                    Copyright @ 2022 Arizona State University. All rights reserved
+                    <br></br>
+                    Penn State Behrend | Capstone Course: SWENG 480/481 and CMPSC 484/485
                 </div>
             </footer>
         );
