@@ -100,7 +100,7 @@ code {
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 0%;
+  top: 8%;
   left: 19vw;
 
   width: 22vw;
@@ -217,7 +217,7 @@ code {
 /* align a button group to the bottom right */
 .stackedButtonGroup.bottomrightAlign{
   right: 18vw;
-  top: 75vh;
+  top: 81.5vh;
   align-items: flex-end;
   z-index: 11;
 }
@@ -228,12 +228,12 @@ code {
 /* align a button group to the bottom left */
 .stackedButtonGroup.bottomleftAlign{
   left: 18vw;
-  top: 81vh;
+  top: 85vh;
   align-items: flex-start;
 }
 
 .stackedButtonGroup.centerAlign{
-  top: 81vh;
+  top: 85vh;
   align-items: center;
   left: 50vw;
 }

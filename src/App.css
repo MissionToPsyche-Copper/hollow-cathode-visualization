@@ -410,7 +410,7 @@ img{
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos, .referenceLabelPos{
     position: absolute;
-    top: 32%;
+    top: 30%;
     left: 64vw;
 
     text-align: justify;
@@ -436,8 +436,8 @@ img{
 .hallThrusterNameSublabelPos {
     text-align: justify;
     position: absolute;
-    top: 11%;
-    left: 54vw;
+    top: 13%;
+    left: 55vw;
 
     max-width: 35vw;
     min-width: 20vw;

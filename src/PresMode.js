@@ -87,7 +87,7 @@ class PresMode extends React.Component {
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
-        document.getElementsByClassName('stackedButtonGroup bottomrightAlign')[0].style.top='81vh';
+        document.getElementsByClassName("stackedButtonGroup bottomleftAlign")[0].style.top='81vh';
         PresMode.isAuto= false;
     }
 

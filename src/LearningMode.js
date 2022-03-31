@@ -343,7 +343,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(plasma);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
-                document.getElementById('nextButton').style.top='81vh';
+                document.getElementById('nextButton').style.top='85vh';
                 document.getElementById("nextButton").onclick = this.nextButton_plasma_HandleClick;
             }
         }
@@ -389,7 +389,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
-                document.getElementById('nextButton').style.top='81vh';
+                document.getElementById('nextButton').style.top='85vh';
                 document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
@@ -428,7 +428,7 @@ export class LearningMode extends React.Component {
             && this.state.scene[eject] === true){
             this.hideElement("toggleButtonGroup");
             this.showElement("nextButton");
-            document.getElementById('nextButton').style.top='81vh';
+            document.getElementById('nextButton').style.top='85vh';
             document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
     }
@@ -492,6 +492,7 @@ export class LearningMode extends React.Component {
         // update DOM buttons (replace next with toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
+        document.getElementById('toggleButtonGroup').style.top='73vh';
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -507,6 +508,7 @@ export class LearningMode extends React.Component {
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
+        document.getElementById('toggleButtonGroup').style.top='73vh';
 
         this.hideElement("hallThrusterButtonGroup");
         this.hideElement("hallThrusterOffLabelDiv");
@@ -535,7 +537,7 @@ export class LearningMode extends React.Component {
         let nextButton = document.getElementById("HallThrusterNext");
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
 
-        document.getElementById('hallThrusterButtonGroup').style.top='81vh'
+        document.getElementById('hallThrusterButtonGroup').style.top='85vh'
 
         nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
@@ -579,7 +581,7 @@ export class LearningMode extends React.Component {
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
-
+        document.getElementById('toggleButtonGroup').style.top='73vh';
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
