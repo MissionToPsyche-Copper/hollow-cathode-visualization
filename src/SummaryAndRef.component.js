@@ -4,13 +4,21 @@ import PresMode from "./PresMode";
 import {base} from "./Galactic";
 import Painter from "./Painter";
 
+
 class SummaryAndRefComponent extends React.Component{
     constructor() {
         super();
+
     }
 
     componentDidMount() {
-        document.getElementById('autoToggleButton').click();
+        PresMode.isAuto = false;
+        console.log(PresMode.isAuto);
+        if (PresMode.isAuto === false){
+            console.log("Summary toggle result: "+PresMode.isAuto);
+            document.getElementById('autoToggleButton').click();
+        }
+        // document.getElementById('autoToggleButton').style.display='none';
         document.getElementById('nextButton').display= 'none';
     }
 
