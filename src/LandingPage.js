@@ -4,7 +4,11 @@ import ReactDOM from "react-dom";
 import {base, hallThrusterOff} from "./Galactic";
 import PresMode from "./PresMode";
 import LearningMode from "./LearningMode";
-import {Link} from "react-router-dom";
+import {Link, Route, Routes} from "react-router-dom";
+import HeaderComponent from "./Header.component.";
+import SummaryPage from "./SummaryPage";
+import RefComponent from "./Ref.component";
+import FooterComponent from "./Footer.component";
 
 /**
  * Site landing page element
@@ -95,14 +99,8 @@ export class LandingPage extends React.Component {
 
     render() {
         return (
-            <>
-                <div className={"showWhenTooSmall"}>
-                    <p>
-                        Your window size is too small for this visualization.
-                        Please increase your window size before continuing.
-                    </p>
-                </div>
-                <div className={"hideWhenTooSmall"}>
+            <div id={'canvasHolder'}>
+                <div>
                     <canvas id={"canvas"}
                             onClick={this.LearningMode_HandleClick}
                             ref={this.canvas}
@@ -115,6 +113,11 @@ export class LandingPage extends React.Component {
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
+                        <Link to={'/learning'}>
+                            <button id={"LearnModeButton"} className={"button"}>
+                                Learning Mode
+                            </button>
+                        </Link>
                         <Link to={'/presentation'}>
                             <button id={"PresModeButton"} className={"button"}>
                                 Presentation Mode
@@ -134,7 +137,7 @@ export class LandingPage extends React.Component {
                         <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"}> click the spacecraft to begin </label>
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 }

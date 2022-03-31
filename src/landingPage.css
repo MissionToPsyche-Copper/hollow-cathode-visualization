@@ -6,3 +6,9 @@
 .grow:hover {
     transform: scale(1.1);
 }
+
+
+#spaceshipImage{
+    height: 80vh;
+    min-height: 350px;
+}

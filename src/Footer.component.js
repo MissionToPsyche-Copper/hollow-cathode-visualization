@@ -55,7 +55,7 @@ class FooterComponent extends React.Component{
                         </u1>
                     </div>
                 </div>
-                <div style={{color: '#f5f5f5'}}>
+                <div>{/*style = {{color: '#f5f5f5'}}*/}
                     Copyright @ 2022 Arizona State University. All rights reserved
                     <br></br>
                     Penn State Behrend | Capstone Course: SWENG 480/481 and CMPSC 484/485

@@ -1,47 +1,81 @@
 .App {
-  text-align: center;
+    text-align: center;
     height: auto;
     width: auto;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 2s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 2s linear;
+    }
 }
 
 
 .App-header {
-  background-color: #282c34;
-  background-image: url("star_background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  max-width: 100vw;
-    min-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  /*align-items: center;*/
-  justify-content: center;
-  font-size: 2vmin;
-  color: #f5f5f5;
+    background-color: #282c34;
+    background-image: url("star_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 80vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: #f5f5f5;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media only screen and (max-width: 930px) {
+    .hideWhenTooSmall {
+        visibility: hidden;
+    }
+
+    .showWhenTooSmall {
+        visibility: visible;
+    }
+}
+
+@media only screen and (max-height: 930px) {
+    .hideWhenTooSmall {
+        visibility: hidden;
+    }
+
+    .showWhenTooSmall {
+        visibility: visible;
+    }
+}
+
+@media only screen and (min-width: 930px) {
+    .showWhenTooSmall {
+        visibility: hidden;
+    }
+}
+
+@media only screen and (min-height: 930px) {
+    .showWhenTooSmall {
+        visibility: hidden;
+    }
+}
+
+.showWhenTooSmall {
+    position: absolute;
+    color: #EF5966;
+    font-size: 40px;
+    font-weight: bold;
+    top: 15%;
+    left: 0%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 img{
@@ -58,7 +92,7 @@ img{
 }
 
 .navbar{
-    min-height: 90px;
+    min-height: 75px;
     position: -webkit-sticky;
     position: sticky;
     bottom: auto;
@@ -125,6 +159,10 @@ img{
 }
 
 .w-nav-menu{
+    color: #f5f5f5;
+    font-weight: 700;
+    font-size: 22px;
+    border-color: transparent;
     position: relative;
     vertical-align: top;
     text-decoration: none;
@@ -191,7 +229,6 @@ img{
 
 .brand{
     color: transparent;
-    float: left;
 }
 
 .w-nav-brand{
@@ -226,8 +263,8 @@ img{
     bottom: 0;
     width: 100%;
     height: auto;
-    padding-top: 3rem;
-    padding-bottom: 4rem;
+    padding-top: 15rem;
+    padding-bottom: 40px;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
@@ -305,24 +342,22 @@ img{
     padding:8px 20px;
     text-decoration:none;
 }
-
-#summaryToggle{
-    right: 18vw;
-    top: 81vh;
-    align-items: flex-end;
-    z-index: 11;
-    display: flex;
-    position: absolute;
-    align-items: center;
-}
-
 .button:hover {
     background-color: #b1506c;
 }
-
 .button:active {
     transform: scale(0.96);
 }
+
+/*#summaryButton{*/
+/*    right: 18vw;*/
+/*    top: 81vh;*/
+/*    align-items: flex-end;*/
+/*    z-index: 11;*/
+/*    display: flex;*/
+/*    position: absolute;*/
+/*    align-items: center;*/
+/*}*/
 
 .titleLabel {
     color: #A53F5B;
@@ -342,33 +377,6 @@ img{
 
     min-width: 20vw;
     max-width: 30vw;
-}
-
-@media only screen and (max-width: 930px) {
-    .hideWhenTooSmall {
-        visibility: hidden;
-    }
-
-    .showWhenTooSmall {
-        visibility: visible;
-    }
-}
-
-@media only screen and (min-width: 930px) {
-    .showWhenTooSmall {
-        visibility: hidden;
-    }
-}
-
-.showWhenTooSmall {
-    position: absolute;
-    color: #EF5966;
-    font-size: 40px;
-    font-weight: bold;
-    top: 15%;
-    left: 0%;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .landingPageTitleLabel {
@@ -408,9 +416,9 @@ img{
     min-width: 20vw;
     max-width: 30vw;
 }
-.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos, .referenceLabelPos{
+.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 30%;
+    top: 32%;
     left: 64vw;
 
     text-align: justify;
@@ -419,30 +427,37 @@ img{
     max-width: 24vw;
 
     color: #f5f5f5;
-    z-index: 10;
 }
 
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 10%;
-    right: 8vw;
+    top: 5%;
+    left: 54vw;
 
 
     max-width: 35vw;
     min-width: 20vw;
 }
-
 .hallThrusterNameSublabelPos {
     text-align: justify;
     position: absolute;
-    top: 13%;
-    left: 55vw;
+    top: 11%;
+    left: 54vw;
 
     max-width: 35vw;
     min-width: 20vw;
 
     color: #f5f5f5;
+}
+
+#learningModeGuide {
+    top: 28%;
+    left: 55vw;
+    width: auto;
+    text-align: justify;
+    position: absolute;
+    overflow-wrap: normal;
 }
 
 .referenceLabelPos{
@@ -460,16 +475,8 @@ img{
     z-index: 12;
 }
 
-#learningModeGuide {
-    top: 28%;
-    left: 55vw;
-    width: auto;
-    text-align: justify;
-    position: absolute;
-    overflow-wrap: normal;
-}
-
 #summary{
+    display: flex;
     float: right;
     text-align: left;
 }
@@ -494,9 +501,6 @@ img{
     text-align: justify;
 }
 
-#summary{
-    display: flex;
-}
 
 #summaryContent{
     margin-top: 5rem;
