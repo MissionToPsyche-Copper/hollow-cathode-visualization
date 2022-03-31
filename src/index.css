@@ -233,6 +233,11 @@ code {
   align-items: flex-start;
 }
 
+.stackedButtonGroup.centerAlign{
+  top: 81vh;
+  align-items: center;
+  left: 50vw;
+}
 /* landing page title */
 .stackedButtonGroup.landingPageTitleAlign{
   top: 10vw;

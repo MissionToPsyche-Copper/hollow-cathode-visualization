@@ -12,6 +12,7 @@ import FooterComponent from "./Footer.component";
 import LearningMode from "./LearningMode";
 import PresMode from "./PresMode";
 import SummaryAndRefComponent from "./SummaryAndRef.component";
+import RefComponent from "./Ref.component";
 import {base, hallThrusterOff} from "./Galactic";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                         <Route path={'/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>}></Route>
                         <Route path={'/presentation'} element={<PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>}></Route>
                         <Route path={'/summary'} element={<SummaryAndRefComponent/>}></Route>
+                        <Route path={'/ref'} element={<RefComponent/>}></Route>
                     </Routes>
                 </div>
                 <FooterComponent/>

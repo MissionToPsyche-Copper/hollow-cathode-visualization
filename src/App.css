@@ -310,13 +310,14 @@ img{
     text-decoration:none;
 }
 
-#summaryButton{
+#summaryToggle{
     right: 18vw;
     top: 81vh;
     align-items: flex-end;
     z-index: 11;
     display: flex;
     position: absolute;
+    align-items: center;
 }
 
 .button:hover {
