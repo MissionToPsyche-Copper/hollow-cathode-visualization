@@ -18,7 +18,7 @@ class SummaryAndRefComponent extends React.Component{
             console.log("Summary toggle result: "+PresMode.isAuto);
             document.getElementById('autoToggleButton').click();
         }
-        // document.getElementById('autoToggleButton').style.display='none';
+        document.getElementById('autoToggleButton').style.display='none';
         document.getElementById('nextButton').display= 'none';
     }
 
