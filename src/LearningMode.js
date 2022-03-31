@@ -743,8 +743,8 @@ export class LearningMode extends React.Component {
                         style={{display: "none"}}> Next
                 </button>
 
-                <Link to={'/summary'}>
-                    <button id={'summaryButton'} className={"button"} style={{"display": "none"}}>
+                <Link to={'/summary'} id={'summaryButton'}>
+                    <button id={''} className={"button stackedButtonGroup centerAlign"}>
                         Summary
                     </button>
                 </Link>
