@@ -20,7 +20,7 @@ import {
 import ProtoParticle from "./ProtoParticle";
 import {Link} from "react-router-dom";
 
-var isAuto = false;
+
 /**
  * Presentation mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
@@ -34,7 +34,7 @@ class PresMode extends React.Component {
     canvas;
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
     painter;
-
+    static isAuto = false;
 
     constructor(props){
         super();
@@ -88,6 +88,7 @@ class PresMode extends React.Component {
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
         document.getElementsByClassName('stackedButtonGroup bottomrightAlign')[0].style.top='81vh';
+        PresMode.isAuto= false;
     }
 
 
@@ -206,8 +207,9 @@ class PresMode extends React.Component {
      * Onclick handler for the "Autonomous/Manual" button, starts the looping progress
      */
     autoToggleButton_HandleClick() {
-        isAuto = !isAuto
-        if(isAuto){
+        PresMode.isAuto = !PresMode.isAuto;
+        console.log(PresMode.isAuto);
+        if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
             this.autoID = setInterval(()=>{this.nextButton_HandleClick()}, this.delay)
