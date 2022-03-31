@@ -11,8 +11,6 @@ import Painter from "./Painter";
  */
 import {
     base,
-    canvas_height,
-    canvas_width,
     eject,
     gas,
     heat,
@@ -20,8 +18,9 @@ import {
     plasma
 } from "./Galactic";
 import ProtoParticle from "./ProtoParticle";
+import {Link} from "react-router-dom";
 
-var isAuto = false;
+
 /**
  * Presentation mode element
  * Should be rendered inside a <div id={"canvasHolder"}>
@@ -35,7 +34,7 @@ class PresMode extends React.Component {
     canvas;
     layers; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5]; //layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5];
     painter;
-
+    static isAuto = false;
 
     constructor(props){
         super();
@@ -88,6 +87,8 @@ class PresMode extends React.Component {
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
+        document.getElementsByClassName("stackedButtonGroup bottomleftAlign")[0].style.top='81vh';
+        PresMode.isAuto= false;
     }
 
 
@@ -191,23 +192,24 @@ class PresMode extends React.Component {
      * backButton_HandleClick()
      * Onclick handler for the "back" button, reloads the landing page
      */
-    backButton_HandleClick() {
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <LandingPage id={"landingPage"}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // backButton_HandleClick() {
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <LandingPage id={"landingPage"}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
     /**
      * autoToggleButton_HandleClick()
      * Onclick handler for the "Autonomous/Manual" button, starts the looping progress
      */
     autoToggleButton_HandleClick() {
-        isAuto = !isAuto
-        if(isAuto){
+        PresMode.isAuto = !PresMode.isAuto;
+        console.log(PresMode.isAuto);
+        if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
             this.autoID = setInterval(()=>{this.nextButton_HandleClick()}, this.delay)
@@ -222,7 +224,7 @@ class PresMode extends React.Component {
     render(){
         // console.log("PresMode.render called") //:debug
         return (
-            <>
+            <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -233,13 +235,15 @@ class PresMode extends React.Component {
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <div className={"stackedButtonGroup bottomleftAlign"}>
-                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                    <Link to={'/'}>
+                        <button id={"backButton"} className={"button"}> Back to Landing Page </button>
+                    </Link>
                     <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
                 </div>
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
                 </div>
-            </>
+            </div>
         ) //// 2 - attach ref to node via ref = this.canvas#
     }
 }

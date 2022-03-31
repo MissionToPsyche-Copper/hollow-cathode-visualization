@@ -21,13 +21,13 @@
   background-image: url("star_background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 80vh;
-  max-height: 100vh;
+  max-width: 100vw;
+    min-width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center;*/
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 2vmin;
   color: #f5f5f5;
 }
 
@@ -58,7 +58,7 @@ img{
 }
 
 .navbar{
-    min-height: 75px;
+    min-height: 90px;
     position: -webkit-sticky;
     position: sticky;
     bottom: auto;
@@ -125,10 +125,6 @@ img{
 }
 
 .w-nav-menu{
-    color: #f5f5f5;
-    font-weight: 700;
-    font-size: 22px;
-    border-color: transparent;
     position: relative;
     vertical-align: top;
     text-decoration: none;
@@ -195,6 +191,7 @@ img{
 
 .brand{
     color: transparent;
+    float: left;
 }
 
 .w-nav-brand{
@@ -229,8 +226,8 @@ img{
     bottom: 0;
     width: 100%;
     height: auto;
-    padding-top: 15rem;
-    padding-bottom: 40px;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
     -webkit-box-align: start;
     -webkit-align-items: flex-start;
     -ms-flex-align: start;
@@ -308,9 +305,21 @@ img{
     padding:8px 20px;
     text-decoration:none;
 }
+
+#summaryToggle{
+    right: 18vw;
+    top: 81vh;
+    align-items: flex-end;
+    z-index: 11;
+    display: flex;
+    position: absolute;
+    align-items: center;
+}
+
 .button:hover {
     background-color: #b1506c;
 }
+
 .button:active {
     transform: scale(0.96);
 }
@@ -399,9 +408,9 @@ img{
     min-width: 20vw;
     max-width: 30vw;
 }
-.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
+.hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos, .referenceLabelPos{
     position: absolute;
-    top: 32%;
+    top: 30%;
     left: 64vw;
 
     text-align: justify;
@@ -410,28 +419,45 @@ img{
     max-width: 24vw;
 
     color: #f5f5f5;
+    z-index: 10;
 }
 
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 5%;
-    left: 54vw;
+    top: 10%;
+    right: 8vw;
 
 
     max-width: 35vw;
     min-width: 20vw;
 }
+
 .hallThrusterNameSublabelPos {
     text-align: justify;
     position: absolute;
-    top: 11%;
-    left: 54vw;
+    top: 13%;
+    left: 55vw;
 
     max-width: 35vw;
     min-width: 20vw;
 
     color: #f5f5f5;
+}
+
+.referenceLabelPos{
+    bottom: 0;
+    display: block;
+    overflow: hidden;
+    top: 28%;
+    z-index: 10;
+}
+
+#referenceDiv{
+    float: bottom;
+    min-width: 20vw;
+    max-width: 30vw;
+    z-index: 12;
 }
 
 #learningModeGuide {
@@ -441,4 +467,38 @@ img{
     text-align: justify;
     position: absolute;
     overflow-wrap: normal;
+}
+
+#summary{
+    float: right;
+    text-align: left;
+}
+
+.summarySubLabelPos{
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.summaryTitlePos{
+    text-align: center;
+    font-family: "Courier New";
+    color: #A53F5B;
+    font-size: clamp(30px, 2.2vw, 70px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+    z-index: 14;
+}
+
+.summarySubLabel{
+    text-align: justify;
+}
+
+#summary{
+    display: flex;
+}
+
+#summaryContent{
+    margin-top: 5rem;
+    margin-left:50%;
 }
