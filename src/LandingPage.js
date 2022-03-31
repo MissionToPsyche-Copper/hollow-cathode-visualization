@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import {base, hallThrusterOff} from "./Galactic";
 import PresMode from "./PresMode";
 import LearningMode from "./LearningMode";
+import {Link} from "react-router-dom";
 
 /**
  * Site landing page element
@@ -32,8 +33,8 @@ export class LandingPage extends React.Component {
         this.showElement("landingPageSubTitleDiv")
         this.showElement("landingPageLModePromptDiv")
 
-        this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
-        this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
+        //this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
+        //this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
     }
 
     /**
@@ -49,31 +50,31 @@ export class LandingPage extends React.Component {
      * LearningMode_HandleClick()
      * Onclick handler for the learning mode button on the landing page
      */
-    LearningMode_HandleClick() {
-
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // LearningMode_HandleClick() {
+    //
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
     /**
      * PresMode_HandleClick()
      * Onclick handler for the learning mode button on the landing page
      */
-    PresMode_HandleClick() {
-
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // PresMode_HandleClick() {
+    //
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
     /**
      * Hides the element with the given id
@@ -108,13 +109,17 @@ export class LandingPage extends React.Component {
                             className={"unselectable"}
                             hidden={true}> You need a better browser :(
                     </canvas>
-                    <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow unselectable"} alt={"Psyche 16 spacecraft"} onClick={this.LearningMode_HandleClick}/>
+
+                    <Link to={'/learning'}>
+                        <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"}/>
+                    </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
-                        <button id={"PresModeButton"}
-                                className={"button"}
-                                onClick={this.PresMode_HandleClick}> Presentation Mode
-                        </button>
+                        <Link to={'/presentation'}>
+                            <button id={"PresModeButton"} className={"button"}>
+                                Presentation Mode
+                            </button>
+                        </Link>
                     </div>
 
                     <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >

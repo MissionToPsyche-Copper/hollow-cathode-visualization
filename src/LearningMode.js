@@ -27,11 +27,13 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText, cathodeCSVTitleText, cathodeCSVText
+    gasKeeperErrorText, cathodeCSVTitleText, cathodeCSVText,
+    references,
 } from "./Galactic";
 
 import ReactDOM from "react-dom";
 import LandingPage from "./LandingPage";
+import {Link, useLinkClickHandler} from "react-router-dom";
 
 const {promisify} = require('util')
 const sleep= promisify(setTimeout)
@@ -90,7 +92,7 @@ export class LearningMode extends React.Component {
         this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
         this.state.canvas_height = document.getElementById("root").clientHeight;
-        this.state.canvas_width = document.getElementById("root").clientWidth * 0.60;
+        this.state.canvas_width = document.getElementById("root").clientWidth * 1.3;
 
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true) {
@@ -160,8 +162,8 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
+        console.log('scenarioRefresh active: '+this.scene);
         this.setState({text: " "})
-
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("hallThrusterOn-fadeIn")
             this.hideElement("hallThrusterOn-fadeOut")
@@ -246,6 +248,7 @@ export class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
+            console.log('base cathode is drawing')
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -355,6 +358,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(plasma);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
+                document.getElementById('nextButton').style.top='85vh';
                 document.getElementById("nextButton").onclick = this.nextButton_plasma_HandleClick;
             }
         }
@@ -400,6 +404,7 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
+                document.getElementById('nextButton').style.top='85vh';
                 document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
@@ -419,7 +424,6 @@ export class LearningMode extends React.Component {
             //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
             // }
         }
-
         //GAS ON, KEEPER ON, NO PLASMA
         if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
             this.setState({text: gasKeeperErrorText});
@@ -439,6 +443,7 @@ export class LearningMode extends React.Component {
             && this.state.scene[eject] === true){
             this.hideElement("toggleButtonGroup");
             this.showElement("nextButton");
+            document.getElementById('nextButton').style.top='85vh';
             document.getElementById("nextButton").onclick = this.nextButton_end_HandleClick;
         }
     }
@@ -502,6 +507,7 @@ export class LearningMode extends React.Component {
         // update DOM buttons (replace next with toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
+        document.getElementById('toggleButtonGroup').style.top='73vh';
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -517,6 +523,7 @@ export class LearningMode extends React.Component {
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
+        document.getElementById('toggleButtonGroup').style.top='73vh';
 
         this.hideElement("hallThrusterButtonGroup");
         this.hideElement("hallThrusterOffLabelDiv");
@@ -528,7 +535,7 @@ export class LearningMode extends React.Component {
         this.hideElement("HallThrusterNext");
 
         this.setState((state, props) => {
-            return { deltastage: base, scene: [true,false,false,false,false,false,false,false], title: cathodeCSVTitleText, text: cathodeCSVText };
+            return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
         this.scenarioRefresh()
 
@@ -544,6 +551,8 @@ export class LearningMode extends React.Component {
 
         let nextButton = document.getElementById("HallThrusterNext");
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
+
+        document.getElementById('hallThrusterButtonGroup').style.top='85vh'
 
         nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
@@ -585,11 +594,10 @@ export class LearningMode extends React.Component {
     nextButton_eject_HandleClick() {
         let newScene = this.state.scene;
         newScene[eject] = !newScene[eject];
-
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
-
+        document.getElementById('toggleButtonGroup').style.top='73vh';
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
@@ -606,7 +614,12 @@ export class LearningMode extends React.Component {
      * LINK TO SUMMARY PAGE HERE!!!!
      */
     nextButton_end_HandleClick() {
-        this.hideElement("nextButton");
+        this.hideElement("learningModeGuide");
+        console.log(this.state.deltastage);
+        if(this.state.deltastage===5){
+            this.hideElement('nextButton');
+            this.showElement('summaryButton');
+        }
     }
 
     /**
@@ -622,21 +635,23 @@ export class LearningMode extends React.Component {
      * backButton_HandleClick()
      * Onclick handler for the "back" button, reloads the landing page
      */
-    backButton_HandleClick() {
-
-        HALL_THRUSTER_ON = false;
-        // render learning mode
-        ReactDOM.render(
-            <div id={"canvasHolder"}>
-                <LandingPage id={"landingPage"}/>
-            </div>,
-            document.getElementById('root')
-        );
-    }
+    // backButton_HandleClick() {
+    //
+    //     HALL_THRUSTER_ON = false;
+    //     //this.painter.killElectronGenerator()
+    //     // this.painter.killXenonGenerator()
+    //     // render learning mode
+    //     ReactDOM.render(
+    //         <div id={"canvasHolder"}>
+    //             <LandingPage id={"landingPage"}/>
+    //         </div>,
+    //         document.getElementById('root')
+    //     );
+    // }
 
     render(){
         return (
-            <>
+            <div id={'canvasHolder'}>
                 {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas hideWhenTooSmall unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -668,8 +683,10 @@ export class LearningMode extends React.Component {
                         className={"CathodeHitBox_zoomed_out hideWhenTooSmall"}>
                 </button>
 
-                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup hideWhenTooSmall bottomleftAlign"} >
-                    <button id={"backButton"} className={"button"} onClick={this.backButton_HandleClick}> Back to Landing Page </button>
+                <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
+                    <Link to={'/'}>
+                        <button id={"backButton"} className={"button"}> Back to Landing Page </button>
+                    </Link>
                 </div>
 
                 <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign hideWhenTooSmall"}>
@@ -750,7 +767,13 @@ export class LearningMode extends React.Component {
                         className={"button stackedButtonGroup hideWhenTooSmall bottomrightAlign"}
                         style={{display: "none"}}> Next
                 </button>
-            </>
+
+                <Link to={'/summary'} id={'summaryButton'}>
+                    <button id={''} className={"button stackedButtonGroup centerAlign"}>
+                        Summary
+                    </button>
+                </Link>
+            </div>
         )
     }
 }
