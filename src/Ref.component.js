@@ -6,16 +6,16 @@ class RefComponent extends React.Component{
     }
 
     componentDidMount() {
-        document.getElementById('ref').style.height= '40vh';
+        /* I moved this inline styling into its class (referenceDiv) */
     }
 
     render(){
         return(
-        <div id={'ref'} style={{'margin-bottom':'2rem'}}>
-            <div id={''} className={"summaryTitlePos"}>
+        <div id={'ref'} className={"referenceDiv"}> {/* I moved the inline styling into its class (referenceDiv) */}
+            <div className={"summaryTitlePos"}>
                 REFERENCES
             </div>
-            <div id={''} className={'summarySubLabel summarySubLabelPos'}>
+            <div className={'referenceSubLabel referenceSubLabelPos'}>
                 <label>
                     “Glossary,” Glossary | MIT Plasma Science and Fusion Center, 2021. [Online]. Available:
                     <a href={"https://www.psfc.mit.edu/vision/glossary."}>https://www.psfc.mit.edu/vision/glossary.</a> [Accessed: 09-Oct-2021].
