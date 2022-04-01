@@ -64,8 +64,8 @@ class PresMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
-        this.state.canvas_height = document.getElementById("root").clientHeight;
-        this.state.canvas_width = document.getElementById("root").clientWidth * 0.60;
+        this.state.canvas_height = document.getElementById("page-container").clientHeight;
+        this.state.canvas_width = document.getElementById("page-container").clientWidth;
     }
 
     /**
@@ -87,7 +87,6 @@ class PresMode extends React.Component {
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
-        document.getElementsByClassName("stackedButtonGroup bottomleftAlign")[0].style.top='81vh';
         PresMode.isAuto= false;
     }
 
@@ -222,7 +221,6 @@ class PresMode extends React.Component {
     }
 
     render(){
-        // console.log("PresMode.render called") //:debug
         return (
             <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
