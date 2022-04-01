@@ -18,10 +18,20 @@ import {
     plasma
 } from "./Galactic";
 
-// const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
-// const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
+/// "CONSTANTS" ///
+// cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size
+// size/location of the ______ relative to the width/height of the window
+const top_of_cathode_constant = 0.39;
+const bottom_of_cathode_constant = 0.49;
+const left_of_cathode_constant = 0.20;
+const right_of_cathode_constant = 0.35;
+const cathode_tube_width_constant = 0.35; // width of cathode tube relative to the width of the window
+const cathode_tube_height_constant = "???"; // width of cathode tube relative to the width of the window
 
+const particle_right_bounding_box = 1.00;
+// getCathTubeRightX = 1.00
+///
 
 class Painter{
     constructor(layers) {
@@ -44,10 +54,10 @@ class Painter{
 
         // mounding box for cathode tube
         // (measures are *from* the axis)
-        this.min_y = this.getCanvasHeight() * 0.39; // previous value: * 0.39
-        this.max_y = this.getCanvasHeight() * 0.49; // previous value: * 0.49
-        this.min_x = this.getCanvasWidth() * 0.20; // previous value: * 0.20
-        this.max_x = this.getCanvasWidth() * 1.00; // previous value: * 0.35
+        this.min_y = this.getCathTubeTop();
+        this.max_y = this.getCathTubeBot();
+        this.min_x = this.getCathTubeLeftX();
+        this.max_x = this.getCathTubeRightX();
 
         this.XenonGeneratorKey = -1;
         this.ElectronGeneratorKey = -1;
@@ -63,10 +73,10 @@ class Painter{
     }
 
     getCanvasHeight(){
-        return this.getLayer(0).canvas.height;
+        return this.getLayer(base).canvas.height;
     }
     getCanvasWidth(){
-        return this.getLayer(0).canvas.width;
+        return this.getLayer(base).canvas.width;
     }
 
     /**
@@ -76,39 +86,57 @@ class Painter{
      * @param layer_number layer number for layer to clear
      */
     clearCanvas(layer_number){
-        // this.getLayer(layer_number).clearRect(0, 0, canvas_width, canvas_height); // depends on canvas_width & canvas_height
-        this.getLayer(layer_number).clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight()); // doesn't
+        this.getLayer(layer_number).clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
 
     }
 
 
-
-
-
-
-
-
-
+    /**
+     * getInsert___()
+     * Returns the location of the ___ of the insert on the _ axis, don't forget to account for particle width
+     * Used for the electron and xenon spawn positions
+     *
+     * @returns {number} (int) single coordinate
+     */
     getInsertTopX(){
-        return (((this.getCanvasWidth() * 0.20) + 12 + (this.getCanvasWidth() * 0.35))/2);
+        return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
     }
     getInsertTopY(){
-        return ((this.getCanvasHeight() * 0.39) + 12);
+        return this.getCanvasHeight() * top_of_cathode_constant;
     }
     getInsertBotY(){
-        return ((this.getCanvasHeight() * 0.49) - 12);
+        return this.getCanvasHeight() * bottom_of_cathode_constant;
     }
+
+    /**
+     * getCathTube___()
+     * Returns the location of the ___ of the cathode tube on the _ axis, don't forget to account for particle width
+     * Used for the electron and xenon boundary box positions* (talk to Jack he isn't done here - 3/31/22)
+     *
+     * @returns {number} (int) single coordinate
+     */
     getCathTubeBot(){
-        return (this.getCanvasHeight() * 0.49);
+        return this.getCanvasHeight() * bottom_of_cathode_constant;
     }
     getCathTubeTop(){
-        return (this.getCanvasHeight() * 0.39);
+        return this.getCanvasHeight() * top_of_cathode_constant;
     }
-    getCathTubeRight(){
-        return (this.getCanvasWidth() * 1.00);
+    getCathTubeRightX(){
+        return this.getCanvasWidth() * right_of_cathode_constant;
     }
-    getCathTubeLeft(){
-        return (this.getCanvasWidth() * 0.20);
+    getCathTubeLeftX(){
+        return this.getCanvasWidth() * left_of_cathode_constant;
+    }
+
+    /**
+     * getParticleTube___()
+     * Returns the location of the particle boundary for the cathode tube on the _ axis, don't forget to account for particle width
+     * Used for the electron and xenon boundary box positions* (talk to Jack he isn't done here - 3/31/22)
+     *
+     * @returns {number} (int) single coordinate
+     */
+    getParticleTubeRightX(){
+        return this.getCanvasWidth() * particle_right_bounding_box;
     }
 
 
@@ -155,10 +183,10 @@ class Painter{
 
 
         // visualize cathode tube bounding box
-        // ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        // // ctx.fillStyle = 'rgba(194,62,62,0.3)';
-        // ctx.lineWidth = 6;
-        //
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
+        ctx.lineWidth = 6;
+
         // // right
         // ctx.beginPath();
         // ctx.moveTo(this.min_x, this.min_y);
@@ -182,6 +210,36 @@ class Painter{
         // ctx.moveTo(this.min_x, this.max_y);
         // ctx.lineTo(this.max_x, this.max_y);
         // ctx.stroke();
+
+        // right
+        ctx.beginPath();
+        ctx.moveTo(this.min_x, this.min_y);
+        ctx.lineTo(this.min_x, this.max_y);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(201,69,69,0.6)';
+
+        // left
+        ctx.beginPath();
+        ctx.moveTo(this.max_x, this.max_y);
+        ctx.lineTo(this.max_x, this.min_y);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(210,184,30,0.6)';
+
+        // top
+        ctx.beginPath();
+        ctx.moveTo(this.max_x, this.min_y);
+        ctx.lineTo(this.min_x, this.min_y);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(128,0,0,0.6)';
+
+        // bottom
+        ctx.beginPath();
+        ctx.moveTo(this.min_x, this.max_y);
+        ctx.lineTo(this.max_x, this.max_y);
+        ctx.stroke();
 
     }
 
@@ -301,11 +359,11 @@ class Painter{
         // 2 electrons per spawn_rate seconds + 2 initial ones
         if(this.ElectronGeneratorKey === -1){
             // generate two initial ones to get it going right away
-            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertTopY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "top insert"
-            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertBotY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "bottom insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX(), this.getInsertTopY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "top insert"
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX(), this.getInsertBotY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "bottom insert"
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
