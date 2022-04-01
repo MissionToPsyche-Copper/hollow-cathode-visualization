@@ -45,7 +45,7 @@
     }
 }
 
-@media only screen and (max-height: 930px) {
+@media only screen and (max-height: 830px) {
     .hideWhenTooSmall {
         visibility: hidden;
     }
@@ -61,7 +61,7 @@
     }
 }
 
-@media only screen and (min-height: 930px) {
+@media only screen and (min-height: 830px) {
     .showWhenTooSmall {
         visibility: hidden;
     }
@@ -349,16 +349,6 @@ img{
     transform: scale(0.96);
 }
 
-/*#summaryButton{*/
-/*    right: 18vw;*/
-/*    top: 81vh;*/
-/*    align-items: flex-end;*/
-/*    z-index: 11;*/
-/*    display: flex;*/
-/*    position: absolute;*/
-/*    align-items: center;*/
-/*}*/
-
 .titleLabel {
     color: #A53F5B;
     font-size: clamp(25px, 2.1vw, 45px);
@@ -432,7 +422,7 @@ img{
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 5%;
+    top: 5%; /*alt measure: 9vh*/
     left: 54vw;
 
 
@@ -452,7 +442,7 @@ img{
 }
 
 #learningModeGuide {
-    top: 28%;
+    top: 28%; /*alt measure: 20vh*/
     left: 55vw;
     width: auto;
     text-align: justify;
@@ -473,6 +463,8 @@ img{
     min-width: 20vw;
     max-width: 30vw;
     z-index: 12;
+    margin-bottom: 2rem; /* from inline styling */
+    height: 40vh; /* from inline styling */
 }
 
 #summary{

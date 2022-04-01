@@ -134,6 +134,12 @@ export class LearningMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
+        // an attempted fix for reloading breaking pages
+        // if(this.state.canvas_width === 0 || this.state.canvas_height === 0){
+        //     this.state.canvas_height = document.getElementById("page-container").clientHeight;
+        //     this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        // }
+
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
