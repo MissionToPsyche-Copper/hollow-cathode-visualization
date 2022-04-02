@@ -101,7 +101,20 @@ export class LearningMode extends React.Component {
         else {
             this.thrusterButtonText = "On";
         }
+
+
+        window.addEventListener('resize', this.handleResize)
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize)
+    }
+
+    handleResize = () => this.setState({
+        canvas_height: window.innerHeight * 0.8,
+        canvas_width: window.innerWidth
+    }, this.scenarioRefresh);
+
 
     /**
      * Hides the element with the given id
@@ -135,10 +148,10 @@ export class LearningMode extends React.Component {
      */
     componentDidMount() {
         // an attempted fix for reloading breaking pages
-        // if(this.state.canvas_width === 0 || this.state.canvas_height === 0){
-        //     this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        //     this.state.canvas_width = document.getElementById("page-container").clientWidth;
-        // }
+        // this.setState({
+        //     canvas_height: document.getElementById("page-container").clientHeight,
+        //     canvas_width: document.getElementById("page-container").clientWidth
+        // })
 
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
@@ -297,6 +310,7 @@ export class LearningMode extends React.Component {
         // if the user deselected this option/layer
         else if (this.state.deltastage === keeper){
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopEjecting();
         }
 
         // if heat insert is active
@@ -372,6 +386,7 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopIonizing();
 
             // if internal plasma stops because ___ call ___ explanation
             if(!this.state.scene[heat]){
@@ -417,6 +432,7 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === eject){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopEjecting();
 
             // if ejecting plasma stops bcz ___ call ___ explanation
             // if(!this.state.scene[heat]){

@@ -386,14 +386,12 @@ class Painter{
     }
 
 
-    // /**
-    //  * draw_csv_gas_feed_particles()
-    //  * Draws some simulated particles for the gas feed as a demo
-    //  * Author: @Jack Blicha
-    //  */
-    // draw_csv_gas_feed_particles(){
-    //
-    // }
+    stopEjecting(){
+        ProtoParticle.setEjectFlag(false)
+    }
+    stopIonizing(){
+        ProtoParticle.setIonizeFlag(false)
+    }
 
 
 
