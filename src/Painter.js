@@ -21,6 +21,8 @@ import {
 // const hallThruster_x = canvas_width / 4; // x coord of hall thruster image
 // const hallThruster_y = canvas_height / 4; // y coord of hall thruster image
 
+
+
 class Painter{
     constructor(layers) {
         this.layers = layers;
@@ -42,10 +44,10 @@ class Painter{
 
         // mounding box for cathode tube
         // (measures are *from* the axis)
-        this.min_y = this.getCanvasHeight() * 0.39; // previous value: * 0.50 // previous value's size likely matches larger cathode, idr exactly, worth keeping
-        this.max_y = this.getCanvasHeight() * 0.49; // previous value: * 0.70
-        this.min_x = this.getCanvasWidth() * 0.20; // previous value: * 0.35
-        this.max_x = this.getCanvasWidth() * 0.35; // previous value: * 0.55
+        this.min_y = this.getCanvasHeight() * 0.39; // previous value: * 0.39
+        this.max_y = this.getCanvasHeight() * 0.49; // previous value: * 0.49
+        this.min_x = this.getCanvasWidth() * 0.20; // previous value: * 0.20
+        this.max_x = this.getCanvasWidth() * 1.00; // previous value: * 0.35
 
         this.XenonGeneratorKey = -1;
         this.ElectronGeneratorKey = -1;
@@ -79,6 +81,38 @@ class Painter{
 
     }
 
+
+
+
+
+
+
+
+
+    getInsertTopX(){
+        return (((this.getCanvasWidth() * 0.20) + 12 + (this.getCanvasWidth() * 0.35))/2);
+    }
+    getInsertTopY(){
+        return ((this.getCanvasHeight() * 0.39) + 12);
+    }
+    getInsertBotY(){
+        return ((this.getCanvasHeight() * 0.49) - 12);
+    }
+    getCathTubeBot(){
+        return (this.getCanvasHeight() * 0.49);
+    }
+    getCathTubeTop(){
+        return (this.getCanvasHeight() * 0.39);
+    }
+    getCathTubeRight(){
+        return (this.getCanvasWidth() * 1.00);
+    }
+    getCathTubeLeft(){
+        return (this.getCanvasWidth() * 0.20);
+    }
+
+
+
     /** Learning Mode */
     /**
      * Particle effect overlay to make the thruster and cathode appear to be on/operating
@@ -110,12 +144,12 @@ class Painter{
      * Function to draw the base cathode visuals
      */
     draw_csv_Base_Drawing(){
-        // console.log(base ," draw_csv_Base_Drawing called") //:debug
-
+        console.log(base ," draw_csv_Base_Drawing called") //:debug
+        console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0.25, this.getCanvasWidth() * 0.4, this.getCanvasHeight() * 0.4);
+        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.15, this.getCanvasWidth() * .9, this.getCanvasHeight() * 0.75);
 
 
 
@@ -175,8 +209,8 @@ class Painter{
         const ctx = this.getLayer(heat);
 
         // Managing particles
-        // Turn on Electron Generator, 1 electron per 4 seconds
-        this.startElectronGenerator(4);
+        // Turn on Electron Generator, 2 electron per 8 seconds
+        this.startElectronGenerator(8);
     }
 
     /**
@@ -264,10 +298,14 @@ class Painter{
     startElectronGenerator(spawn_rate){
         const ctx = this.getLayer(heat);
 
-        // 2 electrons per 4 seconds
+        // 2 electrons per spawn_rate seconds + 2 initial ones
         if(this.ElectronGeneratorKey === -1){
-            ProtoParticle.generateElectron(ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
+            // generate two initial ones to get it going right away
+            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertTopY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "top insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertBotY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "bottom insert"
+            // generate on a timer
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX(), this.getInsertTopY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "top insert"
+            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX(), this.getInsertBotY(), this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRight(), this.getCathTubeLeft()); // "bottom insert"
         }
     }
 

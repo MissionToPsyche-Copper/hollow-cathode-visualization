@@ -15,7 +15,7 @@ header, h1, h2, h3, h4, h5, h6{
 /* I believe this is unused*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
 .unselectable {
@@ -36,28 +36,16 @@ code {
 }
 
 .canvas{
-  /* original */
-  /*position:absolute;*/
-  /*height: 80vh;*/
-  /*min-height: 350px;*/
-  /*!*width: 60vw;*!*/
-  /*!*min-width: 60vw;*!*/
-
-  /*top: 0;*/
-  /*bottom: 0;*/
-  /*left: 20vw; !* relative to parent (canvasHolder) *!*/
-  /*right: 20vw; !* relative to parent (canvasHolder) *!*/
-
   /* alternative */
   position: absolute;
-  height: 90vh;
-  min-height: 350px;
+  /*height: 90vh;*/
+  /*min-height: 350px;*/
   /* width: 60vw; */
   /* min-width: 60vw; */
-  top: -5vh;
-  bottom: 0;
-  left: 17vw;
-  right: 20vw;
+  top: 0vh;
+  /* bottom: 0; */
+  left: 0vw;
+  /* right: 20vw; */
 }
 
 .baseCathode{
@@ -65,19 +53,6 @@ code {
   top: 0;
   left: 0;
   z-index: 0;
-}
-
-#crossSection{
-  height: 80vh;
-  width: 85%;
-  min-height: 350px;
-  visibility: visible;
-}
-#ugh{
-  height: 80vh;
-  width: 85%;
-  min-height: 350px;
-  visibility: visible;
 }
 
 #spaceshipImage{
@@ -126,7 +101,7 @@ code {
   height: 82vh;
   min-height: 350px;
 
-  top: -1vw;
+  top: -1vh;
   left: 10vw;
   right: 20vw;
 
@@ -141,7 +116,7 @@ code {
   height: 82vh;
   min-height: 350px;
 
-  top: -1vw;
+  top: -1vh;
   left: 10vw;
   right: 20vw;
 
@@ -156,7 +131,7 @@ code {
   height: 82vh;
   min-height: 350px;
 
-  top: -1vw;
+  top: -1vh;
   left: 10vw;
   right: 20vw;
 
@@ -178,25 +153,26 @@ code {
 /* animation for zooming on on cathode from hall thruster */
 @keyframes cathodeZoomIn {
   from {
-    top: -1vw;
+    top: -1vh;
     height: 82vh;
     left: 10vw;
+    transform: rotate(0deg);
   }
 
   to {
     /* alternative to display 1 */
-    /*top: -13vw;*/
+    /*top: -13vw;*/                   /*note: don't use vw here*/
     /*height: 355vh;*/
     /*left: -70vw;*/
 
     /* alternative to display 2 */
-    top: -5vw;
+    top: -5vh;
     height: 355vh;
     left: -42vw;
     transform: rotate(-28deg);
 
     /* alternative to display 3*/
-    /*top: -150vw;*/
+    /*top: -150vw;*/                   /*note: don't use vw here*/
     /*height: 3000vh;*/
     /*left: -708vw;*/
   }
@@ -240,9 +216,9 @@ code {
 }
 
 #canvas7{
-   /*border: 1px solid orange;*/
+  /*border: 1px solid orange;*/
   z-index: 7;
- }
+}
 
 /* (landing page spacecraft) */
 #spacecraft_image{
@@ -277,24 +253,30 @@ code {
   align-items: flex-start;
 }
 
+/* align a button group to the bottom center */
+.stackedButtonGroup.bottomCenterAlign{
+  bottom: 1vh;
+  align-items: flex-start;
+}
+
 /* landing page title */
 .stackedButtonGroup.landingPageTitleAlign{
-  top: 10vw;
+  top: 10vh;
   left: 7vw;
   align-items: flex-start;
 }
 
 /* landing page subtitle */
 .stackedButtonGroup.landingPageSubTitleAlign{
-  top: 15vw;
+  top: 17vh;
   left: 10vw;
   align-items: flex-start;
 }
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 9vw;
-  right: 30vw;
+  bottom: 17vh;
+  right: 25vw;
   align-items: flex-start;
 }
 
