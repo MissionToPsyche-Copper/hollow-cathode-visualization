@@ -15,19 +15,23 @@ import {
     hallThrusterOn,
     heat,
     keeper,
-    plasma
+    plasma,
+    right_of_cathode_constant
 } from "./Galactic";
 
 
 /// "CONSTANTS" ///
+
+const ELECTRON_SPAWN_RATE = 8; // 2 particle(s) every [ELECTRON_SPAWN_RATE] seconds
+const XENON_SPAWN_RATE = 5; // 1 particle(s) every [XENON_SPAWN_RATE] seconds
+const ELECTRON_RADIUS = 6;
+const XENON_RADIUS = 10;
+
 // cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size
 // size/location of the ______ relative to the width/height of the window
 const top_of_cathode_constant = 0.39;
 const bottom_of_cathode_constant = 0.49;
 const left_of_cathode_constant = 0.20;
-const right_of_cathode_constant = 0.35;
-const cathode_tube_width_constant = 0.35; // width of cathode tube relative to the width of the window
-const cathode_tube_height_constant = "???"; // width of cathode tube relative to the width of the window
 
 const particle_right_bounding_box = 1.00;
 // getCathTubeRightX = 1.00
@@ -60,7 +64,8 @@ class Painter{
         this.max_x = this.getCathTubeRightX();
 
         this.XenonGeneratorKey = -1;
-        this.ElectronGeneratorKey = -1;
+        this.ElectronGeneratorKey_Top = -1; // top of insert
+        this.ElectronGeneratorKey_Bot = -1; // bottom of insert
     }
 
     /**
@@ -128,6 +133,16 @@ class Painter{
         return this.getCanvasWidth() * left_of_cathode_constant;
     }
 
+    getCathTubeWidth(){
+        return this.getCathTubeRightX();
+    }
+
+    getRandomInt(min, max) {
+        min = Math.ceil(this.getCathTubeLeftX()) + ELECTRON_RADIUS;
+        max = Math.floor(this.getCathTubeRightX()) - ELECTRON_RADIUS;
+        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    }
+
     /**
      * getParticleTube___()
      * Returns the location of the particle boundary for the cathode tube on the _ axis, don't forget to account for particle width
@@ -146,24 +161,16 @@ class Painter{
      * Particle effect overlay to make the thruster and cathode appear to be on/operating
      */
     draw_Hall_Thruster_Off(){
-        // console.log(hallThrusterOff ," draw_Hall_Thruster_Off called") //:debug
-
         this.clearCanvas(hallThrusterOff);
         const ctx = this.getLayer(hallThrusterOff);
-
-        // ctx.drawImage(this.thruster_off, hallThruster_x, hallThruster_y, this.thruster_off.width * 0.04, this.thruster_off.height * 0.04);
     }
 
     /**
      * Particle effect overlay to make the thruster and cathode appear to be on/operating
      */
     draw_Hall_Thruster_On(){
-        // console.log(hallThrusterOn ," draw_Hall_Thruster_On called") //:debug
-
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);
-
-        // ctx.drawImage(this.thruster_on, hallThruster_x, hallThruster_y, this.thruster_on.width, this.thruster_on.height);
     }
 
     /** Learning Mode and Presentation Mode */
@@ -172,74 +179,49 @@ class Painter{
      * Function to draw the base cathode visuals
      */
     draw_csv_Base_Drawing(){
-        console.log(base ," draw_csv_Base_Drawing called") //:debug
-        console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
+        // console.log(base ," draw_csv_Base_Drawing called") //:debug
+        // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.15, this.getCanvasWidth() * .9, this.getCanvasHeight() * 0.75);
+        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.15, this.getCanvasWidth() * .9, this.getCanvasHeight() * 0.75); // draw the cathode
 
 
 
 
-        // visualize cathode tube bounding box
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-        // ctx.fillStyle = 'rgba(194,62,62,0.3)';
-        ctx.lineWidth = 6;
+        // visualize cathode tube bounding box //:debug
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
+        ctx.lineWidth = 6; //:debug
 
-        // // right
-        // ctx.beginPath();
-        // ctx.moveTo(this.min_x, this.min_y);
-        // ctx.lineTo(this.min_x, this.max_y);
-        // ctx.stroke();
-        //
-        // // left
-        // ctx.beginPath();
-        // ctx.moveTo(this.max_x, this.max_y);
-        // ctx.lineTo(this.max_x, this.min_y);
-        // ctx.stroke();
-        //
-        // // top
-        // ctx.beginPath();
-        // ctx.moveTo(this.max_x, this.min_y);
-        // ctx.lineTo(this.min_x, this.min_y);
-        // ctx.stroke();
-        //
-        // // bottom
-        // ctx.beginPath();
-        // ctx.moveTo(this.min_x, this.max_y);
-        // ctx.lineTo(this.max_x, this.max_y);
-        // ctx.stroke();
+        // right //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.min_x, this.min_y); //:debug
+        ctx.lineTo(this.min_x, this.max_y); //:debug
+        ctx.stroke(); //:debug
 
-        // right
-        ctx.beginPath();
-        ctx.moveTo(this.min_x, this.min_y);
-        ctx.lineTo(this.min_x, this.max_y);
-        ctx.stroke();
+        ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
 
-        ctx.strokeStyle = 'rgba(201,69,69,0.6)';
+        // left //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.max_x, this.max_y); //:debug
+        ctx.lineTo(this.max_x, this.min_y); //:debug
+        ctx.stroke(); //:debug
 
-        // left
-        ctx.beginPath();
-        ctx.moveTo(this.max_x, this.max_y);
-        ctx.lineTo(this.max_x, this.min_y);
-        ctx.stroke();
+        ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
 
-        ctx.strokeStyle = 'rgba(210,184,30,0.6)';
+        // top //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.max_x, this.min_y); //:debug
+        ctx.lineTo(this.min_x, this.min_y); //:debug
+        ctx.stroke(); //:debug
 
-        // top
-        ctx.beginPath();
-        ctx.moveTo(this.max_x, this.min_y);
-        ctx.lineTo(this.min_x, this.min_y);
-        ctx.stroke();
+        ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
 
-        ctx.strokeStyle = 'rgba(128,0,0,0.6)';
-
-        // bottom
-        ctx.beginPath();
-        ctx.moveTo(this.min_x, this.max_y);
-        ctx.lineTo(this.max_x, this.max_y);
-        ctx.stroke();
+        // bottom //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.min_x, this.max_y); //:debug
+        ctx.lineTo(this.max_x, this.max_y); //:debug
+        ctx.stroke(); //:debug
 
     }
 
@@ -258,6 +240,7 @@ class Painter{
 
     /**
      * draw_csv_Heat_Insert()
+     * Defines what drawing "heat insert" looks like
      * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
@@ -267,8 +250,8 @@ class Painter{
         const ctx = this.getLayer(heat);
 
         // Managing particles
-        // Turn on Electron Generator, 2 electron per 8 seconds
-        this.startElectronGenerator(8);
+        // Turn on Electron Generator
+        this.startElectronGenerator(ELECTRON_SPAWN_RATE);
     }
 
     /**
@@ -305,8 +288,8 @@ class Painter{
 
 
         // Jack - managing particles
-        // Turn on Xenon Generator, 1 xenon per 5 seconds
-        this.startXenonGenerator(5);
+        // Turn on Xenon Generator
+        this.startXenonGenerator(XENON_SPAWN_RATE);
 
         // ProtoParticle.generateXenon(ctx)
         // this.draw_csv_gas_feed_particles();
@@ -345,6 +328,7 @@ class Painter{
     killXenonGenerator(){
         clearInterval(this.XenonGeneratorKey); // kill interval
         this.XenonGeneratorKey = -1; // reset key
+        this.killElectronGenerator();
     }
 
     /**
@@ -357,13 +341,13 @@ class Painter{
         const ctx = this.getLayer(heat);
 
         // 2 electrons per spawn_rate seconds + 2 initial ones
-        if(this.ElectronGeneratorKey === -1){
+        if(this.ElectronGeneratorKey_Top === -1){
             // generate two initial ones to get it going right away
             ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
             ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            this.ElectronGeneratorKey = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
@@ -381,16 +365,29 @@ class Painter{
      * Stops the generation of electrons immediately
      */
     killElectronGenerator(){
-        clearInterval(this.ElectronGeneratorKey); // kill interval
-        this.ElectronGeneratorKey = -1; // reset key
+        clearInterval(this.ElectronGeneratorKey_Top); // kill interval
+        clearInterval(this.ElectronGeneratorKey_Bot); // kill interval
+        this.ElectronGeneratorKey_Top = -1; // reset key
+        this.ElectronGeneratorKey_Bot = -1; // reset key
     }
 
 
     stopEjecting(){
-        ProtoParticle.setEjectFlag(false)
+        ProtoParticle.setEjectFlag(false);
     }
     stopIonizing(){
-        ProtoParticle.setIonizeFlag(false)
+        ProtoParticle.setIonizeFlag(false);
+    }
+
+    /**
+     * Stops, clears, and resets all generators, particles, and flags.
+     */
+    killProtoParticle(){
+        this.killElectronGenerator();
+        this.killXenonGenerator();
+        ProtoParticle.setEjectFlag(false);
+        ProtoParticle.setIonizeFlag(false);
+        ProtoParticle.killAllParticles();
     }
 
 

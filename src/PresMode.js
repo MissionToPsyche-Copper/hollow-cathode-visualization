@@ -112,10 +112,7 @@ class PresMode extends React.Component {
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
         if (this.state.scene[base] === true && this.state.scene[heat] === false) {
             // clear every layer, and all particles, and all generators
-            this.painter.killElectronGenerator();
-            this.painter.killXenonGenerator();
-            ProtoParticle.killAllElectron();
-            ProtoParticle.killAllXenon();
+            this.painter.killProtoParticle();
             for (let i = base; i < this.state.scene.length; i++) {
                 this.painter.clearCanvas(i);
             }

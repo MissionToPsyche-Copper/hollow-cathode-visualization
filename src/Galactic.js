@@ -2,8 +2,8 @@
 // export const canvas_height = 600; // becoming depreciated
 // export const canvas_width = 940; // becoming depreciated
 // Jack's Dimensions
-export const canvas_height = 750; // becoming depreciated
-export const canvas_width = 1600; // becoming depreciated
+export const canvas_height = 750; // hopefully completely depreciated
+export const canvas_width = 1600; // hopefully completely depreciated
 
 /**
  * Mapping layers via constants
@@ -19,6 +19,11 @@ export const eject = 5;             // ctx5 // scene[eject]
 export const hallThrusterOff = 6;   // ctx6 // scene[hallThrusterOff]
 export const hallThrusterOn = 7;    // ctx7 // scene[hallThrusterOn]
 
+// Relative Dimensions //
+export const right_of_cathode_constant = 0.35;
+
+
+// Text //
 export const hallThrusterPrimaryText = "The large circular component to the left is a Hall thruster. There are multiple of these on the spacecraft and they’re responsible for propelling the spacecraft through outer space. The Hall thruster produces thrust by ionizing particles and shooting them away from the spacecraft at incredibly high speeds."
 
 export const hallThrusterSecondaryOnText = "The particles are the Hall thruster's propellant. While particles are being stored, they are neutral, so they don't react with electric fields like magnets, and thus are easy to store. When the spacecraft needs to use gas particles, the spacecraft ionizes particles so that they can react to electromagnetic fields. The hall thruster generates an extremely strong magnetic field which attracts the particles from inside the thruster and shoots ions out and away from the spacecraft at hundreds of kilometers a second. This interaction is like trying to stick the wrong ends of two strong magnets together. \n" +

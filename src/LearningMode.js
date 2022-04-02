@@ -103,11 +103,12 @@ export class LearningMode extends React.Component {
         }
 
 
-        window.addEventListener('resize', this.handleResize)
+        window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize)
+        window.removeEventListener('resize', this.handleResize);
+        this.painter.killProtoParticle();
     }
 
     handleResize = () => this.setState({
@@ -181,7 +182,7 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
-        console.log('scenarioRefresh active: '+this.scene);
+        // console.log('scenarioRefresh active: '+this.scene);//:debug
         this.setState({text: " "})
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("hallThrusterOn-fadeIn")
@@ -267,7 +268,7 @@ export class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            console.log('base cathode is drawing')
+            // console.log('base cathode is drawing')//:debug
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -631,7 +632,7 @@ export class LearningMode extends React.Component {
      */
     nextButton_end_HandleClick() {
         this.hideElement("learningModeGuide");
-        console.log(this.state.deltastage);
+        // console.log(this.state.deltastage);//:debug
         if(this.state.deltastage===eject){
             this.hideElement('nextButton');
             this.showElement('summaryButton');
@@ -654,8 +655,7 @@ export class LearningMode extends React.Component {
     // backButton_HandleClick() {
     //
     //     HALL_THRUSTER_ON = false;
-    //     //this.painter.killElectronGenerator()
-    //     // this.painter.killXenonGenerator()
+    //     // this.painter.killProtoParticle();
     //     // render learning mode
     //     ReactDOM.render(
     //         <div id={"canvasHolder"}>
