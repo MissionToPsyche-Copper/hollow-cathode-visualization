@@ -16,25 +16,19 @@ import {
     heat,
     keeper,
     plasma,
-    right_of_cathode_constant
+    right_of_cathode_constant,
+    left_of_cathode_constant,
+    top_of_cathode_constant,
+    bottom_of_cathode_constant,
+    particle_right_bounding_box
 } from "./Galactic";
 
 
 /// "CONSTANTS" ///
-
-const ELECTRON_SPAWN_RATE = 8; // 2 particle(s) every [ELECTRON_SPAWN_RATE] seconds
-const XENON_SPAWN_RATE = 5; // 1 particle(s) every [XENON_SPAWN_RATE] seconds
+const ELECTRON_SPAWN_RATE = 5; // 2 particle(s) every [ELECTRON_SPAWN_RATE] seconds
+const XENON_SPAWN_RATE = 2; // 1 particle(s) every [XENON_SPAWN_RATE] seconds
 const ELECTRON_RADIUS = 6;
 const XENON_RADIUS = 10;
-
-// cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size
-// size/location of the ______ relative to the width/height of the window
-const top_of_cathode_constant = 0.39;
-const bottom_of_cathode_constant = 0.49;
-const left_of_cathode_constant = 0.20;
-
-const particle_right_bounding_box = 1.00;
-// getCathTubeRightX = 1.00
 ///
 
 class Painter{
@@ -131,10 +125,6 @@ class Painter{
     }
     getCathTubeLeftX(){
         return this.getCanvasWidth() * left_of_cathode_constant;
-    }
-
-    getCathTubeWidth(){
-        return this.getCathTubeRightX();
     }
 
     getRandomInt(min, max) {
@@ -307,8 +297,8 @@ class Painter{
 
         // 1 xenon per 3 seconds
         if(this.XenonGeneratorKey === -1){
-            ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate an initial one to get it going right away
-            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x); // generate on a timer
+            ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate an initial one to get it going right away
+            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate on a timer
         }
     }
 

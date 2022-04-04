@@ -20,7 +20,13 @@ export const hallThrusterOff = 6;   // ctx6 // scene[hallThrusterOff]
 export const hallThrusterOn = 7;    // ctx7 // scene[hallThrusterOn]
 
 // Relative Dimensions //
+// cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size
+// size/location of the ______ relative to the width/height of the window
 export const right_of_cathode_constant = 0.35;
+export const left_of_cathode_constant = 0.20;
+export const top_of_cathode_constant = 0.39;
+export const bottom_of_cathode_constant = 0.49;
+export const particle_right_bounding_box = 1.00;
 
 
 // Text //

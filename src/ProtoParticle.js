@@ -2,7 +2,11 @@
 /// CONSTANTS ///
 
 import {
-    right_of_cathode_constant
+    right_of_cathode_constant,
+    left_of_cathode_constant,
+    bottom_of_cathode_constant,
+    top_of_cathode_constant,
+    particle_right_bounding_box
 } from "./Galactic";
 
 // Pre-load images //
@@ -17,16 +21,18 @@ ionizedXenonImage.src = "/images/ionized_xenon.png";
 const ELECTRON_RADIUS = 6;
 const XENON_RADIUS = 10;
 const TIMING_INTERVAL = 3/60;
+const IONIZATION_AGE_THRESHOLD = 1500; // particle.halfLife must be < IONIZATION_AGE_THRESHOLD to ionize
+const DEFAULT_HALFLIFE = 2000; // how many animation frames a particle lives for
 
 
-const collision_elasticity = 0.6; // 1 == fully elastic, 0 == no bounce
+const collision_elasticity = 0.4; // 1 == fully elastic, 0 == no bounce
 // warning: collision_elasticity doesn't apply to diagonal (y=mx+b) collisions since we don't have a need for that atm
 // charges //
-const keeper_electric_field_kq = -50; // the constant for k*q in the kqq/r equation (force due to an electric field) due to the keeper electrode
+const keeper_electric_field_kq = -40; // the constant for k*q in the kqq/r equation (force due to an electric field) due to the keeper electrode
 const thruster_electric_field_kq = -100; // the constant for k*q in the kqq/r equation (force due to an electric field) due to the hall thruster
 const ELECTRON_CHARGE = -0.5;
 const XENON_CHARGE = 0;
-const IONIZED_CHARGE = 1;
+const IONIZED_CHARGE = 0.8;
 
 // possible particle types //
 const TYPE_ELECTRON = 'electron';
@@ -35,10 +41,10 @@ const TYPE_IONIZEDXENON = 'ionized xenon';
 const TYPE_NONE = 'ionized xenon';
 
 // speed modifiers/ range definitions //
-const particle_maxv_x = 30; // original: 30
-const particle_minv_x = -0; // original: -30
-const particle_maxv_y = 30; // original: 30
-const particle_minv_y = -30; // original: -30
+const particle_maxv_x = 20; // original: 30, 2nd iteration: 30
+const particle_minv_x = -20; // original: -30, 2nd iteration: -0
+const particle_maxv_y = 20; // original: 30, 2nd iteration: 30
+const particle_minv_y = -20; // original: -30, 2nd iteration: -30
 const particle_speed_modifier = 0.025; //original: 0.025
 //////
 
@@ -197,7 +203,7 @@ class ProtoParticle {
         this.max_x = max_x;
         this.min_x = min_x;
 
-        this.halfLife = 2000;
+        this.halfLife = DEFAULT_HALFLIFE;
 
         particles_array.push(this);
     }
@@ -295,10 +301,34 @@ class ProtoParticle {
     }
 
     /**
-     * @returns {number} (int) the X coordinate of the right wall of the cathode
+     * getCathTube___() - unfortunately duped form painter.js
+     * Returns the location of the ___ of the cathode tube on the _ axis, don't forget to account for particle width
+     * Used for the electron and xenon boundary box positions* (talk to Jack he isn't done here - 3/31/22)
+     *
+     * @returns {number} (int) single coordinate
      */
+    getCathTubeBot(){
+        return this.canvas.height * bottom_of_cathode_constant;
+    }
+    getCathTubeTop(){
+        return this.canvas.height * top_of_cathode_constant;
+    }
     getCathTubeRightX(){
         return this.canvas.width * right_of_cathode_constant;
+    }
+    getCathTubeLeftX(){
+        return this.canvas.width * left_of_cathode_constant;
+    }
+
+    /**
+     * getParticleTube___() - unfortunately duped form painter.js
+     * Returns the location of the particle boundary for the cathode tube on the _ axis, don't forget to account for particle width
+     * Used for the electron and xenon boundary box positions* (talk to Jack he isn't done here - 3/31/22)
+     *
+     * @returns {number} (int) single coordinate
+     */
+    getParticleTubeRightX(){
+        return this.canvas.width * particle_right_bounding_box;
     }
 
     /**
@@ -309,6 +339,9 @@ class ProtoParticle {
             this.particle_type = TYPE_IONIZEDXENON; // todo - particle: make sure everything updates types properly like this
             this.charge = IONIZED_CHARGE;
             this.setImage(TYPE_IONIZEDXENON);
+
+            ProtoParticle.generateElectron(this.ctx, this.x, this.y, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX());
+            ProtoParticle.generateElectron(this.ctx, this.x, this.y, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX());
         }
         else if(this.particle_type === TYPE_ELECTRON){
             // clone self?
@@ -337,7 +370,7 @@ class ProtoParticle {
      */
     delete_self(){
         this.clearAnimation()
-        console.log("deleting self.");//:debug
+        // console.log("deleting self.");//:debug
         // console.log("array:")
         // console.log(particles_array);
         // console.log("find:")
@@ -398,8 +431,8 @@ class ProtoParticle {
         // let m = 1; // slope
         // let b = 300; // y intercept
 
-        if(ionizeFlag && particle.particle_type === TYPE_XENON){
-            particle.ionize(); // todo - particle: put this on a timeout
+        if(ionizeFlag && particle.particle_type === TYPE_XENON && particle.halfLife < IONIZATION_AGE_THRESHOLD){
+            particle.ionize();
         }
 
         // check y boundary using normal bounding box
@@ -440,8 +473,11 @@ class ProtoParticle {
                     particle.vx = particle.vx + (particle.ax * particle.interval);
                 }
             }
+        }
 
-
+        // check if particle hit back of the tube
+        if (particle.particle_type === TYPE_IONIZEDXENON && (particle.x < particle.getCathTubeLeftX() + particle.radius)){
+            particle.halfLife = 0; // despawn the particle
         }
 
         //move the particle at the given velocity
@@ -559,7 +595,7 @@ class ProtoParticle {
      * @param mmin_x bounding box
      */
     static generateXenon(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
-        console.log("generating electron");//:debug
+        // console.log("generating electron");//:debug
         // Drawing some particles //
         let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, TYPE_XENON, mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         xenon0.setAnimation(ProtoParticle.xenonAnimation);
@@ -572,7 +608,7 @@ class ProtoParticle {
         //     (xenon_particles_array.pop()).clearAnimation();
         // }
 
-        console.log("killing all particles");//:debug
+        // console.log("killing all particles");//:debug
 
         let limiti = particles_array.length;
         for (let i = 0; i < limiti; i++) {
@@ -593,7 +629,7 @@ class ProtoParticle {
      * @param mmin_x bounding box
      */
     static generateElectron(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
-        console.log("generating electron");//:debug
+        // console.log("generating electron");//:debug
         // Drawing some particles //
         let electron0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, TYPE_ELECTRON, mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         electron0.setAnimation(ProtoParticle.electronAnimation);
