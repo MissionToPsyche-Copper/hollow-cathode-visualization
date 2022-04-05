@@ -101,7 +101,21 @@ export class LearningMode extends React.Component {
         else {
             this.thrusterButtonText = "On";
         }
+
+
+        window.addEventListener('resize', this.handleResize);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+        this.painter.killProtoParticle();
+    }
+
+    handleResize = () => this.setState({
+        canvas_height: window.innerHeight * 0.8,
+        canvas_width: window.innerWidth
+    }, this.scenarioRefresh);
+
 
     /**
      * Hides the element with the given id
@@ -135,10 +149,10 @@ export class LearningMode extends React.Component {
      */
     componentDidMount() {
         // an attempted fix for reloading breaking pages
-        // if(this.state.canvas_width === 0 || this.state.canvas_height === 0){
-        //     this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        //     this.state.canvas_width = document.getElementById("page-container").clientWidth;
-        // }
+        // this.setState({
+        //     canvas_height: document.getElementById("page-container").clientHeight,
+        //     canvas_width: document.getElementById("page-container").clientWidth
+        // })
 
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
@@ -168,7 +182,7 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
-        console.log('scenarioRefresh active: '+this.scene);
+        // console.log('scenarioRefresh active: '+this.scene);//:debug
         this.setState({text: " "})
         if(this.state.scene[hallThrusterOff] === true) {
             this.hideElement("hallThrusterOn-fadeIn")
@@ -256,7 +270,7 @@ export class LearningMode extends React.Component {
 
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            console.log('base cathode is drawing')
+            // console.log('base cathode is drawing')//:debug
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -299,6 +313,7 @@ export class LearningMode extends React.Component {
         // if the user deselected this option/layer
         else if (this.state.deltastage === keeper){
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopEjecting();
         }
 
         // if heat insert is active
@@ -374,6 +389,7 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopIonizing();
 
             // if internal plasma stops because ___ call ___ explanation
             if(!this.state.scene[heat]){
@@ -419,6 +435,7 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === eject){
             // the user deselected this option/layer
             this.painter.clearCanvas(this.state.deltastage);
+            this.painter.stopEjecting();
 
             // if ejecting plasma stops bcz ___ call ___ explanation
             // if(!this.state.scene[heat]){
@@ -618,7 +635,7 @@ export class LearningMode extends React.Component {
      */
     nextButton_end_HandleClick() {
         this.hideElement("learningModeGuide");
-        console.log(this.state.deltastage);
+        // console.log(this.state.deltastage);//:debug
         if(this.state.deltastage===eject){
             this.hideElement('nextButton');
             this.showElement('summaryButton');
@@ -641,8 +658,7 @@ export class LearningMode extends React.Component {
     // backButton_HandleClick() {
     //
     //     HALL_THRUSTER_ON = false;
-    //     //this.painter.killElectronGenerator()
-    //     // this.painter.killXenonGenerator()
+    //     // this.painter.killProtoParticle();
     //     // render learning mode
     //     ReactDOM.render(
     //         <div id={"canvasHolder"}>
