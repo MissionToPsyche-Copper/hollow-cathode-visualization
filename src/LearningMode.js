@@ -189,6 +189,8 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOn-fadeOut")
 
             this.hideElement("toggleButtonGroup");
+            this.hideElement("summaryButton_")
+
             this.painter.draw_Hall_Thruster_Off();
 
             this.showElement("hallThrusterOffLabelDiv");
@@ -625,6 +627,7 @@ export class LearningMode extends React.Component {
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
+        this.showElement("summaryButton_")
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
@@ -791,7 +794,7 @@ export class LearningMode extends React.Component {
                 </button>
 
                 <Link to={'/summary'} id={'summaryButton'}>
-                    <button id={''} className={"button stackedButtonGroup bottomCenterAlign"}>
+                    <button id={'summaryButton_'} className={"button stackedButtonGroup bottomCenterAlign"} hidden={true}>
                         Summary
                     </button>
                 </Link>
