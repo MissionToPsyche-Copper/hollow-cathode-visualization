@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: "Helvetica",sans-serif;
@@ -286,6 +287,36 @@ code {
   margin-bottom: 0.25em;
 }
 
+.thrusterAndCathode-finalPosition{
+  position: absolute;
+  /*height: 82vh;*/
+  min-height: 350px;
+
+  /*top: -1vh;*/
+  /*left: 10vw;*/
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+
+  top: -5vh;
+  height: 355vh;
+  left: -42vw;
+  transform: rotate(-28deg);
+}
+
+.crossSectionPosition{
+  height: 60vh;
+  width: 60%;
+
+  left: 10vw;
+  top: -50vh;
+
+  min-height: 350px;
+}
+
 .fade-in {
   animation: fadeIn ease 3s;
   -webkit-animation: fadeIn ease 3s;
@@ -314,6 +345,7 @@ code {
 
   animation-fill-mode: forwards;
 }
+
 @keyframes fadeOut {
   0% {
     opacity:1;

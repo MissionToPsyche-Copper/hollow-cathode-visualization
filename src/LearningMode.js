@@ -196,9 +196,13 @@ export class LearningMode extends React.Component {
 
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOnSublabelDiv");
+            this.hideElement("crossSection-fadeIn");
+            this.hideElement("thrusterAndCathode-fadeOut-end");
         }
         else
         {
+            this.hideElement("thrusterAndCathode-fadeOut-end");
+            this.hideElement("crossSection-fadeIn")
             this.hideElement("hallThrusterButtonGroup");
             this.hideElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOnLabelDiv");
@@ -238,7 +242,7 @@ export class LearningMode extends React.Component {
 
             //HALL_THRUSTER_ON = false;
         }
-        //If the hall thruster is off
+            //If the hall thruster is off
         //Also the first thing to happen in Hall Thruster view
         else
         {
@@ -269,6 +273,11 @@ export class LearningMode extends React.Component {
         // if basedrawing is active
         if(this.state.scene[base] === true){
             // console.log('base cathode is drawing')//:debug
+            //<img id={"crossSection-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"}/>
+
+            this.showElement("thrusterAndCathode-fadeOut-end")
+            this.showElement("crossSection-fadeIn")
+
             this.painter.draw_csv_Base_Drawing()
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
@@ -280,8 +289,6 @@ export class LearningMode extends React.Component {
             }
 
             this.hideElement("hallThruster")
-
-            //this.showElement("baseCathode")
         }
         //hide some elements that shouldn't be seen outside cross-sectional view
         else if(this.state.scene[base] === false)
@@ -301,6 +308,8 @@ export class LearningMode extends React.Component {
 
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
+            this.hideElement("crossSection-fadeIn")
+
             this.painter.draw_csv_keeper_electrode();
 
             // if the user just toggled the keeper electrode
@@ -316,6 +325,7 @@ export class LearningMode extends React.Component {
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
+            this.hideElement("crossSection-fadeIn")
 
             this.painter.draw_csv_Heat_Insert();
 
@@ -327,13 +337,13 @@ export class LearningMode extends React.Component {
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === heat){
-
             this.painter.killElectronGenerator();
             this.painter.clearCanvas(this.state.deltastage);
         }
 
         // if gas feed is active
         if(this.state.scene[gas] === true){
+            this.hideElement("crossSection-fadeIn")
             this.painter.draw_csv_gas_feed();
 
             // if the user just toggled the gas feed
@@ -690,6 +700,8 @@ export class LearningMode extends React.Component {
                 <img id={"baseCathode"} src={"/images/cross_section.png"}/>
                 <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"}/>
 
+                <img id={"crossSection-fadeIn"} src={"/images/cross_section.png"} className={"fade-in crossSectionPosition"}/>
+                <img id={"thrusterAndCathode-fadeOut-end"} src={"images/thrusterAndCathode.png"} className={"fade-out thrusterAndCathode-finalPosition"}/>
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out "}>

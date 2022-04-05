@@ -1,3 +1,4 @@
+
 import ProtoParticle from "./ProtoParticle";
 
 /**
@@ -174,7 +175,8 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
 
-        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.15, this.getCanvasWidth() * .9, this.getCanvasHeight() * 0.75); // draw the cathode
+        ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0, this.getCanvasWidth() * 0.6, this.getCanvasHeight() * 0.75); // draw the cathode
+
 
 
 
@@ -389,8 +391,8 @@ class Painter{
     draw_csv_gas_feed_guide(){
         // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
 
-         this.clearCanvas(gas);
-         const ctx = this.getLayer(gas);
+        this.clearCanvas(gas);
+        const ctx = this.getLayer(gas);
 
     }
 
