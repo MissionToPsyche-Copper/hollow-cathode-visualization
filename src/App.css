@@ -35,7 +35,7 @@
     color: #61dafb;
 }
 
-@media only screen and (max-width: 930px) {
+@media only screen and (max-width: 530px) {
     .hideWhenTooSmall {
         visibility: hidden;
     }
@@ -45,7 +45,7 @@
     }
 }
 
-@media only screen and (max-height: 830px) {
+@media only screen and (max-height: 530px) {
     .hideWhenTooSmall {
         visibility: hidden;
     }
@@ -55,13 +55,13 @@
     }
 }
 
-@media only screen and (min-width: 930px) {
+@media only screen and (min-width: 130px) {
     .showWhenTooSmall {
         visibility: hidden;
     }
 }
 
-@media only screen and (min-height: 830px) {
+@media only screen and (min-height: 130px) {
     .showWhenTooSmall {
         visibility: hidden;
     }

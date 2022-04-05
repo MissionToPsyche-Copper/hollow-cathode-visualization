@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 import React from 'react'
 
 class HeaderComponent extends React.Component{
-
     render(){
         return(
             <header className="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400"
@@ -13,7 +12,7 @@ class HeaderComponent extends React.Component{
                     </a>
                     <nav role="navigation" className="nav-menu w-nav-menu">
                         <div className="dropdown" data-dropdown>
-                            <button className="text-block" data-dropdown-button onClick={this.dropDown_HandleClick}>About Us</button>
+                            <button className="text-block" data-dropdown-button>About Us</button>
                             <div className="dropdown-list">
                                 <a href="https://psyche.asu.edu/mission/" className="dropdown-link">Missions</a>
                                 <a href="https://psyche.asu.edu/events/" className="dropdown-link">Events</a>
@@ -21,28 +20,13 @@ class HeaderComponent extends React.Component{
                                    className="dropdown-link">Projects</a>
                             </div>
                         </div>
-                        <div><a href="https://psyche.asu.edu/contact/" className="nav-menu nav-link">Contact</a></div>
+                        <div>
+                            <a href="https://psyche.asu.edu/contact/" className="nav-menu nav-link">Contact</a>
+                        </div>
                     </nav>
                 </div>
             </header>
         );
-    }
-
-
-    dropDown_HandleClick(e) {
-        const isDropdownButton= e.target.matches("[data-dropdown-button]")
-        if(!isDropdownButton && e.target.closest('[data-dropdown]'!=null))return
-
-        let currentDropdown
-        if(isDropdownButton){
-            currentDropdown= e.target.closest('[data-dropdown]')
-            currentDropdown.classList.toggle('active')
-        }
-
-        document.querySelectorAll("[data-dropdown].active").forEach(dropdown=>{
-            if(dropdown === currentDropdown) return
-            dropdown.classList.remove('active')
-        })
     }
 }
 
