@@ -48,6 +48,7 @@ let canvas_width = 1150;
  */
 
 var HALL_THRUSTER_ON = false;
+var didRotate = false;
 
 export class LearningMode extends React.Component {
 
@@ -532,6 +533,9 @@ export class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
+        // let c = document.getElementById('canvas0');
+        // let ctx = c.getContext('2d');
+        // ctx.rotate(-15*Math.PI/180);
         let newScene = this.state.scene;
         newScene[heat] = !newScene[heat];
 
