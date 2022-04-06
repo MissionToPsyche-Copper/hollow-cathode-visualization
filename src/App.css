@@ -445,7 +445,7 @@ img{
     top: 28%; /*alt measure: 20vh*/
     left: 55vw;
     width: auto;
-    text-align: justify;
+    text-align: left;
     position: absolute;
     overflow-wrap: normal;
 }
