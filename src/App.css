@@ -294,11 +294,23 @@ img{
     line-height: 1.5;
 }
 
-.footer-link{
+.footer-link-1{
     display: block;
     margin-bottom: 8px;
     color: #f5f5f5;
     text-decoration: none;
+}
+
+.footer-link-2{
+    color: #f5f5f5;
+}
+
+.footer-disclaimer{
+    margin-bottom: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    text-align: justify;
+    color: #f5f5f5;
 }
 
 .w-list-unstyled{
@@ -490,7 +502,7 @@ img{
 }
 
 .summarySubLabel{
-    text-align: justify;
+    text-align: left;
 }
 
 
@@ -498,3 +510,8 @@ img{
     margin-top: 5rem;
     margin-left:50%;
 }
+
+.reference-link{
+    color: #f5f5f5;
+}
+
