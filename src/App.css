@@ -341,7 +341,8 @@ img{
 
 .disabled {
     opacity: 0.5;
-    cursor: not-allowed;}
+    cursor: not-allowed;
+}
 
 .button:hover {
     background-color: #b1506c;
