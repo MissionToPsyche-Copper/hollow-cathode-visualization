@@ -35,7 +35,7 @@
     color: #61dafb;
 }
 
-@media only screen and (max-aspect-ratio: 13/9), (max-height: 630px) {
+@media only screen and (max-aspect-ratio: 13/9), (max-height: 630px), (min-aspect-ratio: 11/5) and (min-width: 1000px) {
     .hideWhenTooSmall {
         visibility: hidden;
     }
@@ -45,7 +45,7 @@
     }
 }
 
-@media only screen and (min-aspect-ratio: 13/9) and (min-height: 630px) {
+@media only screen and (min-aspect-ratio: 13/9) and (min-height: 630px) and (max-aspect-ratio: 11/5) {
     .showWhenTooSmall {
         visibility: hidden;
     }
@@ -412,7 +412,7 @@ img{
     top: 32%;
     left: 64vw;
 
-    text-align: justify;
+    text-align: left;
 
     min-width: 20vw;
     max-width: 24vw;
@@ -426,12 +426,11 @@ img{
     top: 5%; /*alt measure: 9vh*/
     left: 54vw;
 
-
     max-width: 35vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
-    text-align: justify;
+    text-align: left;
     position: absolute;
     top: 11%;
     left: 54vw;

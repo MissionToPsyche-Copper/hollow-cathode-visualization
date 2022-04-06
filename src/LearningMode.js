@@ -751,7 +751,7 @@ export class LearningMode extends React.Component {
 
 
                 <button id={"HallThrusterNext"}
-                        className={"CathodeHitBox_zoomed_out "}>
+                        className={"CathodeHitBox_zoomed_out"}>
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
@@ -760,7 +760,7 @@ export class LearningMode extends React.Component {
                     </Link>
                 </div>
 
-                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"HallThrusterNext_Accessible"}
                             className={"button"}> Next
                     </button>
