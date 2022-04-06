@@ -35,7 +35,7 @@
     color: #61dafb;
 }
 
-@media only screen and (max-width: 530px) {
+@media only screen and (max-aspect-ratio: 13/9), (max-height: 630px) {
     .hideWhenTooSmall {
         visibility: hidden;
     }
@@ -45,23 +45,7 @@
     }
 }
 
-@media only screen and (max-height: 530px) {
-    .hideWhenTooSmall {
-        visibility: hidden;
-    }
-
-    .showWhenTooSmall {
-        visibility: visible;
-    }
-}
-
-@media only screen and (min-width: 130px) {
-    .showWhenTooSmall {
-        visibility: hidden;
-    }
-}
-
-@media only screen and (min-height: 130px) {
+@media only screen and (min-aspect-ratio: 13/9) and (min-height: 630px) {
     .showWhenTooSmall {
         visibility: hidden;
     }
@@ -72,7 +56,7 @@
     color: #EF5966;
     font-size: 40px;
     font-weight: bold;
-    top: 15%;
+    top: 20%;
     left: 0%;
     padding-left: 10px;
     padding-right: 10px;
