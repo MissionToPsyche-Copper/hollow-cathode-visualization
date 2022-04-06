@@ -36,9 +36,11 @@ class RefComponent extends React.Component{
                 </label>
                 <br/>
                 <br/>
-                <label style={{"margin-top":"1rem"}}>
+                <label style={{"margin-bottom":"3rem"}}>
                     [5]    S. T. Lai and K. Cahoy, “Spacecraft Charging,” Encyclopedia of Plasma Technology, pp. 1352–1366, Dec. 2016. Available: <a href={"https://www.bc.edu/content/dam/files/research_sites/isr/pdf/2017%20Lai%20%26%20Cahoy%20-%20Encyclo.pdf"} className={'reference-link'}>https://www.bc.edu/content/dam/files/research_sites/isr/pdf/2017%20Lai%20%26%20Cahoy%20-%20Encyclo.pdf.</a> [Accessed: 09-Oct-2021].
                 </label>
+                <br/>
+                <br/>
             </div>
         </div>
         );
