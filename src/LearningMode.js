@@ -275,6 +275,7 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
 
+
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
@@ -304,9 +305,18 @@ export class LearningMode extends React.Component {
         // if keeper electrode is active
         if(this.state.scene[keeper] === true){
             this.painter.draw_csv_keeper_electrode();
-
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
             // if the user just toggled the keeper electrode
             if(this.state.deltastage === keeper){
+
                 this.setState({text: keeperText})
             }
         }
@@ -318,12 +328,21 @@ export class LearningMode extends React.Component {
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
-
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
             if(this.state.deltastage === heat)
             {
+
                 this.setState({text: heatText})
             }
         }
@@ -337,9 +356,19 @@ export class LearningMode extends React.Component {
         // if gas feed is active
         if(this.state.scene[gas] === true){
             this.painter.draw_csv_gas_feed();
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
 
             // if the user just toggled the gas feed
             if(this.state.deltastage === gas){
+
                 this.setState({text: gasText})
             }
         }
@@ -450,12 +479,39 @@ export class LearningMode extends React.Component {
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
+            if(this.state.deltastage === keeper){
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+            }
+            else{
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("KeeperElectrodeToggle")
+                t.classList.add("disabled")
+
+            }
             this.setState({text: gasKeeperErrorText});
+
         }
 
         //HEAT ON, KEEPER ON, NO PLASMA
         if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.state.deltastage === heat || this.state.deltastage === keeper)) {
             this.setState({text: heatKeeperErrorText})
+            if(this.state.deltastage === keeper){
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+            }
+            else{
+                let t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("KeeperElectrodeToggle")
+                t.classList.add("disabled")
+
+            }
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
