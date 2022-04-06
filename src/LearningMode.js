@@ -743,11 +743,11 @@ export class LearningMode extends React.Component {
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"}/>
-                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out"}/>
-                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out"}/>
-                <img id={"baseCathode"} src={"/images/cross_section.png"}/>
-                <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"}/>
+                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
+                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
+                <img id={"baseCathode"} src={"/images/cross_section.png"} alt={"Base Hollow Cathode"}/>
+                <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"} alt={""}/>
 
 
                 <button id={"HallThrusterNext"}
