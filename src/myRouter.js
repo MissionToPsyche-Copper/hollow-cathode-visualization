@@ -19,7 +19,7 @@ function MyRouter(){
                 <div className={"showWhenTooSmall"}>
                     <p>
                         Your window size is too small for this visualization.
-                        Please increase your window size before continuing.
+                        Please set your window size to full screen before continuing.
                     </p>
                 </div>
                 <div className={"hideWhenTooSmall"}>

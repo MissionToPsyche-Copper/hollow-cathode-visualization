@@ -48,6 +48,7 @@ let canvas_width = 1150;
  */
 
 var HALL_THRUSTER_ON = false;
+var didRotate = false;
 
 export class LearningMode extends React.Component {
 
@@ -284,6 +285,7 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(hallThrusterOn)
             this.painter.clearCanvas(hallThrusterOff)
 
+
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
                 this.painter.draw_csv_Base_Drawing_guide();
@@ -313,9 +315,18 @@ export class LearningMode extends React.Component {
             this.hideElement("crossSection-fadeIn")
 
             this.painter.draw_csv_keeper_electrode();
-
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
             // if the user just toggled the keeper electrode
             if(this.state.deltastage === keeper){
+
                 this.setState({text: keeperText})
             }
         }
@@ -327,6 +338,16 @@ export class LearningMode extends React.Component {
 
         // if heat insert is active
         if(this.state.scene[heat] === true){
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+
             this.hideElement("crossSection-fadeIn")
 
             this.painter.draw_csv_Heat_Insert();
@@ -334,6 +355,7 @@ export class LearningMode extends React.Component {
             // if the user just toggled heat insert
             if(this.state.deltastage === heat)
             {
+
                 this.setState({text: heatText})
             }
         }
@@ -347,9 +369,19 @@ export class LearningMode extends React.Component {
         if(this.state.scene[gas] === true){
             this.hideElement("crossSection-fadeIn")
             this.painter.draw_csv_gas_feed();
+            let t = document.getElementById("GasFeedToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("HeatInsertToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
+            t = document.getElementById("KeeperElectrodeToggle")
+            if(t.classList.contains("disabled"))
+                t.classList.remove("disabled")
 
             // if the user just toggled the gas feed
             if(this.state.deltastage === gas){
+
                 this.setState({text: gasText})
             }
         }
@@ -460,12 +492,39 @@ export class LearningMode extends React.Component {
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
+            if(this.state.deltastage === keeper){
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+            }
+            else{
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("KeeperElectrodeToggle")
+                t.classList.add("disabled")
+
+            }
             this.setState({text: gasKeeperErrorText});
+
         }
 
         //HEAT ON, KEEPER ON, NO PLASMA
         if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.state.deltastage === heat || this.state.deltastage === keeper)) {
             this.setState({text: heatKeeperErrorText})
+            if(this.state.deltastage === keeper){
+                let t = document.getElementById("HeatInsertToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+            }
+            else{
+                let t = document.getElementById("GasFeedToggle")
+                t.classList.add("disabled")
+                t = document.getElementById("KeeperElectrodeToggle")
+                t.classList.add("disabled")
+
+            }
         }
 
         //TODO this is a bad solution for checking the user has completed learning mode
@@ -486,6 +545,9 @@ export class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
+        // let c = document.getElementById('canvas0');
+        // let ctx = c.getContext('2d');
+        // ctx.rotate(-15*Math.PI/180);
         let newScene = this.state.scene;
         newScene[heat] = !newScene[heat];
 
@@ -697,17 +759,17 @@ export class LearningMode extends React.Component {
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"}/>
-                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out"}/>
-                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out"}/>
-                <img id={"baseCathode"} src={"/images/cross_section.png"}/>
-                <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"}/>
+                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
+                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
+                <img id={"baseCathode"} src={"/images/cross_section.png"} alt={"Base Hollow Cathode"}/>
+                <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"} alt={""}/>
 
                 <img id={"crossSection-fadeIn"} src={"/images/cross_section.png"} className={"fade-in crossSectionPosition"}/>
                 <img id={"thrusterAndCathode-fadeOut-end"} src={"images/thrusterAndCathode.png"} className={"fade-out thrusterAndCathode-finalPosition"}/>
 
                 <button id={"HallThrusterNext"}
-                        className={"CathodeHitBox_zoomed_out "}>
+                        className={"CathodeHitBox_zoomed_out"}>
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
@@ -716,7 +778,7 @@ export class LearningMode extends React.Component {
                     </Link>
                 </div>
 
-                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
+                <div id={"hallThrusterButtonGroup"} className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"HallThrusterNext_Accessible"}
                             className={"button"}> Next
                     </button>

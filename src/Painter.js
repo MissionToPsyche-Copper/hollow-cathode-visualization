@@ -177,6 +177,7 @@ class Painter{
 
         ctx.drawImage(this.base_cathode, 0, this.getCanvasHeight() * 0, this.getCanvasWidth() * 0.6, this.getCanvasHeight() * 0.75); // draw the cathode
 
+        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
 
 
 
