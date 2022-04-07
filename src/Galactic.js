@@ -30,41 +30,48 @@ export const particle_right_bounding_box = 1.00;
 
 
 // Text //
-export const hallThrusterPrimaryText = "The large circular component to the left is a Hall thruster. There are multiple of these on the spacecraft and they’re responsible for propelling the spacecraft through outer space. The Hall thruster produces thrust by ionizing particles and shooting them away from the spacecraft at incredibly high speeds."
+export const hallThrusterPrimaryText = "The large circular piece here is a Hall thruster, which propels the spacecraft through outer space by ionizing particles and shooting them out of the spacecraft."
 
-export const hallThrusterSecondaryOnText = "The particles are the Hall thruster's propellant. While particles are being stored, they are neutral, so they don't react with electric fields like magnets, and thus are easy to store. When the spacecraft needs to use gas particles, the spacecraft ionizes particles so that they can react to electromagnetic fields. The hall thruster generates an extremely strong magnetic field which attracts the particles from inside the thruster and shoots ions out and away from the spacecraft at hundreds of kilometers a second. This interaction is like trying to stick the wrong ends of two strong magnets together. \n" +
+export const hallThrusterSecondaryOnText = "The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.\n" +
     "\n" +
-    "The unit slightly above the Hall thruster is called a hollow cathode. It is responsible for supplying the hall thruster with the plasma needed to ionize its fuel. \n" +
+    "For the Hall thruster to work, it needs tiny particles called electrons. These electrons charge, or ionize, the ions so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the hall thruster.\n" +
     "\n" +
-    "In order to ionize a particle, we need electrons or other ionized particles. For this, we need the hollow cathode. "
-export const hallThrusterSecondaryOffText = "The particles are the Hall thruster's propellant. While particles are being stored, they are neutral, so they don't react with electric fields like magnets, and thus are easy to store. When the spacecraft needs to use gas particles, the spacecraft ionizes particles so that they can react to electromagnetic fields. The hall thruster generates an extremely strong magnetic field which attracts the particles from inside the thruster and shoots ions out and away from the spacecraft at hundreds of kilometers a second. This interaction is like trying to stick the wrong ends of two strong magnets together. \n" +
+    "Click on the hollow cathode above the hall thruster to learn more about it. "
+export const hallThrusterSecondaryOffText = "The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.\n" +
     "\n" +
-    "The unit slightly above the Hall thruster is called a hollow cathode. It is responsible for supplying the hall thruster with the plasma needed to ionize its fuel. \n" +
+    "For the Hall thruster to work, it needs tiny particles called electrons. These electrons charge, or ionize, the ions so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the hall thruster.\n" +
     "\n" +
-    "In order to ionize a particle, we need electrons or other ionized particles. For this, we need the hollow cathode. "
-
+    "Click on the hollow cathode above the hall thruster to learn more about it. "
 export const cathodeShellPrimaryTitleText = "This is a Hollow Cathode"
-export const cathodeShellPrimaryText = "This is a hollow cathode; it has two main jobs when it comes to propelling the Psyche spacecraft. Its first job is to emit a stream of electrons which are then pulled in and trapped by the hall thruster’s magnetic fields and used to accelerate propellant in order to make thrust. \n" +
+export const cathodeShellPrimaryText = "The hollow cathode has two jobs that both help the hall thruster work.\n" +
     "\n" +
-    "The other job of the hollow cathode is to neutralize the ions ejected by the Hall thruster as they fly away from the spacecraft. \n" +
+    "The first job helps the hall thruster propel the spacecraft through outer space. To do this, the hollow cathode lets out some electrons, which are used to make the ions that the hall thruster emits." +
     "\n" +
-    "Without the hollow cathode, when the Hall thruster emits plasma, the Hall thruster is negatively charging the entire rocket. [5] This phenomenon can cause spacecraft erosion and reduce the thrust force. \n" +
+    "The second job of the hollow cathode is to neutralize the ions that the hall thruster shoots out of the spacecraft.\n" +
     "\n" +
-    "Ionized particles react to electromagnetic fields, so if allowed to move freely in space, they may end up sticking to other parts of the spacecraft or interfering with its sensors. Particles sticking to spacecraft can also cause erosion or even reduce the amount of thrust the hall thrusters generate, so this job is equally as important. As particles are ejected from the Hall thruster, the hollow cathode neutralizes them by emitting a stream of electrons and ionized xenon particles which neutralize particles leaving the hall thruster."
+    "Click on the hollow cathode or press the next button below to explore how the hollow cathode performs its jobs."
 
-export const cathodeCSVTitleText = "Now you can see Inside the Hollow Cathode"
-export const cathodeCSVText = "The operation of the hollow cathode can be broken down into 3 main functions, which you can control via the buttons at the bottom right. These functions are labeled “toggle heater”, “toggle gas feed”, and “toggle keeper electrode”. You can enable and disable the three main operations for the hollow cathode by pressing the buttons below.  \n" +
-    "\n" +
-    "Our end goal is to get the hollow cathode fully operating again. To do this, we first need to make a hot plasma out of electrons and ionized xenon in the cathode tube and then eject it for the Hall thruster. To give a place to start, the cathode inserts are the most important component of the hollow cathode. "
+export const cathodeCSVTitleText = "Inside the Hollow Cathode"
+export const cathodeCSVText = "The hollow cathode has three pieces that help it work: the heaters, the gas feed, and the keeper electrode. You can turn them on and off with the buttons at the bottom of the screen.\n"
+    +"\n"+
+    "Let’s try to get the hollow cathode working! \n"
+    +"\n"+
+    "First, let’s toggle the heaters to turn them on. "
 
 export const heatTitleText = "Heating the Inserts"
-export const heatText = "Heaters are coiled around the cathode tube and are responsible for heating up the cathode insert to extreme temperatures of at least at 1200 degrees Celsius (or 2192 degrees Fahrenheit) [2]. Heaters are surrounded by a heat shield to trap heat in and protect other electrical components from the extreme heat generated by the inserts. The insert is made of a special material which can emit electrons at high temperatures. The insert is placed inside of the hollow cathode and pushed against the orifice [2]; it is labeled to the left.";
+export const heatText = "The heaters are the small white circles around the inner edges of the hollow cathode. They heat the inserts up to extremely high temperatures, which helps them produce electrons."
 
 export const gasTitleText2 = "Turning on the Gas Feed"
-export const gasText = "The role of the gas feed is to inject Xenon gas into the cathode tube. This Xenon is neutral, meaning it doesn’t react to electric or magnetic fields until the Xenon atom collides and gains electrons, becoming a negatively charged particle. This process is called ionization [3]. Since Xenon becomes a negatively charged particle in this process, it can be attracted by positive voltage or magnetic field.";
+export const gasText = "The gas feed lets tiny particles called Xenon into the hollow cathode and lets them make plasma. Whenever a Xenon particle hits an electron, the Xenon gets charged, or ionized. You can see that happen when the Xenon particles turn from purple to bright blue.\n"
+    +"\n"+
+    "Click Next to learn what happens when Xenon from the gas feed meets electrons."
 
 export const plasmaTitleText = "Plasma Forms inside the Cathode Tube"
-export const plasmaText = "The xenon gas injected near the insert is ionized by the emitted electrons to form an extremely hot plasma containing ions and more electrons.";
+export const plasmaText = "The Xenon particles are ionized to make a steady source of plasma for the Hall thruster to work with. When this happens, more electrons are let into the hollow cathode for the Hall thruster to use. But first, all those electrons need to be pushed out of the hollow cathode so the Hall thruster can access them.\n"
+    +"\n"+
+    "To do this, let’s turn on the keeper electrode."
+
+/** START HEREEEE **/
 
 export const keeperTitleText = "The Keeper Electrode"
 export const keeperText = "A positive voltage is placed on the keeper electrode, which pulls the electrons out of the orifice at the end of the cathode where they can then be used by the Hall thruster [2]. ";
