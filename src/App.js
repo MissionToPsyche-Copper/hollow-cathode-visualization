@@ -6,7 +6,7 @@ import HeaderComponent from "./Header.component.";
 import FooterComponent from "./Footer.component";
 
 import MyRouter from "./myRouter";
-
+// dummy data to push images, please delete this comment if you see it //:debug
 function App() {
     return (
         <>
