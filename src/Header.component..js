@@ -7,7 +7,7 @@ class HeaderComponent extends React.Component{
             <header className="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400"
                     data-easing="ease" data-easing2="ease" role="banner">
                 <div className="container w-container">
-                    <a href="/" className="brand w-nav-brand">
+                    <a href="/hollow-cathode-visualization/" className="brand w-nav-brand">
                         <img src="images/psyche.svg" loading="lazy" width="75" alt="Psyche Mission Logo"/>
                     </a>
                     <nav role="navigation" className="nav-menu w-nav-menu">

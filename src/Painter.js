@@ -37,13 +37,13 @@ class Painter{
 
         // pre-load images
         this.psyche_spacecraft = new Image();
-        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
+        this.psyche_spacecraft.src = "psyche_spacecraft.png";
         this.thruster_on = new Image();
-        this.thruster_on.src = "/images/plasma_sample.jpg";
+        this.thruster_on.src = "plasma_sample.png";
         this.thruster_off = new Image();
-        this.thruster_off.src = "/images/HallThrusterMockup.png";
+        this.thruster_off.src = "HallThrusterMockup.png";
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/cross_section.png";
+        this.base_cathode.src = "cross_section.png";
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 

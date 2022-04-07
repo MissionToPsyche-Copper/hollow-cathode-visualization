@@ -755,7 +755,7 @@ export class LearningMode extends React.Component {
                 </button>
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
-                    <Link to={'/'}>
+                    <Link to={'/hollow-cathode-visualization/'}>
                         <button id={"backButton"} className={"button"}> Back to Landing Page </button>
                     </Link>
                 </div>
@@ -837,7 +837,7 @@ export class LearningMode extends React.Component {
                         style={{display: "none"}}> Next
                 </button>
 
-                <Link to={'/summary'} id={'summaryButton'}>
+                <Link to={'/hollow-cathode-visualization/summary'} id={'summaryButton'}>
                     <button id={'summaryButton_'} className={"button stackedButtonGroup bottomCenterAlign"} hidden={true}>
                         Summary
                     </button>
