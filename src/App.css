@@ -18,7 +18,7 @@
 
 .App-header {
     background-color: #282c34;
-    background-image: url("star_background.png");
+    background-image: url("public/images/star_background.png");
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 80vh;

@@ -25,8 +25,10 @@ function MyRouter(){
                 <div className={"hideWhenTooSmall"}>
                     <Routes>
                         <Route path={'/hollow-cathode-visualization/'} element={<LandingPage id={"LandingPage"}/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/presentation'} element={<PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>}></Route>
+                        <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff}
+                                      scene={[false,false,false,false,false,false,true,false]}/>}></Route>
+                        <Route path={'/hollow-cathode-visualization/presentation'} element={<PresMode id={"presMode"} deltastage={base}
+                                      scene={[true,false,false,false,false,false,false,false]}/>}></Route>
                         <Route path={'/hollow-cathode-visualization/summary'} element={<SummaryPage/>}></Route>
                         <Route path={'/hollow-cathode-visualization/ref'} element={<RefComponent/>}></Route>
                     </Routes>

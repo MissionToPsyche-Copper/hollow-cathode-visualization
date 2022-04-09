@@ -2,6 +2,25 @@ import {Link} from 'react-router-dom'
 import React from 'react'
 
 class HeaderComponent extends React.Component{
+
+    componentDidMount() {
+        document.addEventListener("click", e=>{
+            const isDropdownButton= e.target.matches("[data-dropdown-button]")
+            if(!isDropdownButton && e.target.closest('[data-dropdown]'!=null))return
+
+            let currentDropdown
+            if(isDropdownButton){
+                currentDropdown= e.target.closest('[data-dropdown]')
+                currentDropdown.classList.toggle('active')
+            }
+
+            document.querySelectorAll("[data-dropdown].active").forEach(dropdown=>{
+                if(dropdown === currentDropdown) return
+                dropdown.classList.remove('active')
+            })
+        })
+    }
+
     render(){
         return(
             <header className="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400"
