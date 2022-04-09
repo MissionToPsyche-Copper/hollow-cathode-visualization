@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/hollow-cathode-visualization/static/css/main.8314e044.chunk.css",
-    "main.js": "/hollow-cathode-visualization/static/js/main.2d20f676.chunk.js",
-    "main.js.map": "/hollow-cathode-visualization/static/js/main.2d20f676.chunk.js.map",
+    "main.js": "/hollow-cathode-visualization/static/js/main.74e3ac4b.chunk.js",
+    "main.js.map": "/hollow-cathode-visualization/static/js/main.74e3ac4b.chunk.js.map",
     "runtime-main.js": "/hollow-cathode-visualization/static/js/runtime-main.2f539f46.js",
     "runtime-main.js.map": "/hollow-cathode-visualization/static/js/runtime-main.2f539f46.js.map",
-    "static/js/2.114f5783.chunk.js": "/hollow-cathode-visualization/static/js/2.114f5783.chunk.js",
-    "static/js/2.114f5783.chunk.js.map": "/hollow-cathode-visualization/static/js/2.114f5783.chunk.js.map",
+    "static/js/2.6e8d7572.chunk.js": "/hollow-cathode-visualization/static/js/2.6e8d7572.chunk.js",
+    "static/js/2.6e8d7572.chunk.js.map": "/hollow-cathode-visualization/static/js/2.6e8d7572.chunk.js.map",
     "static/js/3.7af0ddda.chunk.js": "/hollow-cathode-visualization/static/js/3.7af0ddda.chunk.js",
     "static/js/3.7af0ddda.chunk.js.map": "/hollow-cathode-visualization/static/js/3.7af0ddda.chunk.js.map",
     "index.html": "/hollow-cathode-visualization/index.html",
     "static/css/main.8314e044.chunk.css.map": "/hollow-cathode-visualization/static/css/main.8314e044.chunk.css.map",
-    "static/js/2.114f5783.chunk.js.LICENSE.txt": "/hollow-cathode-visualization/static/js/2.114f5783.chunk.js.LICENSE.txt"
+    "static/js/2.6e8d7572.chunk.js.LICENSE.txt": "/hollow-cathode-visualization/static/js/2.6e8d7572.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2f539f46.js",
-    "static/js/2.114f5783.chunk.js",
+    "static/js/2.6e8d7572.chunk.js",
     "static/css/main.8314e044.chunk.css",
-    "static/js/main.2d20f676.chunk.js"
+    "static/js/main.74e3ac4b.chunk.js"
   ]
 }
