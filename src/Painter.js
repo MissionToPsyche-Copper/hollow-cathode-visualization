@@ -36,12 +36,6 @@ class Painter{
         this.layers = layers;
 
         // pre-load images
-        this.psyche_spacecraft = new Image();
-        this.psyche_spacecraft.src = "/hollow-cathode-visualization/images/psyche_spacecraft.png";
-        this.thruster_on = new Image();
-        this.thruster_on.src = "/hollow-cathode-visualization/images/plasma_sample.jpg";
-        this.thruster_off = new Image();
-        this.thruster_off.src = "/hollow-cathode-visualization/images/HallThrusterMockup.png";
         this.base_cathode = new Image();
         this.base_cathode.src = "/hollow-cathode-visualization/images/cross_section_3.png";
 
