@@ -9,12 +9,6 @@
     pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 2s linear;
-    }
-}
-
 
 .App-header {
     background-color: #282c34;
@@ -35,6 +29,7 @@
     color: #61dafb;
 }
 
+/*/// Matt's resize notification ///*/
 @media only screen and (max-aspect-ratio: 13/9), (max-height: 630px), (min-aspect-ratio: 11/5) and (min-width: 1000px) {
     .hideWhenTooSmall {
         visibility: hidden;
@@ -61,6 +56,7 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+/*/// ///*/
 
 img{
     display: inline-block;
@@ -75,6 +71,7 @@ img{
     padding-bottom: 12rem;
 }
 
+/*/// Huy's Header and Footer ///*/
 .navbar{
     min-height: 75px;
     position: -webkit-sticky;
@@ -324,7 +321,9 @@ img{
     justify-content: space-between;
     text-align: left;
 }
+/*/// ///*/
 
+/*/// Jake's Buttons ///*/
 .button {
     background-color:#a83c5c;
     border-radius:42px;
@@ -349,6 +348,7 @@ img{
 .button:active {
     transform: scale(0.96);
 }
+/*/// ///*/
 
 .titleLabel {
     color: #A53F5B;

@@ -20,7 +20,7 @@ import {
     left_of_cathode_constant,
     top_of_cathode_constant,
     bottom_of_cathode_constant,
-    particle_right_bounding_box
+    particle_right_bounding_box, lm_csv, path_lm_csv
 } from "./Galactic";
 
 
@@ -37,7 +37,7 @@ class Painter{
 
         // pre-load images
         this.base_cathode = new Image();
-        this.base_cathode.src = "/hollow-cathode-visualization/images/cross_section_3.png";
+        this.base_cathode.src = path_lm_csv;
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 

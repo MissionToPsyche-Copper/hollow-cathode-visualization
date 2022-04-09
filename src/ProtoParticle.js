@@ -1,5 +1,4 @@
 
-/// CONSTANTS ///
 
 import {
     right_of_cathode_constant,
@@ -9,13 +8,18 @@ import {
     particle_right_bounding_box
 } from "./Galactic";
 
+/// CONSTANTS ///
+const path_electron = "/hollow-cathode-visualization/images/electron.png";
+const path_xenon = "/hollow-cathode-visualization/images/xenon.png";
+const path_ionized_xenon = "/hollow-cathode-visualization/images/ionized_xenon.png";
+
 // Pre-load images //
 const electronImage = new Image();
-electronImage.src = "/hollow-cathode-visualization/images/electron.png";
+electronImage.src = path_electron;
 const xenonImage = new Image();
-xenonImage.src = "/hollow-cathode-visualization/images/xenon.png";
+xenonImage.src = path_xenon;
 const ionizedXenonImage = new Image();
-ionizedXenonImage.src = "/hollow-cathode-visualization/images/ionized_xenon.png";
+ionizedXenonImage.src = path_ionized_xenon;
 
 // Misc //
 const ELECTRON_RADIUS = 6;

@@ -27,19 +27,25 @@ import {
     heatKeeperErrorTitleText,
     heatKeeperErrorText,
     gasKeeperTitleText,
-    gasKeeperErrorText, cathodeCSVTitleText, cathodeCSVText,
+    gasKeeperErrorText,
+    cathodeCSVTitleText,
+    cathodeCSVText,
     references,
+    path_lm_csv
 } from "./Galactic";
 
-import ReactDOM from "react-dom";
-import LandingPage from "./LandingPage";
-import {Link, useLinkClickHandler} from "react-router-dom";
+import {Link} from "react-router-dom";
 
+/// CONSTANTS ///
+// Testing?/unknown //
 const {promisify} = require('util')
-const sleep= promisify(setTimeout)
+const sleep = promisify(setTimeout)
 
-let canvas_height = 750;
-let canvas_width = 1150;
+// Image Paths //
+const path_hall_thruster = "/hollow-cathode-visualization/images/hall_thruster_3.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/hallThrusterOn.png";
+// path_lm_csv is in galactic constants since it is also used in Painter.js
+//
 
 /**
  * Learning mode element
@@ -47,8 +53,10 @@ let canvas_width = 1150;
  * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
 
+/// Flags ///
 var HALL_THRUSTER_ON = false;
-var didRotate = false;
+var didRotate = false; //:unused?
+///
 
 export class LearningMode extends React.Component {
 
@@ -123,7 +131,7 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        //document.getElementById(elementId).style.visibility = 'hidden';
+        console.log(elementId)
         document.getElementById(elementId).style.display = 'none';
     }
     /**
@@ -131,7 +139,7 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to show
      */
     showElement(elementId){
-        // document.getElementById(elementId).style.visibility = 'visible';
+        console.log(elementId)
         document.getElementById(elementId).style.display = 'flex';
     }
 
@@ -285,7 +293,7 @@ export class LearningMode extends React.Component {
 
             this.hideElement("hallThruster")
 
-            //this.showElement("baseCathode")
+            //this.showElement("baseCathode")//:unused?
         }
         //hide some elements that shouldn't be seen outside cross-sectional view
         else if(this.state.scene[base] === false)
@@ -296,7 +304,6 @@ export class LearningMode extends React.Component {
 
             this.hideElement("baseCathode")
 
-            this.hideElement("testBaseCathode")
         }
         // the user deselected this option/layer
         else if (this.state.deltastage === base){
@@ -731,7 +738,6 @@ export class LearningMode extends React.Component {
     render(){
         return (
             <div id={'canvasHolder'}>
-                {/*<img id={"hallThruster"} src={"/images/HallThrusterMockup.png"} className={""} alt={"Base Cathode"}/>*/}
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -741,17 +747,17 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <img id={"hallThruster"} src={"/hollow-cathode-visualization/images/hall_thruster_3.png"} className={" "} alt={"Hall Thruster Off"}/>
+                <img id={"hallThruster"} src={path_hall_thruster} className={" "} alt={"Hall Thruster Off"}/>
 
 
-                <img id={"hallThrusterOn-fadeIn"} src={"/hollow-cathode-visualization/images/hallThrusterOn.png"} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
-                <img id={"hallThrusterOn-fadeOut"} src={"/hollow-cathode-visualization/images/hallThrusterOn.png"} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
+                <img id={"hallThrusterOn-fadeIn"} src={path_hall_thruster_on} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
+                <img id={"hallThrusterOn-fadeOut"} src={path_hall_thruster_on} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"baseCathode-fadeIn"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
-                <img id={"baseCathode-fadeOut"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
-                <img id={"thrusterAndCathode-fadeOut"} src={"/hollow-cathode-visualization/images/hall_thruster_3.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
-                <img id={"baseCathode"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} alt={"Base Hollow Cathode"}/>
-                <img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>
+                <img id={"baseCathode-fadeIn"} src={path_lm_csv} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
+                <img id={"baseCathode-fadeOut"} src={path_lm_csv} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={path_hall_thruster} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
+                <img id={"baseCathode"} src={path_lm_csv} alt={"Base Hollow Cathode"}/>
+                {/*<img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>*/}{/*//:unused?*/}
 
 
                 <button id={"HallThrusterNext"}
