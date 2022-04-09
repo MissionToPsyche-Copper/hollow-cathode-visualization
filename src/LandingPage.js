@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 
 /// CONSTANTS ///
 const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
+///
 
 /**
  * Site landing page element
