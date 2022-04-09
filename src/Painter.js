@@ -43,7 +43,7 @@ class Painter{
         this.thruster_off = new Image();
         this.thruster_off.src = "/images/HallThrusterMockup.png";
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/cross_section.png";
+        this.base_cathode.src = "/images/moon.png";
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 
@@ -173,7 +173,7 @@ class Painter{
         // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
-        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
+        ctx.drawImage(this.base_cathode, 100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
 
 
 

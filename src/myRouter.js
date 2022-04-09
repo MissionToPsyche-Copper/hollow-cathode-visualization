@@ -24,11 +24,13 @@ function MyRouter(){
                 </div>
                 <div className={"hideWhenTooSmall"}>
                     <Routes>
-                        <Route path={'/'} element={<LandingPage id={"LandingPage"}/>}></Route>
-                        <Route path={'/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>}></Route>
-                        <Route path={'/presentation'} element={<PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>}></Route>
-                        <Route path={'/summary'} element={<SummaryPage/>}></Route>
-                        <Route path={'/ref'} element={<RefComponent/>}></Route>
+                        <Route path={'/'} element={<LandingPage id={"LandingPage"}/>}/>
+                        <Route path={'/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff}
+                                                 scene={[false, false, false, false, false, false, true, false]}/>}/>
+                        <Route path={'/presentation'} element={<PresMode id={"presMode"} deltastage={base}
+                                                 scene={[true, false, false, false, false, false, false, false]}/>}/>
+                        <Route path={'/summary'} element={<SummaryPage/>}/>
+                        <Route path={'/ref'} element={<RefComponent/>}/>
                     </Routes>
                 </div>
             </Router>
