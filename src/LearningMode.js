@@ -741,16 +741,16 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <img id={"hallThruster"} src={"/images/thrusterAndCathode.png"} className={" "} alt={"Hall Thruster Off"}/>
+                <img id={"hallThruster"} src={"/images/hall_thruster_3.png"} className={" "} alt={"Hall Thruster Off"}/>
 
 
                 <img id={"hallThrusterOn-fadeIn"} src={"/images/hallThrusterOn.png"} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/images/hallThrusterOn.png"} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"baseCathode-fadeIn"} src={"/images/cross_section.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
-                <img id={"baseCathode-fadeOut"} src={"/images/cross_section.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
-                <img id={"thrusterAndCathode-fadeOut"} src={"/images/thrusterAndCathode.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
-                <img id={"baseCathode"} src={"/images/cross_section.png"} alt={"Base Hollow Cathode"}/>
+                <img id={"baseCathode-fadeIn"} src={"/images/cross_section_3.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
+                <img id={"baseCathode-fadeOut"} src={"/images/cross_section_3.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={"/images/hall_thruster_3.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
+                <img id={"baseCathode"} src={"/images/cross_section_3.png"} alt={"Base Hollow Cathode"}/>
                 <img id={"testBaseCathode"} src={"/images/test_base_cathode.png"} alt={""}/>
 
 
