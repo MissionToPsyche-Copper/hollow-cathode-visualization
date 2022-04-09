@@ -27,7 +27,7 @@ class HeaderComponent extends React.Component{
                     data-easing="ease" data-easing2="ease" role="banner">
                 <div className="container w-container">
                     <a href="/hollow-cathode-visualization/" className="brand w-nav-brand">
-                        <img src="images/psyche.svg" loading="lazy" width="75" alt="Psyche Mission Logo"/>
+                        <img src="/hollow-cathode-visualization/images/psyche.svg" loading="lazy" width="75" alt="Psyche Mission Logo"/>
                     </a>
                     <nav role="navigation" className="nav-menu w-nav-menu">
                         <div className="dropdown" data-dropdown>

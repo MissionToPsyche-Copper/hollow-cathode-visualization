@@ -109,7 +109,7 @@ export class LandingPage extends React.Component {
                     </canvas>
 
                     <Link to={'/hollow-cathode-visualization/learning'}>
-                        <img id={'spaceshipImage'} src={"/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"}/>
+                        <img id={'spaceshipImage'} src={"/hollow-cathode-visualization/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"}/>
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>

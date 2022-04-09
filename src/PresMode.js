@@ -40,7 +40,7 @@ class PresMode extends React.Component {
         super();
 
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/base_cathode.png";
+        this.base_cathode.src = "/hollow-cathode-visualization/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref

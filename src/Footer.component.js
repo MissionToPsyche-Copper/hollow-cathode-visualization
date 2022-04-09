@@ -8,7 +8,7 @@ class FooterComponent extends React.Component{
             <footer className="footer wf-section" role="footer">
 
                 <div className="wf-container footer-flex-container">
-                    <a href="https://psyche.asu.edu/" className="footer-logo-link"><img src="images/psyche.svg"
+                    <a href="https://psyche.asu.edu/" className="footer-logo-link"><img src="/hollow-cathode-visualization/images/psyche.svg"
                                                                                         loading="lazy"
                                                                                         alt="Psyche Mission Logo"
                                                                                         className="footer-image"/></a>
