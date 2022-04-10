@@ -26,7 +26,7 @@ import {
 
 /// "CONSTANTS" ///
 const ELECTRON_SPAWN_RATE = 5; // 2 particle(s) every [ELECTRON_SPAWN_RATE] seconds
-const XENON_SPAWN_RATE = 2; // 1 particle(s) every [XENON_SPAWN_RATE] seconds
+const XENON_SPAWN_RATE = 3; // 1 particle(s) every [XENON_SPAWN_RATE] seconds
 const ELECTRON_RADIUS = 6;
 const XENON_RADIUS = 10;
 ///
@@ -121,10 +121,13 @@ class Painter{
         return this.getCanvasWidth() * left_of_cathode_constant;
     }
 
-    getRandomInt(min, max) {
-        min = Math.ceil(this.getCathTubeLeftX()) + ELECTRON_RADIUS;
-        max = Math.floor(this.getCathTubeRightX()) - ELECTRON_RADIUS;
-        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    /**
+     * Returns a random X coordinate that exists on the inserts
+     * @returns {number} number between this.getCathTubeLeftX() + ELECTRON_RADIUS and this.getCathTubeRightX() - ELECTRON_RADIUS
+     */
+    getInsertRandomX(){
+        let min = Math.ceil(this.getCathTubeLeftX()) + ELECTRON_RADIUS;
+        return Math.floor(Math.random() * (Math.floor(this.getCathTubeRightX()) - ELECTRON_RADIUS - min) + min); //The maximum is exclusive and the minimum is inclusive
     }
 
     /**
@@ -142,7 +145,7 @@ class Painter{
 
     /** Learning Mode */
     /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating
+     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
      */
     draw_Hall_Thruster_Off(){
         this.clearCanvas(hallThrusterOff);
@@ -150,14 +153,14 @@ class Painter{
     }
 
     /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating
+     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
      */
     draw_Hall_Thruster_On(){
         this.clearCanvas(hallThrusterOn);
         const ctx = this.getLayer(hallThrusterOn);
     }
 
-    /** Learning Mode and Presentation Mode */
+    /** Learning Mode and Presentation Mode **/
     /**
      * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals
@@ -168,7 +171,6 @@ class Painter{
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
         ctx.drawImage(this.base_cathode, 100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
-
 
 
 
@@ -205,7 +207,6 @@ class Painter{
         ctx.moveTo(this.min_x, this.max_y); //:debug
         ctx.lineTo(this.max_x, this.max_y); //:debug
         ctx.stroke(); //:debug
-
     }
 
     /**
@@ -213,10 +214,6 @@ class Painter{
      * Draws the guide text and tooltips and such for the base drawing for learning mode
      */
     draw_csv_Base_Drawing_guide(){
-        // console.log("draw_csv_Base_Drawing_guide");
-        // this.clearCanvas(base);
-        // const ctx = this.getLayer(base);
-
     }
 
 
@@ -227,12 +224,9 @@ class Painter{
      * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
-        // console.log(heat, " draw_csv_Heat_Insert called"); //:debug
-
         this.clearCanvas(heat);
         const ctx = this.getLayer(heat);
 
-        // Managing particles
         // Turn on Electron Generator
         this.startElectronGenerator(ELECTRON_SPAWN_RATE);
     }
@@ -242,40 +236,18 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
      */
     draw_csv_Heat_Insert_guide(){
-        // console.log(heat, " draw_csv_Heat_Insert_guide called"); //:debug
-
-        // this.clearCanvas(heat);
-        // const ctx = this.getLayer(heat);
     }
-
-    // draw_csv_Heat_Insert_Particle(){
-    //     const ctx = this.getLayer(heat);
-    //
-    //     // let electron = new ProtoParticle(ctx, ctx.canvas.width * .3, ctx.canvas.height *.6, -999, -999, 0, 0, 6, 'blue'); // randomized
-    //     let electron = new ProtoParticle(ctx, this.min_x + 12, (this.min_y + this.max_y) / 2, -999, -999, 0, 0, 6, 'blue', this.max_y, this.min_y, this.max_x, this.min_x); // randomized
-    //     electron.setAnimation(this.electronAnimation);
-    //     electron.startAnimation();
-    //
-    //     this.electron_particles.push(electron);
-    // }
 
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
      */
     draw_csv_gas_feed(){
-        // console.log(gas, " draw_csv_gas_feed called"); //:debug
-
-        // this.clearCanvas(gas);
         const ctx = this.getLayer(gas);
 
 
-        // Jack - managing particles
         // Turn on Xenon Generator
         this.startXenonGenerator(XENON_SPAWN_RATE);
-
-        // ProtoParticle.generateXenon(ctx)
-        // this.draw_csv_gas_feed_particles();
     }
 
 
@@ -288,9 +260,11 @@ class Painter{
     startXenonGenerator(spawn_rate){
         const ctx = this.getLayer(gas);
 
-        // 1 xenon per 3 seconds
         if(this.XenonGeneratorKey === -1){
+            // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
+            // generate a initial one to get it going right away
             ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate an initial one to get it going right away
+            // generate on a timer
             this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate on a timer
         }
     }
@@ -325,12 +299,13 @@ class Painter{
 
         // 2 electrons per spawn_rate seconds + 2 initial ones
         if(this.ElectronGeneratorKey_Top === -1){
+            // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
             // generate two initial ones to get it going right away
-            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            ProtoParticle.generateElectron(ctx, this.getInsertTopX(), this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
-            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertTopY() + 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertTopX() + 12, this.getInsertBotY() - 12, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
@@ -381,8 +356,6 @@ class Painter{
         this.killXenonGenerator();
         this.stopEjecting();
         this.stopIonizing();
-        // ProtoParticle.setEjectFlag(false); //:unused
-        // ProtoParticle.setIonizeFlag(false); //:unused
         ProtoParticle.killAllParticles();
     }
 
@@ -393,20 +366,15 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
-        // console.log(gas, " draw_csv_gas_feed_guide called"); //:debug
-
          this.clearCanvas(gas);
          const ctx = this.getLayer(gas);
-
     }
 
     /**
-     * draw_csv_internal_plasma() //:unused?
+     * draw_csv_internal_plasma()
      * Function to draw the internal plasma visuals (currently only draws a green square)
      */
     draw_csv_internal_plasma(){
-        // console.log(plasma, " draw_csv_internal_plasma called"); //:debug
-
         this.clearCanvas(plasma);
         const ctx = this.getLayer(plasma);
 
@@ -418,14 +386,6 @@ class Painter{
      * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
      */
     draw_csv_internal_plasma_guide() {
-        // console.log(plasma, " draw_csv_internal_plasma_guide called"); //:debug
-
-        // because the user has the inserts heated and the gas feed toggled on, plasma is forming within the cathode tube/chamber(?), this plasma is super hot and stuff and is what we need
-        // now we need to eject this plasma from the hollow cathode
-
-        // this.clearCanvas(plasma);
-        // const ctx = this.getLayer(plasma);
-
     }
 
     /**
