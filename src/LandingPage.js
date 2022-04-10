@@ -1,14 +1,10 @@
 import React from "react";
 import Painter from "./Painter";
-import ReactDOM from "react-dom";
-import {base, hallThrusterOff} from "./Galactic";
-import PresMode from "./PresMode";
-import LearningMode from "./LearningMode";
-import {Link, Route, Routes} from "react-router-dom";
-import HeaderComponent from "./Header.component.";
-import SummaryPage from "./SummaryPage";
-import RefComponent from "./Ref.component";
-import FooterComponent from "./Footer.component";
+import {Link} from "react-router-dom";
+
+/// CONSTANTS ///
+const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
+///
 
 /**
  * Site landing page element
@@ -36,9 +32,6 @@ export class LandingPage extends React.Component {
         this.showElement("landingPageTitleDiv")
         this.showElement("landingPageSubTitleDiv")
         this.showElement("landingPageLModePromptDiv")
-
-        //this.LearningMode_HandleClick = this.LearningMode_HandleClick.bind(this);
-        //this.PresMode_HandleClick = this.PresMode_HandleClick.bind(this);
     }
 
     /**
@@ -51,41 +44,10 @@ export class LandingPage extends React.Component {
     }
 
     /**
-     * LearningMode_HandleClick()
-     * Onclick handler for the learning mode button on the landing page
-     */
-    // LearningMode_HandleClick() {
-    //
-    //     // render learning mode
-    //     ReactDOM.render(
-    //         <div id={"canvasHolder"}>
-    //             <LearningMode id={"LearningMode"} deltastage={hallThrusterOff} scene={[false,false,false,false,false,false,true,false]}/>
-    //         </div>,
-    //         document.getElementById('root')
-    //     );
-    // }
-
-    /**
-     * PresMode_HandleClick()
-     * Onclick handler for the learning mode button on the landing page
-     */
-    // PresMode_HandleClick() {
-    //
-    //     // render learning mode
-    //     ReactDOM.render(
-    //         <div id={"canvasHolder"}>
-    //             <PresMode id={"presMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}/>
-    //         </div>,
-    //         document.getElementById('root')
-    //     );
-    // }
-
-    /**
      * Hides the element with the given id
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        //document.getElementById(elementId).style.visibility = 'hidden';
         document.getElementById(elementId).style.display = 'none';
     }
     /**
@@ -93,7 +55,6 @@ export class LandingPage extends React.Component {
      * @param elementId id of element to show
      */
     showElement(elementId){
-        // document.getElementById(elementId).style.visibility = 'visible';
         document.getElementById(elementId).style.display = 'flex';
     }
 
@@ -109,7 +70,7 @@ export class LandingPage extends React.Component {
                     </canvas>
 
                     <Link to={'/hollow-cathode-visualization/learning'}>
-                        <img id={'spaceshipImage'} src={"/hollow-cathode-visualization/images/spacecraft2.png"} className={"grow"} alt={"Psyche 16 spacecraft"}/>
+                        <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"}/>
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
