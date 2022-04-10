@@ -22,7 +22,17 @@ class SummaryPage extends React.Component{
         document.getElementById('nextButton').display= 'none';
     }
 
+    componentWillUnmount() {
+        // prompt user with warning on attempted page refresh - unbind
+        window.onbeforeunload = function() {};
+    }
+
     render(){
+        // prompt user with warning on attempted page refresh - bind
+        window.onbeforeunload = function() {
+            return "Refreshing this page returns you to our landing page, are you sure?";
+        };
+
         return(
             <>
                 <div>

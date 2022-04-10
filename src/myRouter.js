@@ -14,27 +14,27 @@ import RefComponent from "./Ref.component";
 import {base, hallThrusterOff} from "./Galactic";
 
 function MyRouter(){
-        return(
-            <Router>
-                <div className={"showWhenTooSmall"}>
-                    <p>
-                        Your window size is too small for this visualization.
-                        Please set your window size to full screen before continuing.
-                    </p>
-                </div>
-                <div className={"hideWhenTooSmall"}>
-                    <Routes>
-                        <Route path={'/hollow-cathode-visualization/'} element={<LandingPage id={"LandingPage"}/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff}
-                                      scene={[false,false,false,false,false,false,true,false]}/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/presentation'} element={<PresMode id={"presMode"} deltastage={base}
-                                      scene={[true,false,false,false,false,false,false,false]}/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/summary'} element={<SummaryPage/>}></Route>
-                        <Route path={'/hollow-cathode-visualization/ref'} element={<RefComponent/>}></Route>
-                    </Routes>
-                </div>
-            </Router>
-        )
+    return(
+        <Router>
+            <div className={"showWhenTooSmall"}>
+                <p>
+                    Your window size is too small for this visualization.
+                    Please set your window size to full screen before continuing.
+                </p>
+            </div>
+            <div className={"hideWhenTooSmall"}>
+                <Routes>
+                    <Route path={'/hollow-cathode-visualization/'} element={<LandingPage id={"LandingPage"}/>}/>
+                    <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff}
+                                                                              scene={[false, false, false, false, false, false, true, false]}/>}/>
+                    <Route path={'/hollow-cathode-visualization/presentation'} element={<PresMode id={"presMode"} deltastage={base}
+                                                                              scene={[true, false, false, false, false, false, false, false]}/>}/>
+                    <Route path={'/hollow-cathode-visualization/summary'} element={<SummaryPage/>}/>
+                    <Route path={'/hollow-cathode-visualization/ref'} element={<RefComponent/>}/>
+                </Routes>
+            </div>
+        </Router>
+    )
 }
 
 export default MyRouter;

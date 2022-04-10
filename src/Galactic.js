@@ -27,6 +27,12 @@ export const left_of_cathode_constant = 0.20;
 export const top_of_cathode_constant = 0.39;
 export const bottom_of_cathode_constant = 0.49;
 export const particle_right_bounding_box = 1.00;
+//
+
+// Image Paths //
+export const path_lm_csv = "/hollow-cathode-visualization/images/cross_section_3.png";
+//
+
 
 
 // Text //
