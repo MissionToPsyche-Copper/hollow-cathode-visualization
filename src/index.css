@@ -99,45 +99,39 @@ code {
 
 #hallThruster{
   position: absolute;
-  height: 82vh;
-  min-height: 350px;
 
-  top: -1vh;
-  left: 10vw;
+  max-width: 47%;
+  height: auto;
+
+  top: -13vh;
+  left: -3vw;
   right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
 
   z-index: 0;
 }
 
 #hallThrusterOn-fadeIn{
   position: absolute;
-  height: 82vh;
-  min-height: 350px;
 
-  top: -1vh;
-  left: 10vw;
+  max-width: 60%;
+  height: auto;
+
+  top: -13vh;
+  left: -3vw;
   right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
 
   z-index: 0;
 }
 
 #hallThrusterOn-fadeOut{
   position: absolute;
-  height: 82vh;
-  min-height: 350px;
 
-  top: -1vh;
-  left: 10vw;
+  max-width: 60%;
+  height: auto;
+
+  top: -13vh;
+  left: -3vw;
   right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
 
   z-index: 0;
 }
