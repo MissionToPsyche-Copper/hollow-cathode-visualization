@@ -37,7 +37,7 @@ class Painter{
 
         // pre-load images
         this.base_cathode = new Image();
-        this.base_cathode.src = "/hollow-cathode-visualization/images/cross_section_3.png";
+        this.base_cathode.src = "/hollow-cathode-visualization/images/cross_sectional_view2.png";
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 

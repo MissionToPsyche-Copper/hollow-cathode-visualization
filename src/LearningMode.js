@@ -753,16 +753,16 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
-                <img id={"hallThruster"} src={"/hollow-cathode-visualization/images/hall_thruster_3.png"} className={" "} alt={"Hall Thruster Off"}/>
+                <img id={"hallThruster"} src={"/hollow-cathode-visualization/images/big_hall_thruster_off.png"} className={" "} alt={"Hall Thruster Off"}/>
 
 
                 <img id={"hallThrusterOn-fadeIn"} src={"/hollow-cathode-visualization/images/hallThrusterOn.png"} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={"/hollow-cathode-visualization/images/hallThrusterOn.png"} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"baseCathode-fadeIn"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
-                <img id={"baseCathode-fadeOut"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
-                <img id={"thrusterAndCathode-fadeOut"} src={"/hollow-cathode-visualization/images/hall_thruster_3.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
-                <img id={"baseCathode"} src={"/hollow-cathode-visualization/images/cross_section_3.png"} alt={"Base Hollow Cathode"}/>
+                <img id={"baseCathode-fadeIn"} src={"/hollow-cathode-visualization/images/cross_sectional_view2.png"} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
+                <img id={"baseCathode-fadeOut"} src={"/hollow-cathode-visualization/images/cross_sectional_view2.png"} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
+                <img id={"thrusterAndCathode-fadeOut"} src={"/hollow-cathode-visualization/images/big_hall_thruster_off.png"} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
+                <img id={"baseCathode"} src={"/hollow-cathode-visualization/images/cross_sectional_view2.png"} alt={"Base Hollow Cathode"}/>
                 <img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>
 
                 <img id={"crossSection-fadeIn"} src={"/images/cross_section.png"} className={"fade-in crossSectionPosition"}/>
