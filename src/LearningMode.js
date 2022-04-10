@@ -43,8 +43,8 @@ const {promisify} = require('util')
 const sleep = promisify(setTimeout)
 
 // Image Paths //
-const path_hall_thruster = "/hollow-cathode-visualization/images/hall_thruster_4.png";
-const path_hall_thruster_on = "/hollow-cathode-visualization/images/hallThrusterOn.png";
+const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_on.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 
