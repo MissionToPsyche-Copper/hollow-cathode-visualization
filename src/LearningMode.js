@@ -1,5 +1,6 @@
 import React from "react";
 import Painter from "./Painter";
+
 import {
     base,
     eject,
@@ -118,6 +119,8 @@ export class LearningMode extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize);
         this.painter.killProtoParticle();
+
+        window.onbeforeunload = function() {};
     }
 
     handleResize = () => this.setState({
@@ -736,6 +739,10 @@ export class LearningMode extends React.Component {
     // }
 
     render(){
+        window.onbeforeunload = function() {
+            return "Refreshing this page returns you to our landing page, are you sure?";
+        };
+
         return (
             <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>

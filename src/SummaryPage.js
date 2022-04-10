@@ -22,7 +22,15 @@ class SummaryPage extends React.Component{
         document.getElementById('nextButton').display= 'none';
     }
 
+    componentWillUnmount() {
+        window.onbeforeunload = function() {};
+    }
+
     render(){
+        window.onbeforeunload = function() {
+            return "Refreshing this page returns you to our landing page, are you sure?";
+        };
+
         return(
             <>
                 <div>
