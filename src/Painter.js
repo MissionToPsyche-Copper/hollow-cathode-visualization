@@ -335,6 +335,7 @@ class Painter{
     }
 
     /**
+     * Public
      * Restarts the electron generator with the desired spawn rate, likely to slow it down
      *
      * @param new_spawn_rate time in seconds between each particle spawn
@@ -345,6 +346,7 @@ class Painter{
     }
 
     /**
+     * Public
      * Stops the generation of electrons immediately
      */
     killElectronGenerator(){
@@ -355,9 +357,18 @@ class Painter{
     }
 
 
+    /**
+     * Public
+     * Set the eject flag to false
+     */
     stopEjecting(){
         ProtoParticle.setEjectFlag(false);
     }
+
+    /**
+     * Public
+     * Set the ionize flag to false
+     */
     stopIonizing(){
         ProtoParticle.setIonizeFlag(false);
     }
@@ -368,15 +379,17 @@ class Painter{
     killProtoParticle(){
         this.killElectronGenerator();
         this.killXenonGenerator();
-        ProtoParticle.setEjectFlag(false);
-        ProtoParticle.setIonizeFlag(false);
+        this.stopEjecting();
+        this.stopIonizing();
+        // ProtoParticle.setEjectFlag(false); //:unused
+        // ProtoParticle.setIonizeFlag(false); //:unused
         ProtoParticle.killAllParticles();
     }
 
 
 
     /**
-     * draw_csv_gas_feed_guide()
+     * draw_csv_gas_feed_guide() //:unused?
      * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
      */
     draw_csv_gas_feed_guide(){
@@ -388,7 +401,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma()
+     * draw_csv_internal_plasma() //:unused?
      * Function to draw the internal plasma visuals (currently only draws a green square)
      */
     draw_csv_internal_plasma(){
@@ -401,7 +414,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma_guide()
+     * draw_csv_internal_plasma_guide() //:unused?
      * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
      */
     draw_csv_internal_plasma_guide() {
@@ -416,7 +429,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma_off_heat_guide()
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
      * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
      */
     draw_csv_internal_plasma_on_heat_guide() {
@@ -424,7 +437,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma_off_heat_guide()
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
      * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
      */
     draw_csv_internal_plasma_on_heat_guide() {
@@ -432,7 +445,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma_off_heat_guide()
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
      * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
      */
     draw_csv_internal_plasma_off_heat_guide() {
@@ -440,7 +453,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_internal_plasma_off_gas_guide()
+     * draw_csv_internal_plasma_off_gas_guide() //:unused?
      * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
      */
     draw_csv_internal_plasma_off_gas_guide() {
@@ -449,7 +462,7 @@ class Painter{
 
 
     /**
-     * draw_csv_keeper_electrode()
+     * draw_csv_keeper_electrode() //:unused?
      * Function to draw the keeper electrode visuals (currently only draws a blue square)
      */
     draw_csv_keeper_electrode(){
@@ -460,7 +473,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_keeper_electrode_guide()
+     * draw_csv_keeper_electrode_guide() //:unused?
      * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
      */
     draw_csv_keeper_electrode_guide(){
@@ -485,7 +498,7 @@ class Painter{
     }
 
     /**
-     * draw_csv_eject_plasma_guide()
+     * draw_csv_eject_plasma_guide() //:unused?
      * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
      */
     draw_csv_eject_plasma_guide() {

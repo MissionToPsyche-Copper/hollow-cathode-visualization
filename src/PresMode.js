@@ -94,6 +94,7 @@ class PresMode extends React.Component {
     }
 
     componentWillUnmount() {
+        // prompt user with warning on attempted page refresh - unbind
         window.onbeforeunload = function() {};
     }
 
@@ -224,9 +225,10 @@ class PresMode extends React.Component {
     }
 
     render(){
+        // prompt user with warning on attempted page refresh - bind
         window.onbeforeunload = function() {
             return "Refreshing this page returns you to our landing page, are you sure?";
-        }
+        };
 
         return (
             <div id={'canvasHolder'}>

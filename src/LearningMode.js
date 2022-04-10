@@ -120,6 +120,7 @@ export class LearningMode extends React.Component {
         window.removeEventListener('resize', this.handleResize);
         this.painter.killProtoParticle();
 
+        // prompt user with warning on attempted page refresh - unbind
         window.onbeforeunload = function() {};
     }
 
@@ -721,24 +722,8 @@ export class LearningMode extends React.Component {
         return this.layers[layer];
     }
 
-    /**
-     * backButton_HandleClick()
-     * Onclick handler for the "back" button, reloads the landing page
-     */
-    // backButton_HandleClick() {
-    //
-    //     HALL_THRUSTER_ON = false;
-    //     // this.painter.killProtoParticle();
-    //     // render learning mode
-    //     ReactDOM.render(
-    //         <div id={"canvasHolder"}>
-    //             <LandingPage id={"landingPage"}/>
-    //         </div>,
-    //         document.getElementById('root')
-    //     );
-    // }
-
     render(){
+        // prompt user with warning on attempted page refresh - bind
         window.onbeforeunload = function() {
             return "Refreshing this page returns you to our landing page, are you sure?";
         };
