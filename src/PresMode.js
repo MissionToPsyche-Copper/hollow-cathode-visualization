@@ -40,7 +40,7 @@ class PresMode extends React.Component {
         super();
 
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/base_cathode.png";
+        this.base_cathode.src = "/hollow-cathode-visualization/images/base_cathode.png";
 
         // initialize canvas instance variables
         this.canvas0 = React.createRef();                              //// 1 - create ref
@@ -236,7 +236,7 @@ class PresMode extends React.Component {
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <div className={"stackedButtonGroup bottomleftAlign"}>
-                    <Link to={'/'}>
+                    <Link to={'/hollow-cathode-visualization/'}>
                         <button id={"backButton"} className={"button"}> Back to Landing Page </button>
                     </Link>
                     <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>

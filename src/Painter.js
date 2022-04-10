@@ -36,14 +36,8 @@ class Painter{
         this.layers = layers;
 
         // pre-load images
-        this.psyche_spacecraft = new Image();
-        this.psyche_spacecraft.src = "/images/psyche_spacecraft.png";
-        this.thruster_on = new Image();
-        this.thruster_on.src = "/images/plasma_sample.jpg";
-        this.thruster_off = new Image();
-        this.thruster_off.src = "/images/HallThrusterMockup.png";
         this.base_cathode = new Image();
-        this.base_cathode.src = "/images/cross_section.png";
+        this.base_cathode.src = "/hollow-cathode-visualization/images/cross_section_3.png";
 
         this.draw_csv_Base_Drawing = this.draw_csv_Base_Drawing.bind(this);
 
@@ -173,7 +167,7 @@ class Painter{
         // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
-        ctx.drawImage(this.base_cathode, -100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
+        ctx.drawImage(this.base_cathode, 100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
 
 
 

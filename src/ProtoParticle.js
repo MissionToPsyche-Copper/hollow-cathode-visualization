@@ -11,11 +11,11 @@ import {
 
 // Pre-load images //
 const electronImage = new Image();
-electronImage.src = "/images/electron.png";
+electronImage.src = "/hollow-cathode-visualization/images/electron.png";
 const xenonImage = new Image();
-xenonImage.src = "/images/xenon.png";
+xenonImage.src = "/hollow-cathode-visualization/images/xenon.png";
 const ionizedXenonImage = new Image();
-ionizedXenonImage.src = "/images/ionized_xenon.png";
+ionizedXenonImage.src = "/hollow-cathode-visualization/images/ionized_xenon.png";
 
 // Misc //
 const ELECTRON_RADIUS = 6;
