@@ -80,13 +80,20 @@ export const plasmaText = "The Xenon particles are ionized to make a steady sour
 /** START HEREEEE **/
 
 export const keeperTitleText = "The Keeper Electrode"
-export const keeperText = "A positive voltage is placed on the keeper electrode, which pulls the electrons out of the orifice at the end of the cathode where they can then be used by the Hall thruster [2]. ";
+export const keeperText = "You’ve turned on the keeper electrode. Doing this pulls electrons out of the hollow cathode so the hall thruster can use them.  ";
 
 export const ejectTitleText = "Ejecting Plasma via the Keeper Electrode"
-export const ejectText = "The plasma is pushed out of the cathode tube. This hot plasma of ions and electrons neutralizes ions as they are ejected from the Hall thruster and many of the electrons are pulled into the Hall thruster and used to ionize its propellant. ";
+export const ejectText = "You’ve just ejected the plasma! \n" +
+    "\n" +
+    "The keeper electrode just pulled all the electrons out of the hollow cathode for the hall thruster to use, while the ionized Xenon particles stay in the hollow cathode so they can be re-used.   ";
 
 export const recapTitleText = "A Quick Recap"
-export const recapText = "First, a heater heats the cathode insert until it begins to emit electrons. Next, gas is injected near the insert and is ionized by the emitted electrons to form a plasma of ions and even more electrons. Lastly, a positive voltage is placed on the keeper electrode, pulling the electrons particles out of the end of the cathode where they can then be used by the Hall thruster. The hollow cathode is a critical component of the Hall thruster as it provides electrons needed to ionize its propellant and also neutralizes the ionized propellant as it leaves the thruster such that it doesn’t negatively affect the spacecraft. ";
+export const recapText = "Congratulations, you got the hollow cathode working! Let’s talk about everything you just did. \n" +
+    "\n" +
+    "First, you learned that the hollow cathode is an important piece of the Psyche spacecraft, as it lets the hall thruster do its job of propelling the spacecraft through outer space. \n" +
+    "\n" +
+    "Then, you got the hollow cathode working. To do this, you used the heaters to heat the hollow cathode’s inserts until they generated electrons. Next, you used the gas feed to make electrons ionize the Xenon particles, forming plasma. \n"+
+    "Lastly, you used the keeper electrode to pull all the electrons out of the hollow cathode so the hall thruster could use them. ";
 
 export const linksTitleText = "Learn about Psyche!"
 export const linksText = "Sample text for the links page";
@@ -94,8 +101,16 @@ export const link1url = "https://psyche.asu.edu/";
 export const link2url = "https://psyche.asu.edu/";
 export const link3url = "https://psyche.asu.edu/";
 
-export const heatKeeperErrorText = " Heat Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
-export const gasKeeperErrorText = " Gas Keeper Error Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+export const heatKeeperErrorText = " You’ve turned on the keeper electrode too early!  \n" +
+    "\n" +
+    "Turning on the keeper electrode at the right time pulls enough electrons out of the hollow cathode for the hall thruster to use. Right now, there’s not very many electrons being pulled out of the hollow cathode, so the hall thruster doesn’t have enough electrons to do its job. \n" +
+    "\n" +
+    "Try turning off the keeper electrode and using the gas feed to produce more electrons before ejecting them. ";
+export const gasKeeperErrorText = " You’ve turned on the keeper electrode too early!  \n" +
+    "\n" +
+    "Turning on the keeper electrode at the right time uses ionized Xenon to help pull electrons out of the hollow cathode so the hall thruster can use them. Right now the Xenon is not ionized, so the keeper electrode cannot pull electrons out of the hollow cathode. \n" +
+    "\n" +
+    "Try turning off the keeper electrode and trying something else. ";
 export const hallThusterOffText = "                        The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic\n" +
     "                        plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal\n" +
     "                        plasma. Another role of the hollow cathode, which is not least significant, is to neutralize the\n" +

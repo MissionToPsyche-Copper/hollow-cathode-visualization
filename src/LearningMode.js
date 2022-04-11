@@ -32,7 +32,7 @@ import {
     cathodeCSVTitleText,
     cathodeCSVText,
     references,
-    path_lm_csv
+    path_lm_csv, recapText
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
@@ -705,12 +705,13 @@ export class LearningMode extends React.Component {
      * LINK TO SUMMARY PAGE HERE!!!!
      */
     nextButton_end_HandleClick() {
-        this.hideElement("learningModeGuide");
-        // console.log(this.state.deltastage);//:debug
+
         if(this.state.deltastage===eject){
             this.hideElement('nextButton');
             this.showElement('summaryButton');
         }
+        this.setState({text: recapText})
+
     }
 
     /**
