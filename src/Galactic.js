@@ -22,15 +22,15 @@ export const hallThrusterOn = 7;    // ctx7 // scene[hallThrusterOn]
 // Relative Dimensions //
 // cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size
 // size/location of the ______ relative to the width/height of the window
-export const right_of_cathode_constant = 0.35;
-export const left_of_cathode_constant = 0.20;
-export const top_of_cathode_constant = 0.39;
-export const bottom_of_cathode_constant = 0.49;
+export const right_of_cathode_constant = 0.53;
+export const left_of_cathode_constant = 0.29;
+export const top_of_cathode_constant = 0.532;
+export const bottom_of_cathode_constant = 0.71;
 export const particle_right_bounding_box = 1.00;
 //
 
 // Image Paths //
-export const path_lm_csv = "/hollow-cathode-visualization/images/cross_sectional_view.png";
+export const path_lm_csv = "/hollow-cathode-visualization/images/cross_sectional_view_4.png";
 //
 
 

@@ -172,8 +172,7 @@ class Painter{
         // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
-        ctx.drawImage(this.base_cathode, 100, this.getCanvasHeight() * 0.1, this.getCanvasWidth() * .7, this.getCanvasHeight() * 0.75); // draw the cathode
-
+        ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
 
 
         // visualize cathode tube bounding box //:debug
