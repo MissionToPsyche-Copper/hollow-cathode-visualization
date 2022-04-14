@@ -627,9 +627,15 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
         this.hideElement("HallThrusterNext");
-        this.hideElement("shellToCrossZoom");
+        // this.hideElement("shellToCrossZoom");
 
+        this.hideElement("hallThrusterOn-fadeIn")
+        this.hideElement("hallThrusterOn-fadeOut")
+        this.hideElement("hallThruster")
         this.showElement("shellToCrossZoom")
+
+        // trigger zoom animation
+        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
@@ -750,7 +756,8 @@ export class LearningMode extends React.Component {
                 <img id={"hallThrusterOn-fadeIn"} src={path_hall_thruster_on} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={path_hall_thruster_on} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
 
-                <img id={"shellToCrossZoom"} src={path_hall_thruster} className={"shellToCrossZoom fade-out"} alt={"Cathode shell to cathode cross section zoom"}/>
+                {/*<img id={"shellToCrossZoom"} src={path_hall_thruster} className={"hallThruster shellToCrossZoom fade-out"} alt={"Cathode shell to cathode cross section zoom"}/>*/}
+                <img id={"shellToCrossZoom"} src={path_hall_thruster} className={" shellToCrossZoomAnimation "} alt={"Cathode shell to cathode cross section zoom"}/>
 
                 <img id={"baseCathode-fadeIn"} src={path_lm_csv} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
                 <img id={"baseCathode-fadeOut"} src={path_lm_csv} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
