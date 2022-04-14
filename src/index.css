@@ -273,15 +273,15 @@ code {
   transform: rotate(-28deg);
 }
 
-.crossSectionPosition{
-  height: 60vh;
-  width: 60%;
+/*.crossSectionPosition{*/
+/*  height: 60vh;*/
+/*  width: 60%;*/
 
-  left: 10vw;
-  top: -50vh;
+/*  left: 10vw;*/
+/*  top: -50vh;*/
 
-  min-height: 350px;
-}
+/*  min-height: 350px;*/
+/*}*/
 
 #zoomedShellPos{
   transform: rotate(-15deg) scale(6);
@@ -290,27 +290,39 @@ code {
   right: 20vw;
 }
 
-#shellFade{
-  transform: rotate(-15deg) scale(6);
+#shellFadeOut{
+  /*max-width: 10%;*/
+  /*height: auto;*/
+
+  /*top: 326vh;*/
+  /*left: -40vw;*/
+  /*right: 20vw;*/
+
+  position: absolute;
+
+  max-width: 60%;
+  height: auto;
+
   top: 326vh;
   left: -40vw;
   right: 20vw;
+
+  z-index: 0;
+
+  transform: rotate(-15deg) scale(6);
 }
+
 .shell-fade-out {
-  transform: rotate(-15deg) scale(6);
-  top: 326vh;
-  left: -40vw;
-  right: 20vw;
-  animation: shellFadeOut ease 3s;
+  animation: shellFade ease 3s;
   /*animation-delay: 4s;*/
-  -webkit-animation: shellFadeOut ease 3s;
-  -moz-animation: shellFadeOut ease 3s;
-  -o-animation: shellFadeOut ease 3s;
-  -ms-animation: shellFadeOut ease 3s;
+  -webkit-animation: shellFade ease 3s;
+  -moz-animation: shellFade ease 3s;
+  -o-animation: shellFade ease 3s;
+  -ms-animation: shellFade ease 3s;
 
   animation-fill-mode: forwards;
 }
-@keyframes shellFadeOut {
+@keyframes shellFade {
   0% {
     opacity:1;
   }
