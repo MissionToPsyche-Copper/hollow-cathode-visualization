@@ -150,11 +150,11 @@ code {
 #hallThrusterOn-fadeIn{
   position: absolute;
 
-  max-width: 59.4%;
+  max-width: 80%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
@@ -163,11 +163,11 @@ code {
 #hallThrusterOn-fadeOut{
   position: absolute;
 
-  max-width: 59.4%;
+  max-width: 80%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
