@@ -100,11 +100,11 @@ code {
 #hallThruster{
   position: absolute;
 
-  max-width: 47%;
+  max-width: 60%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
@@ -155,21 +155,24 @@ code {
 
   from {
         transform: rotate(0deg) scale(1.0);
+        /*position: absolute;*/
+
+        /*max-width: 60%;*/
+        /*height: auto;*/
+
         top: -13vh;
-        left: -3vw;
+        left: -15vw;
         right: 20vw;
+
+        z-index: 0;
         /*transform: rotate(0deg);*/
   }
   to
   {
-    transform: rotate(-15deg) scale(5);
-        /*min-width: 200%;*/
-        /*height: auto;*/
-
-        top: 190vh;
-        left: -30vw;
+    transform: rotate(-15deg) scale(3.5);
+        top: 165vh;
+        left: -20vw;
         right: 20vw;
-        /*transform: rotate(-15deg);*/
   }
 }
 
