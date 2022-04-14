@@ -477,6 +477,7 @@ img{
 .summarySubLabelPos{
     margin-right: 20%;
     margin-left: 20%;
+    z-index:14;
 }
 
 .summaryTitlePos{
@@ -492,6 +493,7 @@ img{
 
 .summarySubLabel{
     text-align: left;
+    font-size: clamp(10px, 2.2vw, 25px);
 }
 
 
