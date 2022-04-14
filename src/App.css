@@ -499,7 +499,9 @@ img{
 
 #summaryContent{
     margin-top: 5rem;
-    margin-left:50%;
+    margin-left:60%;
+    margin-right: 10%;
+    text-align: justify;
 }
 
 .reference-link{

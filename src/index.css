@@ -49,6 +49,44 @@ code {
   /* right: 20vw; */
 }
 
+.fade-in {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+  -ms-animation: fadeIn ease 3s;
+
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut ease 3s;
+  -webkit-animation: fadeOut ease 3s;
+  -moz-animation: fadeOut ease 3s;
+  -o-animation: fadeOut ease 3s;
+  -ms-animation: fadeOut ease 3s;
+
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
 .baseCathode{
   position: absolute;
   top: 0;
@@ -96,15 +134,14 @@ code {
   box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }
 
-
 #hallThruster{
   position: absolute;
 
-  max-width: 47%;
+  max-width: 60%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
@@ -113,11 +150,11 @@ code {
 #hallThrusterOn-fadeIn{
   position: absolute;
 
-  max-width: 59.4%;
+  max-width: 80%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
@@ -126,11 +163,11 @@ code {
 #hallThrusterOn-fadeOut{
   position: absolute;
 
-  max-width: 59.4%;
+  max-width: 80%;
   height: auto;
 
   top: -13vh;
-  left: -3vw;
+  left: -15vw;
   right: 20vw;
 
   z-index: 0;
@@ -147,29 +184,150 @@ code {
 }
 
 @keyframes cathodeZoomIn {
-  /*0% { transform: rotate(0deg) scale(1.0); }*/
-  /*100% { transform: rotate(20deg) scale(2); }*/
-
-  /*0% { transform: rotate(0deg) scale(1.0); }*/
-  /*100% { transform: rotate(20deg) scale(2); }*/
-
   from {
         transform: rotate(0deg) scale(1.0);
+
         top: -13vh;
-        left: -3vw;
+        left: -15vw;
         right: 20vw;
-        /*transform: rotate(0deg);*/
+
+        z-index: 0;
   }
   to
   {
-    transform: rotate(-15deg) scale(5);
-        /*min-width: 200%;*/
-        /*height: auto;*/
-
-        top: 190vh;
-        left: -30vw;
+    transform: rotate(-15deg) scale(3.5);
+        top: 165vh;
+        left: -20vw;
         right: 20vw;
-        /*transform: rotate(-15deg);*/
+  }
+}
+
+#shellToCrossZoom{
+  position: absolute;
+
+  max-width: 60%;
+  height: auto;
+
+  /*top: -13vh;*/
+  /*left: -15vw;*/
+  /*right: 20vw;*/
+
+  z-index: 0;
+
+  transform: rotate(-15deg) scale(3.5);
+  top: 165vh;
+  left: -20vw;
+  right: 20vw;
+}
+
+.shellToCrossZoomAnimationClass{
+  animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
+  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  animation-name: shellToCrossZoomAnimation;
+  /*animation-direction: alternate;*/
+}
+
+@keyframes shellToCrossZoomAnimation {
+  from {
+    transform: rotate(-15deg) scale(3.5);
+    top: 165vh;
+    left: -20vw;
+    right: 20vw;
+  }
+  to
+  {
+    transform: rotate(-15deg) scale(6);
+    top: 326vh;
+    left: -40vw;
+    right: 20vw;
+  }
+
+  /*animation: fadeOut ease 3s;*/
+  /*-webkit-animation: fadeOut ease 3s;*/
+  /*-moz-animation: fadeOut ease 3s;*/
+  /*-o-animation: fadeOut ease 3s;*/
+  /*-ms-animation: fadeOut ease 3s;*/
+
+  /*animation-fill-mode: forwards;*/
+}
+
+.thrusterAndCathode-finalPosition{
+  position: absolute;
+  /*height: 82vh;*/
+  min-height: 350px;
+
+  /*top: -1vh;*/
+  /*left: 10vw;*/
+  right: 20vw;
+
+  /*width: 60vw;*/
+  /*min-width: 60vw;*/
+
+  z-index: 0;
+
+  top: -5vh;
+  height: 355vh;
+  left: -42vw;
+  transform: rotate(-28deg);
+}
+
+/*.crossSectionPosition{*/
+/*  height: 60vh;*/
+/*  width: 60%;*/
+
+/*  left: 10vw;*/
+/*  top: -50vh;*/
+
+/*  min-height: 350px;*/
+/*}*/
+
+#zoomedShellPos{
+  transform: rotate(-15deg) scale(6);
+  top: 326vh;
+  left: -40vw;
+  right: 20vw;
+}
+
+#shellFadeOut{
+  /*max-width: 10%;*/
+  /*height: auto;*/
+
+  /*top: 326vh;*/
+  /*left: -40vw;*/
+  /*right: 20vw;*/
+
+  position: absolute;
+
+  max-width: 60%;
+  height: auto;
+
+  top: 326vh;
+  left: -40vw;
+  right: 20vw;
+
+  z-index: 0;
+
+  transform: rotate(-15deg) scale(6);
+}
+
+.shell-fade-out {
+  animation: shellFade ease 3s;
+  /*animation-delay: 4s;*/
+  -webkit-animation: shellFade ease 3s;
+  -moz-animation: shellFade ease 3s;
+  -o-animation: shellFade ease 3s;
+  -ms-animation: shellFade ease 3s;
+
+  animation-fill-mode: forwards;
+}
+@keyframes shellFade {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
   }
 }
 
@@ -281,73 +439,7 @@ code {
   margin-bottom: 0.25em;
 }
 
-.thrusterAndCathode-finalPosition{
-  position: absolute;
-  /*height: 82vh;*/
-  min-height: 350px;
 
-  /*top: -1vh;*/
-  /*left: 10vw;*/
-  right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
-
-  z-index: 0;
-
-  top: -5vh;
-  height: 355vh;
-  left: -42vw;
-  transform: rotate(-28deg);
-}
-
-.crossSectionPosition{
-  height: 60vh;
-  width: 60%;
-
-  left: 10vw;
-  top: -50vh;
-
-  min-height: 350px;
-}
-
-.fade-in {
-  animation: fadeIn ease 3s;
-  -webkit-animation: fadeIn ease 3s;
-  -moz-animation: fadeIn ease 3s;
-  -o-animation: fadeIn ease 3s;
-  -ms-animation: fadeIn ease 3s;
-
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity:0;
-  }
-  100% {
-    opacity:1;
-  }
-}
-
-.fade-out {
-  animation: fadeOut ease 3s;
-  -webkit-animation: fadeOut ease 3s;
-  -moz-animation: fadeOut ease 3s;
-  -o-animation: fadeOut ease 3s;
-  -ms-animation: fadeOut ease 3s;
-
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity:1;
-  }
-  100% {
-    opacity:0;
-  }
-}
 
 #guideText{
   color: #a83c5c;

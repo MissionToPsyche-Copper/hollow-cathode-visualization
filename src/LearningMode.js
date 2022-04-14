@@ -156,6 +156,11 @@ export class LearningMode extends React.Component {
         }
     }
 
+    delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -211,6 +216,9 @@ export class LearningMode extends React.Component {
 
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOnSublabelDiv");
+
+            this.hideElement("shellToCrossZoom");
+            this.hideElement("shellFadeOut");
         }
         else
         {
@@ -612,7 +620,20 @@ export class LearningMode extends React.Component {
     /**
      * nextButton_shellToLearningModeCore_HandleClick()
      */
-    nextButton_shellToLearningModeCore_HandleClick() {
+    async triggerZoom() {
+
+    }
+    async nextButton_shellToLearningModeCore_HandleClick() {
+
+        // trigger zoom animation
+        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
+        this.hideElement("hallThruster")
+        this.showElement("shellToCrossZoom")
+
+        await this.delay(1300);
+
+        this.hideElement("shellToCrossZoom");
+        this.showElement("shellFadeOut");
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
@@ -625,12 +646,17 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThrusterNameLabelDiv");
         this.hideElement("hallThrusterNameSublabelDiv");
         this.hideElement("HallThrusterNext");
+        // this.hideElement("shellToCrossZoom");
+
+        this.hideElement("hallThrusterOn-fadeIn")
+        this.hideElement("hallThrusterOn-fadeOut")
+        // this.hideElement("hallThruster")
+        // this.showElement("shellToCrossZoom")
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
         this.scenarioRefresh()
-
     }
 
     /**
@@ -689,6 +715,7 @@ export class LearningMode extends React.Component {
         this.hideElement("nextButton");
         this.showElement("toggleButtonGroup");
         this.showElement("summaryButton_")
+
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
@@ -742,16 +769,17 @@ export class LearningMode extends React.Component {
 
                 <img id={"hallThruster"} src={path_hall_thruster} className={" "} alt={"Hall Thruster Off"}/>
 
-
                 <img id={"hallThrusterOn-fadeIn"} src={path_hall_thruster_on} className={"fade-in  "} alt={"Hall Thruster On: Fade In"}/>
                 <img id={"hallThrusterOn-fadeOut"} src={path_hall_thruster_on} className={"fade-out  "} alt={"Hall Thruster On: Fade Out"}/>
+
+                <img id={"shellToCrossZoom"} src={path_hall_thruster} className={"shellToCrossZoomAnimation"} alt={"Cathode shell to cathode cross section zoom"}/>
+                <img id={"shellFadeOut"} src={path_hall_thruster} className={" shell-fade-out"} alt={"Cathode shell fade out"}/>
 
                 <img id={"baseCathode-fadeIn"} src={path_lm_csv} className={"fade-in"} alt={"Hollow Cathode: Fade In"}/>
                 <img id={"baseCathode-fadeOut"} src={path_lm_csv} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
                 <img id={"thrusterAndCathode-fadeOut"} src={path_hall_thruster} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
                 <img id={"baseCathode"} src={path_lm_csv} alt={"Base Hollow Cathode"}/>
                 {/*<img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>*/}{/*//:unused?*/}
-
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}>

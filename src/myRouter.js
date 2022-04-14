@@ -4,7 +4,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Routes,
-    Route
+    Route,
 } from 'react-router-dom';
 import LandingPage from "./LandingPage";
 import LearningMode from "./LearningMode";
@@ -31,6 +31,7 @@ function MyRouter(){
                                                                               scene={[true, false, false, false, false, false, false, false]}/>}/>
                     <Route path={'/hollow-cathode-visualization/summary'} element={<SummaryPage/>}/>
                     <Route path={'/hollow-cathode-visualization/ref'} element={<RefComponent/>}/>
+                    <Route path={'*'} element={<LandingPage id={"LandingPage"}/>}/>
                 </Routes>
             </div>
         </Router>
