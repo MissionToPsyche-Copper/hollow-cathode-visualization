@@ -633,8 +633,7 @@ export class LearningMode extends React.Component {
         await this.delay(1300);
 
         this.hideElement("shellToCrossZoom");
-        document.getElementById("shellFadeOut").classList.add("shellFade")
-        this.showElement("shellFadeOut");
+        // this.showElement("shellFadeOut");
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
