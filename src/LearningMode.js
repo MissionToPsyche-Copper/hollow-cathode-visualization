@@ -629,8 +629,7 @@ export class LearningMode extends React.Component {
         this.hideElement("hallThruster")
         this.showElement("shellToCrossZoom")
 
-        await this.delay(4000);
-        // await new Promise(resolve => setTimeout(resolve, 4000));
+        await this.delay(1300);
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");

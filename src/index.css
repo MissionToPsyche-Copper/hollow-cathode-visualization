@@ -186,7 +186,7 @@ code {
 .shellToCrossZoomAnimationClass{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
   animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
-  animation-duration: 2.8s;
+  animation-duration: 1.3s;
   animation-timing-function: ease-in-out;
   animation-name: shellToCrossZoomAnimation;
   /*animation-direction: alternate;*/
