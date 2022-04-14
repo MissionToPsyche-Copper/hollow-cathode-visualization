@@ -156,6 +156,11 @@ export class LearningMode extends React.Component {
         }
     }
 
+    delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+
     /**
      * componentDidMount()
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
@@ -614,7 +619,18 @@ export class LearningMode extends React.Component {
     /**
      * nextButton_shellToLearningModeCore_HandleClick()
      */
-    nextButton_shellToLearningModeCore_HandleClick() {
+    async triggerZoom() {
+
+    }
+    async nextButton_shellToLearningModeCore_HandleClick() {
+
+        // trigger zoom animation
+        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
+        this.hideElement("hallThruster")
+        this.showElement("shellToCrossZoom")
+
+        await this.delay(4000);
+        // await new Promise(resolve => setTimeout(resolve, 4000));
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
@@ -631,11 +647,8 @@ export class LearningMode extends React.Component {
 
         this.hideElement("hallThrusterOn-fadeIn")
         this.hideElement("hallThrusterOn-fadeOut")
-        this.hideElement("hallThruster")
-        this.showElement("shellToCrossZoom")
-
-        // trigger zoom animation
-        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
+        // this.hideElement("hallThruster")
+        // this.showElement("shellToCrossZoom")
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
