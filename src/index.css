@@ -147,25 +147,14 @@ code {
 }
 
 @keyframes cathodeZoomIn {
-  /*0% { transform: rotate(0deg) scale(1.0); }*/
-  /*100% { transform: rotate(20deg) scale(2); }*/
-
-  /*0% { transform: rotate(0deg) scale(1.0); }*/
-  /*100% { transform: rotate(20deg) scale(2); }*/
-
   from {
         transform: rotate(0deg) scale(1.0);
-        /*position: absolute;*/
-
-        /*max-width: 60%;*/
-        /*height: auto;*/
 
         top: -13vh;
         left: -15vw;
         right: 20vw;
 
         z-index: 0;
-        /*transform: rotate(0deg);*/
   }
   to
   {
@@ -174,6 +163,33 @@ code {
         left: -20vw;
         right: 20vw;
   }
+}
+
+@keyframes shellToCrossZoomFade {
+  from {
+    transform: rotate(0deg) scale(1.0);
+
+    top: -13vh;
+    left: -15vw;
+    right: 20vw;
+
+    z-index: 0;
+  }
+  to
+  {
+    transform: rotate(-15deg) scale(3.5);
+    top: 165vh;
+    left: -20vw;
+    right: 20vw;
+  }
+
+  /*animation: fadeOut ease 3s;*/
+  /*-webkit-animation: fadeOut ease 3s;*/
+  /*-moz-animation: fadeOut ease 3s;*/
+  /*-o-animation: fadeOut ease 3s;*/
+  /*-ms-animation: fadeOut ease 3s;*/
+
+  /*animation-fill-mode: forwards;*/
 }
 
 /* layering */
