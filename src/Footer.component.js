@@ -33,7 +33,7 @@ class FooterComponent extends React.Component{
                                 <a href="https://psyche.asu.edu/get-involved/careers-and-internships/" className="footer-link-1">Careers</a>
                             </li>
                             <li>
-                                <a href={'/hollow-cathode-visualization/ref'} className={'footer-link-1'}>References</a>
+                                <a href={'#/ref'} className={'footer-link-1'}>References</a>
                             </li>
                         </u1>
                     </div>

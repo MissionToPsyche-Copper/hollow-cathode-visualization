@@ -69,17 +69,17 @@ export class LandingPage extends React.Component {
                             hidden={true}> You need a better browser :(
                     </canvas>
 
-                    <Link to={'/hollow-cathode-visualization/learning'}>
+                    <Link to={'/learning'}>
                         <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"}/>
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
-                        <Link to={'/hollow-cathode-visualization/learning'}>
+                        <Link to={'/learning'}>
                             <button id={"LearnModeButton"} className={"button"}>
                                 Learning Mode
                             </button>
                         </Link>
-                        <Link to={'/hollow-cathode-visualization/presentation'}>
+                        <Link to={'/presentation'}>
                             <button id={"PresModeButton"} className={"button"}>
                                 Presentation Mode
                             </button>

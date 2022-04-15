@@ -9,7 +9,7 @@ import './index.css';
 import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <HashRouter hashType={'hashbang'}>
+    <HashRouter hashType={'hashbang'} basename={'/'}>
         <App />
     </HashRouter>,
   document.getElementById('body')
