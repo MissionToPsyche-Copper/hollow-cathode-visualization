@@ -71,11 +71,11 @@ class ProtoParticle {
     ax; // int px/tick^2, x acceleration
     ay; // int px/tick^2, y acceleration
     radius; // int px, radius of particle
-    color; // color string or hex string, color of particle
+    // color; // color string or hex string, color of particle
     anime_key; // animation frame reference used to cancel this particle's animation, see this.startAnimation(), defaults to -1
     animate; // animation function and logic (pathing, boundaries, physics, etc.)
     interval; // essentially the rate defining how many times a second accelerations and forces are applied (delta time)
-    accelerating = true; // toggle application of accelerations (for testing purposes)
+    // accelerating = true; // toggle application of accelerations (for testing purposes)
     particle_type; // type of particle, should be either: TYPE_ELECTRON, TYPE_XENON, TYPE_IONIZEDXENON, or TYPE_NONE (constants) (see constants)
     max_y; // bounding box (low barrier)
     min_y; // bounding box (high barrier)
@@ -447,7 +447,7 @@ class ProtoParticle {
     }
 
     /**
-     * Private
+     * Public
      * The official animation function for all xenon of all types
      * SHOULD NOT BE CALLED BY HUMANS, use particle.startAnimation
      *
@@ -556,7 +556,7 @@ class ProtoParticle {
     }
 
     /**
-     * Private
+     * Public
      * The official animation function for all electrons
      * SHOULD NOT BE CALLED BY HUMANS, use particle.startAnimation
      *
