@@ -283,7 +283,7 @@ export class LearningMode extends React.Component {
 
 
         if(this.state.scene[hallThrusterOn] === true) {
-            this.painter.draw_Hall_Thruster_On();
+            // this.painter.draw_Hall_Thruster_On();
 
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
