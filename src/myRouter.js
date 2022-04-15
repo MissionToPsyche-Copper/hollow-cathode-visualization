@@ -15,7 +15,7 @@ import {base, hallThrusterOff} from "./Galactic";
 
 function MyRouter(){
     return(
-        <Router>
+        <div>
             <div className={"showWhenTooSmall"}>
                 <p>
                     Your window size is too small for this visualization.
@@ -34,7 +34,7 @@ function MyRouter(){
                     <Route path={'*'} element={<LandingPage id={"LandingPage"}/>}/>
                 </Routes>
             </div>
-        </Router>
+        </div>
     )
 }
 
