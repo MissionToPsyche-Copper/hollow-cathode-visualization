@@ -135,7 +135,6 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        console.log(elementId)
         document.getElementById(elementId).style.display = 'none';
     }
     /**
@@ -143,10 +142,15 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to show
      */
     showElement(elementId){
-        console.log(elementId)
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    /**
+     * //:unused?
+     *
+     * @param elementId
+     * @returns {boolean}
+     */
     isElementShown(elementId){
         if(document.getElementById(elementId).style.display === 'flex') {
             return true;
@@ -209,7 +213,7 @@ export class LearningMode extends React.Component {
             this.hideElement("toggleButtonGroup");
             this.hideElement("summaryButton_")
 
-            this.painter.draw_Hall_Thruster_Off();
+            // this.painter.draw_Hall_Thruster_Off();
 
             this.showElement("hallThrusterOffLabelDiv");
             this.showElement("hallThrusterOffSublabelDiv");
@@ -234,7 +238,7 @@ export class LearningMode extends React.Component {
         if (this.state.scene[hallThrusterOn] === true)
         {
             this.hideElement("toggleButtonGroup");
-            this.painter.draw_Hall_Thruster_On();
+            // this.painter.draw_Hall_Thruster_On();
 
             this.showElement("hallThrusterOnLabelDiv");
             this.showElement("hallThrusterOnSublabelDiv");
@@ -299,7 +303,7 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
-                this.painter.draw_csv_Base_Drawing_guide();
+                // this.painter.draw_csv_Base_Drawing_guide();
                 this.setState({text: cathodeCSVText})
             }
 
@@ -440,12 +444,12 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopIonizing();
 
-            // if internal plasma stops because ___ call ___ explanation
-            if(!this.state.scene[heat]){
-                this.painter.draw_csv_internal_plasma_off_heat_guide();
-            } else if(!this.state.scene[gas]){
-                this.painter.draw_csv_internal_plasma_off_gas_guide();
-            }
+            // // if internal plasma stops because ___ call ___ explanation
+            // if(!this.state.scene[heat]){
+            //     this.painter.draw_csv_internal_plasma_off_heat_guide();
+            // } else if(!this.state.scene[gas]){
+            //     this.painter.draw_csv_internal_plasma_off_gas_guide();
+            // }
         }
 
         // EJECT PLASMA // -----------

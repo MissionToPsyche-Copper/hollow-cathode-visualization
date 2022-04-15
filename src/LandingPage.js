@@ -35,7 +35,9 @@ export class LandingPage extends React.Component {
     }
 
     /**
+     * @Private
      * getLayer(layer)
+     *
      * @param layer layer number which you want to get
      * @returns ctx 2d canvas context for that layer
      */
@@ -51,7 +53,9 @@ export class LandingPage extends React.Component {
         document.getElementById(elementId).style.display = 'none';
     }
     /**
+     * @Private
      * Un-hides the element with the given id
+     *
      * @param elementId id of element to show
      */
     showElement(elementId){
