@@ -331,7 +331,9 @@ code {
   }
 }
 
-/* layering */
+
+/*// Layering //*/
+
 #canvas0{
   /*border: 1px rgba(255, 0, 0, 0.23);*/
   /*transform: translate(85px, 96px) rotate(15deg);*/
@@ -372,16 +374,25 @@ code {
   /*border: 1px solid orange;*/
   z-index: 7;
 }
+/*//*/
 
-/* (landing page spacecraft) */
-#spacecraft_image{
-  height: 80vh;
-  width: 85%;
-  min-height: 350px;
-  visibility: visible;
+/*// Buttons //*/
+
+/* Show active when toggled */
+#HeatInsertToggle.active{
+  background-color: #d55f83; /* #282c34 */
+}
+#GasFeedToggle.active{
+  background-color: #d55f83; /* #a83c5c */
+}
+#KeeperElectrodeToggle.active{
+  background-color: #d55f83; /* #912747 #a83c5c */
+}
+#autoToggleButton.active{
+  background-color: #d55f83; /* #912747 #a83c5c */
 }
 
-/* Buttons */
+/* Positioning classes */
 /* vertically stack a div of buttons */
 /* use with bottom__align to align the group */
 .stackedButtonGroup{
@@ -412,6 +423,16 @@ code {
   align-items: flex-start;
 }
 
+/* defines spacing between buttons */
+.stackedButtonGroup > button{
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+/*//*/
+
+
+
+/*/ Landing Page /*/
 /* landing page title */
 .stackedButtonGroup.landingPageTitleAlign{
   top: 10vh;
@@ -433,11 +454,15 @@ code {
   align-items: flex-start;
 }
 
-/* defines spacing between buttons */
-.stackedButtonGroup > button{
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
+/* (landing page spacecraft) */
+#spacecraft_image{
+  height: 80vh;
+  width: 85%;
+  min-height: 350px;
+  visibility: visible;
 }
+
+/*//*/
 
 
 

@@ -559,6 +559,9 @@ export class LearningMode extends React.Component {
         // let c = document.getElementById('canvas0');
         // let ctx = c.getContext('2d');
         // ctx.rotate(-15*Math.PI/180);
+
+        document.getElementById("HeatInsertToggle").classList.toggle("active");
+
         let newScene = this.state.scene;
         newScene[heat] = !newScene[heat];
 
@@ -578,6 +581,8 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[gas] = !newScene[gas];
 
+        document.getElementById("GasFeedToggle").classList.toggle("active");
+
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: gas, scene: newScene };
@@ -593,6 +598,8 @@ export class LearningMode extends React.Component {
     KeeperElectrodeToggle_HandleClick() {
         let newScene = this.state.scene;
         newScene[keeper] = !newScene[keeper];
+
+        document.getElementById("KeeperElectrodeToggle").classList.toggle("active");
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {

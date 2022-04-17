@@ -211,7 +211,9 @@ class PresMode extends React.Component {
      */
     autoToggleButton_HandleClick() {
         PresMode.isAuto = !PresMode.isAuto;
-        console.log(PresMode.isAuto);
+
+        document.getElementById("autoToggleButton").classList.toggle("active");
+
         if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
