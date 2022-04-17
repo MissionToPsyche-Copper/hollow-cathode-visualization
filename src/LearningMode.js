@@ -667,7 +667,7 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
-
+        this.scenarioRefresh()
         // await this.delay(3000);
         // this.hideElement("hallThruster");
     }

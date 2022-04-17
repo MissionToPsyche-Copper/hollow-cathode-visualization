@@ -60,10 +60,10 @@ code {
 }
 
 @keyframes fadeIn {
-  0% {
+  from {
     opacity:0;
   }
-  100% {
+  to {
     opacity:1;
   }
 }
@@ -79,10 +79,10 @@ code {
 }
 
 @keyframes fadeOut {
-  0% {
+  from {
     opacity:1;
   }
-  100% {
+  to {
     opacity:0;
   }
 }
@@ -201,10 +201,10 @@ code {
 
 .shellToCrossZoomAnimationClass{
   animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
-  animation-delay: 0.1s, 0.4s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
-  animation-duration: 1.3s, 3s;
+  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-duration: 1.3s;
   animation-timing-function: ease-in-out;
-  animation-name: shellToCrossZoomAnimation, shellFade;
+  animation-name: shellToCrossZoomAnimation;
   /*animation-direction: alternate;*/
 }
 
@@ -254,15 +254,23 @@ code {
 #shellFadeOut{
   position: absolute;
 
+  transform: rotate(-15deg) scale(6.0); /* linked c2 */
+
+  height: 150vh; /* linked a0 */
+
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
-
-  z-index: 0;
-
-  transform: rotate(-15deg) scale(6); /* linked c2 */
 }
 
 .shell-fade-out {
+  transform: rotate(-15deg) scale(5.0); /* linked c2 */
+
+  height: 150vh; /* linked a0 */
+
+  top: 281vh; /* linked c2 */
+  left: 16vw; /* linked c2 */
+
+
   animation: shellFade ease 3s;
   /*animation-delay: 4s;*/
   -webkit-animation: shellFade ease 3s;
@@ -273,11 +281,19 @@ code {
   animation-fill-mode: forwards;
 }
 @keyframes shellFade {
-  0% {
-    opacity:1;
+  from {
+    opacity: 1;
+    height: 150vh; /* linked a0 */
+
+    top: 281vh; /* linked c2 */
+    left: 16vw; /* linked c2 */
   }
-  100% {
+  to {
     opacity:0;
+    height: 150vh; /* linked a0 */
+
+    top: 281vh; /* linked c2 */
+    left: 16vw; /* linked c2 */
   }
 }
 
