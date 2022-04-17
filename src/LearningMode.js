@@ -43,8 +43,8 @@ const {promisify} = require('util')
 const sleep = promisify(setTimeout)
 
 // Image Paths //
-const path_hall_thruster = "/hollow-cathode-visualization/images/testing/test_5_big_hall_thruster_off.png";
-const path_hall_thruster_on = "/hollow-cathode-visualization/images/testing/test_5_big_hall_thruster_ON.png";
+const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off_HDPS125.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/test_5_big_hall_thruster_ON_HDPS125.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 
@@ -101,8 +101,13 @@ export class LearningMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
-        this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        // reload page bug temporary fix
+        try{
+            this.state.canvas_height = document.getElementById("page-container").clientHeight;
+            this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        }catch(exception){
+            document.location.href="http://localhost:3000/hollow-cathode-visualization";
+        }
 
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true) {

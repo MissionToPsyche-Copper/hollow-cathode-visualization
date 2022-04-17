@@ -61,8 +61,13 @@ class PresMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
-        this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        // reload page bug temporary fix
+        try{
+            this.state.canvas_height = document.getElementById("page-container").clientHeight;
+            this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        }catch(exception){
+            document.location.href="http://localhost:3000/hollow-cathode-visualization";
+        }
     }
 
     /**
