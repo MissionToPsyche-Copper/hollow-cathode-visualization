@@ -30,7 +30,7 @@ export const particle_right_bounding_box = 1.00;
 //
 
 // Image Paths //
-export const path_lm_csv = "/hollow-cathode-visualization/images/cross_sectional_view_4.png";
+export const path_lm_csv = "/hollow-cathode-visualization/images/cross_sectional_view.png";
 //
 
 

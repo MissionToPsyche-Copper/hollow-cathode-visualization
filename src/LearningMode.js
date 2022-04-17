@@ -43,8 +43,8 @@ const {promisify} = require('util')
 const sleep = promisify(setTimeout)
 
 // Image Paths //
-const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
-const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_on.png";
+const path_hall_thruster = "/hollow-cathode-visualization/images/testing/test_5_big_hall_thruster_off.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/testing/test_5_big_hall_thruster_ON.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 
@@ -283,7 +283,7 @@ export class LearningMode extends React.Component {
 
 
         if(this.state.scene[hallThrusterOn] === true) {
-            this.painter.draw_Hall_Thruster_On();
+            // this.painter.draw_Hall_Thruster_On();
 
         } else if (this.state.deltastage === hallThrusterOn) {
             this.painter.clearCanvas(hallThrusterOn);
@@ -307,7 +307,7 @@ export class LearningMode extends React.Component {
                 this.setState({text: cathodeCSVText})
             }
 
-            this.hideElement("hallThruster")
+            // this.hideElement("hallThruster") //:Jack
 
             //this.showElement("baseCathode")//:unused?
         }
@@ -637,14 +637,14 @@ export class LearningMode extends React.Component {
     async nextButton_shellToLearningModeCore_HandleClick() {
 
         // trigger zoom animation
-        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
+        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass");
         this.hideElement("hallThruster")
         this.showElement("shellToCrossZoom")
 
         await this.delay(1300);
 
         this.hideElement("shellToCrossZoom");
-        this.showElement("shellFadeOut");
+        this.showElement("shellFadeOut"); //:Jack
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
@@ -667,7 +667,9 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
-        this.scenarioRefresh()
+
+        // await this.delay(3000);
+        // this.hideElement("hallThruster");
     }
 
     /**
@@ -790,7 +792,6 @@ export class LearningMode extends React.Component {
                 <img id={"baseCathode-fadeOut"} src={path_lm_csv} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
                 <img id={"thrusterAndCathode-fadeOut"} src={path_hall_thruster} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
                 <img id={"baseCathode"} src={path_lm_csv} alt={"Base Hollow Cathode"}/>
-                {/*<img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>*/}{/*//:unused?*/}
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}>
