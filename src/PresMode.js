@@ -242,7 +242,7 @@ class PresMode extends React.Component {
                 <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
 
                 <div className={"stackedButtonGroup bottomleftAlign"}>
-                    <Link to={'/hollow-cathode-visualization/'}>
+                    <Link to={'/'}>
                         <button id={"backButton"} className={"button"}> Back to Landing Page </button>
                     </Link>
                     <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>

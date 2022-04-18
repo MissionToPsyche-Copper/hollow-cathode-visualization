@@ -35,7 +35,9 @@ export class LandingPage extends React.Component {
     }
 
     /**
+     * @Private
      * getLayer(layer)
+     *
      * @param layer layer number which you want to get
      * @returns ctx 2d canvas context for that layer
      */
@@ -51,7 +53,9 @@ export class LandingPage extends React.Component {
         document.getElementById(elementId).style.display = 'none';
     }
     /**
+     * @Private
      * Un-hides the element with the given id
+     *
      * @param elementId id of element to show
      */
     showElement(elementId){
@@ -69,17 +73,17 @@ export class LandingPage extends React.Component {
                             hidden={true}> You need a better browser :(
                     </canvas>
 
-                    <Link to={'/hollow-cathode-visualization/learning'}>
+                    <Link to={'/learning'}>
                         <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"}/>
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
-                        <Link to={'/hollow-cathode-visualization/learning'}>
+                        <Link to={'/learning'}>
                             <button id={"LearnModeButton"} className={"button"}>
                                 Learning Mode
                             </button>
                         </Link>
-                        <Link to={'/hollow-cathode-visualization/presentation'}>
+                        <Link to={'/presentation'}>
                             <button id={"PresModeButton"} className={"button"}>
                                 Presentation Mode
                             </button>

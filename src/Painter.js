@@ -95,11 +95,9 @@ class Painter{
         return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
     }
     getInsertTopY(){
-        console.log("top: ", this.getCanvasHeight() * top_of_cathode_constant)
         return this.getCanvasHeight() * top_of_cathode_constant;
     }
     getInsertBotY(){
-        console.log("bot: ", this.getCanvasHeight() * bottom_of_cathode_constant)
         return this.getCanvasHeight() * bottom_of_cathode_constant;
     }
 
@@ -146,25 +144,20 @@ class Painter{
 
 
     /** Learning Mode */
-    /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-     */
-    draw_Hall_Thruster_Off(){
-        this.clearCanvas(hallThrusterOff);
-        const ctx = this.getLayer(hallThrusterOff);
-    }
-
-    /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-     */
-    draw_Hall_Thruster_On(){
-        this.clearCanvas(hallThrusterOn);
-        const ctx = this.getLayer(hallThrusterOn);
-    }
+    // /**
+    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
+    //  */
+    // draw_Hall_Thruster_Off(){ }
+    //
+    // /**
+    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
+    //  */
+    // draw_Hall_Thruster_On(){ }
 
     /** Learning Mode and Presentation Mode **/
     /**
      * draw_csv_Base_Drawing()
+     *
      * Function to draw the base cathode visuals
      */
     // fadeOut() {
@@ -178,8 +171,6 @@ class Painter{
     // }
 
     draw_csv_Base_Drawing(){
-        // console.log(base ," draw_csv_Base_Drawing called") //:debug
-        // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
@@ -219,46 +210,117 @@ class Painter{
         ctx.stroke(); //:debug
     }
 
-    /**
-     * draw_csv_Base_Drawing_guide()
-     * Draws the guide text and tooltips and such for the base drawing for learning mode
-     */
-    draw_csv_Base_Drawing_guide(){
-    }
+    // /**
+    //  * draw_csv_Base_Drawing_guide() //:unused?
+    //  * Draws the guide text and tooltips and such for the base drawing for learning mode
+    //  */
+    // draw_csv_Base_Drawing_guide(){ }
 
 
 
     /**
      * draw_csv_Heat_Insert()
+     *
      * Defines what drawing "heat insert" looks like
      * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
-        this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
 
         // Turn on Electron Generator
         this.startElectronGenerator(ELECTRON_SPAWN_RATE);
     }
 
-    /**
-     * draw_csv_Heat_Insert_guide()
-     * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
-     */
-    draw_csv_Heat_Insert_guide(){
-    }
+    // /**
+    //  * draw_csv_Heat_Insert_guide() //:unused?
+    //  * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
+    //  */
+    // draw_csv_Heat_Insert_guide(){ }
 
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
      */
     draw_csv_gas_feed(){
-        const ctx = this.getLayer(gas);
-
-
         // Turn on Xenon Generator
         this.startXenonGenerator(XENON_SPAWN_RATE);
     }
+
+    // /**
+    //  * draw_csv_gas_feed_guide() //:unused?
+    //  * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
+    //  */
+    // draw_csv_gas_feed_guide(){ }
+
+    /**
+     * draw_csv_internal_plasma()
+     * Function to draw the internal plasma visuals (currently only draws a green square)
+     */
+    draw_csv_internal_plasma(){
+        ProtoParticle.ionizeParticles();
+    }
+
+    // /**
+    //  * draw_csv_internal_plasma_guide() //:unused
+    //  * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
+    //  */
+    // draw_csv_internal_plasma_guide() { }
+
+    // /**
+    //  * draw_csv_internal_plasma_off_heat_guide() //:unused
+    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+    //  */
+    // draw_csv_internal_plasma_on_heat_guide() { }
+    //
+    // /**
+    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
+    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+    //  */
+    // draw_csv_internal_plasma_on_heat_guide() { }
+
+    // /**
+    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
+    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+    //  */
+    // draw_csv_internal_plasma_off_heat_guide() { }
+    //
+    // /**
+    //  * draw_csv_internal_plasma_off_gas_guide() //:unused?
+    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
+    //  */
+    // draw_csv_internal_plasma_off_gas_guide() { }
+
+
+    /**
+     * draw_csv_keeper_electrode() //:unused?
+     * Function to draw the keeper electrode visuals (currently only draws a blue square)
+     */
+    draw_csv_keeper_electrode(){
+
+    }
+
+    // /**
+    //  * draw_csv_keeper_electrode_guide() //:unused?
+    //  * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
+    //  */
+    // draw_csv_keeper_electrode_guide(){ }
+
+
+    /**
+     * draw_csv_eject_plasma()
+     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
+     */
+    draw_csv_eject_plasma(){
+        ProtoParticle.ejectParticles();
+    }
+
+    // /**
+    //  * draw_csv_eject_plasma_guide() //:unused?
+    //  * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
+    //  */
+    // draw_csv_eject_plasma_guide() { }
+
+
+
 
 
     /**
@@ -367,115 +429,6 @@ class Painter{
         this.stopEjecting();
         this.stopIonizing();
         ProtoParticle.killAllParticles();
-    }
-
-
-
-    /**
-     * draw_csv_gas_feed_guide() //:unused?
-     * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
-     */
-    draw_csv_gas_feed_guide(){
-         this.clearCanvas(gas);
-         const ctx = this.getLayer(gas);
-    }
-
-    /**
-     * draw_csv_internal_plasma()
-     * Function to draw the internal plasma visuals (currently only draws a green square)
-     */
-    draw_csv_internal_plasma(){
-        this.clearCanvas(plasma);
-        const ctx = this.getLayer(plasma);
-
-        ProtoParticle.ionizeParticles();
-    }
-
-    /**
-     * draw_csv_internal_plasma_guide() //:unused?
-     * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
-     */
-    draw_csv_internal_plasma_guide() {
-    }
-
-    /**
-     * draw_csv_internal_plasma_off_heat_guide() //:unused?
-     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-     */
-    draw_csv_internal_plasma_on_heat_guide() {
-        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
-    }
-
-    /**
-     * draw_csv_internal_plasma_off_heat_guide() //:unused?
-     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-     */
-    draw_csv_internal_plasma_on_heat_guide() {
-        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
-    }
-
-    /**
-     * draw_csv_internal_plasma_off_heat_guide() //:unused?
-     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-     */
-    draw_csv_internal_plasma_off_heat_guide() {
-        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
-    }
-
-    /**
-     * draw_csv_internal_plasma_off_gas_guide() //:unused?
-     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
-     */
-    draw_csv_internal_plasma_off_gas_guide() {
-        // console.log(plasma, " draw_csv_internal_plasma_off_gas_guide called"); //:debug
-    }
-
-
-    /**
-     * draw_csv_keeper_electrode() //:unused?
-     * Function to draw the keeper electrode visuals (currently only draws a blue square)
-     */
-    draw_csv_keeper_electrode(){
-        // console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
-
-        this.clearCanvas(keeper);
-        const ctx = this.getLayer(keeper);
-    }
-
-    /**
-     * draw_csv_keeper_electrode_guide() //:unused?
-     * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
-     */
-    draw_csv_keeper_electrode_guide(){
-        // console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
-
-        // this.clearCanvas(keeper);
-        // const ctx = this.getLayer(keeper);
-    }
-
-
-    /**
-     * draw_csv_eject_plasma()
-     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
-     */
-    draw_csv_eject_plasma(){
-        // console.log(eject, " draw_csv_eject_plasma called"); //:debug
-
-        this.clearCanvas(eject);
-        const ctx = this.getLayer(eject);
-
-        ProtoParticle.ejectParticles();
-    }
-
-    /**
-     * draw_csv_eject_plasma_guide() //:unused?
-     * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
-     */
-    draw_csv_eject_plasma_guide() {
-        // console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
-
-        // this.clearCanvas(eject);
-        // const ctx = this.getLayer(eject);
     }
 }
 
