@@ -167,13 +167,22 @@ class Painter{
      * draw_csv_Base_Drawing()
      * Function to draw the base cathode visuals
      */
+    // fadeOut() {
+    //     var image = new Image();
+    //     ctx.globalAlpha = 0.5;
+    //     image.src = "css.png"
+    //     ctx.drawImage(image, 0, 0);
+    //     //ctx.fillStyle = "rgba(255,255,255,0.3)";
+    //     //ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //     setTimeout(fadeOut,100);
+    // }
+
     draw_csv_Base_Drawing(){
         // console.log(base ," draw_csv_Base_Drawing called") //:debug
         // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
-
 
         // visualize cathode tube bounding box //:debug
         ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
