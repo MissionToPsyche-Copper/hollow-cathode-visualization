@@ -6,8 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import './landingPage.css';
 import './App.css';
 import './index.css';
+import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <App />,
+    <HashRouter hashType={'hashbang'} basename={'/'}>
+        <App />
+    </HashRouter>,
   document.getElementById('body')
 );

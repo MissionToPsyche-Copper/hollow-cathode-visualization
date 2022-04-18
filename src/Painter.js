@@ -7,20 +7,14 @@ import ProtoParticle from "./ProtoParticle";
  */
 import {
     base,
-    canvas_height,
-    canvas_width,
-    eject,
+    bottom_of_cathode_constant, eject,
     gas,
-    hallThrusterOff,
-    hallThrusterOn,
-    heat,
-    keeper,
-    plasma,
-    right_of_cathode_constant,
+    heat, keeper,
     left_of_cathode_constant,
-    top_of_cathode_constant,
-    bottom_of_cathode_constant,
-    particle_right_bounding_box, lm_csv, path_lm_csv
+    particle_right_bounding_box,
+    path_lm_csv, plasma,
+    right_of_cathode_constant,
+    top_of_cathode_constant
 } from "./Galactic";
 
 
@@ -95,11 +89,9 @@ class Painter{
         return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
     }
     getInsertTopY(){
-        console.log("top: ", this.getCanvasHeight() * top_of_cathode_constant)
         return this.getCanvasHeight() * top_of_cathode_constant;
     }
     getInsertBotY(){
-        console.log("bot: ", this.getCanvasHeight() * bottom_of_cathode_constant)
         return this.getCanvasHeight() * bottom_of_cathode_constant;
     }
 
@@ -145,98 +137,65 @@ class Painter{
 
 
 
-    /** Learning Mode */
-    /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-     */
-    draw_Hall_Thruster_Off(){
-        this.clearCanvas(hallThrusterOff);
-        const ctx = this.getLayer(hallThrusterOff);
-    }
-
-    /**
-     * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-     */
-    draw_Hall_Thruster_On(){
-        this.clearCanvas(hallThrusterOn);
-        const ctx = this.getLayer(hallThrusterOn);
-    }
-
     /** Learning Mode and Presentation Mode **/
     /**
+     * Public
      * draw_csv_Base_Drawing()
+     *
      * Function to draw the base cathode visuals
      */
     draw_csv_Base_Drawing(){
-        // console.log(base ," draw_csv_Base_Drawing called") //:debug
-        // console.log('base cathode info: '+this.base_cathode.complete+' '+this.base_cathode.naturalHeight); //:debug
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
 
 
-        // visualize cathode tube bounding box //:debug
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
-        ctx.lineWidth = 6; //:debug
-
-        // right //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.min_x, this.min_y); //:debug
-        ctx.lineTo(this.min_x, this.max_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
-
-        // left //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.max_x, this.max_y); //:debug
-        ctx.lineTo(this.max_x, this.min_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
-
-        // top //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.max_x, this.min_y); //:debug
-        ctx.lineTo(this.min_x, this.min_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
-
-        // bottom //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.min_x, this.max_y); //:debug
-        ctx.lineTo(this.max_x, this.max_y); //:debug
-        ctx.stroke(); //:debug
+        // // visualize cathode tube bounding box //:debug
+        // ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
+        // ctx.lineWidth = 6; //:debug
+        //
+        // // right //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.min_x, this.min_y); //:debug
+        // ctx.lineTo(this.min_x, this.max_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
+        //
+        // // left //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.max_x, this.max_y); //:debug
+        // ctx.lineTo(this.max_x, this.min_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
+        //
+        // // top //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.max_x, this.min_y); //:debug
+        // ctx.lineTo(this.min_x, this.min_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
+        //
+        // // bottom //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.min_x, this.max_y); //:debug
+        // ctx.lineTo(this.max_x, this.max_y); //:debug
+        // ctx.stroke(); //:debug
     }
-
-    /**
-     * draw_csv_Base_Drawing_guide()
-     * Draws the guide text and tooltips and such for the base drawing for learning mode
-     */
-    draw_csv_Base_Drawing_guide(){
-    }
-
 
 
     /**
      * draw_csv_Heat_Insert()
+     *
      * Defines what drawing "heat insert" looks like
      * Function to draw the heat insert visuals (currently only draws an orange square)
      */
     draw_csv_Heat_Insert(){
-        this.clearCanvas(heat);
-        const ctx = this.getLayer(heat);
 
         // Turn on Electron Generator
         this.startElectronGenerator(ELECTRON_SPAWN_RATE);
-    }
-
-    /**
-     * draw_csv_Heat_Insert_guide()
-     * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
-     */
-    draw_csv_Heat_Insert_guide(){
     }
 
     /**
@@ -244,12 +203,38 @@ class Painter{
      * Function to draw the gas feed visuals (currently only draws a yellow square)
      */
     draw_csv_gas_feed(){
-        const ctx = this.getLayer(gas);
-
-
         // Turn on Xenon Generator
         this.startXenonGenerator(XENON_SPAWN_RATE);
     }
+
+
+    /**
+     * draw_csv_internal_plasma()
+     * Function to draw the internal plasma visuals (currently only draws a green square)
+     */
+    draw_csv_internal_plasma(){
+        ProtoParticle.ionizeParticles();
+    }
+
+
+    /**
+     * draw_csv_keeper_electrode()
+     * Function to draw the keeper electrode visuals (currently only draws a blue square)
+     */
+    draw_csv_keeper_electrode(){
+        ProtoParticle.ejectParticles();
+        //@jake put the E field arrow here
+    }
+
+
+    /**
+     * draw_csv_eject_plasma() //:unused
+     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
+     */
+    draw_csv_eject_plasma(){ }
+
+
+
 
 
     /**

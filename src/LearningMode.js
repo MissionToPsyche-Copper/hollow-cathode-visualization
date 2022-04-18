@@ -3,48 +3,62 @@ import Painter from "./Painter";
 
 import {
     base,
+    cathodeCSVSubText,
+    cathodeCSVText,
+    cathodeCSVTitleText,
+    cathodeShellPrimaryText,
+    cathodeShellPrimaryTitleText,
     eject,
+    ejectSubText,
+    ejectText,
+    ejectTitleText,
     gas,
+    gasKeeperErrorSubText,
+    gasKeeperErrorText,
+    gasKeeperErrorTitleText,
+    gasSubText,
+    gasText,
+    gasTitleText,
     hallThrusterOff,
     hallThrusterOn,
-    heat,
-    keeper,
-    plasma,
     hallThrusterPrimaryText,
-    hallThrusterSecondaryOnText,
+    hallThrusterPrimaryTitleText,
     hallThrusterSecondaryOffText,
-    cathodeShellPrimaryTitleText,
-    cathodeShellPrimaryText,
-    heatTitleText,
-    heatText,
-    gasTitleText2,
-    gasText,
-    plasmaTitleText,
-    plasmaText,
-    keeperTitleText,
-    keeperText,
-    ejectTitleText,
-    ejectText,
-    heatKeeperErrorTitleText,
+    hallThrusterSecondaryOnText,
+    heat,
+    heatKeeperErrorSubText,
     heatKeeperErrorText,
-    gasKeeperTitleText,
-    gasKeeperErrorText,
-    cathodeCSVTitleText,
-    cathodeCSVText,
-    references,
-    path_lm_csv, recapText
+    heatKeeperErrorTitleText,
+    heatSubText,
+    heatText,
+    heatTitleText,
+    keeper,
+    keeperSubText,
+    keeperText,
+    keeperTitleText,
+    path_electron,
+    path_ionized_xenon,
+    path_lm_csv,
+    path_xenon,
+    plasma,
+    plasmaSubText,
+    plasmaText,
+    plasmaTitleText,
+    recapText
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
+import SummaryPage from "./SummaryPage";
 
 /// CONSTANTS ///
 // Testing?/unknown //
 const {promisify} = require('util')
 const sleep = promisify(setTimeout)
+const path_landing_page_URL = "/";
 
 // Image Paths //
-const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
-const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_on.png";
+const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off_HDPS125.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_ON_HDPS125.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 
@@ -98,18 +112,21 @@ export class LearningMode extends React.Component {
         this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
+
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
+        this.state = { deltastage: props.deltastage, scene: props.scene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
 
-        this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        // MANUAL OVERRIDE // !!!!!!!!!!!!!!! //todo - bad temp code //:debug
+        let newScene = this.state.scene;
+        newScene[hallThrusterOn] = false;
+        this.state = { deltastage: props.deltastage, scene: newScene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
 
-        // Hall Thruster toggle button text
-        if(this.state.scene[hallThrusterOn] === true) {
-            this.thrusterButtonText = "Off";
-        }
-        else {
-            this.thrusterButtonText = "On";
+        // reload page bug temporary fix
+        try{
+            this.state.canvas_height = document.getElementById("page-container").clientHeight;
+            this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        }catch(exception){
+            document.location.href=path_landing_page_URL;
         }
 
 
@@ -117,11 +134,11 @@ export class LearningMode extends React.Component {
     }
 
     componentWillUnmount() {
+        this.hideElement("hallThrusterOn-fadeIn");
+        this.hideElement("hallThrusterOn-fadeOut");
+
         window.removeEventListener('resize', this.handleResize);
         this.painter.killProtoParticle();
-
-        // prompt user with warning on attempted page refresh - unbind
-        window.onbeforeunload = function() {};
     }
 
     handleResize = () => this.setState({
@@ -135,7 +152,6 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to hide
      */
     hideElement(elementId){
-        console.log(elementId)
         document.getElementById(elementId).style.display = 'none';
     }
     /**
@@ -143,10 +159,15 @@ export class LearningMode extends React.Component {
      * @param elementId id of element to show
      */
     showElement(elementId){
-        console.log(elementId)
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    /**
+     * //:unused?
+     *
+     * @param elementId
+     * @returns {boolean}
+     */
     isElementShown(elementId){
         if(document.getElementById(elementId).style.display === 'flex') {
             return true;
@@ -166,11 +187,6 @@ export class LearningMode extends React.Component {
      * Called when canvas element is mounted on page (canvas element is unusable up until this point)
      */
     componentDidMount() {
-        // an attempted fix for reloading breaking pages
-        // this.setState({
-        //     canvas_height: document.getElementById("page-container").clientHeight,
-        //     canvas_width: document.getElementById("page-container").clientWidth
-        // })
 
         // initialize instance variables for each canvas element/layer
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
@@ -182,8 +198,8 @@ export class LearningMode extends React.Component {
         const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
         const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
-        document.getElementById("HallThrusterNext").onclick = this.nextButton_hallThrusterToShell_HandleClick
-        document.getElementById("HallThrusterNext_Accessible").onclick = this.nextButton_hallThrusterToShell_HandleClick
+        document.getElementById("HallThrusterNext").onclick = this.nextButton_hallThrusterToShell_HandleClick;
+        document.getElementById("HallThrusterNext_Accessible").onclick = this.nextButton_hallThrusterToShell_HandleClick;
 
         this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
@@ -200,95 +216,42 @@ export class LearningMode extends React.Component {
      */
     scenarioRefresh() {
         // Execute logic based on deltastage and scene
-        // console.log('scenarioRefresh active: '+this.scene);//:debug
-        this.setState({text: " "})
-        if(this.state.scene[hallThrusterOff] === true) {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
 
+        //**// hallThrusterOff tells us it is this scene
+        //**// hallThrusterOn toggles the thruster
+
+
+        /*// Learning Mode Intro first slide/stage/scene //*/
+        if(this.state.scene[hallThrusterOff] === true && this.state.deltastage === hallThrusterOff){
             this.hideElement("toggleButtonGroup");
-            this.hideElement("summaryButton_")
-
-            this.painter.draw_Hall_Thruster_Off();
-
-            this.showElement("hallThrusterOffLabelDiv");
-            this.showElement("hallThrusterOffSublabelDiv");
-
-            this.hideElement("hallThrusterOnLabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
-
-            this.hideElement("shellToCrossZoom");
-            this.hideElement("shellFadeOut");
-        }
-        else
-        {
-            this.hideElement("hallThrusterButtonGroup");
-            this.hideElement("hallThrusterOffLabelDiv");
-            this.hideElement("hallThrusterOnLabelDiv");
-            this.hideElement("hallThrusterOffSublabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
-            this.hideElement("hallThrusterNameLabelDiv");
-            this.hideElement("hallThrusterNameSublabelDiv");
+            this.hideElement("summaryButton_");
         }
 
-        if (this.state.scene[hallThrusterOn] === true)
-        {
-            this.hideElement("toggleButtonGroup");
-            this.painter.draw_Hall_Thruster_On();
+        // did the user just turn ON the thrusters?
+        if(this.state.scene[hallThrusterOn] === true && this.state.deltastage === hallThrusterOn){
+            this.showElement("hallThrusterOn-fadeIn");
+            this.hideElement("hallThrusterOn-fadeOut");
 
             this.showElement("hallThrusterOnLabelDiv");
-            this.showElement("hallThrusterOnSublabelDiv");
-
             this.hideElement("hallThrusterOffLabelDiv");
-            this.hideElement("hallThrusterOffSublabelDiv");
+
+            this.setState({thrusterButtonText: "Off"});
         }
 
-        // Hall Thruster toggle button text
-        // programed backwards because of order of execution
+        // did the user just turn OFF the thrusters?
+        if(this.state.scene[hallThrusterOn] === false && this.state.deltastage === hallThrusterOn){
+            this.hideElement("hallThrusterOn-fadeIn");
+            this.showElement("hallThrusterOn-fadeOut");
 
-        //If the user turns the hall thruster on
-        if(this.state.scene[hallThrusterOn] === true){
-            HALL_THRUSTER_ON = true;
-            this.showElement("hallThrusterOn-fadeIn")
+            this.hideElement("hallThrusterOnLabelDiv");
+            this.showElement("hallThrusterOffLabelDiv");
 
-            this.thrusterButtonText = "Off";
-        }
-        //If the user turns the hall thruster off after it was just on
-        else if(HALL_THRUSTER_ON === true)
-        {
-            this.showElement("hallThrusterOn-fadeOut")
-            this.thrusterButtonText = "On";
-
-            //HALL_THRUSTER_ON = false;
-        }
-        //If the hall thruster is off
-        //Also the first thing to happen in Hall Thruster view
-        else
-        {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
-
-            this.thrusterButtonText = "On";
-        }
-
-        if(this.state.scene[hallThrusterOn] === false && this.state.scene[hallThrusterOff] === false)
-        {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
+            this.setState({thrusterButtonText: "On"});
         }
 
 
-        if(this.state.scene[hallThrusterOn] === true) {
-            this.painter.draw_Hall_Thruster_On();
 
-        } else if (this.state.deltastage === hallThrusterOn) {
-            this.painter.clearCanvas(hallThrusterOn);
-
-        }else{
-            this.hideElement("hallThrusterOn-fadeOut")
-            this.hideElement("hallThrusterOn-fadeIn")
-        }
-
+        /*// Learning Mode core first stage/scene //*/
         // if basedrawing is active
         if(this.state.scene[base] === true){
             // console.log('base cathode is drawing')//:debug
@@ -299,11 +262,12 @@ export class LearningMode extends React.Component {
 
             // if the user just toggled basedrawing
             if(this.state.deltastage === base || this.state.deltastage === hallThrusterOn || this.deltastage === hallThrusterOff){
-                this.painter.draw_csv_Base_Drawing_guide();
-                this.setState({text: cathodeCSVText})
+                // this.painter.draw_csv_Base_Drawing_guide();
+                this.setState({titleText: cathodeCSVTitleText, text: cathodeCSVText, subText: cathodeCSVSubText})
             }
 
-            this.hideElement("hallThruster")
+            this.hideElement("hallThruster") //:Jack
+            this.showElement("particleKey") //:Jack
 
             //this.showElement("baseCathode")//:unused?
         }
@@ -313,13 +277,14 @@ export class LearningMode extends React.Component {
             this.hideElement("baseCathode-fadeIn");
             this.hideElement("baseCathode-fadeOut");
             this.hideElement("thrusterAndCathode-fadeOut");
-
             this.hideElement("baseCathode")
 
-        }
-        // the user deselected this option/layer
-        else if (this.state.deltastage === base){
-            this.painter.clearCanvas(this.state.deltastage);
+            // the user deselected this option/layer
+            if (this.state.deltastage === base){
+                this.painter.clearCanvas(this.state.deltastage);
+
+                this.setState({titleText: "", text: "", subText: ""})
+            }
         }
 
         // if keeper electrode is active
@@ -337,13 +302,15 @@ export class LearningMode extends React.Component {
             // if the user just toggled the keeper electrode
             if(this.state.deltastage === keeper){
 
-                this.setState({text: keeperText})
+                this.setState({titleText: keeperTitleText, text: keeperText, subText: keeperSubText})
             }
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === keeper){
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopEjecting();
+
+            this.setState({titleText: "", text: "", subText: ""}); // clear text
         }
 
         // if heat insert is active
@@ -360,10 +327,9 @@ export class LearningMode extends React.Component {
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
-            if(this.state.deltastage === heat)
-            {
+            if(this.state.deltastage === heat) {
 
-                this.setState({text: heatText})
+                this.setState({titleText: heatTitleText, text: heatText, subText: heatSubText})
             }
         }
         // if the user deselected this option/layer
@@ -371,6 +337,8 @@ export class LearningMode extends React.Component {
 
             this.painter.killElectronGenerator();
             this.painter.clearCanvas(this.state.deltastage);
+
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // if gas feed is active
@@ -389,13 +357,15 @@ export class LearningMode extends React.Component {
             // if the user just toggled the gas feed
             if(this.state.deltastage === gas){
 
-                this.setState({text: gasText})
+                this.setState({titleText: gasTitleText, text: gasText, subText: gasSubText})
             }
         }
         // if the user deselected this option/layer
         else if (this.state.deltastage === gas){
             this.painter.killXenonGenerator();
             this.painter.clearCanvas(this.state.deltastage);
+
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // INTERNAL PLASMA // -----------
@@ -406,7 +376,7 @@ export class LearningMode extends React.Component {
 
                 // if the user  just triggered the internal plasma
                 if(this.state.deltastage === plasma){
-                    this.setState({text: plasmaText})
+                    this.setState({titleText: plasmaTitleText, text: plasmaText, subText: plasmaSubText})
                 }
             } else {
                 // plasma shouldn't exist
@@ -440,22 +410,17 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopIonizing();
 
-            // if internal plasma stops because ___ call ___ explanation
-            if(!this.state.scene[heat]){
-                this.painter.draw_csv_internal_plasma_off_heat_guide();
-            } else if(!this.state.scene[gas]){
-                this.painter.draw_csv_internal_plasma_off_gas_guide();
-            }
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // EJECT PLASMA // -----------
         if(this.state.scene[eject]){
             if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
-                this.painter.draw_csv_eject_plasma();
+                // this.painter.draw_csv_eject_plasma();
 
                 // if the user just triggered eject plasma
                 if(this.state.deltastage === eject){
-                    this.setState({text: ejectText})
+                    this.setState({titleText: ejectTitleText, text: ejectText, subText: ejectSubText})
                 }
             } else {
                 // plasma shouldn't eject
@@ -477,7 +442,8 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
-                document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
+                this.nextButton_eject_HandleClick(); // skip eject
+                // document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
         // if eject is false and deltastage is plasma
@@ -486,16 +452,7 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopEjecting();
 
-            // if ejecting plasma stops bcz ___ call ___ explanation
-            // if(!this.state.scene[heat]){
-            //     this.painter.draw_csv_eject_plasma_off_heat_guide();
-            // } else if(!this.state.scene[gas]){
-            //     this.painter.draw_csv_eject_plasma_off_gas_guide();
-            // } else if(!this.state.scene[plasma]){
-            //     this.painter.draw_csv_eject_plasma_off_plasma_guide();
-            // } else if(!this.state.scene[keeper]){
-            //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
-            // }
+            this.setState({titleText: "", text: "", subText: ""})
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
@@ -512,13 +469,13 @@ export class LearningMode extends React.Component {
                 t.classList.add("disabled")
 
             }
-            this.setState({text: gasKeeperErrorText});
+            this.setState({titleText: gasKeeperErrorTitleText, text: gasKeeperErrorText, subText: gasKeeperErrorSubText});
 
         }
 
         //HEAT ON, KEEPER ON, NO PLASMA
         if(this.state.scene[heat] && this.state.scene[keeper] && !this.state.scene[plasma] && (this.state.deltastage === heat || this.state.deltastage === keeper)) {
-            this.setState({text: heatKeeperErrorText})
+            this.setState({titleText: heatKeeperErrorTitleText, text: heatKeeperErrorText, subText: heatKeeperErrorSubText})
             if(this.state.deltastage === keeper){
                 let t = document.getElementById("HeatInsertToggle")
                 t.classList.add("disabled")
@@ -552,11 +509,14 @@ export class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
-        // let c = document.getElementById('canvas0');
-        // let ctx = c.getContext('2d');
-        // ctx.rotate(-15*Math.PI/180);
         let newScene = this.state.scene;
         newScene[heat] = !newScene[heat];
+
+        if(newScene[heat] === true){
+            document.getElementById("HeatInsertToggle").classList.replace("notActive", "active");
+        } else {
+            document.getElementById("HeatInsertToggle").classList.replace("active", "notActive");
+        }
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -574,6 +534,12 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[gas] = !newScene[gas];
 
+        if(newScene[gas] === true){
+            document.getElementById("GasFeedToggle").classList.replace("notActive", "active");
+        } else {
+            document.getElementById("GasFeedToggle").classList.replace("active", "notActive");
+        }
+
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
             return { deltastage: gas, scene: newScene };
@@ -589,6 +555,12 @@ export class LearningMode extends React.Component {
     KeeperElectrodeToggle_HandleClick() {
         let newScene = this.state.scene;
         newScene[keeper] = !newScene[keeper];
+
+        if(newScene[keeper] === true){
+            document.getElementById("KeeperElectrodeToggle").classList.replace("notActive", "active");
+        } else {
+            document.getElementById("KeeperElectrodeToggle").classList.replace("active", "notActive");
+        }
 
         // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
         this.setState((state, props) => {
@@ -626,43 +598,40 @@ export class LearningMode extends React.Component {
     async nextButton_shellToLearningModeCore_HandleClick() {
 
         // trigger zoom animation
-        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass")
-        this.hideElement("hallThruster")
-        this.showElement("shellToCrossZoom")
+        document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass");
+        this.hideElement("hallThruster");
+        this.showElement("shellToCrossZoom");
 
         await this.delay(1300);
 
         this.hideElement("shellToCrossZoom");
-        this.showElement("shellFadeOut");
+        this.showElement("shellFadeOut"); //:Jack
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
 
         this.hideElement("hallThrusterButtonGroup");
-        this.hideElement("hallThrusterOffLabelDiv");
-        this.hideElement("hallThrusterOnLabelDiv");
-        this.hideElement("hallThrusterOffSublabelDiv");
-        this.hideElement("hallThrusterOnSublabelDiv");
-        this.hideElement("hallThrusterNameLabelDiv");
-        this.hideElement("hallThrusterNameSublabelDiv");
+
+        // this.hideElement("hallThrusterNameLabelDiv");//:leavingLMG
+
         this.hideElement("HallThrusterNext");
-        // this.hideElement("shellToCrossZoom");
 
         this.hideElement("hallThrusterOn-fadeIn")
         this.hideElement("hallThrusterOn-fadeOut")
-        // this.hideElement("hallThruster")
-        // this.showElement("shellToCrossZoom")
+        // this.showElement("learningModeGuide")//:leavingLMG
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
-        this.scenarioRefresh()
     }
 
     /**
      * nextButton_hallThrusterToShell_HandleClick()
      */
     nextButton_hallThrusterToShell_HandleClick() {
+        this.hideElement("hallThrusterOffLabelDiv")
+        this.hideElement("hallThrusterOnLabelDiv")
+
         // transition out of "on" state before zooming
         this.hideElement("hallThrusterOn-fadeIn");
         this.hideElement("hallThrusterOn-fadeOut");
@@ -677,21 +646,11 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
-        //this.hideElement("hallThruster")
 
-        // todo - change text (bad temporary implementation)
-        document.getElementById("hallThrusterNameLabel").innerText = cathodeShellPrimaryTitleText;
-        document.getElementById("hallThrusterNameSublabel").innerText = cathodeShellPrimaryText;
-        // todo - update red text to tell user to click the cathode again to remove its outer shell
-
-        this.hideElement("hallThrusterOffLabel");
-        this.hideElement("hallThrusterOnLabel");
-        this.hideElement("hallThrusterOffSublabel");
-        this.hideElement("hallThrusterOnSublabel");
         this.hideElement("HallThrusterToggle");
 
         this.setState((state, props) => {
-            return { deltastage: base, scene: [false,false,false,false,false,false,true,false] };
+            return { deltastage: hallThrusterOff, scene: [false,false,false,false,false,false,false,false], titleText: cathodeShellPrimaryTitleText, text: cathodeShellPrimaryText};
         }, () => {this.scenarioRefresh()});
     }
 
@@ -699,8 +658,20 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = !newScene[hallThrusterOn];
 
+        let newThrusterButtonText = "";
+
+        // did the user just turn ON the thrusters?
+        if(newScene[hallThrusterOn] === true){
+            newThrusterButtonText = "Off";
+        }
+
+        // did the user just turn OFF the thrusters?
+        if(newScene[hallThrusterOn] === false){
+            newThrusterButtonText = "On";
+        }
+
         this.setState((state, props) => {
-            return { deltastage: hallThrusterOn, scene: newScene };
+            return { deltastage: hallThrusterOn, scene: newScene, thrusterButtonText: newThrusterButtonText };
         }, () => {this.scenarioRefresh()});
     }
 
@@ -713,13 +684,24 @@ export class LearningMode extends React.Component {
         newScene[eject] = !newScene[eject];
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
-        this.showElement("toggleButtonGroup");
+        // this.showElement("toggleButtonGroup");
         this.showElement("summaryButton_")
 
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+
+        newScene[eject] = !newScene[eject];
+        // this.nextButton_end_HandleClick();
+        this.hideElement('nextButton');
+        this.showElement('summaryButton');
+
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
+
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        // this.setState((state, props) => {
+        //     return { deltastage: eject, scene: newScene };
+        // }, () => {this.scenarioRefresh()});
     }
 
     /**
@@ -733,12 +715,10 @@ export class LearningMode extends React.Component {
      */
     nextButton_end_HandleClick() {
 
-        if(this.state.deltastage===eject){
-            this.hideElement('nextButton');
-            this.showElement('summaryButton');
-        }
-        this.setState({text: recapText})
+        this.hideElement('nextButton');
+        this.showElement('summaryButton');
 
+        this.setState({text: recapText})
     }
 
     /**
@@ -751,11 +731,6 @@ export class LearningMode extends React.Component {
     }
 
     render(){
-        // prompt user with warning on attempted page refresh - bind
-        window.onbeforeunload = function() {
-            return "Refreshing this page returns you to our landing page, are you sure?";
-        };
-
         return (
             <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
@@ -779,7 +754,6 @@ export class LearningMode extends React.Component {
                 <img id={"baseCathode-fadeOut"} src={path_lm_csv} className={"fade-out"} alt={"Hollow Cathode: Fade Out"}/>
                 <img id={"thrusterAndCathode-fadeOut"} src={path_hall_thruster} className={"fade-out"} alt={"Thruster and Cathode: Fade Out"}/>
                 <img id={"baseCathode"} src={path_lm_csv} alt={"Base Hollow Cathode"}/>
-                {/*<img id={"testBaseCathode"} src={"/hollow-cathode-visualization/images/test_base_cathode.png"} alt={""}/>*/}{/*//:unused?*/}
 
                 <button id={"HallThrusterNext"}
                         className={"CathodeHitBox_zoomed_out"}>
@@ -797,7 +771,7 @@ export class LearningMode extends React.Component {
                     </button>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
+                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.state.thrusterButtonText}
                     </button>
                 </div>
 
@@ -806,14 +780,9 @@ export class LearningMode extends React.Component {
                     <label id={"hallThrusterOffLabel"}
                            className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is Off
                     </label>
-                </div>
-                {/*Hall thruster powered off text*/}
-                <div id={"hallThrusterOffSublabelDiv"}>
                     <label id={"hallThrusterOffSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>
                         {hallThrusterSecondaryOffText}
-
-                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
 
@@ -822,44 +791,53 @@ export class LearningMode extends React.Component {
                     <label id={"hallThrusterOnLabel"}
                            className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is On
                     </label>
-                </div>
-
-                {/*Hall thruster powered on text*/}
-                <div id={"hallThrusterOnSublabelDiv"}>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>
                         {hallThrusterSecondaryOnText}
-                        <p><b id={"guideText"}>Click on the cathode to learn more about</b></p>
                     </label>
                 </div>
+
 
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
-                           className={"titleLabel hallThrusterNameTitleLabelPos"}> Hall Thruster
+                           className={"titleLabel hallThrusterNameTitleLabelPos"}> {this.state.titleText}
                     </label>
-                </div>
-
-                <div id={"hallThrusterNameSublabelDiv"}>
                     <label id={"hallThrusterNameSublabel"}
                            className={"sublabel hallThrusterNameSublabelPos"}>
-                        {hallThrusterPrimaryText}
+                        {this.state.text}
+                        <p><b className={"guideText"}>{this.state.subText}</b></p>
                     </label>
                 </div>
 
-                <div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
+
+                    <div id={"particleKey"} className={"mrow"}>
+                        <div className={"mmrow"}>
+                            <img src={path_electron} alt={"Electron image alt text"} className={"keyImage electronKey"}/>
+                            <p className={"keyLabel"}>Electron</p>
+                        </div>
+                        <div className={"mmrow"}>
+                            <img src={path_xenon} alt={"Electron image alt text"} className={"keyImage xenonKey"}/>
+                            <p className={"keyLabel"}>Xenon</p>
+                        </div>
+                        <div className={"mmrow"}>
+                            <img src={path_ionized_xenon} alt={"Electron image alt text"} className={"keyImage xenonKey"}/>
+                            <p className={"keyLabel"}>Ionized Xenon</p>
+                        </div>
+                    </div>
+
                     <button id={"HeatInsertToggle"}
-                            className={"button"}
+                            className={"button notActive"}
                             onClick={this.HeatInsertToggle_HandleClick}> Toggle Heaters
                     </button>
                     <button id={"GasFeedToggle"}
-                            className={"button"}
+                            className={"button notActive"}
                             style={{display: "block"}}
                             onClick={this.GasFeedToggle_HandleClick}> Toggle Gas Feed
                     </button>
                     <button id={"KeeperElectrodeToggle"}
-                            className={"button"}
+                            className={"button notActive"}
                             onClick={this.KeeperElectrodeToggle_HandleClick}> Toggle Keeper Electrode
                     </button>
                 </div>

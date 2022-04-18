@@ -1,51 +1,53 @@
-import {Link} from "react-router-dom";
 import React from 'react'
 import PresMode from "./PresMode";
-import {base, recapText} from "./Galactic";
-import Painter from "./Painter";
+import {base, link1url, link2url, link3url, recapText} from "./Galactic";
 
 
 class SummaryPage extends React.Component{
-    constructor() {
-        super();
-
-    }
-
     componentDidMount() {
         PresMode.isAuto = false;
-        console.log(PresMode.isAuto);
+
         if (PresMode.isAuto === false){
             console.log("Summary toggle result: "+PresMode.isAuto);
             document.getElementById('autoToggleButton').click();
         }
+
         document.getElementById('autoToggleButton').style.display='none';
         document.getElementById('nextButton').display= 'none';
     }
 
-    componentWillUnmount() {
-        // prompt user with warning on attempted page refresh - unbind
-        window.onbeforeunload = function() {};
-    }
-
     render(){
-        // prompt user with warning on attempted page refresh - bind
-        window.onbeforeunload = function() {
-            return "Refreshing this page returns you to our landing page, are you sure?";
-        };
-
         return(
             <>
-                <div>
-                    <div className={'summaryTitlePos'}>
+                <div className={"summaryPageContainer"}>
+                    <div className={'titleLabel summaryTitlePos'}>
                         HOLLOW CATHODE VISUALIZATION SUMMARY
                     </div>
+
                     <div id={'summaryContent'} className={'summarySubLabel summarySubLabelPos'}>
-                        <p>
-                            {recapText}
-                        </p>
+                        {recapText}
+                    </div>
+
+                    <div className={"stackedButtonGroup bottomrightAlign"}>
+                        <a href={link1url}>
+                            <button
+                                className={"button notActive"}> Hall Thrusters
+                            </button>
+                        </a>
+                        <a href={link2url}>
+                            <button
+                                    className={"button notActive"}
+                                    style={{display: "block"}}> The Psyche Mission
+                            </button>
+                        </a>
+                        <a href={link3url}>
+                            <button
+                                    className={"button notActive"}> ???
+                            </button>
+                        </a>
                     </div>
                 </div>
-                <PresMode id={"presMode"} deltastage={base} scene={[true, false, false, false, false, false, false, false]} onClick={"eventHandle"}/>
+                <PresMode id={"presMode"} className={"presMode"} deltastage={base} scene={[true, false, false, false, false, false, false, false]} onClick={"eventHandle"}/>
             </>
 
         );
