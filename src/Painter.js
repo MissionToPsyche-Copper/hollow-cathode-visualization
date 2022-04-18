@@ -143,17 +143,6 @@ class Painter{
 
 
 
-    /** Learning Mode */
-    // /**
-    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-    //  */
-    // draw_Hall_Thruster_Off(){ }
-    //
-    // /**
-    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-    //  */
-    // draw_Hall_Thruster_On(){ }
-
     /** Learning Mode and Presentation Mode **/
     /**
      * Public
@@ -202,13 +191,6 @@ class Painter{
         ctx.stroke(); //:debug
     }
 
-    // /**
-    //  * draw_csv_Base_Drawing_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the base drawing for learning mode
-    //  */
-    // draw_csv_Base_Drawing_guide(){ }
-
-
 
     /**
      * draw_csv_Heat_Insert()
@@ -222,12 +204,6 @@ class Painter{
         this.startElectronGenerator(ELECTRON_SPAWN_RATE);
     }
 
-    // /**
-    //  * draw_csv_Heat_Insert_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
-    //  */
-    // draw_csv_Heat_Insert_guide(){ }
-
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
@@ -237,11 +213,6 @@ class Painter{
         this.startXenonGenerator(XENON_SPAWN_RATE);
     }
 
-    // /**
-    //  * draw_csv_gas_feed_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
-    //  */
-    // draw_csv_gas_feed_guide(){ }
 
     /**
      * draw_csv_internal_plasma()
@@ -251,65 +222,22 @@ class Painter{
         ProtoParticle.ionizeParticles();
     }
 
-    // /**
-    //  * draw_csv_internal_plasma_guide() //:unused
-    //  * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
-    //  */
-    // draw_csv_internal_plasma_guide() { }
-
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_on_heat_guide() { }
-    //
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_on_heat_guide() { }
-
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_off_heat_guide() { }
-    //
-    // /**
-    //  * draw_csv_internal_plasma_off_gas_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
-    //  */
-    // draw_csv_internal_plasma_off_gas_guide() { }
-
 
     /**
-     * draw_csv_keeper_electrode() //:unused?
+     * draw_csv_keeper_electrode()
      * Function to draw the keeper electrode visuals (currently only draws a blue square)
      */
     draw_csv_keeper_electrode(){
-
+        ProtoParticle.ejectParticles();
+        //@jake put the E field arrow here
     }
-
-    // /**
-    //  * draw_csv_keeper_electrode_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
-    //  */
-    // draw_csv_keeper_electrode_guide(){ }
 
 
     /**
-     * draw_csv_eject_plasma()
+     * draw_csv_eject_plasma() //:unused
      * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
      */
-    draw_csv_eject_plasma(){
-        ProtoParticle.ejectParticles();
-    }
-
-    // /**
-    //  * draw_csv_eject_plasma_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
-    //  */
-    // draw_csv_eject_plasma_guide() { }
+    draw_csv_eject_plasma(){ }
 
 
 

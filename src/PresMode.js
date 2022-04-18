@@ -152,7 +152,7 @@ class PresMode extends React.Component {
 
         // if eject plasma is active
         if (this.state.scene[eject] === true) {
-            this.painter.draw_csv_eject_plasma();
+            // this.painter.draw_csv_eject_plasma();
         }
 
         // console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -167,7 +167,7 @@ class PresMode extends React.Component {
         let newscene = this.state.scene;
 
         // update the state, currently does not show hall thruster information, and skips those steps entirely by design
-        if(this.state.deltastage === this.state.scene.length - 3){
+        if(this.state.deltastage === this.state.scene.length - 4){
             // special case: loop to beginning         note: this loop intentionally starts at 1 instead of zero
             for (let i = 1; i < this.state.scene.length; i++) {
                 newdeltastage = base;

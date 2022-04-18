@@ -224,14 +224,12 @@ export class LearningMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        console.log(this.state)
+        console.log(this.state)//:debug
 
         // Execute logic based on deltastage and scene
 
         //**// hallThrusterOff tells us it is this scene
         //**// hallThrusterOn toggles the thruster
-
-
 
 
         /*// Learning Mode Intro first slide/stage/scene //*/
@@ -429,7 +427,7 @@ export class LearningMode extends React.Component {
         // EJECT PLASMA // -----------
         if(this.state.scene[eject]){
             if(this.state.scene[heat] && this.state.scene[gas] && this.state.scene[plasma] && this.state.scene[keeper]){
-                this.painter.draw_csv_eject_plasma();
+                // this.painter.draw_csv_eject_plasma();
 
                 // if the user just triggered eject plasma
                 if(this.state.deltastage === eject){
@@ -455,7 +453,8 @@ export class LearningMode extends React.Component {
                 this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
-                document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
+                this.nextButton_eject_HandleClick(); // skip eject
+                // document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
         // if eject is false and deltastage is plasma
@@ -696,13 +695,24 @@ export class LearningMode extends React.Component {
         newScene[eject] = !newScene[eject];
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
-        this.showElement("toggleButtonGroup");
+        // this.showElement("toggleButtonGroup");
         this.showElement("summaryButton_")
 
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+
+        newScene[eject] = !newScene[eject];
+        // this.nextButton_end_HandleClick();
+        this.hideElement('nextButton');
+        this.showElement('summaryButton');
+
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
+
+
+        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
+        // this.setState((state, props) => {
+        //     return { deltastage: eject, scene: newScene };
+        // }, () => {this.scenarioRefresh()});
     }
 
     /**
@@ -716,12 +726,10 @@ export class LearningMode extends React.Component {
      */
     nextButton_end_HandleClick() {
 
-        if(this.state.deltastage===eject){
-            this.hideElement('nextButton');
-            this.showElement('summaryButton');
-        }
-        this.setState({text: recapText})
+        this.hideElement('nextButton');
+        this.showElement('summaryButton');
 
+        this.setState({text: recapText})
     }
 
     /**
