@@ -45,7 +45,8 @@ import {
     plasmaSubText,
     ejectSubText,
     gasKeeperErrorSubText,
-    heatKeeperErrorSubText, gasKeeperErrorTitleText
+    heatKeeperErrorSubText,
+    gasKeeperErrorTitleText, hallThrusterSecondaryOffTitleText, hallThrusterSecondaryOnTitleText
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
@@ -54,6 +55,7 @@ import {Link} from "react-router-dom";
 // Testing?/unknown //
 const {promisify} = require('util')
 const sleep = promisify(setTimeout)
+const path_landing_page_URL = "http://localhost:3000/hollow-cathode-visualization"; // UPDATE ON DEPLOYMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // Image Paths //
 const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off_HDPS125.png";
@@ -119,7 +121,7 @@ export class LearningMode extends React.Component {
             this.state.canvas_height = document.getElementById("page-container").clientHeight;
             this.state.canvas_width = document.getElementById("page-container").clientWidth;
         }catch(exception){
-            document.location.href="http://localhost:3000/hollow-cathode-visualization";
+            document.location.href=path_landing_page_URL;
         }
 
         // Hall Thruster toggle button text
@@ -135,6 +137,9 @@ export class LearningMode extends React.Component {
     }
 
     componentWillUnmount() {
+        HALL_THRUSTER_ON = false;
+        this.thrusterButtonText = "On";
+
         window.removeEventListener('resize', this.handleResize);
         this.painter.killProtoParticle();
     }
@@ -213,6 +218,8 @@ export class LearningMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
+        console.log(this.state)
+
         // Execute logic based on deltastage and scene
         // console.log('scenarioRefresh active: '+this.scene);//:debug
         // this.setState({text: " "})
@@ -235,9 +242,9 @@ export class LearningMode extends React.Component {
         {
             this.hideElement("toggleButtonGroup");
 
-            this.showElement("hallThrusterOnLabelDiv");
+            this.hideElement("hallThrusterOffLabelDiv"); // fine
 
-            this.hideElement("hallThrusterOffLabelDiv");
+            this.showElement("hallThrusterOnLabelDiv"); // fine
         }
 
         // Hall Thruster toggle button text
@@ -632,8 +639,8 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass");
-        this.hideElement("hallThruster")
-        this.showElement("shellToCrossZoom")
+        this.hideElement("hallThruster");
+        this.showElement("shellToCrossZoom");
 
         await this.delay(1300);
 
@@ -644,29 +651,18 @@ export class LearningMode extends React.Component {
         this.showElement("toggleButtonGroup");
 
         this.hideElement("hallThrusterButtonGroup");
-        // this.hideElement("hallThrusterOffLabelDiv");
-        // this.hideElement("hallThrusterOnLabelDiv");
-        // this.hideElement("hallThrusterOffSublabelDiv");
-        // this.hideElement("hallThrusterOnSublabelDiv");
 
         // this.hideElement("hallThrusterNameLabelDiv");//:leavingLMG
 
-        // this.hideElement("hallThrusterNameSublabelDiv");
         this.hideElement("HallThrusterNext");
-        // this.hideElement("shellToCrossZoom");
 
         this.hideElement("hallThrusterOn-fadeIn")
         this.hideElement("hallThrusterOn-fadeOut")
-        // this.hideElement("hallThruster")
-        // this.showElement("shellToCrossZoom")
         // this.showElement("learningModeGuide")//:leavingLMG
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
         }, () => {this.scenarioRefresh()});
-        // this.scenarioRefresh()
-        // await this.delay(3000); //:Jack
-        // this.hideElement("hallThruster");
     }
 
     /**
@@ -690,7 +686,6 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
-        //this.hideElement("hallThruster")
 
         this.hideElement("HallThrusterToggle");
 
@@ -802,7 +797,7 @@ export class LearningMode extends React.Component {
                 {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is Off
+                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> {hallThrusterSecondaryOffTitleText}
                     </label>
                     <label id={"hallThrusterOffSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>
@@ -813,7 +808,7 @@ export class LearningMode extends React.Component {
                 {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is On
+                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> {hallThrusterSecondaryOnTitleText}
                     </label>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>

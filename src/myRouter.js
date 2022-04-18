@@ -25,7 +25,7 @@ function MyRouter(){
             <div className={"hideWhenTooSmall"}>
                 <Routes>
                     <Route path={'/hollow-cathode-visualization/'} element={<LandingPage id={"LandingPage"}/>}/>
-                    <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={hallThrusterOff}
+                    <Route path={'/hollow-cathode-visualization/learning'} element={<LearningMode id={"LearningMode"} deltastage={-1}
                                                                               scene={[false, false, false, false, false, false, true, false]}/>}/>
                     <Route path={'/hollow-cathode-visualization/presentation'} element={<PresMode id={"presMode"} deltastage={base}
                                                                               scene={[true, false, false, false, false, false, false, false]}/>}/>
