@@ -60,10 +60,10 @@ code {
 }
 
 @keyframes fadeIn {
-  0% {
+  from {
     opacity:0;
   }
-  100% {
+  to {
     opacity:1;
   }
 }
@@ -79,10 +79,10 @@ code {
 }
 
 @keyframes fadeOut {
-  0% {
+  from {
     opacity:1;
   }
-  100% {
+  to {
     opacity:0;
   }
 }
@@ -137,12 +137,9 @@ code {
 #hallThruster{
   position: absolute;
 
-  max-width: 60%;
-  height: auto;
-
-  top: -13vh;
-  left: -15vw;
-  right: 20vw;
+  height: 150vh; /* linked a0 */
+  top: -12vh; /* linked a0 */
+  left: -6vw; /* linked a0 */
 
   z-index: 0;
 }
@@ -150,12 +147,11 @@ code {
 #hallThrusterOn-fadeIn{
   position: absolute;
 
-  max-width: 80%;
-  height: auto;
-
-  top: -13vh;
-  left: -15vw;
-  right: 20vw;
+  display: none;
+  
+  height: 150vh; /* linked a0 */
+  top: -12vh; /* linked a0 */
+  left: -6vw; /* linked a0 */
 
   z-index: 0;
 }
@@ -163,61 +159,50 @@ code {
 #hallThrusterOn-fadeOut{
   position: absolute;
 
-  max-width: 80%;
-  height: auto;
-
-  top: -13vh;
-  left: -15vw;
-  right: 20vw;
+  display: none;
+  
+  height: 150vh; /* linked a0 */
+  top: -12vh; /* linked a0 */
+  left: -6vw; /* linked a0 */
 
   z-index: 0;
 }
 
 /* CLASS for animation for zooming on on cathode from hall thruster */
 .hallThrusterToCathodeZoom{
-  animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
-  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+  animation-fill-mode: forwards;
+  animation-delay: 0.1s;
   animation-duration: 2.8s;
   animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
-  /*animation-direction: alternate;*/
 }
 
 @keyframes cathodeZoomIn {
   from {
-        transform: rotate(0deg) scale(1.0);
-
-        top: -13vh;
-        left: -15vw;
-        right: 20vw;
-
-        z-index: 0;
+    transform: rotate(0deg) scale(1.0);
+    top: -12vh; /* linked a0 */
+    left: -6vw; /* linked a0 */
   }
   to
   {
-    transform: rotate(-15deg) scale(3.5);
-        top: 165vh;
-        left: -20vw;
-        right: 20vw;
+    transform: rotate(-15deg) scale(4.0); /* linked b1 */
+    top: 185vh; /* linked b1 */
+    left: 20vw; /* linked b1 */
   }
 }
 
 #shellToCrossZoom{
   position: absolute;
 
-  max-width: 60%;
-  height: auto;
+  display: none;
 
-  /*top: -13vh;*/
-  /*left: -15vw;*/
-  /*right: 20vw;*/
+  height: 150vh; /* linked a0 */
 
   z-index: 0;
 
-  transform: rotate(-15deg) scale(3.5);
-  top: 165vh;
-  left: -20vw;
-  right: 20vw;
+  transform: rotate(-15deg) scale(4.0); /* linked b1 */
+  top: 185vh; /* linked b1 */
+  left: 20vw; /* linked b1 */
 }
 
 .shellToCrossZoomAnimationClass{
@@ -231,39 +216,32 @@ code {
 
 @keyframes shellToCrossZoomAnimation {
   from {
-    transform: rotate(-15deg) scale(3.5);
-    top: 165vh;
-    left: -20vw;
-    right: 20vw;
+    transform: rotate(-15deg) scale(4.0); /* linked b1 */
+    top: 185vh; /* linked b1 */
+    left: 20vw; /* linked b1 */
   }
   to
   {
-    transform: rotate(-15deg) scale(6);
-    top: 326vh;
-    left: -40vw;
-    right: 20vw;
+    transform: rotate(-15deg) scale(6.0); /* linked c2 */
+    top: 281vh; /* linked c2 */
+    left: 16vw; /* linked c2 */
   }
 
-  /*animation: fadeOut ease 3s;*/
-  /*-webkit-animation: fadeOut ease 3s;*/
-  /*-moz-animation: fadeOut ease 3s;*/
-  /*-o-animation: fadeOut ease 3s;*/
-  /*-ms-animation: fadeOut ease 3s;*/
-
-  /*animation-fill-mode: forwards;*/
 }
 
+
+#thrusterAndCathode-fadeOut{
+  transform: rotate(-15deg) scale(6.0); /* linked c2 */
+
+  height: 150vh; /* linked a0 */
+
+  top: 281vh; /* linked c2 */
+  left: 16vw; /* linked c2 */
+}
+
+/* unknown? */
 .thrusterAndCathode-finalPosition{
   position: absolute;
-  /*height: 82vh;*/
-  min-height: 350px;
-
-  /*top: -1vh;*/
-  /*left: 10vw;*/
-  right: 20vw;
-
-  /*width: 60vw;*/
-  /*min-width: 60vw;*/
 
   z-index: 0;
 
@@ -273,46 +251,33 @@ code {
   transform: rotate(-28deg);
 }
 
-/*.crossSectionPosition{*/
-/*  height: 60vh;*/
-/*  width: 60%;*/
-
-/*  left: 10vw;*/
-/*  top: -50vh;*/
-
-/*  min-height: 350px;*/
-/*}*/
-
 #zoomedShellPos{
-  transform: rotate(-15deg) scale(6);
-  top: 326vh;
-  left: -40vw;
-  right: 20vw;
+  transform: rotate(-15deg) scale(6); /* linked c2 */
+  top: 281vh; /* linked c2 */
+  left: 16vw; /* linked c2 */
 }
 
 #shellFadeOut{
-  /*max-width: 10%;*/
-  /*height: auto;*/
-
-  /*top: 326vh;*/
-  /*left: -40vw;*/
-  /*right: 20vw;*/
-
   position: absolute;
+  display: none;
 
-  max-width: 60%;
-  height: auto;
+  transform: rotate(-15deg) scale(6.0); /* linked c2 */
 
-  top: 326vh;
-  left: -40vw;
-  right: 20vw;
+  height: 150vh; /* linked a0 */
 
-  z-index: 0;
-
-  transform: rotate(-15deg) scale(6);
+  top: 281vh; /* linked c2 */
+  left: 16vw; /* linked c2 */
 }
 
 .shell-fade-out {
+  transform: rotate(-15deg) scale(5.0); /* linked c2 */
+
+  height: 150vh; /* linked a0 */
+
+  top: 281vh; /* linked c2 */
+  left: 16vw; /* linked c2 */
+
+
   animation: shellFade ease 3s;
   /*animation-delay: 4s;*/
   -webkit-animation: shellFade ease 3s;
@@ -323,15 +288,25 @@ code {
   animation-fill-mode: forwards;
 }
 @keyframes shellFade {
-  0% {
-    opacity:1;
+  from {
+    opacity: 1;
+    height: 150vh; /* linked a0 */
+
+    top: 281vh; /* linked c2 */
+    left: 16vw; /* linked c2 */
   }
-  100% {
+  to {
     opacity:0;
+    height: 150vh; /* linked a0 */
+
+    top: 281vh; /* linked c2 */
+    left: 16vw; /* linked c2 */
   }
 }
 
-/* layering */
+
+/*// Layering //*/
+
 #canvas0{
   /*border: 1px rgba(255, 0, 0, 0.23);*/
   /*transform: translate(85px, 96px) rotate(15deg);*/
@@ -372,16 +347,25 @@ code {
   /*border: 1px solid orange;*/
   z-index: 7;
 }
+/*//*/
 
-/* (landing page spacecraft) */
-#spacecraft_image{
-  height: 80vh;
-  width: 85%;
-  min-height: 350px;
-  visibility: visible;
+/*// Buttons //*/
+
+/* Show active when toggled */
+#HeatInsertToggle.active{
+  background-color: #d55f83; /* #282c34 */
+}
+#GasFeedToggle.active{
+  background-color: #d55f83; /* #a83c5c */
+}
+#KeeperElectrodeToggle.active{
+  background-color: #d55f83; /* #912747 #a83c5c */
+}
+#autoToggleButton.active{
+  background-color: #d55f83; /* #912747 #a83c5c */
 }
 
-/* Buttons */
+/* Positioning classes */
 /* vertically stack a div of buttons */
 /* use with bottom__align to align the group */
 .stackedButtonGroup{
@@ -412,6 +396,16 @@ code {
   align-items: flex-start;
 }
 
+/* defines spacing between buttons */
+.stackedButtonGroup > button{
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+/*//*/
+
+
+
+/*// Landing Page //*/
 /* landing page title */
 .stackedButtonGroup.landingPageTitleAlign{
   top: 10vh;
@@ -433,15 +427,73 @@ code {
   align-items: flex-start;
 }
 
-/* defines spacing between buttons */
-.stackedButtonGroup > button{
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
+/* (landing page spacecraft) */
+#spacecraft_image{
+  height: 80vh;
+  width: 85%;
+  min-height: 350px;
+  visibility: visible;
 }
 
+/*//*/
 
 
-#guideText{
+
+.guideText{
   color: #a83c5c;
   font-size: 1.2em;
 }
+
+
+
+/*// Particle Key / Guide //*/
+/* Position */
+#particleKey{
+  /*position: absolute;*/
+  /*top: 10vh;*/
+  /*left: 20vw;*/
+
+  padding-bottom: 2vh;
+
+  display: none;
+
+  z-index: 10;
+}
+
+.electronKey{
+  height: 4.8vh;
+  padding: 2%;
+}
+
+.xenonKey{
+  height: 8vh;
+  padding: 2%;
+}
+
+
+.mrow{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.mmrow{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mcolumn{
+  /*display: inline-flex;*/
+  flex: available;
+  /*flex: 50%;*/
+  padding: 3px;
+}
+
+.keyLabel{
+  width: 100%;
+  font-size: calc(2vmin);
+}
+
+/*//*/

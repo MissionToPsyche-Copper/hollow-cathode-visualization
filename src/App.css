@@ -443,14 +443,20 @@ img{
 }
 
 #learningModeGuide {
-    top: 28%; /*alt measure: 20vh*/
+    top: 12%;
     left: 55vw;
-    width: auto;
+    width: 31vw;
     text-align: left;
     position: absolute;
     overflow-wrap: normal;
+
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
 }
 
+/*// Reference Page //*/
 .referenceLabelPos{
     bottom: 0;
     display: block;
@@ -468,26 +474,29 @@ img{
     height: 40vh; /* from inline styling */
 }
 
-#summary{
-    display: flex;
-    float: right;
-    text-align: left;
+.reference-link{
+    color: #f5f5f5;
 }
+/*//*/
 
+/*// Summary Page //*/
 .summarySubLabelPos{
-    margin-right: 20%;
-    margin-left: 20%;
+    text-align: left;
+    position: absolute;
+    top: 11%;
+    left: 54vw;
+
+    max-width: 35vw;
+    min-width: 20vw;
 }
 
 .summaryTitlePos{
-    text-align: center;
-    font-family: "Courier New";
-    color: #A53F5B;
-    font-size: clamp(30px, 2.2vw, 70px);
+    position: absolute;
     padding: 8px;
-    font-weight: bold;
     width: 100%;
-    z-index: 14;
+    top: 3vh;
+    left: 0vw;
+    z-index: 20;
 }
 
 .summarySubLabel{
@@ -496,13 +505,11 @@ img{
 
 
 #summaryContent{
-    margin-top: 5rem;
-    margin-left:60%;
-    margin-right: 10%;
-    text-align: justify;
+    /*top: 3vh;*/
+    /*margin-left:60%;*/
+    /*margin-right: 10%;*/
+    /*text-align: justify;*/
 }
+/*//*/
 
-.reference-link{
-    color: #f5f5f5;
-}
 

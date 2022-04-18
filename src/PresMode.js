@@ -1,7 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
-import LandingPage from "./LandingPage.js";
 import Painter from "./Painter";
 
 /**
@@ -9,15 +6,7 @@ import Painter from "./Painter";
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-import {
-    base,
-    eject,
-    gas,
-    heat,
-    keeper,
-    plasma
-} from "./Galactic";
-import ProtoParticle from "./ProtoParticle";
+import {base, eject, gas, heat, keeper, plasma} from "./Galactic";
 import {Link} from "react-router-dom";
 
 
@@ -61,8 +50,13 @@ class PresMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene };
 
-        this.state.canvas_height = document.getElementById("page-container").clientHeight;
-        this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        // reload page bug temporary fix
+        try{
+            this.state.canvas_height = document.getElementById("page-container").clientHeight;
+            this.state.canvas_width = document.getElementById("page-container").clientWidth;
+        }catch(exception){
+            document.location.href="http://localhost:3000/hollow-cathode-visualization";
+        }
     }
 
     /**
@@ -94,8 +88,6 @@ class PresMode extends React.Component {
     }
 
     componentWillUnmount() {
-        // prompt user with warning on attempted page refresh - unbind
-        window.onbeforeunload = function() {};
     }
 
 
@@ -149,7 +141,7 @@ class PresMode extends React.Component {
 
         // if eject plasma is active
         if (this.state.scene[eject] === true) {
-            this.painter.draw_csv_eject_plasma();
+            // this.painter.draw_csv_eject_plasma();
         }
 
         // console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
@@ -164,7 +156,7 @@ class PresMode extends React.Component {
         let newscene = this.state.scene;
 
         // update the state, currently does not show hall thruster information, and skips those steps entirely by design
-        if(this.state.deltastage === this.state.scene.length - 3){
+        if(this.state.deltastage === this.state.scene.length - 4){
             // special case: loop to beginning         note: this loop intentionally starts at 1 instead of zero
             for (let i = 1; i < this.state.scene.length; i++) {
                 newdeltastage = base;
@@ -211,7 +203,9 @@ class PresMode extends React.Component {
      */
     autoToggleButton_HandleClick() {
         PresMode.isAuto = !PresMode.isAuto;
-        console.log(PresMode.isAuto);
+
+        document.getElementById("autoToggleButton").classList.toggle("active");
+
         if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
@@ -225,11 +219,6 @@ class PresMode extends React.Component {
     }
 
     render(){
-        // prompt user with warning on attempted page refresh - bind
-        window.onbeforeunload = function() {
-            return "Refreshing this page returns you to our landing page, are you sure?";
-        };
-
         return (
             <div id={'canvasHolder'}>
                 <canvas id={"canvas0"} ref={this.canvas0} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
