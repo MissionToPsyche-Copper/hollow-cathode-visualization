@@ -690,7 +690,7 @@ export class LearningMode extends React.Component {
         this.hideElement("HallThrusterToggle");
 
         this.setState((state, props) => {
-            return { deltastage: base, scene: [false,false,false,false,false,false,false,false], titleText: cathodeShellPrimaryTitleText, text: cathodeShellPrimaryText};
+            return { deltastage: hallThrusterOff, scene: [false,false,false,false,false,false,false,false], titleText: cathodeShellPrimaryTitleText, text: cathodeShellPrimaryText};
         }, () => {this.scenarioRefresh()});
     }
 
