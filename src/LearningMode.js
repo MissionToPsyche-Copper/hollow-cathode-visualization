@@ -46,7 +46,7 @@ import {
     ejectSubText,
     gasKeeperErrorSubText,
     heatKeeperErrorSubText,
-    gasKeeperErrorTitleText, hallThrusterSecondaryOffTitleText, hallThrusterSecondaryOnTitleText
+    gasKeeperErrorTitleText
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
@@ -113,8 +113,14 @@ export class LearningMode extends React.Component {
         this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
+
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText};
+        this.state = { deltastage: props.deltastage, scene: props.scene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
+
+        // MANUAL OVERRIDE // !!!!!!!!!!!!!!! //todo - bad temp code //:debug
+        let newScene = this.state.scene;
+        newScene[hallThrusterOn] = false;
+        this.state = { deltastage: props.deltastage, scene: newScene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
 
         // reload page bug temporary fix
         try{
@@ -124,21 +130,21 @@ export class LearningMode extends React.Component {
             document.location.href=path_landing_page_URL;
         }
 
-        // Hall Thruster toggle button text
-        if(this.state.scene[hallThrusterOn] === true) {
-            this.thrusterButtonText = "Off";
-        }
-        else {
-            this.thrusterButtonText = "On";
-        }
+        // // Hall Thruster toggle button text
+        // if(this.state.scene[hallThrusterOn] === true) {
+        //     this.setState({thrusterButtonText: "Off"});
+        // }
+        // else {
+        //     this.setState({thrusterButtonText: "On"});
+        // }
 
 
         window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        HALL_THRUSTER_ON = false;
-        this.thrusterButtonText = "On";
+        this.hideElement("hallThrusterOn-fadeIn");
+        this.hideElement("hallThrusterOn-fadeOut");
 
         window.removeEventListener('resize', this.handleResize);
         this.painter.killProtoParticle();
@@ -221,78 +227,44 @@ export class LearningMode extends React.Component {
         console.log(this.state)
 
         // Execute logic based on deltastage and scene
-        // console.log('scenarioRefresh active: '+this.scene);//:debug
-        // this.setState({text: " "})
-        if(this.state.scene[hallThrusterOff] === true) {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
 
+        //**// hallThrusterOff tells us it is this scene
+        //**// hallThrusterOn toggles the thruster
+
+
+
+
+        /*// Learning Mode Intro first slide/stage/scene //*/
+        if(this.state.scene[hallThrusterOff] === true && this.state.deltastage === hallThrusterOff){
             this.hideElement("toggleButtonGroup");
-            this.hideElement("summaryButton_")
+            this.hideElement("summaryButton_");
+        }
 
-            this.showElement("hallThrusterOffLabelDiv");
+        // did the user just turn ON the thrusters?
+        if(this.state.scene[hallThrusterOn] === true && this.state.deltastage === hallThrusterOn){
+            this.showElement("hallThrusterOn-fadeIn");
+            this.hideElement("hallThrusterOn-fadeOut");
+
+            this.showElement("hallThrusterOnLabelDiv");
+            this.hideElement("hallThrusterOffLabelDiv");
+
+            this.setState({thrusterButtonText: "Off"});
+        }
+
+        // did the user just turn OFF the thrusters?
+        if(this.state.scene[hallThrusterOn] === false && this.state.deltastage === hallThrusterOn){
+            this.hideElement("hallThrusterOn-fadeIn");
+            this.showElement("hallThrusterOn-fadeOut");
+
             this.hideElement("hallThrusterOnLabelDiv");
+            this.showElement("hallThrusterOffLabelDiv");
 
-
-            this.hideElement("shellToCrossZoom");
-            this.hideElement("shellFadeOut");
-        }
-
-        if (this.state.scene[hallThrusterOn] === true)
-        {
-            this.hideElement("toggleButtonGroup");
-
-            this.hideElement("hallThrusterOffLabelDiv"); // fine
-
-            this.showElement("hallThrusterOnLabelDiv"); // fine
-        }
-
-        // Hall Thruster toggle button text
-        // programed backwards because of order of execution
-
-        //If the user turns the hall thruster on
-        if(this.state.scene[hallThrusterOn] === true){
-            HALL_THRUSTER_ON = true;
-            this.showElement("hallThrusterOn-fadeIn")
-
-            this.thrusterButtonText = "Off";
-        }
-        //If the user turns the hall thruster off after it was just on
-        else if(HALL_THRUSTER_ON === true)
-        {
-            this.showElement("hallThrusterOn-fadeOut")
-            this.thrusterButtonText = "On";
-
-            //HALL_THRUSTER_ON = false;
-        }
-        //If the hall thruster is off
-        //Also the first thing to happen in Hall Thruster view
-        else
-        {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
-
-            this.thrusterButtonText = "On";
-        }
-
-        if(this.state.scene[hallThrusterOn] === false && this.state.scene[hallThrusterOff] === false)
-        {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
+            this.setState({thrusterButtonText: "On"});
         }
 
 
-        if(this.state.scene[hallThrusterOn] === true) {
-            // this.painter.draw_Hall_Thruster_On();
 
-        } else if (this.state.deltastage === hallThrusterOn) {
-            this.painter.clearCanvas(hallThrusterOn);
-
-        }else{
-            this.hideElement("hallThrusterOn-fadeOut")
-            this.hideElement("hallThrusterOn-fadeIn")
-        }
-
+        /*// Learning Mode core first stage/scene //*/
         // if basedrawing is active
         if(this.state.scene[base] === true){
             // console.log('base cathode is drawing')//:debug
@@ -698,8 +670,20 @@ export class LearningMode extends React.Component {
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = !newScene[hallThrusterOn];
 
+        let newThrusterButtonText = "";
+
+        // did the user just turn ON the thrusters?
+        if(newScene[hallThrusterOn] === true){
+            newThrusterButtonText = "Off";
+        }
+
+        // did the user just turn OFF the thrusters?
+        if(newScene[hallThrusterOn] === false){
+            newThrusterButtonText = "On";
+        }
+
         this.setState((state, props) => {
-            return { deltastage: hallThrusterOn, scene: newScene };
+            return { deltastage: hallThrusterOn, scene: newScene, thrusterButtonText: newThrusterButtonText };
         }, () => {this.scenarioRefresh()});
     }
 
@@ -790,14 +774,14 @@ export class LearningMode extends React.Component {
                     </button>
                     <button id={"HallThrusterToggle"}
                             className={"button"}
-                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.thrusterButtonText}
+                            onClick={this.hallThrusterToggle_HandleClick}> Turn Power {this.state.thrusterButtonText}
                     </button>
                 </div>
 
                 {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOffLabelDiv"}>
                     <label id={"hallThrusterOffLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> {hallThrusterSecondaryOffTitleText}
+                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is Off
                     </label>
                     <label id={"hallThrusterOffSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>
@@ -808,7 +792,7 @@ export class LearningMode extends React.Component {
                 {/*Hall thruster powered on label/title text*/}
                 <div id={"hallThrusterOnLabelDiv"}>
                     <label id={"hallThrusterOnLabel"}
-                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> {hallThrusterSecondaryOnTitleText}
+                           className={"titleLabel hallThrusterOffTitleLabelPos  "}> The Hall Thruster Is On
                     </label>
                     <label id={"hallThrusterOnSublabel"}
                            className={"sublabel hallThrusterOffSublabelPos  "}>

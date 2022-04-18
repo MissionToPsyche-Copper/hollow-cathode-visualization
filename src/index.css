@@ -146,6 +146,8 @@ code {
 
 #hallThrusterOn-fadeIn{
   position: absolute;
+
+  display: none;
   
   height: 150vh; /* linked a0 */
   top: -12vh; /* linked a0 */
@@ -156,6 +158,8 @@ code {
 
 #hallThrusterOn-fadeOut{
   position: absolute;
+
+  display: none;
   
   height: 150vh; /* linked a0 */
   top: -12vh; /* linked a0 */
@@ -189,6 +193,8 @@ code {
 
 #shellToCrossZoom{
   position: absolute;
+
+  display: none;
 
   height: 150vh; /* linked a0 */
 
@@ -253,6 +259,7 @@ code {
 
 #shellFadeOut{
   position: absolute;
+  display: none;
 
   transform: rotate(-15deg) scale(6.0); /* linked c2 */
 
