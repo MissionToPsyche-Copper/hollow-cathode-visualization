@@ -443,12 +443,17 @@ img{
 }
 
 #learningModeGuide {
-    top: 28%; /*alt measure: 20vh*/
+    top: 12%;
     left: 55vw;
-    width: auto;
+    width: 31vw;
     text-align: left;
     position: absolute;
     overflow-wrap: normal;
+
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
 }
 
 .referenceLabelPos{

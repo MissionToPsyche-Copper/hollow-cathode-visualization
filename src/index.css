@@ -398,7 +398,7 @@ code {
 
 
 
-/*/ Landing Page /*/
+/*// Landing Page //*/
 /* landing page title */
 .stackedButtonGroup.landingPageTitleAlign{
   top: 10vh;
@@ -432,7 +432,61 @@ code {
 
 
 
-#guideText{
+.guideText{
   color: #a83c5c;
   font-size: 1.2em;
 }
+
+
+
+/*// Particle Key / Guide //*/
+/* Position */
+#particleKey{
+  /*position: absolute;*/
+  /*top: 10vh;*/
+  /*left: 20vw;*/
+
+  padding-bottom: 2vh;
+
+  display: none;
+
+  z-index: 10;
+}
+
+.electronKey{
+  height: 4.8vh;
+  padding: 2%;
+}
+
+.xenonKey{
+  height: 8vh;
+  padding: 2%;
+}
+
+
+.mrow{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.mmrow{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mcolumn{
+  /*display: inline-flex;*/
+  flex: available;
+  /*flex: 50%;*/
+  padding: 3px;
+}
+
+.keyLabel{
+  width: 100%;
+  font-size: calc(2vmin);
+}
+
+/*//*/

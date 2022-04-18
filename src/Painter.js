@@ -156,6 +156,7 @@ class Painter{
 
     /** Learning Mode and Presentation Mode **/
     /**
+     * Public
      * draw_csv_Base_Drawing()
      *
      * Function to draw the base cathode visuals

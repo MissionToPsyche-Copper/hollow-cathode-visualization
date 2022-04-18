@@ -5,13 +5,13 @@ import {
     left_of_cathode_constant,
     bottom_of_cathode_constant,
     top_of_cathode_constant,
-    particle_right_bounding_box
+    particle_right_bounding_box,
+    path_electron,
+    path_xenon,
+    path_ionized_xenon
 } from "./Galactic";
 
 /// CONSTANTS ///
-const path_electron = "/hollow-cathode-visualization/images/electron.png";
-const path_xenon = "/hollow-cathode-visualization/images/xenon.png";
-const path_ionized_xenon = "/hollow-cathode-visualization/images/ionized_xenon.png";
 
 // Pre-load images //
 const electronImage = new Image();
