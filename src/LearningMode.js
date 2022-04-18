@@ -207,11 +207,11 @@ export class LearningMode extends React.Component {
         // console.log('scenarioRefresh active: '+this.scene);//:debug
         this.setState({text: " "})
         if(this.state.scene[hallThrusterOff] === true) {
-            this.hideElement("hallThrusterOn-fadeIn")
-            this.hideElement("hallThrusterOn-fadeOut")
+            this.hideElement("hallThrusterOn-fadeIn");
+            this.hideElement("hallThrusterOn-fadeOut");
 
             this.hideElement("toggleButtonGroup");
-            this.hideElement("summaryButton_")
+            this.hideElement("summaryButton_");
 
             // this.painter.draw_Hall_Thruster_Off();
 

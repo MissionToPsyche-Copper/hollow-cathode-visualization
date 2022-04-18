@@ -2,8 +2,9 @@ import React from "react";
 import Painter from "./Painter";
 import {Link} from "react-router-dom";
 
-/// CONSTANTS ///
+// Image Paths //
 const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
+const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
 ///
 
 /**
@@ -28,6 +29,8 @@ export class LandingPage extends React.Component {
 
         this.layers = [ctx0];
         this.painter = new Painter(this.layers);
+
+        this.hideElement("landPageThruster")
 
         this.showElement("landingPageTitleDiv")
         this.showElement("landingPageSubTitleDiv")
@@ -66,6 +69,8 @@ export class LandingPage extends React.Component {
         return (
             <div id={'canvasHolder'}>
                 <div>
+                    <img id={"landPageThruster"} src={path_hall_thruster} className={" "} alt={"thruster/cathode combo that's zoomed into when user enters learning mode"}/>
+
                     <canvas id={"canvas"}
                             onClick={this.LearningMode_HandleClick}
                             ref={this.canvas}
