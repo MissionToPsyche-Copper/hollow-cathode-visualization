@@ -3,50 +3,48 @@ import Painter from "./Painter";
 
 import {
     base,
+    cathodeCSVSubText,
+    cathodeCSVText,
+    cathodeCSVTitleText,
+    cathodeShellPrimaryText,
+    cathodeShellPrimaryTitleText,
     eject,
+    ejectSubText,
+    ejectText,
+    ejectTitleText,
     gas,
+    gasKeeperErrorSubText,
+    gasKeeperErrorText,
+    gasKeeperErrorTitleText,
+    gasSubText,
+    gasText,
+    gasTitleText,
     hallThrusterOff,
     hallThrusterOn,
-    heat,
-    keeper,
-    plasma,
     hallThrusterPrimaryText,
-    hallThrusterSecondaryOnText,
-    hallThrusterSecondaryOffText,
-    cathodeShellPrimaryTitleText,
-    cathodeShellPrimaryText,
-    heatTitleText,
-    heatText,
-    gasTitleText,
-    gasText,
-    plasmaTitleText,
-    plasmaText,
-    keeperTitleText,
-    keeperText,
-    ejectTitleText,
-    ejectText,
-    heatKeeperErrorTitleText,
-    heatKeeperErrorText,
-    gasKeeperTitleText,
-    gasKeeperErrorText,
-    cathodeCSVTitleText,
-    cathodeCSVText,
-    references,
-    path_lm_csv,
-    recapText,
-    path_electron,
-    path_xenon,
-    path_ionized_xenon,
     hallThrusterPrimaryTitleText,
-    cathodeCSVSubText,
-    keeperSubText,
-    heatSubText,
-    gasSubText,
-    plasmaSubText,
-    ejectSubText,
-    gasKeeperErrorSubText,
+    hallThrusterSecondaryOffText,
+    hallThrusterSecondaryOnText,
+    heat,
     heatKeeperErrorSubText,
-    gasKeeperErrorTitleText
+    heatKeeperErrorText,
+    heatKeeperErrorTitleText,
+    heatSubText,
+    heatText,
+    heatTitleText,
+    keeper,
+    keeperSubText,
+    keeperText,
+    keeperTitleText,
+    path_electron,
+    path_ionized_xenon,
+    path_lm_csv,
+    path_xenon,
+    plasma,
+    plasmaSubText,
+    plasmaText,
+    plasmaTitleText,
+    recapText
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
@@ -55,11 +53,11 @@ import {Link} from "react-router-dom";
 // Testing?/unknown //
 const {promisify} = require('util')
 const sleep = promisify(setTimeout)
-const path_landing_page_URL = "http://localhost:3000/hollow-cathode-visualization"; // UPDATE ON DEPLOYMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const path_landing_page_URL = "/";
 
 // Image Paths //
 const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off_HDPS125.png";
-const path_hall_thruster_on = "/hollow-cathode-visualization/images/test_5_big_hall_thruster_ON_HDPS125.png";
+const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_ON_HDPS125.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 

@@ -40,14 +40,14 @@ export const path_ionized_xenon = "/hollow-cathode-visualization/images/ionized_
 export const hallThrusterPrimaryTitleText = "This is a Hall Thruster"
 export const hallThrusterPrimaryText = <div><p>The large circular piece here is a Hall thruster, which propels the spacecraft through outer space by ionizing particles and shooting them out of the spacecraft.</p></div>
 
-export const hallThrusterSecondaryOnTitleText = "The Hall thruster is On";
+// export const hallThrusterSecondaryOnTitleText = "The Hall thruster is On";
 export const hallThrusterSecondaryOnText =
     <div>
         <p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.</p>
         <p>For the Hall thruster to work, it needs tiny particles called electrons. These electrons charge, or ionize, the ions so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the hall thruster.</p>
         <p><b id={"guideText"} className={"guideText"}>Click on the hollow cathode above the hall thruster to learn more about it.</b></p>
     </div>
-export const hallThrusterSecondaryOffTitleText = "The Hall thruster is Off";
+// export const hallThrusterSecondaryOffTitleText = "The Hall thruster is Off";
 export const hallThrusterSecondaryOffText =
     <div>
         <p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.</p>

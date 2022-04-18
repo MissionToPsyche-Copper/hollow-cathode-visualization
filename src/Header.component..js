@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom'
 import React from 'react'
 
 class HeaderComponent extends React.Component{

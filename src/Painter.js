@@ -7,20 +7,14 @@ import ProtoParticle from "./ProtoParticle";
  */
 import {
     base,
-    canvas_height,
-    canvas_width,
-    eject,
-    gas,
-    hallThrusterOff,
-    hallThrusterOn,
-    heat,
-    keeper,
-    plasma,
-    right_of_cathode_constant,
-    left_of_cathode_constant,
-    top_of_cathode_constant,
     bottom_of_cathode_constant,
-    particle_right_bounding_box, lm_csv, path_lm_csv
+    gas,
+    heat,
+    left_of_cathode_constant,
+    particle_right_bounding_box,
+    path_lm_csv,
+    right_of_cathode_constant,
+    top_of_cathode_constant
 } from "./Galactic";
 
 
@@ -156,39 +150,39 @@ class Painter{
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
 
 
-        // visualize cathode tube bounding box //:debug
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
-        ctx.lineWidth = 6; //:debug
-
-        // right //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.min_x, this.min_y); //:debug
-        ctx.lineTo(this.min_x, this.max_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
-
-        // left //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.max_x, this.max_y); //:debug
-        ctx.lineTo(this.max_x, this.min_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
-
-        // top //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.max_x, this.min_y); //:debug
-        ctx.lineTo(this.min_x, this.min_y); //:debug
-        ctx.stroke(); //:debug
-
-        ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
-
-        // bottom //:debug
-        ctx.beginPath(); //:debug
-        ctx.moveTo(this.min_x, this.max_y); //:debug
-        ctx.lineTo(this.max_x, this.max_y); //:debug
-        ctx.stroke(); //:debug
+        // // visualize cathode tube bounding box //:debug
+        // ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
+        // ctx.lineWidth = 6; //:debug
+        //
+        // // right //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.min_x, this.min_y); //:debug
+        // ctx.lineTo(this.min_x, this.max_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
+        //
+        // // left //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.max_x, this.max_y); //:debug
+        // ctx.lineTo(this.max_x, this.min_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
+        //
+        // // top //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.max_x, this.min_y); //:debug
+        // ctx.lineTo(this.min_x, this.min_y); //:debug
+        // ctx.stroke(); //:debug
+        //
+        // ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
+        //
+        // // bottom //:debug
+        // ctx.beginPath(); //:debug
+        // ctx.moveTo(this.min_x, this.max_y); //:debug
+        // ctx.lineTo(this.max_x, this.max_y); //:debug
+        // ctx.stroke(); //:debug
     }
 
 

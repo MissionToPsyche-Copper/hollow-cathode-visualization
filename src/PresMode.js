@@ -1,7 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
-import LandingPage from "./LandingPage.js";
 import Painter from "./Painter";
 
 /**
@@ -9,15 +6,7 @@ import Painter from "./Painter";
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
  * This allows us to easily add and remove layers.
  */
-import {
-    base,
-    eject,
-    gas,
-    heat,
-    keeper,
-    plasma
-} from "./Galactic";
-import ProtoParticle from "./ProtoParticle";
+import {base, eject, gas, heat, keeper, plasma} from "./Galactic";
 import {Link} from "react-router-dom";
 
 
