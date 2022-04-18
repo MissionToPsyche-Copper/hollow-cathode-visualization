@@ -72,16 +72,16 @@ export const cathodeCSVSubText =
     "First, let’s toggle the heaters to turn them on. "
 
 export const heatTitleText = "Heating the Inserts"
-export const heatText = <p>The heaters are the small white circles around the inner edges of the hollow cathode. They heat the inserts up to extremely high temperatures, which helps them produce electrons.</p>
+export const heatText = <p>The heaters are the small white circles around the inner edges of the hollow cathode. They heat the inserts up to extremely high temperatures, causing them to emit electrons.</p>
 export const heatSubText = "";
 
-export const gasTitleText = "Turning on the Gas Feed"
+export const gasTitleText = "Injecting Xenon Gas"
 export const gasText = <p>The gas feed lets tiny particles called Xenon into the hollow cathode and lets them make plasma. Whenever a Xenon particle hits an electron, the Xenon gets charged, or ionized. You can see that happen when the Xenon particles turn from purple to bright blue.</p>
 export const gasSubText =
     "Click Next to learn what happens when Xenon from the gas feed meets electrons."
 
-export const plasmaTitleText = "Plasma Forms inside the Cathode Tube"
-export const plasmaText = <p>The Xenon particles are ionized to make a steady source of plasma for the Hall thruster to work with. When this happens, more electrons are let into the hollow cathode for the Hall thruster to use. But first, all those electrons need to be pushed out of the hollow cathode so the Hall thruster can access them.</p>
+export const plasmaTitleText = "Plasma Forms"
+export const plasmaText = <p>Plasma Forms inside the Cathode Tube. The Xenon particles are ionized to make a steady source of plasma for the Hall thruster to work with. When this happens, more electrons are let into the hollow cathode for the Hall thruster to use. But first, all those electrons need to be pushed out of the hollow cathode so the Hall thruster can access them.</p>
 export const plasmaSubText =
     "To do this, let’s turn on the keeper electrode."
 
@@ -91,7 +91,7 @@ export const keeperTitleText = "The Keeper Electrode"
 export const keeperText = <p>You’ve turned on the keeper electrode. Doing this pulls electrons out of the hollow cathode so the hall thruster can use them.</p>
 export const keeperSubText = "";
 
-export const ejectTitleText = "Ejecting Plasma via the Keeper Electrode"
+export const ejectTitleText = "Ejecting Plasma"
 export const ejectText = <p>You’ve just ejected the plasma! The keeper electrode just pulled all the electrons out of the hollow cathode for the hall thruster to use, while the ionized Xenon particles stay in the hollow cathode so they can be re-used.</p>
 export const ejectSubText = "";
 

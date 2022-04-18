@@ -226,26 +226,9 @@ export class LearningMode extends React.Component {
             this.showElement("hallThrusterOffLabelDiv");
             this.hideElement("hallThrusterOnLabelDiv");
 
-            // this.hideElement("learningModeGuide");//:Jack
 
             this.hideElement("shellToCrossZoom");
             this.hideElement("shellFadeOut");
-        }
-        else
-        {
-            // this.hideElement("hallThrusterButtonGroup");
-            // this.hideElement("hallThrusterOffLabelDiv");
-            // this.hideElement("hallThrusterOnLabelDiv");
-            //
-            // console.log("checkpoint!!!!!!")
-            // this.hideElement("hallThrusterOffLabelDiv");
-            // this.hideElement("hallThrusterOnLabelDiv");
-            // console.log("checkpoint!!!!!!!!!!!!!!!!!!!")
-            //
-            // // this.hideElement("hallThrusterOffSublabelDiv");
-            // // this.hideElement("hallThrusterOnSublabelDiv");
-            // this.hideElement("hallThrusterNameLabelDiv");
-            // // this.hideElement("hallThrusterNameSublabelDiv");
         }
 
         if (this.state.scene[hallThrusterOn] === true)
@@ -328,13 +311,14 @@ export class LearningMode extends React.Component {
             this.hideElement("baseCathode-fadeIn");
             this.hideElement("baseCathode-fadeOut");
             this.hideElement("thrusterAndCathode-fadeOut");
-
             this.hideElement("baseCathode")
 
-        }
-        // the user deselected this option/layer
-        else if (this.state.deltastage === base){
-            this.painter.clearCanvas(this.state.deltastage);
+            // the user deselected this option/layer
+            if (this.state.deltastage === base){
+                this.painter.clearCanvas(this.state.deltastage);
+
+                this.setState({titleText: "", text: "", subText: ""})
+            }
         }
 
         // if keeper electrode is active
@@ -359,6 +343,8 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === keeper){
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopEjecting();
+
+            this.setState({titleText: "", text: "", subText: ""}); // clear text
         }
 
         // if heat insert is active
@@ -375,8 +361,7 @@ export class LearningMode extends React.Component {
             this.painter.draw_csv_Heat_Insert();
 
             // if the user just toggled heat insert
-            if(this.state.deltastage === heat)
-            {
+            if(this.state.deltastage === heat) {
 
                 this.setState({titleText: heatTitleText, text: heatText, subText: heatSubText})
             }
@@ -386,6 +371,8 @@ export class LearningMode extends React.Component {
 
             this.painter.killElectronGenerator();
             this.painter.clearCanvas(this.state.deltastage);
+
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // if gas feed is active
@@ -411,6 +398,8 @@ export class LearningMode extends React.Component {
         else if (this.state.deltastage === gas){
             this.painter.killXenonGenerator();
             this.painter.clearCanvas(this.state.deltastage);
+
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // INTERNAL PLASMA // -----------
@@ -455,12 +444,7 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopIonizing();
 
-            // // if internal plasma stops because ___ call ___ explanation
-            // if(!this.state.scene[heat]){
-            //     this.painter.draw_csv_internal_plasma_off_heat_guide();
-            // } else if(!this.state.scene[gas]){
-            //     this.painter.draw_csv_internal_plasma_off_gas_guide();
-            // }
+            this.setState({titleText: "", text: "", subText: ""})
         }
 
         // EJECT PLASMA // -----------
@@ -501,16 +485,7 @@ export class LearningMode extends React.Component {
             this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopEjecting();
 
-            // if ejecting plasma stops bcz ___ call ___ explanation
-            // if(!this.state.scene[heat]){
-            //     this.painter.draw_csv_eject_plasma_off_heat_guide();
-            // } else if(!this.state.scene[gas]){
-            //     this.painter.draw_csv_eject_plasma_off_gas_guide();
-            // } else if(!this.state.scene[plasma]){
-            //     this.painter.draw_csv_eject_plasma_off_plasma_guide();
-            // } else if(!this.state.scene[keeper]){
-            //     this.painter.draw_csv_eject_plasma_off_keeper_guide();
-            // }
+            this.setState({titleText: "", text: "", subText: ""})
         }
         //GAS ON, KEEPER ON, NO PLASMA
         if (this.state.scene[gas] === true  && this.state.scene[keeper] === true && this.state.scene[plasma] === false && (this.state.deltastage === gas || this.state.deltastage === keeper)) {
@@ -567,11 +542,6 @@ export class LearningMode extends React.Component {
      * Onclick handler for the heat insert toggle button
      */
     HeatInsertToggle_HandleClick() {
-        // let c = document.getElementById('canvas0');
-        // let ctx = c.getContext('2d');
-        // ctx.rotate(-15*Math.PI/180);
-
-
         let newScene = this.state.scene;
         newScene[heat] = !newScene[heat];
 
@@ -863,19 +833,6 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-
-                {/*<div id={"learningModeGuide"} className={"sublabel"}>{this.state.text}</div>*/}
-
-                {/*<div id={"learningModeGuide"}>*/}
-                {/*    <label id={"cathodeTitleLabel"}*/}
-                {/*           className={"titleLabel"}> {this.state.titleText}*/}
-                {/*    </label>*/}
-                {/*    <label id={"cathodeSubLabel"}*/}
-                {/*           className={"sublabel"}>*/}
-                {/*        {this.state.text}*/}
-                {/*        <p><b id={"guideText"} className={"guideText"}>{this.state.subText}</b></p>*/}
-                {/*    </label>*/}
-                {/*</div>*/}
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
 
