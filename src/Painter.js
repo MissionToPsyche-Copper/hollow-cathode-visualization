@@ -7,12 +7,12 @@ import ProtoParticle from "./ProtoParticle";
  */
 import {
     base,
-    bottom_of_cathode_constant,
+    bottom_of_cathode_constant, eject,
     gas,
-    heat,
+    heat, keeper,
     left_of_cathode_constant,
     particle_right_bounding_box,
-    path_lm_csv,
+    path_lm_csv, plasma,
     right_of_cathode_constant,
     top_of_cathode_constant
 } from "./Galactic";
