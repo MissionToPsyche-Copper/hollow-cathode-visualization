@@ -1,6 +1,8 @@
 import React from "react";
 import Painter from "./Painter";
 import {Link} from "react-router-dom";
+const {promisify} = require('util')
+const sleep = promisify(setTimeout)
 
 // Image Paths //
 const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
@@ -65,6 +67,15 @@ export class LandingPage extends React.Component {
         document.getElementById(elementId).style.display = 'flex';
     }
 
+    delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+    async LearningMode_HandleClick() {
+        await this.delay(3000);
+        //this.showElement("landPageThruster")
+    }
+
     render() {
         return (
             <div id={'canvasHolder'}>
@@ -79,7 +90,7 @@ export class LandingPage extends React.Component {
                     </canvas>
 
                     <Link to={'/learning'}>
-                        <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"}/>
+                        <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"} onClick={this.showElement("landPageThruster")}/>
                     </Link>
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>

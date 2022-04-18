@@ -9,6 +9,63 @@
 
 
 #spaceshipImage{
+    /*background-image: url("/hollow-cathode-visualization/images/spacecraft2.png")*/
     height: 80vh;
     min-height: 350px;
+}
+
+#landPageThruster{
+    position: absolute;
+
+    max-width: 0%;
+    height: auto;
+
+    top: 47vh;
+    left: 52vw;
+
+    z-index: 0;
+}
+/*#thrusterInitialLocation{*/
+/*    position: absolute;*/
+
+/*    max-width: 10%;*/
+/*    height: auto;*/
+
+/*    top: -13vh;*/
+/*    left: -15vw;*/
+/*    right: 20vw;*/
+
+/*    z-index: 0;*/
+/*}*/
+
+.thrusterZoomAnimationClass{
+    animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
+    animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
+    animation-duration: 1.3s;
+    animation-timing-function: ease-in-out;
+    animation-name: shellToCrossZoomAnimation;
+    /*animation-direction: alternate;*/
+}
+
+@keyframes thrusterZoom {
+    from {
+        /*transform: rotate(-15deg) scale(3.5);*/
+        position: absolute;
+
+        max-width: 0%;
+        height: auto;
+
+        top: 47vh;
+        left: 52vw;
+
+        z-index: 0;
+    }
+    to {
+        transform: rotate(-15deg) scale(6);
+        max-width: 60%;
+        height: auto;
+        top: 326vh;
+        left: -40vw;
+        right: 20vw;
+    }
 }

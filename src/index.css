@@ -99,47 +99,6 @@ code {
   min-height: 350px;
 }
 
-#thrusterInitialLocation{
-  position: absolute;
-
-  max-width: 60%;
-  height: auto;
-
-  top: -13vh;
-  left: -15vw;
-  right: 20vw;
-
-  z-index: 0;
-}
-
-.thrusterZoomAnimationClass{
-  animation-fill-mode: forwards; /* forward basically keep changes at end of animation */
-  animation-delay: 0.1s; /* 0.1 because if 0 I get the annoying "unit is redundant bcz zero" warning */
-  animation-duration: 1.3s;
-  animation-timing-function: ease-in-out;
-  animation-name: shellToCrossZoomAnimation;
-  /*animation-direction: alternate;*/
-}
-
-@keyframes thrusterZoom {
-  from {
-    transform: rotate(-15deg) scale(3.5);
-    max-width: 60%;
-    height: auto;
-    top: 165vh;
-    left: -20vw;
-    right: 20vw;
-  }
-  to {
-    transform: rotate(-15deg) scale(6);
-    max-width: 60%;
-    height: auto;
-    top: 326vh;
-    left: -40vw;
-    right: 20vw;
-  }
-}
-
 .CathodeHitBox_zoomed_in{
   background-color: transparent;
   border: none;
