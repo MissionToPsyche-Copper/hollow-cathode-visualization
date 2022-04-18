@@ -232,6 +232,8 @@ code {
 @keyframes shellToCrossZoomAnimation {
   from {
     transform: rotate(-15deg) scale(3.5);
+    max-width: 60%;
+    height: auto;
     top: 165vh;
     left: -20vw;
     right: 20vw;
@@ -239,6 +241,8 @@ code {
   to
   {
     transform: rotate(-15deg) scale(6);
+    max-width: 60%;
+    height: auto;
     top: 326vh;
     left: -40vw;
     right: 20vw;
@@ -285,7 +289,14 @@ code {
 
 #zoomedShellPos{
   transform: rotate(-15deg) scale(6);
-  top: 326vh;
+  /*top: 326vh;*/
+  /*left: -40vw;*/
+  /*right: 20vw;*/
+
+  max-width: 60%;
+  height: auto;
+
+  top: 25vh;
   left: -40vw;
   right: 20vw;
 }
@@ -300,12 +311,18 @@ code {
 
   position: absolute;
 
+  /*width: 60%;*/
   max-width: 60%;
   height: auto;
 
   top: 326vh;
   left: -40vw;
   right: 20vw;
+
+  /*top: 326vh;*/
+  /*left: -40vw;*/
+  /*right: 20vw;*/
+
 
   z-index: 0;
 
