@@ -512,4 +512,14 @@ img{
 }
 /*//*/
 
+/*// Reference Page //*/
+.refSubLabelPos{
+    position: relative;
+    margin: 10rem;
+}
+
+.refSubLabel{
+    text-align: left;
+}
+
 
