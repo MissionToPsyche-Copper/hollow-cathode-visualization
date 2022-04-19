@@ -58,6 +58,7 @@ const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
 /// Flags ///
 var HALL_THRUSTER_ON = false;
 var didRotate = false; //:unused?
+var THRUSTER_FIRST_TIME = true;
 ///
 
 export class LearningMode extends React.Component {
@@ -207,7 +208,7 @@ export class LearningMode extends React.Component {
         // Execute logic based on deltastage and scene
         // console.log('scenarioRefresh active: '+this.scene);//:debug
         this.setState({text: " "})
-        if(this.state.scene[hallThrusterOff] === true) {
+        if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === true) {
             this.hideElement("hallThrusterOn-fadeIn");
             this.hideElement("hallThrusterOn-fadeOut");
 
@@ -224,6 +225,44 @@ export class LearningMode extends React.Component {
 
             this.hideElement("shellToCrossZoom");
             this.hideElement("shellFadeOut");
+
+            this.showElement("landPageThruster");
+            this.showElement("spaceshipImage");
+            this.showElement("LearnModeButton");
+            this.showElement("PresModeButton");
+            this.showElement("landingPageTitleDiv");
+            this.showElement("landingPageSubTitleDiv");
+            this.showElement("landingPageLModePromptDiv");
+            //this.showElement("toggleButtonGroup");
+
+            THRUSTER_FIRST_TIME = false
+        }
+        else if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === false) {
+            this.hideElement("hallThrusterOn-fadeIn");
+            this.hideElement("hallThrusterOn-fadeOut");
+
+            this.hideElement("toggleButtonGroup");
+            this.hideElement("summaryButton_");
+
+            // this.painter.draw_Hall_Thruster_Off();
+
+            this.showElement("hallThrusterOffLabelDiv");
+            this.showElement("hallThrusterOffSublabelDiv");
+
+            this.hideElement("hallThrusterOnLabelDiv");
+            this.hideElement("hallThrusterOnSublabelDiv");
+
+            this.hideElement("shellToCrossZoom");
+            this.hideElement("shellFadeOut");
+
+            this.hideElement("landPageThruster");
+            this.hideElement("spaceshipImage");
+            this.hideElement("LearnModeButton");
+            this.hideElement("PresModeButton");
+            this.hideElement("landingPageTitleDiv");
+            this.hideElement("landingPageSubTitleDiv");
+            this.hideElement("landingPageLModePromptDiv");
+            this.hideElement("toggleButtonGroup");
         }
         else
         {
@@ -234,6 +273,15 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOnSublabelDiv");
             this.hideElement("hallThrusterNameLabelDiv");
             this.hideElement("hallThrusterNameSublabelDiv");
+
+            this.hideElement("landPageThruster");
+            this.hideElement("spaceshipImage");
+            this.hideElement("stackedButtonGroup bottomrightAlign");
+            this.hideElement("PresModeButton");
+            this.hideElement("landingPageTitleDiv");
+            this.hideElement("landingPageSubTitleDiv");
+            this.hideElement("landingPageLModePromptDiv");
+            this.hideElement("toggleButtonGroup");
         }
 
         if (this.state.scene[hallThrusterOn] === true)
@@ -792,7 +840,7 @@ export class LearningMode extends React.Component {
 
                 <div id={"backToLandingPageButtonDiv"} className={"stackedButtonGroup bottomleftAlign"} >
                     <Link to={'/'}>
-                        <button id={"backButton"} className={"button"}> Back to Landing Page </button>
+                        <button id={"backButton"} className={"button"} > Back to Landing Page </button>
                     </Link>
                 </div>
 
