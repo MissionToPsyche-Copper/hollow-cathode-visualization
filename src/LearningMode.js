@@ -59,6 +59,7 @@ const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
 var HALL_THRUSTER_ON = false;
 var didRotate = false; //:unused?
 var THRUSTER_FIRST_TIME = true;
+var THRUSTER_ZOOM_DONE = false;
 ///
 
 export class LearningMode extends React.Component {
@@ -198,6 +199,93 @@ export class LearningMode extends React.Component {
 
     }
 
+    //spacecraft zoom & thruster zoom
+    //wait until it's done with delay()
+        //aka when thruster lines up to where it should be
+    //fade spacecraft out
+    //go to normal thruster logic
+    async animateSpacecraftZoom()
+    {
+        this.hideElement("hallThrusterOn-fadeIn");
+        this.hideElement("hallThrusterOn-fadeOut");
+
+        this.hideElement("toggleButtonGroup");
+        this.hideElement("summaryButton_");
+
+        // this.painter.draw_Hall_Thruster_Off();
+
+        this.hideElement("hallThruster");
+        this.hideElement("HallThrusterNext_Accessible");
+        this.hideElement("hallThrusterNameLabelDiv");
+        this.hideElement("hallThrusterNameSublabelDiv");
+        this.hideElement("backButton");
+
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOffSublabelDiv");
+
+        this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("hallThrusterOnSublabelDiv");
+
+        this.hideElement("shellToCrossZoom");
+        this.hideElement("shellFadeOut");
+
+        //show landing page stuff
+        this.showElement("landPageThruster");
+        this.showElement("spaceshipImage");
+        this.showElement("LearnModeButton");
+        this.showElement("PresModeButton");
+        this.showElement("landingPageTitleDiv");
+        this.showElement("landingPageSubTitleDiv");
+        this.showElement("landingPageLModePromptDiv");
+        //this.showElement("toggleButtonGroup");
+
+        //THRUSTER_FIRST_TIME = false;
+        await this.delay(2000)
+        THRUSTER_ZOOM_DONE = true;
+        THRUSTER_FIRST_TIME = false;
+
+        this.scenarioRefresh();
+    }
+
+    //dont think I need this function
+    async seeThrusterFirstTime()
+    {
+        // this.hideElement("hallThrusterOn-fadeIn");
+        // this.hideElement("hallThrusterOn-fadeOut");
+        //
+        // this.hideElement("toggleButtonGroup");
+        // this.hideElement("summaryButton_");
+        //
+        // // this.painter.draw_Hall_Thruster_Off();
+
+        this.showElement("hallThrusterOffLabelDiv");
+        this.showElement("hallThrusterOffSublabelDiv");
+        this.showElement("HallThrusterNext_Accessible");
+
+        // this.hideElement("hallThrusterOnLabelDiv");
+        // this.hideElement("hallThrusterOnSublabelDiv");
+        //
+        // this.hideElement("shellToCrossZoom");
+        // this.hideElement("shellFadeOut");
+
+        //hide landing page stuff
+        this.hideElement("landPageThruster");
+        this.hideElement("spaceshipImage");
+        this.hideElement("LearnModeButton");
+        this.hideElement("PresModeButton");
+        this.hideElement("landingPageTitleDiv");
+        this.hideElement("landingPageSubTitleDiv");
+        this.hideElement("landingPageLModePromptDiv");
+        this.hideElement("toggleButtonGroup");
+
+        //temp = false;
+        await this.delay(3000);
+
+        THRUSTER_FIRST_TIME = false;
+
+        this.scenarioRefresh();
+    }
+
     /**
      * scenarioRefresh()
      *
@@ -208,86 +296,77 @@ export class LearningMode extends React.Component {
         // Execute logic based on deltastage and scene
         // console.log('scenarioRefresh active: '+this.scene);//:debug
         this.setState({text: " "})
-        if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === true) {
-            this.hideElement("hallThrusterOn-fadeIn");
-            this.hideElement("hallThrusterOn-fadeOut");
 
-            this.hideElement("toggleButtonGroup");
-            this.hideElement("summaryButton_");
+        //spacecraft zoom
+        //if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === true && THRUSTER_ZOOM_DONE === false) {
+        if(THRUSTER_FIRST_TIME === true && THRUSTER_ZOOM_DONE === false) {
+            this.animateSpacecraftZoom();
+            // this.delay(2000);
+        }
 
-            // this.painter.draw_Hall_Thruster_Off();
+        //dont think i need this part:
+        //spacecraft done zooming; first time seeing thruster
+        // if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === true && THRUSTER_ZOOM_DONE === true) {
+        // if(THRUSTER_FIRST_TIME === true && THRUSTER_ZOOM_DONE === true) {
+        //     this.seeThrusterFirstTime();
+        //     //this.delay(2000);
+        // }
 
-            this.hideElement("hallThruster");
-            this.hideElement("HallThrusterNext_Accessible");
-            this.hideElement("hallThrusterNameLabelDiv");
-            this.hideElement("hallThrusterNameSublabelDiv");
-            this.hideElement("hallThrusterOffLabelDiv");
-            this.hideElement("hallThrusterOffSublabelDiv");
-
+        //if this is not the first time the hall thruster is off, do not animate spacecraft zoom
+        if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === false && THRUSTER_ZOOM_DONE === true){
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOnSublabelDiv");
 
-            this.hideElement("shellToCrossZoom");
-            this.hideElement("shellFadeOut");
+            this.showElement("hallThruster");
+            this.showElement("hallThrusterNameLabelDiv");
+            this.showElement("hallThrusterNameSublabelDiv");
+            this.showElement("hallThrusterButtonGroup");
+            this.showElement("HallThrusterNext_Accessible");
 
-
-            this.showElement("landPageThruster");
-            this.showElement("spaceshipImage");
-            this.showElement("LearnModeButton");
-            this.showElement("PresModeButton");
-            this.showElement("landingPageTitleDiv");
-            this.showElement("landingPageSubTitleDiv");
-            this.showElement("landingPageLModePromptDiv");
-            //this.showElement("toggleButtonGroup");
-
-            THRUSTER_FIRST_TIME = false
-        }
-        else if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === false) {
-            // this.hideElement("hallThrusterOn-fadeIn");
-            // this.hideElement("hallThrusterOn-fadeOut");
-            //
-            // this.hideElement("toggleButtonGroup");
-            // this.hideElement("summaryButton_");
-            //
-            // // this.painter.draw_Hall_Thruster_Off();
+            this.showElement("backButton");
 
             this.showElement("hallThrusterOffLabelDiv");
             this.showElement("hallThrusterOffSublabelDiv");
 
-            // this.hideElement("hallThrusterOnLabelDiv");
-            // this.hideElement("hallThrusterOnSublabelDiv");
-            //
-            // this.hideElement("shellToCrossZoom");
-            // this.hideElement("shellFadeOut");
+            this.hideElement("hallThrusterOn-fadeIn")
+            this.showElement("hallThrusterOn-fadeOut")
 
             this.hideElement("landPageThruster");
             this.hideElement("spaceshipImage");
+            //this.hideElement("HallThrusterNext_Accessible");
+            this.hideElement("PresModeButton");
+            this.hideElement("landingPageTitleDiv");
+            this.hideElement("landingPageSubTitleDiv");
+            this.hideElement("landingPageLModePromptDiv");
+            this.hideElement("toggleButtonGroup");
             this.hideElement("LearnModeButton");
-            this.hideElement("PresModeButton");
-            this.hideElement("landingPageTitleDiv");
-            this.hideElement("landingPageSubTitleDiv");
-            this.hideElement("landingPageLModePromptDiv");
-            this.hideElement("toggleButtonGroup");
         }
-        else
-        {
-            this.hideElement("hallThrusterButtonGroup");
-            this.hideElement("hallThrusterOffLabelDiv");
-            this.hideElement("hallThrusterOnLabelDiv");
-            this.hideElement("hallThrusterOffSublabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
-            this.hideElement("hallThrusterNameLabelDiv");
-            this.hideElement("hallThrusterNameSublabelDiv");
 
-            this.hideElement("landPageThruster");
-            this.hideElement("spaceshipImage");
-            this.hideElement("stackedButtonGroup bottomrightAlign");
-            this.hideElement("PresModeButton");
-            this.hideElement("landingPageTitleDiv");
-            this.hideElement("landingPageSubTitleDiv");
-            this.hideElement("landingPageLModePromptDiv");
-            this.hideElement("toggleButtonGroup");
-        }
+        // //commence normal thruster logic
+        // else
+        // {
+        //     this.delay(2000);
+        //
+        //     this.hideElement("hallThrusterOnLabelDiv");
+        //     this.hideElement("hallThrusterOnSublabelDiv");
+        //
+        //     this.hideElement("landPageThruster");
+        //     this.hideElement("spaceshipImage");
+        //     this.hideElement("HallThrusterNext_Accessible");
+        //     this.hideElement("PresModeButton");
+        //     this.hideElement("landingPageTitleDiv");
+        //     this.hideElement("landingPageSubTitleDiv");
+        //     this.hideElement("landingPageLModePromptDiv");
+        //     this.hideElement("toggleButtonGroup");
+        //     this.hideElement("LearnModeButton");
+        //
+        //     this.showElement("hallThruster");
+        //     this.showElement("hallThrusterNameLabelDiv");
+        //     this.showElement("hallThrusterNameSublabelDiv");
+        //     this.showElement("hallThrusterButtonGroup");
+        //     this.showElement("hallThrusterOffLabelDiv");
+        //     this.showElement("hallThrusterOffSublabelDiv");
+        // }
 
         if (this.state.scene[hallThrusterOn] === true)
         {
@@ -319,7 +398,7 @@ export class LearningMode extends React.Component {
 
             //HALL_THRUSTER_ON = false;
         }
-            //If the hall thruster is off
+        //If the hall thruster is off
         //Also the first thing to happen in Hall Thruster view
         else
         {
