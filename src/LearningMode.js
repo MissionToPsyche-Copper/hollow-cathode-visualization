@@ -45,6 +45,7 @@ const sleep = promisify(setTimeout)
 // Image Paths //
 const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
 const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thruster_on.png";
+const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
 // path_lm_csv is in galactic constants since it is also used in Painter.js
 //
 
@@ -98,11 +99,13 @@ export class LearningMode extends React.Component {
         this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
-        // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
-
         this.state.canvas_height = document.getElementById("page-container").clientHeight;
         this.state.canvas_width = document.getElementById("page-container").clientWidth;
+
+
+
+        // initialize state
+        //this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true) {
@@ -111,7 +114,6 @@ export class LearningMode extends React.Component {
         else {
             this.thrusterButtonText = "On";
         }
-
 
         window.addEventListener('resize', this.handleResize);
     }
@@ -877,6 +879,45 @@ export class LearningMode extends React.Component {
                         Summary
                     </button>
                 </Link>
+
+
+                <img id={"landPageThruster"} src={path_hall_thruster} className={" "} alt={"thruster/cathode combo that's zoomed into when user enters learning mode"}/>
+
+                <canvas id={"canvas"}
+                        onClick={this.LearningMode_HandleClick}
+                        ref={this.canvas}
+                        className={"unselectable"}
+                        hidden={true}> You need a better browser :(
+                </canvas>
+
+                <Link to={'/learning'}>
+                    <img id={'spaceshipImage'} src={path_spacecraft} className={"grow"} alt={"Psyche 16 spacecraft"} />
+                </Link>
+
+                <div className={"stackedButtonGroup bottomrightAlign"}>
+                    <Link to={'/learning'}>
+                        <button id={"LearnModeButton"} className={"button"}>
+                            Learning Mode
+                        </button>
+                    </Link>
+                    <Link to={'/presentation'}>
+                        <button id={"PresModeButton"} className={"button"}>
+                            Presentation Mode
+                        </button>
+                    </Link>
+                </div>
+
+                <div id={"landingPageTitleDiv"} className={"stackedButtonGroup landingPageTitleAlign"} >
+                    <label id={"landingPageTitle"} className={"landingPageTitleLabel"}> Hollow Cathode </label>
+                </div>
+
+                <div id={"landingPageSubTitleDiv"} className={"stackedButtonGroup landingPageSubTitleAlign"} >
+                    <label id={"landingPageSubTitle"} className={"landingPageSubTitleLabel"}> Visualization </label>
+                </div>
+
+                <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
+                    <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"}> click the spacecraft to begin </label>
+                </div>
             </div>
         )
     }
