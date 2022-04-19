@@ -99,13 +99,11 @@ export class LearningMode extends React.Component {
         this.nextButton_shellToLearningModeCore_HandleClick = this.nextButton_shellToLearningModeCore_HandleClick.bind(this);
         this.nextButton_end_HandleClick = this.nextButton_end_HandleClick.bind(this);
 
+        // initialize state
+        this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
+
         this.state.canvas_height = document.getElementById("page-container").clientHeight;
         this.state.canvas_width = document.getElementById("page-container").clientWidth;
-
-
-
-        // initialize state
-        //this.state = { deltastage: props.deltastage, scene: props.scene, text:props.text};
 
         // Hall Thruster toggle button text
         if(this.state.scene[hallThrusterOn] === true) {
@@ -114,6 +112,7 @@ export class LearningMode extends React.Component {
         else {
             this.thrusterButtonText = "On";
         }
+
 
         window.addEventListener('resize', this.handleResize);
     }
@@ -267,7 +266,7 @@ export class LearningMode extends React.Component {
 
             //HALL_THRUSTER_ON = false;
         }
-        //If the hall thruster is off
+            //If the hall thruster is off
         //Also the first thing to happen in Hall Thruster view
         else
         {
@@ -881,6 +880,7 @@ export class LearningMode extends React.Component {
                 </Link>
 
 
+
                 <img id={"landPageThruster"} src={path_hall_thruster} className={" "} alt={"thruster/cathode combo that's zoomed into when user enters learning mode"}/>
 
                 <canvas id={"canvas"}
@@ -924,3 +924,4 @@ export class LearningMode extends React.Component {
 }
 
 export default LearningMode;
+

@@ -67,12 +67,12 @@ export class LandingPage extends React.Component {
         document.getElementById(elementId).style.display = 'flex';
     }
 
-    // delay(time) {
-    //     return new Promise(resolve => setTimeout(resolve, time));
-    // }
+    delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
 
     async LearningMode_HandleClick() {
-        //await this.delay(3000);
+        await this.delay(3000);
         //this.showElement("landPageThruster")
     }
 
