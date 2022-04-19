@@ -8,6 +8,7 @@ const sleep = promisify(setTimeout)
 const path_spacecraft = "/hollow-cathode-visualization/images/spacecraft2.png";
 const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off.png";
 ///
+var THRUSTER_FIRST_TIME = true;
 
 /**
  * Site landing page element

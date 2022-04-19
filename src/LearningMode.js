@@ -217,14 +217,19 @@ export class LearningMode extends React.Component {
 
             // this.painter.draw_Hall_Thruster_Off();
 
-            this.showElement("hallThrusterOffLabelDiv");
-            this.showElement("hallThrusterOffSublabelDiv");
+            this.hideElement("hallThruster");
+            this.hideElement("HallThrusterNext_Accessible");
+            this.hideElement("hallThrusterNameLabelDiv");
+            this.hideElement("hallThrusterNameSublabelDiv");
+            this.hideElement("hallThrusterOffLabelDiv");
+            this.hideElement("hallThrusterOffSublabelDiv");
 
             this.hideElement("hallThrusterOnLabelDiv");
             this.hideElement("hallThrusterOnSublabelDiv");
 
             this.hideElement("shellToCrossZoom");
             this.hideElement("shellFadeOut");
+
 
             this.showElement("landPageThruster");
             this.showElement("spaceshipImage");
@@ -238,22 +243,22 @@ export class LearningMode extends React.Component {
             THRUSTER_FIRST_TIME = false
         }
         else if(this.state.scene[hallThrusterOff] === true && THRUSTER_FIRST_TIME === false) {
-            this.hideElement("hallThrusterOn-fadeIn");
-            this.hideElement("hallThrusterOn-fadeOut");
-
-            this.hideElement("toggleButtonGroup");
-            this.hideElement("summaryButton_");
-
-            // this.painter.draw_Hall_Thruster_Off();
+            // this.hideElement("hallThrusterOn-fadeIn");
+            // this.hideElement("hallThrusterOn-fadeOut");
+            //
+            // this.hideElement("toggleButtonGroup");
+            // this.hideElement("summaryButton_");
+            //
+            // // this.painter.draw_Hall_Thruster_Off();
 
             this.showElement("hallThrusterOffLabelDiv");
             this.showElement("hallThrusterOffSublabelDiv");
 
-            this.hideElement("hallThrusterOnLabelDiv");
-            this.hideElement("hallThrusterOnSublabelDiv");
-
-            this.hideElement("shellToCrossZoom");
-            this.hideElement("shellFadeOut");
+            // this.hideElement("hallThrusterOnLabelDiv");
+            // this.hideElement("hallThrusterOnSublabelDiv");
+            //
+            // this.hideElement("shellToCrossZoom");
+            // this.hideElement("shellFadeOut");
 
             this.hideElement("landPageThruster");
             this.hideElement("spaceshipImage");
