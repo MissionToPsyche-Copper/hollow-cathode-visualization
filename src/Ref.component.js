@@ -15,7 +15,7 @@ class RefComponent extends React.Component{
             <div className={"summaryTitlePos"}>
                 REFERENCES
             </div>
-            <div className={'summarySubLabel summarySubLabelPos'}>
+            <div className={'refSubLabel refSubLabelPos'}>
                 <label>
                     [1]    D. M. Goebel and I. Katz, “Fundamentals of Electric Propulsion: Ion and Hall Thrusters,” <i>JPL Space Science & Technology Series</i>, chapter 1-2, Mar. 2008. Available: <a href={"https://descanso.jpl.nasa.gov/SciTechBook/series1/Goebel__cmprsd_opt.pdf"} className={'reference-link'}>https://descanso.jpl.nasa.gov/SciTechBook/series1/Goebel__cmprsd_opt.pdf.</a> [Accessed: 09-Oct-2021].
                 </label>

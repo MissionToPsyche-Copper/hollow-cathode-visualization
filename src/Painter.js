@@ -7,20 +7,14 @@ import ProtoParticle from "./ProtoParticle";
  */
 import {
     base,
-    canvas_height,
-    canvas_width,
-    eject,
+    bottom_of_cathode_constant, eject,
     gas,
-    hallThrusterOff,
-    hallThrusterOn,
-    heat,
-    keeper,
-    plasma,
-    right_of_cathode_constant,
+    heat, keeper,
     left_of_cathode_constant,
-    top_of_cathode_constant,
-    bottom_of_cathode_constant,
-    particle_right_bounding_box, lm_csv, path_lm_csv
+    particle_right_bounding_box,
+    path_lm_csv, plasma,
+    right_of_cathode_constant,
+    top_of_cathode_constant
 } from "./Galactic";
 
 
@@ -84,22 +78,22 @@ class Painter{
     }
 
 
-    /**
-     * getInsert___()
-     * Returns the location of the ___ of the insert on the _ axis, don't forget to account for particle width
-     * Used for the electron and xenon spawn positions
-     *
-     * @returns {number} (int) single coordinate
-     */
-    getInsertTopX(){
-        return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
-    }
-    getInsertTopY(){
-        return this.getCanvasHeight() * top_of_cathode_constant;
-    }
-    getInsertBotY(){
-        return this.getCanvasHeight() * bottom_of_cathode_constant;
-    }
+    // /**
+    //  * getInsert___()
+    //  * Returns the location of the ___ of the insert on the _ axis, don't forget to account for particle width
+    //  * Used for the electron and xenon spawn positions
+    //  *
+    //  * @returns {number} (int) single coordinate
+    //  */
+    // getInsertTopX(){
+    //     return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
+    // }
+    // getInsertTopY(){
+    //     return this.getCanvasHeight() * top_of_cathode_constant;
+    // }
+    // getInsertBotY(){
+    //     return this.getCanvasHeight() * bottom_of_cathode_constant;
+    // }
 
     /**
      * getCathTube___()
@@ -126,8 +120,8 @@ class Painter{
      * @returns {number} number between this.getCathTubeLeftX() + ELECTRON_RADIUS and this.getCathTubeRightX() - ELECTRON_RADIUS
      */
     getInsertRandomX(){
-        let min = Math.ceil(this.getCathTubeLeftX()) + ELECTRON_RADIUS;
-        return Math.floor(Math.random() * (Math.floor(this.getCathTubeRightX()) - ELECTRON_RADIUS - min) + min); //The maximum is exclusive and the minimum is inclusive
+        let min = Math.ceil(this.getCathTubeLeftX());
+        return Math.floor(Math.random() * (Math.floor(this.getCathTubeRightX()) - min) + min); //The maximum is exclusive and the minimum is inclusive
     }
 
     /**
@@ -143,37 +137,18 @@ class Painter{
 
 
 
-    /** Learning Mode */
-    // /**
-    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-    //  */
-    // draw_Hall_Thruster_Off(){ }
-    //
-    // /**
-    //  * Particle effect overlay to make the thruster and cathode appear to be on/operating //:unused?
-    //  */
-    // draw_Hall_Thruster_On(){ }
-
     /** Learning Mode and Presentation Mode **/
     /**
+     * Public
      * draw_csv_Base_Drawing()
      *
      * Function to draw the base cathode visuals
      */
-    // fadeOut() {
-    //     var image = new Image();
-    //     ctx.globalAlpha = 0.5;
-    //     image.src = "css.png"
-    //     ctx.drawImage(image, 0, 0);
-    //     //ctx.fillStyle = "rgba(255,255,255,0.3)";
-    //     //ctx.fillRect(0, 0, canvas.width, canvas.height);
-    //     setTimeout(fadeOut,100);
-    // }
-
     draw_csv_Base_Drawing(){
         this.clearCanvas(base);
         const ctx = this.getLayer(base);
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
+
 
         // visualize cathode tube bounding box //:debug
         ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
@@ -210,13 +185,6 @@ class Painter{
         ctx.stroke(); //:debug
     }
 
-    // /**
-    //  * draw_csv_Base_Drawing_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the base drawing for learning mode
-    //  */
-    // draw_csv_Base_Drawing_guide(){ }
-
-
 
     /**
      * draw_csv_Heat_Insert()
@@ -230,12 +198,6 @@ class Painter{
         this.startElectronGenerator(ELECTRON_SPAWN_RATE);
     }
 
-    // /**
-    //  * draw_csv_Heat_Insert_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for draw_csv_Heat_Insert for learning mode
-    //  */
-    // draw_csv_Heat_Insert_guide(){ }
-
     /**
      * draw_csv_gas_feed()
      * Function to draw the gas feed visuals (currently only draws a yellow square)
@@ -245,11 +207,6 @@ class Painter{
         this.startXenonGenerator(XENON_SPAWN_RATE);
     }
 
-    // /**
-    //  * draw_csv_gas_feed_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
-    //  */
-    // draw_csv_gas_feed_guide(){ }
 
     /**
      * draw_csv_internal_plasma()
@@ -259,65 +216,22 @@ class Painter{
         ProtoParticle.ionizeParticles();
     }
 
-    // /**
-    //  * draw_csv_internal_plasma_guide() //:unused
-    //  * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
-    //  */
-    // draw_csv_internal_plasma_guide() { }
-
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_on_heat_guide() { }
-    //
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_on_heat_guide() { }
-
-    // /**
-    //  * draw_csv_internal_plasma_off_heat_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
-    //  */
-    // draw_csv_internal_plasma_off_heat_guide() { }
-    //
-    // /**
-    //  * draw_csv_internal_plasma_off_gas_guide() //:unused?
-    //  * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
-    //  */
-    // draw_csv_internal_plasma_off_gas_guide() { }
-
 
     /**
-     * draw_csv_keeper_electrode() //:unused?
+     * draw_csv_keeper_electrode()
      * Function to draw the keeper electrode visuals (currently only draws a blue square)
      */
     draw_csv_keeper_electrode(){
-
+        ProtoParticle.ejectParticles();
+        //@jake put the E field arrow here
     }
-
-    // /**
-    //  * draw_csv_keeper_electrode_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
-    //  */
-    // draw_csv_keeper_electrode_guide(){ }
 
 
     /**
-     * draw_csv_eject_plasma()
+     * draw_csv_eject_plasma() //:unused
      * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
      */
-    draw_csv_eject_plasma(){
-        ProtoParticle.ejectParticles();
-    }
-
-    // /**
-    //  * draw_csv_eject_plasma_guide() //:unused?
-    //  * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
-    //  */
-    // draw_csv_eject_plasma_guide() { }
+    draw_csv_eject_plasma(){ }
 
 
 
@@ -373,11 +287,11 @@ class Painter{
         if(this.ElectronGeneratorKey_Top === -1){
             // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
             // generate two initial ones to get it going right away
-            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
-            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
@@ -429,6 +343,116 @@ class Painter{
         this.stopEjecting();
         this.stopIonizing();
         ProtoParticle.killAllParticles();
+    }
+
+
+
+    /**
+     * draw_csv_gas_feed_guide() //:unused?
+     * Draws the guide text and tooltips and such for draw_csv_gas_feed for learning mode
+     */
+    draw_csv_gas_feed_guide(){
+         this.clearCanvas(gas);
+         const ctx = this.getLayer(gas);
+    }
+
+    /**
+     * draw_csv_internal_plasma()
+     * Function to draw the internal plasma visuals (currently only draws a green square)
+     */
+    draw_csv_internal_plasma(){
+        this.clearCanvas(plasma);
+        const ctx = this.getLayer(plasma);
+
+        ProtoParticle.ionizeParticles();
+    }
+
+    /**
+     * draw_csv_internal_plasma_guide() //:unused?
+     * Draws the guide text and tooltips and such for draw_csv_internal_plasma for learning mode
+     */
+    draw_csv_internal_plasma_guide() {
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_on_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_heat_guide() //:unused?
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "heat inserts"
+     */
+    draw_csv_internal_plasma_off_heat_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_heat_guide called"); //:debug
+    }
+
+    /**
+     * draw_csv_internal_plasma_off_gas_guide() //:unused?
+     * Draws the guide text for when the user has caused the internal plasma to disappear due to turning off "gas feed"
+     */
+    draw_csv_internal_plasma_off_gas_guide() {
+        // console.log(plasma, " draw_csv_internal_plasma_off_gas_guide called"); //:debug
+    }
+
+
+    /**
+     * draw_csv_keeper_electrode() //:unused?
+     * Function to draw the keeper electrode visuals (currently only draws a blue square)
+     */
+    draw_csv_keeper_electrode(){
+        // console.log(keeper, " draw_csv_keeper_electrode called"); //:debug
+
+        this.clearCanvas(keeper);
+        const ctx = this.getLayer(keeper);
+        ProtoParticle.ejectParticles();
+    }
+
+    /**
+     * draw_csv_keeper_electrode_guide() //:unused?
+     * Draws the guide text and tooltips and such for the draw_csv_keeper_electrode for learning mode
+     */
+    draw_csv_keeper_electrode_guide(){
+        // console.log(keeper, " draw_csv_keeper_electrode_guide called"); //:debug
+
+        // this.clearCanvas(keeper);
+        // const ctx = this.getLayer(keeper);
+    }
+
+
+    /**
+     * draw_csv_eject_plasma()
+     * Function to draw the eject plasma visuals (currently only draws a violet [purple] square)
+     */
+    draw_csv_eject_plasma(){
+        // console.log(eject, " draw_csv_eject_plasma called"); //:debug
+
+        this.clearCanvas(eject);
+        const ctx = this.getLayer(eject);
+
+        ProtoParticle.ejectParticles();
+    }
+
+    /**
+     * draw_csv_eject_plasma_guide() //:unused?
+     * Draws the guide text and tooltips and such for the draw_csv_eject_plasma for learning mode
+     */
+    draw_csv_eject_plasma_guide() {
+        // console.log(eject, " draw_csv_eject_plasma_guide called"); //:debug
+
+        // this.clearCanvas(eject);
+        // const ctx = this.getLayer(eject);
     }
 }
 
