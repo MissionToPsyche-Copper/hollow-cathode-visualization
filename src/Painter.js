@@ -78,22 +78,22 @@ class Painter{
     }
 
 
-    /**
-     * getInsert___()
-     * Returns the location of the ___ of the insert on the _ axis, don't forget to account for particle width
-     * Used for the electron and xenon spawn positions
-     *
-     * @returns {number} (int) single coordinate
-     */
-    getInsertTopX(){
-        return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
-    }
-    getInsertTopY(){
-        return this.getCanvasHeight() * top_of_cathode_constant;
-    }
-    getInsertBotY(){
-        return this.getCanvasHeight() * bottom_of_cathode_constant;
-    }
+    // /**
+    //  * getInsert___()
+    //  * Returns the location of the ___ of the insert on the _ axis, don't forget to account for particle width
+    //  * Used for the electron and xenon spawn positions
+    //  *
+    //  * @returns {number} (int) single coordinate
+    //  */
+    // getInsertTopX(){
+    //     return (this.getCathTubeLeftX() + this.getCathTubeRightX())/2; // in short: ( tube_left + tube_right ) / 2
+    // }
+    // getInsertTopY(){
+    //     return this.getCanvasHeight() * top_of_cathode_constant;
+    // }
+    // getInsertBotY(){
+    //     return this.getCanvasHeight() * bottom_of_cathode_constant;
+    // }
 
     /**
      * getCathTube___()
@@ -120,8 +120,8 @@ class Painter{
      * @returns {number} number between this.getCathTubeLeftX() + ELECTRON_RADIUS and this.getCathTubeRightX() - ELECTRON_RADIUS
      */
     getInsertRandomX(){
-        let min = Math.ceil(this.getCathTubeLeftX()) + ELECTRON_RADIUS;
-        return Math.floor(Math.random() * (Math.floor(this.getCathTubeRightX()) - ELECTRON_RADIUS - min) + min); //The maximum is exclusive and the minimum is inclusive
+        let min = Math.ceil(this.getCathTubeLeftX());
+        return Math.floor(Math.random() * (Math.floor(this.getCathTubeRightX()) - min) + min); //The maximum is exclusive and the minimum is inclusive
     }
 
     /**
@@ -150,39 +150,39 @@ class Painter{
         ctx.drawImage(this.base_cathode, this.getCanvasWidth() * -.45, this.getCanvasHeight() * -.35, this.getCanvasWidth() * 1.19, this.getCanvasHeight() * 2.25); // draw the cathode
 
 
-        // // visualize cathode tube bounding box //:debug
-        // ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
-        // ctx.lineWidth = 6; //:debug
-        //
-        // // right //:debug
-        // ctx.beginPath(); //:debug
-        // ctx.moveTo(this.min_x, this.min_y); //:debug
-        // ctx.lineTo(this.min_x, this.max_y); //:debug
-        // ctx.stroke(); //:debug
-        //
-        // ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
-        //
-        // // left //:debug
-        // ctx.beginPath(); //:debug
-        // ctx.moveTo(this.max_x, this.max_y); //:debug
-        // ctx.lineTo(this.max_x, this.min_y); //:debug
-        // ctx.stroke(); //:debug
-        //
-        // ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
-        //
-        // // top //:debug
-        // ctx.beginPath(); //:debug
-        // ctx.moveTo(this.max_x, this.min_y); //:debug
-        // ctx.lineTo(this.min_x, this.min_y); //:debug
-        // ctx.stroke(); //:debug
-        //
-        // ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
-        //
-        // // bottom //:debug
-        // ctx.beginPath(); //:debug
-        // ctx.moveTo(this.min_x, this.max_y); //:debug
-        // ctx.lineTo(this.max_x, this.max_y); //:debug
-        // ctx.stroke(); //:debug
+        // visualize cathode tube bounding box //:debug
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //:debug
+        ctx.lineWidth = 6; //:debug
+
+        // right //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.min_x, this.min_y); //:debug
+        ctx.lineTo(this.min_x, this.max_y); //:debug
+        ctx.stroke(); //:debug
+
+        ctx.strokeStyle = 'rgba(201,69,69,0.6)'; //:debug
+
+        // left //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.max_x, this.max_y); //:debug
+        ctx.lineTo(this.max_x, this.min_y); //:debug
+        ctx.stroke(); //:debug
+
+        ctx.strokeStyle = 'rgba(210,184,30,0.6)'; //:debug
+
+        // top //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.max_x, this.min_y); //:debug
+        ctx.lineTo(this.min_x, this.min_y); //:debug
+        ctx.stroke(); //:debug
+
+        ctx.strokeStyle = 'rgba(128,0,0,0.6)'; //:debug
+
+        // bottom //:debug
+        ctx.beginPath(); //:debug
+        ctx.moveTo(this.min_x, this.max_y); //:debug
+        ctx.lineTo(this.max_x, this.max_y); //:debug
+        ctx.stroke(); //:debug
     }
 
 
@@ -287,11 +287,11 @@ class Painter{
         if(this.ElectronGeneratorKey_Top === -1){
             // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
             // generate two initial ones to get it going right away
-            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
-            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertTopY() + ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getInsertBotY() - ELECTRON_RADIUS * 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
+            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
@@ -416,6 +416,7 @@ class Painter{
 
         this.clearCanvas(keeper);
         const ctx = this.getLayer(keeper);
+        ProtoParticle.ejectParticles();
     }
 
     /**

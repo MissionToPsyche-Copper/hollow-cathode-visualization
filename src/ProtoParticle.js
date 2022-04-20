@@ -22,8 +22,8 @@ const ionizedXenonImage = new Image();
 ionizedXenonImage.src = path_ionized_xenon;
 
 // Misc //
-const ELECTRON_RADIUS = 6;
-const XENON_RADIUS = 10;
+const ELECTRON_RADIUS = 8;
+const XENON_RADIUS = 14;
 const TIMING_INTERVAL = 3/60;
 const IONIZATION_AGE_THRESHOLD = 1500; // particle.halfLife must be < IONIZATION_AGE_THRESHOLD to ionize
 const DEFAULT_HALFLIFE = 2000; // how many animation frames a particle lives for
@@ -577,9 +577,9 @@ class ProtoParticle {
         }
         // check if in set boundaries
         else if(
-            particle.y > particle.max_y - particle.radius * 2 ||
+            particle.y > particle.max_y ||
             particle.y < particle.min_y ||
-            particle.x > particle.max_x - particle.radius * 2 ||
+            particle.x > particle.max_x ||
             particle.x < particle.min_x
         ){
             particle.halfLife = 0;
