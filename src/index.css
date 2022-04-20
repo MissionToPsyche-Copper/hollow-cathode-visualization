@@ -103,13 +103,13 @@ code {
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 18%;
-  bottom: 75%;
-  left: 9vw;
-  right: 50%;
+  top: auto;
+  bottom: 15%;
+  left: auto;
+  right: 35%;
 
-  width: 40vw;
-  height: 42vh;
+  width: 33vw;
+  height: 33vh;
 
   z-index: 10;
 }
@@ -121,11 +121,11 @@ code {
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 0%;
-  left: 19vw;
+  top: 5%;
+  left: 25%;
 
-  width: 22vw;
-  height: 21vh;
+  width: 15vw;
+  height: 15vh;
 
   z-index: 10;
 }
