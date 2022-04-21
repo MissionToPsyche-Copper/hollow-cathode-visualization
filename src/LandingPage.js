@@ -83,6 +83,7 @@ export class LandingPage extends React.Component {
                                 Start Here to Learn
                             </button>
                         </Link>
+
                         <Link to={'/presentation'}>
                             <button id={"PresModeButton"} className={"button"}>
                                 Presentation Mode
