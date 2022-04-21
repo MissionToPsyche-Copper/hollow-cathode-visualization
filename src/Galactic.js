@@ -88,11 +88,11 @@ export const plasmaSubText =
 /** START HEREEEE **/
 
 export const keeperTitleText = "The Keeper Electrode"
-export const keeperText = <p>You’ve turned on the keeper electrode. Doing this pulls electrons out of the hollow cathode so the hall thruster can use them.</p>
+export const keeperText = <p>You’ve turned on the keeper electrode. Doing this pulls electrons out of the hollow cathode so the Hall thruster can use them.</p>
 export const keeperSubText = "";
 
 export const ejectTitleText = "Ejecting Plasma"
-export const ejectText = <p>You’ve just ejected the plasma! The keeper electrode just pulled all the electrons out of the hollow cathode for the hall thruster to use, while the ionized Xenon particles stay in the hollow cathode so they can be re-used.</p>
+export const ejectText = <p>You’ve just ejected the plasma! The keeper electrode just pulled all the electrons out of the hollow cathode for the Hall thruster to use, while the ionized Xenon particles stay in the hollow cathode so they can be re-used.</p>
 export const ejectSubText = "";
 
 export const recapTitleText = "A Quick Recap"
