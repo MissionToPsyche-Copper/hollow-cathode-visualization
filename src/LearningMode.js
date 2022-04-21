@@ -54,7 +54,7 @@ import SummaryPage from "./SummaryPage";
 // Testing?/unknown //
 const {promisify} = require('util')
 const sleep = promisify(setTimeout)
-const path_landing_page_URL = "/";
+const path_landing_page_URL = "/hollow-cathode-visualization";
 
 // Image Paths //
 const path_hall_thruster = "/hollow-cathode-visualization/images/big_hall_thruster_off_HDPS125.png";

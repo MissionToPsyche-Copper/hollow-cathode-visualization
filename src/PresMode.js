@@ -55,7 +55,7 @@ class PresMode extends React.Component {
             this.state.canvas_height = document.getElementById("page-container").clientHeight;
             this.state.canvas_width = document.getElementById("page-container").clientWidth;
         }catch(exception){
-            document.location.href="http://localhost:3000/hollow-cathode-visualization";
+            document.location.href="/hollow-cathode-visualization";
         }
     }
 
