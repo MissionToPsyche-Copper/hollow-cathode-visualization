@@ -130,21 +130,31 @@ export class LearningMode extends React.Component {
         }
 
 
-        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('resize', () => {
+            this.painter.killProtoParticle();
+
+            this.setState({
+                canvas_height: window.innerHeight * 0.8,
+                canvas_width: window.innerWidth
+            }, this.scenarioRefresh);
+        });
     }
 
     componentWillUnmount() {
         this.hideElement("hallThrusterOn-fadeIn");
         this.hideElement("hallThrusterOn-fadeOut");
 
-        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('resize', () => {
+            this.painter.killProtoParticle();
+
+            this.setState({
+                canvas_height: window.innerHeight * 0.8,
+                canvas_width: window.innerWidth
+            }, this.scenarioRefresh);
+        });
         this.painter.killProtoParticle();
     }
 
-    handleResize = () => this.setState({
-        canvas_height: window.innerHeight * 0.8,
-        canvas_width: window.innerWidth
-    }, this.scenarioRefresh);
 
 
     /**

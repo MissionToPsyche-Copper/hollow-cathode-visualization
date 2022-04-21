@@ -57,6 +57,16 @@ class PresMode extends React.Component {
         }catch(exception){
             document.location.href="/hollow-cathode-visualization";
         }
+
+
+        window.addEventListener('resize', () => {
+            this.painter.killProtoParticle();
+
+            this.setState({
+                canvas_height: window.innerHeight * 0.8,
+                canvas_width: window.innerWidth
+            }, this.scenarioRefresh);
+        });
     }
 
     /**
@@ -88,6 +98,14 @@ class PresMode extends React.Component {
     }
 
     componentWillUnmount() {
+        window.removeEventListener('resize', () => {
+            this.painter.killProtoParticle();
+
+            this.setState({
+                canvas_height: window.innerHeight * 0.8,
+                canvas_width: window.innerWidth
+            }, this.scenarioRefresh);
+        });
     }
 
 

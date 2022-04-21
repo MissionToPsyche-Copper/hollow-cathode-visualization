@@ -249,9 +249,10 @@ class Painter{
         if(this.XenonGeneratorKey === -1){
             // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
             // generate a initial one to get it going right away
-            ProtoParticle.generateXenon(ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate an initial one to get it going right away
+            ProtoParticle.generateXenon(ctx, this.getCathTubeLeftX() + 20, (this.getCathTubeTop() + this.getCathTubeBot()) / 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX() - XENON_RADIUS); // generate an initial one to get it going right away
+            //
             // generate on a timer
-            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.min_x + 20, (this.min_y + this.max_y) / 2, this.max_y, this.min_y, this.max_x, this.min_x - XENON_RADIUS); // generate on a timer
+            this.XenonGeneratorKey = setInterval(ProtoParticle.generateXenon, spawn_rate * 1000, ctx, this.getCathTubeLeftX() + 20, (this.getCathTubeTop() + this.getCathTubeBot()) / 2, this.getCathTubeBot(), this.getCathTubeTop(), this.getCathTubeRightX(), this.getCathTubeLeftX() - XENON_RADIUS); // generate on a timer
         }
     }
 
