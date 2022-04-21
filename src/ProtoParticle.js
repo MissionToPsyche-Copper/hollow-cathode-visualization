@@ -24,7 +24,7 @@ ionizedXenonImage.src = path_ionized_xenon;
 // Misc //
 const ELECTRON_RADIUS = 8;
 const XENON_RADIUS = 14;
-const TIMING_INTERVAL = 3/60;
+const TIMING_INTERVAL = 5/60;
 const IONIZATION_AGE_THRESHOLD = 1500; // particle.halfLife must be < IONIZATION_AGE_THRESHOLD to ionize
 const DEFAULT_HALFLIFE = 2000; // how many animation frames a particle lives for
 
