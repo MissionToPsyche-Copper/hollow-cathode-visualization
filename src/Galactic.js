@@ -106,7 +106,7 @@ export const recapText =
 
 export const linksTitleText = "Learn about Psyche!"
 export const linksText = "Sample text for the links page";
-export const link1url = "https://psyche.asu.edu/";
+export const link1url = "https://asu-hall-thruster-visualization.netlify.app/Home/";
 export const link2url = "https://psyche.asu.edu/";
 export const link3url = "https://psyche.asu.edu/";
 
