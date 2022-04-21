@@ -99,7 +99,7 @@ export class LandingPage extends React.Component {
                     </div>
 
                     <div id={"landingPageLModePromptDiv"} className={"stackedButtonGroup landingPageLModePromptAlign"} >
-                        <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"}> click the spacecraft or start button to begin </label>
+                        <label id={"landingPageLModePrompt"} className={"landingPageLModePromptLabel"}> Click the spacecraft or start button to begin </label>
                     </div>
                 </div>
             </div>
