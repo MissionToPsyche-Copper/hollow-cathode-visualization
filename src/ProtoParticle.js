@@ -53,8 +53,6 @@ const particle_speed_modifier = 0.025; //original: 0.025
 //////
 
 // NON-CONSTANTS //
-// var xenon_particles_array = []; // array of all existing xenon particles
-// var electron_particles_array = []; // array of all existing electron particles
 var particles_array = []; // array of all existing electron particles
 var ejectFlag = false;
 var ionizeFlag = false;
@@ -127,19 +125,16 @@ class ProtoParticle {
             this.image = electronImage;
             this.charge = ELECTRON_CHARGE;
             this.radius = ELECTRON_RADIUS;
-            // electron_particles_array.push(this);
 
         } else if(particle_type === TYPE_XENON){
             this.image = xenonImage;
             this.charge = XENON_CHARGE; // neutral
             this.radius = XENON_RADIUS;
-            // xenon_particles_array.push(this);
 
         } else if(particle_type === TYPE_IONIZEDXENON){
             this.image = xenonImage;
             this.charge = IONIZED_CHARGE;
             this.radius = XENON_RADIUS;
-            // xenon_particles_array.push(this);
 
         } else {
             this.image = TYPE_NONE;
@@ -240,15 +235,6 @@ class ProtoParticle {
     }
 
     /**
-     * Private //:unused?
-     * !logic error warning! you may be thinking of clearAnimation()
-     * Stop this particle's rendering and animation *WITHOUT erasing the last frame of it.*
-     */
-    stopAnimation(){
-        window.cancelAnimationFrame(this.anime_key);
-    }
-
-    /**
      * Private
      * !logic error warning! you may be thinking of stopAnimation()
      * Stop this particle's rendering and animation *AND erase the last frame of it.*
@@ -263,20 +249,14 @@ class ProtoParticle {
      * Function for clearing the previous frame/particle before drawing the new/updated frame.
      */
     clearPath(){
-        // method 0 - clear path using grey particle, no visible edges on overlap but leaves a trail
-        // clear circle
-        // this.ctx.beginPath();
-        // this.ctx.arc(this.x, this.y, this.radius+1, 0, Math.PI * 2, true);
-        // this.ctx.closePath();
-        // this.ctx.fillStyle = 'grey';
-        // this.ctx.fill();
+        this.ctx.save(); //drop down a layer
 
-        // method 1 - properly clear area as rectangle, visible edges on overlap
-        // clear circle
-        // this.ctx.clearRect(this.x - this.radius - 1, this.y - this.radius - 1, this.radius * 2 + 2, this.radius * 2 + 2);
+            this.ctx.beginPath();
+            this.ctx.arc(this.x + this.radius, this.y + this.radius, this.radius + 1, 0, Math.PI * 2, true);
+            this.ctx.clip();
+            this.ctx.clearRect(this.x, this.y, this.radius * 2, this.radius * 2);
 
-        // clear image
-        this.ctx.clearRect(this.x, this.y, this.radius * 2, this.radius * 2);
+        this.ctx.restore(); //pop up a layer
     }
 
     /**
@@ -362,22 +342,6 @@ class ProtoParticle {
         }
     }
 
-    // /**
-    //  * Eject yourself //:unused?
-    //  * Switches animation and changes bounding box
-    //  */
-    // eject(){
-    //     // // if is xenon
-    //     // if(this.particle_type === TYPE_XENON || this.particle_type === TYPE_IONIZEDXENON){
-    //     //     this.setAnimation(ProtoParticle.xenonAnimation)
-    //     //     // this.max_x = this.canvas.width * 4; //todo: revist eject
-    //     // }
-    //     // // if is electron
-    //     // else if(this.particle_type === TYPE_ELECTRON){
-    //     //     this.max_x = this.canvas.width * 2; //todo: revist eject
-    //     // }
-    // }
-
     /**
      * Private
      * Have a particle delete itself from existence
@@ -396,45 +360,11 @@ class ProtoParticle {
         // console.log("---------")
     }
 
-    // /**
-    //  * Private //:unused?
-    //  * Ionizes the particle at xenon_particles_array[key]
-    //  * Essentially a wrapper for the call, this is needed since using setTimeout makes scoping issues
-    //  *
-    //  * @param index index in xenon_particles_array[]
-    //  */
-    // static draw_ionize(index){
-    //     try {
-    //         // xenon_particles_array[index].ionize();
-    //         particles_array[index].ionize();
-    //     } catch (error) {
-    //         // Expected error: TypeError
-    //         // This happens when a particle is deleted before it can ionize, this is normal (in presMode)
-    //     }
-    //
-    // }
-
-    // static draw_eject(index){
-    //     // depreciated by implementation of eject flag
-    //
-    //
-    //     // try {
-    //     //     // xenon_particles_array[index].eject();
-    //     //     // electron_particles_array[index].eject();
-    //     //     particles_array[index].eject();
-    //     // } catch (error) {
-    //     //     // Expected error: TypeError
-    //     //     // This happens when a particle is deleted before it can ionize, this is normal (in presMode)
-    //     // }
-    //
-    // }
-
     /**
      * Public Interface
      * Set ionization flag to true, causes xenon particles to ionize
      */
     static ionizeParticles(){
-        // console.log("xenon_particles_array.length: ", xenon_particles_array.length)
         this.setIonizeFlag(true)
     }
 
@@ -671,12 +601,11 @@ class ProtoParticle {
      * @param mmin_x bounding box
      */
     static generateXenon(ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x){
-        // console.log("generating electron");//:debug
         // Drawing some particles //
-        let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, TYPE_XENON, mmax_y, mmin_y, mmax_x, mmin_x); // randomized
+        let xenon0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, TYPE_XENON, mmax_y, mmin_y, mmax_x, mmin_x);
         xenon0.setAnimation(ProtoParticle.xenonAnimation);
         xenon0.startAnimation();
-    }// todo particle 6
+    }
 
     /**
      * Public Interface, used by Painter.js
@@ -708,38 +637,6 @@ class ProtoParticle {
         let electron0 = new ProtoParticle(ctx, x, y, -999, -999, 0, 0, TYPE_ELECTRON, mmax_y, mmin_y, mmax_x, mmin_x); // randomized
         electron0.setAnimation(ProtoParticle.electronAnimation);
         electron0.startAnimation();
-    }
-
-    // static killAllElectron(){
-    //     // let limiti = electron_particles_array.length;
-    //     // for (let i = 0; i < limiti; i++) {
-    //     //     (electron_particles_array.pop()).clearAnimation();
-    //     // }
-    //
-    //     // let limiti = particles_array.length;
-    //     // for (let i = 0; i < limiti; i++) {
-    //     //     (particles_array.pop()).clearAnimation();
-    //     // }
-    // }
-
-    // todo particle 3
-    //:unused?, not planned to be implemented?
-    static setElectronBoundingBox(mmax_y, mmin_y, mmax_x, mmin_x){
-        // needs implemented with particles_array now that I am thinking about removing electron_particles_array
-        // // for each particle in electron array, update these parameters
-        // for (const index in electron_particles_array) {
-        //     let particle = electron_particles_array[index]
-        //     particle.max_y = mmax_y;
-        //     particle.min_y = mmin_y;
-        //     particle.max_x = mmax_x;
-        //     particle.min_x = mmin_x;
-        // }
-    }
-
-    //:unused?, not planned to be implemented?
-    static setXenonBoundingBox(mmax_y, mmin_y, mmax_x, mmin_x){
-        // needs implemented
-        // for each xenon particle in particle array, update these parameters
     }
 
     /**
