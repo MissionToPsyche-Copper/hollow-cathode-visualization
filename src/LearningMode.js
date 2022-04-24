@@ -2,53 +2,23 @@ import React from "react";
 import Painter from "./Painter";
 
 import {
-    base,
-    cathodeCSVSubText,
-    cathodeCSVText,
-    cathodeCSVTitleText,
-    cathodeShellPrimaryText,
-    cathodeShellPrimaryTitleText,
-    eject,
-    ejectSubText,
-    ejectText,
-    ejectTitleText,
-    gas,
-    gasKeeperErrorSubText,
-    gasKeeperErrorText,
-    gasKeeperErrorTitleText,
-    gasSubText,
-    gasText,
-    gasTitleText,
-    hallThrusterOff,
-    hallThrusterOn,
-    hallThrusterPrimaryText,
-    hallThrusterPrimaryTitleText,
-    hallThrusterSecondaryOffText,
-    hallThrusterSecondaryOnText,
-    heat,
-    heatKeeperErrorSubText,
-    heatKeeperErrorText,
-    heatKeeperErrorTitleText,
-    heatSubText,
-    heatText,
-    heatTitleText,
-    keeper,
-    keeperSubText,
-    keeperText,
-    keeperTitleText,
+    base, cathodeCSVSubText, cathodeCSVText, cathodeCSVTitleText,
+    cathodeShellPrimaryText, cathodeShellPrimaryTitleText,
+    eject, ejectSubText, ejectText, ejectTitleText,
+    gas, gasKeeperErrorSubText, gasKeeperErrorText, gasKeeperErrorTitleText, gasSubText, gasText, gasTitleText,
+    hallThrusterOff, hallThrusterPrimaryText, hallThrusterPrimaryTitleText,
+    hallThrusterOn, hallThrusterSecondaryOffText, hallThrusterSecondaryOnText,
+    heat, heatKeeperErrorSubText, heatKeeperErrorText, heatKeeperErrorTitleText, heatSubText, heatText, heatTitleText,
+    keeper, keeperSubText, keeperText, keeperTitleText,
+    plasma, plasmaSubText, plasmaText, plasmaTitleText,
+    recapText,
     path_electron,
     path_ionized_xenon,
     path_lm_csv,
-    path_xenon,
-    plasma,
-    plasmaSubText,
-    plasmaText,
-    plasmaTitleText,
-    recapText
+    path_xenon
 } from "./Galactic";
 
 import {Link} from "react-router-dom";
-import SummaryPage from "./SummaryPage";
 
 /// CONSTANTS ///
 // Testing?/unknown //
@@ -67,12 +37,6 @@ const path_hall_thruster_on = "/hollow-cathode-visualization/images/big_hall_thr
  * Should be rendered inside a <div id={"canvasHolder"}>
  * also with props: id={"LearningMode"} deltastage={base} scene={[true,false,false,false,false,false,false,false]}
  */
-
-/// Flags ///
-var HALL_THRUSTER_ON = false;
-var didRotate = false; //:unused?
-///
-
 export class LearningMode extends React.Component {
 
     // Instance variables:
@@ -116,7 +80,7 @@ export class LearningMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
 
-        // MANUAL OVERRIDE // !!!!!!!!!!!!!!! //todo - bad temp code //:debug
+        // MANUAL OVERRIDE // !!!!!!!!!!!!!!! //todo - likely not great temp code //:debug
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = false;
         this.state = { deltastage: props.deltastage, scene: newScene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
@@ -276,10 +240,9 @@ export class LearningMode extends React.Component {
                 this.setState({titleText: cathodeCSVTitleText, text: cathodeCSVText, subText: cathodeCSVSubText})
             }
 
-            this.hideElement("hallThruster") //:Jack
-            this.showElement("particleKey") //:Jack
+            this.hideElement("hallThruster")
+            this.showElement("particleKey")
 
-            //this.showElement("baseCathode")//:unused?
         }
         //hide some elements that shouldn't be seen outside cross-sectional view
         else if(this.state.scene[base] === false)
@@ -453,7 +416,6 @@ export class LearningMode extends React.Component {
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
                 this.nextButton_eject_HandleClick(); // skip eject
-                // document.getElementById("nextButton").onclick = this.nextButton_eject_HandleClick;
             }
         }
         // if eject is false and deltastage is plasma
@@ -501,7 +463,7 @@ export class LearningMode extends React.Component {
             }
         }
 
-        //TODO this is a bad solution for checking the user has completed learning mode
+        //TODO this is likely not a good solution for checking the user has completed learning mode
         if(this.state.scene[base] === true
             && this.state.scene[heat] === true
             && this.state.scene[gas] === true
@@ -532,8 +494,6 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: heat, scene: newScene };
         }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
     }
 
     /**
@@ -554,8 +514,6 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: gas, scene: newScene };
         }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
     }
 
     /**
@@ -576,8 +534,6 @@ export class LearningMode extends React.Component {
         this.setState((state, props) => {
             return { deltastage: keeper, scene: newScene };
         }, () => {this.scenarioRefresh()});
-
-        // WARNING: code past setState will not be synchronously executed
     }
 
     /**
@@ -600,7 +556,7 @@ export class LearningMode extends React.Component {
     }
 
     /**
-     * nextButton_shellToLearningModeCore_HandleClick()
+     * nextButton_shellToLearningModeCore_HandleClick() //:unused?
      */
     async triggerZoom() {
 
@@ -615,20 +571,17 @@ export class LearningMode extends React.Component {
         await this.delay(1300);
 
         this.hideElement("shellToCrossZoom");
-        this.showElement("shellFadeOut"); //:Jack
+        this.showElement("shellFadeOut");
 
         this.hideElement("hallThrusterButtonGroup");
         this.showElement("toggleButtonGroup");
 
         this.hideElement("hallThrusterButtonGroup");
 
-        // this.hideElement("hallThrusterNameLabelDiv");//:leavingLMG
-
         this.hideElement("HallThrusterNext");
 
         this.hideElement("hallThrusterOn-fadeIn")
         this.hideElement("hallThrusterOn-fadeOut")
-        // this.showElement("learningModeGuide")//:leavingLMG
 
         this.setState((state, props) => {
             return { deltastage: base, scene: [true,false,false,false,false,false,false,false] };
@@ -639,8 +592,8 @@ export class LearningMode extends React.Component {
      * nextButton_hallThrusterToShell_HandleClick()
      */
     nextButton_hallThrusterToShell_HandleClick() {
-        this.hideElement("hallThrusterOffLabelDiv")
-        this.hideElement("hallThrusterOnLabelDiv")
+        this.hideElement("hallThrusterOffLabelDiv");
+        this.hideElement("hallThrusterOnLabelDiv");
 
         // transition out of "on" state before zooming
         this.hideElement("hallThrusterOn-fadeIn");
@@ -650,12 +603,12 @@ export class LearningMode extends React.Component {
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
 
 
-        nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in")
+        nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in");
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
         nextButton_Accessible.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
 
         // trigger zoom animation
-        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom")
+        document.getElementById("hallThruster").classList.add("hallThrusterToCathodeZoom");
 
         this.hideElement("HallThrusterToggle");
 
@@ -694,24 +647,16 @@ export class LearningMode extends React.Component {
         newScene[eject] = !newScene[eject];
         // update DOM buttons (replace next with normal toggles)
         this.hideElement("nextButton");
-        // this.showElement("toggleButtonGroup");
         this.showElement("summaryButton_")
 
 
         newScene[eject] = !newScene[eject];
-        // this.nextButton_end_HandleClick();
         this.hideElement('nextButton');
         this.showElement('summaryButton');
 
         this.setState((state, props) => {
             return { deltastage: eject, scene: newScene };
         }, () => {this.scenarioRefresh()});
-
-
-        // change the current state, refresh scenario in callback to synchronously update the visuals after the state has changed
-        // this.setState((state, props) => {
-        //     return { deltastage: eject, scene: newScene };
-        // }, () => {this.scenarioRefresh()});
     }
 
     /**
@@ -719,12 +664,10 @@ export class LearningMode extends React.Component {
      * Onclick handler for the "next" button for the eject plasma scene's ending
      * this leads to the view were we show them some links to follow and such
      */
-
     /**
-     * LINK TO SUMMARY PAGE HERE!!!!
+     * LINK TO SUMMARY PAGE HERE!!!! //:debug?
      */
     nextButton_end_HandleClick() {
-
         this.hideElement('nextButton');
         this.showElement('summaryButton');
 
@@ -743,14 +686,14 @@ export class LearningMode extends React.Component {
     render(){
         return (
             <div id={'canvasHolder'}>
-                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                <canvas id={"canvas0"} ref={this.canvas0} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > This webapp is not supported on your current browser, please try again with a different browser. </canvas>
+                <canvas id={"canvas1"} ref={this.canvas1} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas2"} ref={this.canvas2} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas3"} ref={this.canvas3} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
 
                 <img id={"hallThruster"} src={path_hall_thruster} className={" "} alt={"Hall Thruster Off"}/>
 
@@ -828,11 +771,11 @@ export class LearningMode extends React.Component {
                             <p className={"keyLabel"}>Electron</p>
                         </div>
                         <div className={"mmrow"}>
-                            <img src={path_xenon} alt={"Electron image alt text"} className={"keyImage xenonKey"}/>
+                            <img src={path_xenon} alt={"Xenon image alt text"} className={"keyImage xenonKey"}/>
                             <p className={"keyLabel"}>Xenon</p>
                         </div>
                         <div className={"mmrow"}>
-                            <img src={path_ionized_xenon} alt={"Electron image alt text"} className={"keyImage xenonKey"}/>
+                            <img src={path_ionized_xenon} alt={"Ionized Xenon image alt text"} className={"keyImage xenonKey"}/>
                             <p className={"keyLabel"}>Ionized Xenon</p>
                         </div>
                     </div>

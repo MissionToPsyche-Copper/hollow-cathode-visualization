@@ -116,10 +116,6 @@ class PresMode extends React.Component {
      * You can see the end of this function as the end of the current update/iteration.
      */
     scenarioRefresh() {
-        // console.log("PresMode.scenarioRefresh() called"); //:debug
-
-        // console.log("   scenarioRefresh:: this.state.deltastage", this.state.deltastage); //:debug
-        // console.log("   scenarioRefresh:: this.state.scene", this.state.scene); //:debug
         // clear all drawings if the user just entered presentation mode or it looped back to the beginning
         if (this.state.scene[base] === true && this.state.scene[heat] === false) {
             // clear every layer, and all particles, and all generators
@@ -131,9 +127,6 @@ class PresMode extends React.Component {
 
         // if basedrawing is active
         if (this.state.scene[base] === true) {
-            //this.draw_csv_Base_Drawing();
-
-            //draw base cathode
             this.painter.draw_csv_Base_Drawing();
         }
 
@@ -157,12 +150,11 @@ class PresMode extends React.Component {
             this.painter.draw_csv_keeper_electrode();
         }
 
-        // if eject plasma is active
-        if (this.state.scene[eject] === true) {
-            // this.painter.draw_csv_eject_plasma();
-        }
+        // // if eject plasma is active
+        // if (this.state.scene[eject] === true) {
+        //     // this.painter.draw_csv_eject_plasma();
+        // }
 
-        // console.log("-----------------------------scenarioRefresh (end)-----------------------------"); //:debug
     }
 
     /**

@@ -40,14 +40,12 @@ export const path_ionized_xenon = "/hollow-cathode-visualization/images/ionized_
 export const hallThrusterPrimaryTitleText = "This is a Hall Thruster"
 export const hallThrusterPrimaryText = <div><p>The large circular piece here is a Hall thruster, which propels the spacecraft through outer space by ionizing particles and shooting them out of the spacecraft.</p></div>
 
-// export const hallThrusterSecondaryOnTitleText = "The Hall thruster is On";
 export const hallThrusterSecondaryOnText =
     <div>
         <p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.</p>
         <p>For the Hall thruster to work, it needs tiny particles called electrons. These electrons charge, or ionize, the ions so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the hall thruster.</p>
         <p><b id={"guideText"} className={"guideText"}>Click on the hollow cathode above the hall thruster to learn more about it.</b></p>
     </div>
-// export const hallThrusterSecondaryOffTitleText = "The Hall thruster is Off";
 export const hallThrusterSecondaryOffText =
     <div>
         <p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out tiny particles, called ions, out of the spacecraft at very high speeds.</p>
@@ -84,8 +82,6 @@ export const plasmaTitleText = "Plasma Forms"
 export const plasmaText = <p>Plasma Forms inside the Cathode Tube. The Xenon particles are ionized to make a steady source of plasma for the Hall thruster to work with. When this happens, more electrons are let into the hollow cathode for the Hall thruster to use. But first, all those electrons need to be pushed out of the hollow cathode so the Hall thruster can access them.</p>
 export const plasmaSubText =
     "To do this, let’s turn on the keeper electrode."
-
-/** START HEREEEE **/
 
 export const keeperTitleText = "The Keeper Electrode"
 export const keeperText = <p>You’ve turned on the keeper electrode. Doing this pulls electrons out of the hollow cathode so the Hall thruster can use them.</p>
