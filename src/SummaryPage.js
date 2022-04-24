@@ -8,7 +8,7 @@ class SummaryPage extends React.Component{
         PresMode.isAuto = false;
 
         if (PresMode.isAuto === false){
-            console.log("Summary toggle result: "+PresMode.isAuto);
+            // console.log("Summary toggle result: "+PresMode.isAuto);
             document.getElementById('autoToggleButton').click();
         }
 

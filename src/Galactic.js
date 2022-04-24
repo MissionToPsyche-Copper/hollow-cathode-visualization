@@ -11,11 +11,12 @@
 export const base = 0;              // ctx0 // scene[base]
 export const heat = 1;              // ctx1 // scene[heat]
 export const gas = 2;               // ctx2 // scene[gas]
-export const plasma = 3;            // ctx3 // scene[plasma]
-export const keeper = 4;            // ctx4 // scene[keeper]
-export const eject = 5;             // ctx5 // scene[eject]
-export const hallThrusterOff = 6;   // ctx6 // scene[hallThrusterOff]
-export const hallThrusterOn = 7;    // ctx7 // scene[hallThrusterOn]
+export const plasma = 3;            // ctx3 // scene[plasma]            // LAYER REPURPOSED (constant still used for state-based logic) //
+export const labels = 3;            // ctx3 //
+export const keeper = 4;            // ctx4 // scene[keeper]            // LAYER DISCONTINUED (constant still used for state-based logic) //
+export const eject = 5;             // ctx5 // scene[eject]             // LAYER DISCONTINUED (constant still used for state-based logic) //
+export const hallThrusterOff = 6;   // ctx6 // scene[hallThrusterOff]   // LAYER DISCONTINUED (constant still used for state-based logic) //
+export const hallThrusterOn = 7;    // ctx7 // scene[hallThrusterOn]    // LAYER DISCONTINUED (constant still used for state-based logic) //
 
 // Relative Dimensions //
 // cathode tube relative position modifiers (how we place the box on the screen relative to the canvas size

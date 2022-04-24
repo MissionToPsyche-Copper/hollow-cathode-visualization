@@ -33,11 +33,10 @@ class PresMode extends React.Component {
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
-        this.canvas4 = React.createRef();
-        this.canvas5 = React.createRef();
-
-        this.canvas6 = React.createRef();   //Hall Thruster OFF
-        this.canvas7 = React.createRef();   //Hall Thruster ON
+        // this.canvas4 = React.createRef();
+        // this.canvas5 = React.createRef();
+        // this.canvas6 = React.createRef();   //Hall Thruster OFF
+        // this.canvas7 = React.createRef();   //Hall Thruster ON
 
         // bind handler function(s)
         this.nextButton_HandleClick = this.nextButton_HandleClick.bind(this);
@@ -85,13 +84,14 @@ class PresMode extends React.Component {
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
         const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
         const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
-        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
-        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
-        const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
-        const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
+        // const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
+        // const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+        // const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
+        // const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
-        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
+        // this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
         //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
+        this.layers = [ctx0, ctx1, ctx2, ctx3];
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
         PresMode.isAuto= false;
@@ -235,10 +235,10 @@ class PresMode extends React.Component {
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
                 <canvas id={"canvas3"} ref={this.canvas3} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>
+                {/*<canvas id={"canvas4"} ref={this.canvas4} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>*/}
+                {/*<canvas id={"canvas5"} ref={this.canvas5} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>*/}
+                {/*<canvas id={"canvas6"} ref={this.canvas6} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>*/}
+                {/*<canvas id={"canvas7"} ref={this.canvas7} className={"canvas"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > You need a better browser :( </canvas>*/}
 
                 <div className={"stackedButtonGroup bottomleftAlign"}>
                     <Link to={'/'}>

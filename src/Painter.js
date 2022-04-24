@@ -6,7 +6,7 @@ import ProtoParticle from "./ProtoParticle";
  * This allows us to easily add and remove layers.
  */
 import {
-    base, gas, heat, keeper, plasma, eject,
+    base, gas, heat, labels,
     path_lm_csv,
     bottom_of_cathode_constant,
     left_of_cathode_constant,
@@ -64,7 +64,11 @@ class Painter{
      * @param layer_number layer number for layer to clear
      */
     clearCanvas(layer_number){
-        this.getLayer(layer_number).clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
+        if(this.layers.length > layer_number && layer_number > -1){
+            this.getLayer(layer_number).clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
+        } else {
+            console.warn("Invalid layer number: ", layer_number)
+        }
 
     }
 
@@ -191,9 +195,6 @@ class Painter{
      * Function to draw the internal plasma visuals (currently only draws a green square)
      */
     draw_csv_internal_plasma(){
-        // this.clearCanvas(plasma);
-        // const ctx = this.getLayer(plasma);
-
         ProtoParticle.ionizeParticles();
     }
 
@@ -203,9 +204,6 @@ class Painter{
      * Function to draw the keeper electrode visuals (currently only draws a blue square)
      */
     draw_csv_keeper_electrode(){
-        // this.clearCanvas(keeper);
-        // const ctx = this.getLayer(keeper);
-
         ProtoParticle.ejectParticles();
     }
 

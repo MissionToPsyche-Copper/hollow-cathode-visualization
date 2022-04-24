@@ -58,12 +58,12 @@ export class LearningMode extends React.Component {
         this.canvas1 = React.createRef();
         this.canvas2 = React.createRef();
         this.canvas3 = React.createRef();
-        this.canvas4 = React.createRef();
-        this.canvas5 = React.createRef();
-
-        //Hall Thruster Canvases:
-        this.canvas6 = React.createRef();   //Hall Thruster OFF
-        this.canvas7 = React.createRef();   //Hall Thruster ON
+        // this.canvas4 = React.createRef();
+        // this.canvas5 = React.createRef();
+        //
+        // //Hall Thruster Canvases:
+        // this.canvas6 = React.createRef();   //Hall Thruster OFF
+        // this.canvas7 = React.createRef();   //Hall Thruster ON
 
         // bind handler function(s)
         this.HeatInsertToggle_HandleClick = this.HeatInsertToggle_HandleClick.bind(this);
@@ -166,17 +166,17 @@ export class LearningMode extends React.Component {
         const ctx0 = this.canvas0.current.getContext('2d'); // base = 0;
         const ctx1 = this.canvas1.current.getContext('2d'); // heat = 1;
         const ctx2 = this.canvas2.current.getContext('2d'); // gas = 2;
-        const ctx3 = this.canvas3.current.getContext('2d'); // plasma = 3;
-        const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
-        const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
-        const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
-        const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
+        const ctx3 = this.canvas3.current.getContext('2d'); // labels = 3;
+        // const ctx4 = this.canvas4.current.getContext('2d'); // keeper = 4;
+        // const ctx5 = this.canvas5.current.getContext('2d'); // eject = 5;
+        // const ctx6 = this.canvas6.current.getContext('2d'); // Hall Thruster OFF = 6;
+        // const ctx7 = this.canvas7.current.getContext('2d'); // Hall Thruster ON = 7;
 
         document.getElementById("HallThrusterNext").onclick = this.nextButton_hallThrusterToShell_HandleClick;
         document.getElementById("HallThrusterNext_Accessible").onclick = this.nextButton_hallThrusterToShell_HandleClick;
 
-        this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7];
-        //      layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
+        // this.layers = [ctx0, ctx1, ctx2, ctx3, ctx4, ctx5, ctx6, ctx7]; // layers[base = 0, heat = 1, gas = 2, plasma = 3, keeper = 4, eject = 5, thruster off = 6, thruster on = 7];
+        this.layers = [ctx0, ctx1, ctx2, ctx3]; // layers[base = 0, heat = 1, gas = 2, labels = 3; (new)
         this.painter = new Painter(this.layers);
         this.scenarioRefresh();
 
@@ -228,10 +228,9 @@ export class LearningMode extends React.Component {
         /*// Learning Mode core first stage/scene //*/
         // if basedrawing is active
         if(this.state.scene[base] === true){
-            // console.log('base cathode is drawing')//:debug
             this.painter.draw_csv_Base_Drawing()
-            this.painter.clearCanvas(hallThrusterOn)
-            this.painter.clearCanvas(hallThrusterOff)
+            // this.painter.clearCanvas(hallThrusterOn)
+            // this.painter.clearCanvas(hallThrusterOff)
 
 
             // if the user just toggled basedrawing
@@ -370,7 +369,7 @@ export class LearningMode extends React.Component {
             // see if plasma should be required to be next in line
             if(this.state.deltastage === heat || this.state.deltastage === gas){
                 // show next button (restrict user mobility)
-                this.painter.clearCanvas(plasma);
+                // this.painter.clearCanvas(plasma);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
                 document.getElementById('nextButton').style.display='block';
@@ -380,7 +379,7 @@ export class LearningMode extends React.Component {
         // if plasma is false and deltastage is plasma
         else if (this.state.deltastage === plasma){
             // the user deselected this option/layer
-            this.painter.clearCanvas(this.state.deltastage);
+            // this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopIonizing();
 
             this.setState({titleText: "", text: "", subText: ""})
@@ -412,7 +411,7 @@ export class LearningMode extends React.Component {
             // see if eject should be required to be next in line
             if(this.state.deltastage === keeper){
                 // show next button (restrict user mobility)
-                this.painter.clearCanvas(eject);
+                // this.painter.clearCanvas(eject);
                 this.hideElement("toggleButtonGroup");
                 this.showElement("nextButton");
                 this.nextButton_eject_HandleClick(); // skip eject
@@ -421,7 +420,7 @@ export class LearningMode extends React.Component {
         // if eject is false and deltastage is plasma
         else if (this.state.deltastage === eject){
             // the user deselected this option/layer
-            this.painter.clearCanvas(this.state.deltastage);
+            // this.painter.clearCanvas(this.state.deltastage);
             this.painter.stopEjecting();
 
             this.setState({titleText: "", text: "", subText: ""})
@@ -690,10 +689,10 @@ export class LearningMode extends React.Component {
                 <canvas id={"canvas1"} ref={this.canvas1} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
                 <canvas id={"canvas2"} ref={this.canvas2} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
                 <canvas id={"canvas3"} ref={this.canvas3} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
-                <canvas id={"canvas4"} ref={this.canvas4} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
-                <canvas id={"canvas5"} ref={this.canvas5} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
-                <canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
-                <canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>
+                {/*<canvas id={"canvas4"} ref={this.canvas4} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>*/}
+                {/*<canvas id={"canvas5"} ref={this.canvas5} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>*/}
+                {/*<canvas id={"canvas6"} ref={this.canvas6} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>*/}
+                {/*<canvas id={"canvas7"} ref={this.canvas7} className={"canvas unselectable"} width={this.state.canvas_width} height={this.state.canvas_height} deltastage={this.state.deltastage} scene={this.state.scene} > </canvas>*/}
 
                 <img id={"hallThruster"} src={path_hall_thruster} className={" "} alt={"Hall Thruster Off"}/>
 
