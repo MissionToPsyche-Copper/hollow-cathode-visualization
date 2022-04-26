@@ -352,6 +352,16 @@ img{
 /*/// ///*/
 
 .titleLabel {
+
+    color: #A53F5B;
+    font-size: clamp(25px, 2.1vw, 45px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.summaryTitleLabel {
+    font-family: "Courier New";
     color: #A53F5B;
     font-size: clamp(25px, 2.1vw, 45px);
     padding: 8px;
@@ -361,7 +371,9 @@ img{
 
 .sublabel {
     color: #f5f5f5;
-    font-size: clamp(11px, 0.9vw, 20px);
+    /*font-size: clamp(11px, 0.9vw, 20px);*/
+    text-align: justify;
+    font-size: clamp(20px, 0.9vw, 20px);
     font-family: Arial, serif;
     font-weight: normal;
     padding: 8px;
@@ -369,6 +381,10 @@ img{
 
     min-width: 20vw;
     max-width: 30vw;
+}
+
+.landingPageButtonPos{
+    margin-bottom: 5%;
 }
 
 .landingPageTitleLabel {
@@ -396,11 +412,12 @@ img{
     padding: 8px;
     font-weight: bold;
     width: 100%;
+
 }
 
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: 26%;
+    top: 33%;
     left: 64vw;
 
     text-align: left;
@@ -410,10 +427,10 @@ img{
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 32%;
+    top: 37%;
     left: 64vw;
 
-    text-align: left;
+    text-align: justify;
 
     min-width: 20vw;
     max-width: 24vw;
@@ -421,25 +438,65 @@ img{
     color: #f5f5f5;
 }
 
+.clickHollowCathodeGuideText {
+    color: #a83c5c;
+    font-size: .75em;
+    font-family: "Courier New";
+    font-weight: bolder;
+
+    z-index: 0;
+
+    text-align: left;
+}
+
+.clickHollowCathodeGuideTextPos {
+    position: absolute;
+
+    top: 2%;
+    left: 34vw;
+
+    min-width: 10vw;
+    max-width: 20vw;
+}
+
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 5%; /*alt measure: 9vh*/
-    left: 54vw;
+    top: 7%; /*alt measure: 9vh*/
+    left: 57vw;
 
     max-width: 35vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
-    text-align: left;
+    /*text-align: left;*/
     position: absolute;
     top: 11%;
-    left: 54vw;
+    left: 57vw;
 
     max-width: 35vw;
     min-width: 20vw;
 
     color: #f5f5f5;
+}
+
+.cathodeShellGuideText {
+    color: #a83c5c;
+    font-size: .9em;
+    font-family: "Courier New";
+    font-weight: bolder;
+
+    text-align: center;
+}
+
+.cathodeShellGuideTextPos {
+    position: absolute;
+
+    top: 16%;
+    left: 12vw;
+
+    min-width: 10vw;
+    max-width: 20vw;
 }
 
 #learningModeGuide {
@@ -481,10 +538,12 @@ img{
 
 /*// Summary Page //*/
 .summarySubLabelPos{
-    text-align: left;
     position: absolute;
-    top: 8%;
-    left: 58vw;
+
+    font-size: clamp(22px, 1vw, 64px);
+
+    top: 15%;
+    left: 60vw;
 
     max-width: 35vw;
     min-width: 20vw;
@@ -500,7 +559,9 @@ img{
 }
 
 .summarySubLabel{
-    text-align: left;
+    font-family: "Courier New";
+    font-weight: bold;
+    text-align: justify;
 }
 
 

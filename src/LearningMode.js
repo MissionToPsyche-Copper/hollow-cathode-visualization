@@ -3,11 +3,11 @@ import Painter from "./Painter";
 
 import {
     base, cathodeCSVSubText, cathodeCSVText, cathodeCSVTitleText,
-    cathodeShellPrimaryText, cathodeShellPrimaryTitleText,
+    cathodeShellPrimaryText, cathodeShellPrimaryTitleText, cathodeShellGuideText,
     eject, ejectSubText, ejectText, ejectTitleText,
     gas, gasKeeperErrorSubText, gasKeeperErrorText, gasKeeperErrorTitleText, gasSubText, gasText, gasTitleText,
     hallThrusterOff, hallThrusterPrimaryText, hallThrusterPrimaryTitleText,
-    hallThrusterOn, hallThrusterSecondaryOffText, hallThrusterSecondaryOnText,
+    hallThrusterOn, hallThrusterSecondaryOffText, hallThrusterSecondaryOnText, clickHollowCathodeGuideText,
     heat, heatKeeperErrorSubText, heatKeeperErrorText, heatKeeperErrorTitleText, heatSubText, heatText, heatTitleText,
     keeper, keeperSubText, keeperText, keeperTitleText,
     plasma, plasmaSubText, plasmaText, plasmaTitleText,
@@ -197,6 +197,7 @@ export class LearningMode extends React.Component {
 
         /*// Learning Mode Intro first slide/stage/scene //*/
         if(this.state.scene[hallThrusterOff] === true && this.state.deltastage === hallThrusterOff){
+            this.hideElement("cathodeShellGuideText");
             this.hideElement("toggleButtonGroup");
             this.hideElement("summaryButton_");
         }
@@ -207,6 +208,7 @@ export class LearningMode extends React.Component {
             this.hideElement("hallThrusterOn-fadeOut");
 
             this.showElement("hallThrusterOnLabelDiv");
+            this.showElement("clickHollowCathodeGuideText");
             this.hideElement("hallThrusterOffLabelDiv");
 
             this.setState({thrusterButtonText: "Off"});
@@ -219,11 +221,10 @@ export class LearningMode extends React.Component {
 
             this.hideElement("hallThrusterOnLabelDiv");
             this.showElement("hallThrusterOffLabelDiv");
+            this.showElement("clickHollowCathodeGuideText");
 
             this.setState({thrusterButtonText: "On"});
         }
-
-
 
         /*// Learning Mode core first stage/scene //*/
         // if basedrawing is active
@@ -564,6 +565,8 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass");
+        this.hideElement("cathodeShellGuideText");
+
         this.hideElement("hallThruster");
         this.showElement("shellToCrossZoom");
 
@@ -591,8 +594,11 @@ export class LearningMode extends React.Component {
      * nextButton_hallThrusterToShell_HandleClick()
      */
     nextButton_hallThrusterToShell_HandleClick() {
+        this.showElement("cathodeShellGuideText");
+
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
+        this.hideElement("clickHollowCathodeGuideText");
 
         // transition out of "on" state before zooming
         this.hideElement("hallThrusterOn-fadeIn");
@@ -600,7 +606,6 @@ export class LearningMode extends React.Component {
 
         let nextButton = document.getElementById("HallThrusterNext");
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
-
 
         nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in");
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
@@ -749,7 +754,6 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
                            className={"titleLabel hallThrusterNameTitleLabelPos"}> {this.state.titleText}
@@ -757,10 +761,19 @@ export class LearningMode extends React.Component {
                     <label id={"hallThrusterNameSublabel"}
                            className={"sublabel hallThrusterNameSublabelPos"}>
                         {this.state.text}
-                        <p><b className={"guideText"}>{this.state.subText}</b></p>
+                        <p><b className={"thrusterGuideText"}>{this.state.subText}</b></p>
                     </label>
                 </div>
 
+                <label id={"clickHollowCathodeGuideText"}
+                       className={"clickHollowCathodeGuideText clickHollowCathodeGuideTextPos  "}>
+                    {clickHollowCathodeGuideText}
+                </label>
+
+                <label id={"cathodeShellGuideText"}
+                       className={"cathodeShellGuideText cathodeShellGuideTextPos  "}>
+                    {cathodeShellGuideText}
+                </label>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
 

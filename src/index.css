@@ -91,7 +91,7 @@ code {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
 }
 
 #spaceshipImage{
@@ -139,9 +139,9 @@ code {
 
   height: 150vh; /* linked a0 */
   top: -12vh; /* linked a0 */
-  left: -6vw; /* linked a0 */
+  left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 #hallThrusterOn-fadeIn{
@@ -151,9 +151,9 @@ code {
   
   height: 150vh; /* linked a0 */
   top: -12vh; /* linked a0 */
-  left: -6vw; /* linked a0 */
+  left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 #hallThrusterOn-fadeOut{
@@ -163,9 +163,9 @@ code {
   
   height: 150vh; /* linked a0 */
   top: -12vh; /* linked a0 */
-  left: -6vw; /* linked a0 */
+  left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 /* CLASS for animation for zooming on on cathode from hall thruster */
@@ -175,19 +175,25 @@ code {
   animation-duration: 2.8s;
   animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
+
+  z-index: 2;
 }
 
 @keyframes cathodeZoomIn {
   from {
     transform: rotate(0deg) scale(1.0);
     top: -12vh; /* linked a0 */
-    left: -6vw; /* linked a0 */
+    left: -8vw; /* linked a0 */
+
+    z-index: 2;
   }
   to
   {
     transform: rotate(-15deg) scale(4.0); /* linked b1 */
     top: 185vh; /* linked b1 */
     left: 20vw; /* linked b1 */
+
+    z-index: 2;
   }
 }
 
@@ -198,7 +204,7 @@ code {
 
   height: 150vh; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 
   transform: rotate(-15deg) scale(4.0); /* linked b1 */
   top: 185vh; /* linked b1 */
@@ -219,16 +225,19 @@ code {
     transform: rotate(-15deg) scale(4.0); /* linked b1 */
     top: 185vh; /* linked b1 */
     left: 20vw; /* linked b1 */
+
+    z-index: 2;
   }
   to
   {
     transform: rotate(-15deg) scale(6.0); /* linked c2 */
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
 
 }
-
 
 #thrusterAndCathode-fadeOut{
   transform: rotate(-15deg) scale(6.0); /* linked c2 */
@@ -237,13 +246,15 @@ code {
 
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 /* unknown? */
 .thrusterAndCathode-finalPosition{
   position: absolute;
 
-  z-index: 0;
+  z-index: 2;
 
   top: -5vh;
   height: 355vh;
@@ -255,6 +266,8 @@ code {
   transform: rotate(-15deg) scale(6); /* linked c2 */
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 #shellFadeOut{
@@ -267,6 +280,8 @@ code {
 
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 .shell-fade-out {
@@ -277,6 +292,7 @@ code {
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
 
+  z-index: 2;
 
   animation: shellFade ease 3s;
   /*animation-delay: 4s;*/
@@ -294,6 +310,8 @@ code {
 
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
   to {
     opacity:0;
@@ -301,6 +319,8 @@ code {
 
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
 }
 
@@ -381,6 +401,7 @@ code {
   right: 18vw;
   bottom: 1vh;
   align-items: flex-end;
+
 }
 
 /* align a button group to the bottom left */
@@ -421,8 +442,8 @@ code {
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 17vh;
-  right: 19vw;
+  bottom: 16vh;
+  right: 18vw;
   align-items: flex-start;
 }
 
@@ -443,18 +464,22 @@ code {
   font-size: 1.2em;
 }
 
-
+.thrusterGuideText{
+  color: #a83c5c;
+  font-family: "Courier New";
+  font-size: 1.2em;
+}
 
 /*// Particle Key / Guide //*/
 /* Position */
 #particleKey{
-  /*position: absolute;*/
-  /*top: 10vh;*/
-  /*left: 20vw;*/
+  position: absolute;
+  top: -25vh;
+  left: 14vw;
 
-  padding-bottom: 2vh;
+  /*padding-bottom: 2vh;*/
 
-  display: none;
+  /*display: none;*/
 
   z-index: 10;
 }
@@ -462,11 +487,15 @@ code {
 .electronKey{
   height: 4.8vh;
   padding: 2%;
+  /*padding-right: 15%;*/
+  padding-left: 9%;
+  padding-right: 33%;
 }
 
 .xenonKey{
   height: 8vh;
   padding: 2%;
+  padding-right: 18%;
 }
 
 

@@ -79,7 +79,8 @@ export class LandingPage extends React.Component {
 
                     <div className={"stackedButtonGroup bottomrightAlign"}>
                         <Link to={'/learning'}>
-                            <button id={"LearnModeButton"} className={"button"}>
+                            {/*<button id={"LearnModeButton"} className={"button"} style={"margin-bottom: 0.25em;"}>*/}
+                            <button id={"LearnModeButton"} className={"button landingPageButtonPos"}>
                                 Start Here to Learn
                             </button>
                         </Link>
