@@ -80,7 +80,7 @@ export class LearningMode extends React.Component {
         // initialize state
         this.state = { deltastage: props.deltastage, scene: props.scene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};
 
-        // MANUAL OVERRIDE // !!!!!!!!!!!!!!! //todo - likely not great temp code //:debug
+        // MANUAL OVERRIDE //
         let newScene = this.state.scene;
         newScene[hallThrusterOn] = false;
         this.state = { deltastage: props.deltastage, scene: newScene, titleText:hallThrusterPrimaryTitleText, text: hallThrusterPrimaryText, thrusterButtonText: "On"};

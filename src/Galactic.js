@@ -127,7 +127,7 @@ export const gasKeeperErrorText =
     </div>
 export const gasKeeperErrorSubText =
     "Try going back and turning off the keeper electrode and trying something else.";
-///Turning on the keeper electrode at the right time uses ionized Xenon to help pull electrons out of the hollow cathode so the Hall thruster can use them
+///
 
 export const hallThusterOffText = "                        The hollow cathode is a component of the Hall thruster. Its key role is to emit electronic\n" +
     "                        plasma to pull the positive plasma inside the cabin of the Hall thruster, known as the internal\n" +

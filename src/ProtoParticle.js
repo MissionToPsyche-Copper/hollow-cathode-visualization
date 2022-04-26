@@ -347,17 +347,14 @@ class ProtoParticle {
      * Have a particle delete itself from existence
      */
     delete_self(){
-        this.clearAnimation()
-        // console.log("deleting self.");//:debug
-        // console.log("array:")
-        // console.log(particles_array);
-        // console.log("find:")
-        // console.log(particles_array.findIndex((element) => element.id === this.id));
-        // console.log("find and delete:")
-        // console.log(particles_array.indexOf(this) > -1 ? particles_array.splice(particles_array.indexOf(this), 1) : false)
-        // console.log("result:")
-        // console.log(particles_array);
-        // console.log("---------")
+        this.clearAnimation();
+
+        // Remove last reference to this particle from particles_array
+        let index = (particles_array.findIndex((element) => element.id === this.id));
+        if(particles_array.indexOf(this) > -1 ? particles_array.splice(index, 1) : false){
+            // Particle is now fully deleted
+        }
+        delete this;
     }
 
     /**
