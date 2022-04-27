@@ -443,6 +443,12 @@ code {
   font-size: 1.2em;
 }
 
+.thrusterGuideText{
+  color: #a83c5c;
+  font-family: "Courier New";
+  font-size: 1.2em;
+}
+
 
 
 /*// Particle Key / Guide //*/

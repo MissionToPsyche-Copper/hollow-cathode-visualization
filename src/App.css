@@ -352,6 +352,7 @@ img{
 /*/// ///*/
 
 .titleLabel {
+
     color: #A53F5B;
     font-size: clamp(25px, 2.1vw, 45px);
     padding: 8px;
@@ -370,7 +371,9 @@ img{
 
 .sublabel {
     color: #f5f5f5;
-    font-size: clamp(11px, 0.9vw, 20px);
+    /*font-size: clamp(11px, 0.9vw, 20px);*/
+    text-align: justify;
+    font-size: clamp(20px, 0.9vw, 20px);
     font-family: Arial, serif;
     font-weight: normal;
     padding: 8px;
@@ -409,7 +412,7 @@ img{
 
 .hallThrusterOffTitleLabelPos, .hallThrusterOnTitleLabelPos {
     position: absolute;
-    top: 26%;
+    top: 33%;
     left: 64vw;
 
     text-align: left;
@@ -419,10 +422,10 @@ img{
 }
 .hallThrusterOffSublabelPos, .hallThrusterOnSublabelPos{
     position: absolute;
-    top: 32%;
+    top: 37%;
     left: 64vw;
 
-    text-align: left;
+    text-align: justify;
 
     min-width: 20vw;
     max-width: 24vw;
@@ -430,20 +433,48 @@ img{
     color: #f5f5f5;
 }
 
+.clickHollowCathodeGuideText {
+    color: #a83c5c;
+    font-size: .75em;
+    font-family: "Courier New";
+    font-weight: bolder;
+
+    text-align: left;
+}
+
+.clickHollowCathodeGuideTextPos {
+    position: absolute;
+    /*top: 70%;*/
+    /*left: 40vw;*/
+
+    /*!*text-align: left;*!*/
+
+    /*min-width: 20vw;*/
+    /*max-width: 24vw;*/
+
+    top: 2%;
+    left: 34vw;
+
+    /*text-align: left;*/
+
+    min-width: 10vw;
+    max-width: 20vw;
+}
+
 .hallThrusterNameTitleLabelPos {
     text-align: left;
     position: absolute;
-    top: 5%; /*alt measure: 9vh*/
-    left: 54vw;
+    top: 7%; /*alt measure: 9vh*/
+    left: 57vw;
 
     max-width: 35vw;
     min-width: 20vw;
 }
 .hallThrusterNameSublabelPos {
-    text-align: left;
+    /*text-align: left;*/
     position: absolute;
     top: 11%;
-    left: 54vw;
+    left: 57vw;
 
     max-width: 35vw;
     min-width: 20vw;
