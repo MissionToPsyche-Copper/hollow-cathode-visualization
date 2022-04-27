@@ -239,7 +239,6 @@ code {
 
 }
 
-
 #thrusterAndCathode-fadeOut{
   transform: rotate(-15deg) scale(6.0); /* linked c2 */
 
@@ -402,6 +401,7 @@ code {
   right: 18vw;
   bottom: 1vh;
   align-items: flex-end;
+
 }
 
 /* align a button group to the bottom left */
@@ -442,8 +442,8 @@ code {
 
 /* landing page learning mode prompt */
 .stackedButtonGroup.landingPageLModePromptAlign{
-  bottom: 17vh;
-  right: 19vw;
+  bottom: 16vh;
+  right: 18vw;
   align-items: flex-start;
 }
 
