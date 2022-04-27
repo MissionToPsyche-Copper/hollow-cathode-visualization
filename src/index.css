@@ -91,7 +91,7 @@ code {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
 }
 
 #spaceshipImage{
@@ -141,7 +141,7 @@ code {
   top: -12vh; /* linked a0 */
   left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 #hallThrusterOn-fadeIn{
@@ -153,7 +153,7 @@ code {
   top: -12vh; /* linked a0 */
   left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 #hallThrusterOn-fadeOut{
@@ -165,7 +165,7 @@ code {
   top: -12vh; /* linked a0 */
   left: -8vw; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 }
 
 /* CLASS for animation for zooming on on cathode from hall thruster */
@@ -175,19 +175,25 @@ code {
   animation-duration: 2.8s;
   animation-timing-function: ease-in-out;
   animation-name: cathodeZoomIn;
+
+  z-index: 2;
 }
 
 @keyframes cathodeZoomIn {
   from {
     transform: rotate(0deg) scale(1.0);
     top: -12vh; /* linked a0 */
-    left: -6vw; /* linked a0 */
+    left: -8vw; /* linked a0 */
+
+    z-index: 2;
   }
   to
   {
     transform: rotate(-15deg) scale(4.0); /* linked b1 */
     top: 185vh; /* linked b1 */
     left: 20vw; /* linked b1 */
+
+    z-index: 2;
   }
 }
 
@@ -198,7 +204,7 @@ code {
 
   height: 150vh; /* linked a0 */
 
-  z-index: 0;
+  z-index: 2;
 
   transform: rotate(-15deg) scale(4.0); /* linked b1 */
   top: 185vh; /* linked b1 */
@@ -219,12 +225,16 @@ code {
     transform: rotate(-15deg) scale(4.0); /* linked b1 */
     top: 185vh; /* linked b1 */
     left: 20vw; /* linked b1 */
+
+    z-index: 2;
   }
   to
   {
     transform: rotate(-15deg) scale(6.0); /* linked c2 */
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
 
 }
@@ -237,13 +247,15 @@ code {
 
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 /* unknown? */
 .thrusterAndCathode-finalPosition{
   position: absolute;
 
-  z-index: 0;
+  z-index: 2;
 
   top: -5vh;
   height: 355vh;
@@ -255,6 +267,8 @@ code {
   transform: rotate(-15deg) scale(6); /* linked c2 */
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 #shellFadeOut{
@@ -267,6 +281,8 @@ code {
 
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
+
+  z-index: 2;
 }
 
 .shell-fade-out {
@@ -277,6 +293,7 @@ code {
   top: 281vh; /* linked c2 */
   left: 16vw; /* linked c2 */
 
+  z-index: 2;
 
   animation: shellFade ease 3s;
   /*animation-delay: 4s;*/
@@ -294,6 +311,8 @@ code {
 
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
   to {
     opacity:0;
@@ -301,6 +320,8 @@ code {
 
     top: 281vh; /* linked c2 */
     left: 16vw; /* linked c2 */
+
+    z-index: 2;
   }
 }
 

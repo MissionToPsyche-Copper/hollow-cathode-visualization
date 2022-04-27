@@ -65,8 +65,9 @@ export const cathodeShellPrimaryText =
         <p>The hollow cathode has two jobs that both help the Hall thruster work and make sure the Psyche spacecraft reaches its destination. Mainly the hollow cathode emits a stream of electrons.</p>
         <p>The first job helps the Hall thruster propel the spacecraft through outer space. Some of the electrons the hollow cathode emits are pulled into the Hall thruster and used to make the ions it shoots from the spacecraft.</p>
         <p>The second job of the hollow cathode is to provide electrons to neutralize the Hall thruster's ions as they fly away from the spacecraft. Neutralizing an ion makes it so it no longer has a charge, therefore it is no longer affected by the Hall thruster.</p>
-        <p><b id={"guideText"} className={"guideText"}>Click on the hollow cathode or press the 'next' button below to explore how the hollow cathode performs its jobs.</b></p>
+        {/*<p><b id={"guideText"} className={"guideText"}>Click on the hollow cathode or press the 'next' button below to explore how the hollow cathode performs its jobs.</b></p>*/}
     </div>
+export const cathodeShellGuideText = "Click on the hollow cathode or press 'Next' to explore how the hollow cathode performs its jobs."
 
 export const cathodeCSVTitleText = "Inside the Hollow Cathode"
 export const cathodeCSVText =

@@ -3,7 +3,7 @@ import Painter from "./Painter";
 
 import {
     base, cathodeCSVSubText, cathodeCSVText, cathodeCSVTitleText,
-    cathodeShellPrimaryText, cathodeShellPrimaryTitleText,
+    cathodeShellPrimaryText, cathodeShellPrimaryTitleText, cathodeShellGuideText,
     eject, ejectSubText, ejectText, ejectTitleText,
     gas, gasKeeperErrorSubText, gasKeeperErrorText, gasKeeperErrorTitleText, gasSubText, gasText, gasTitleText,
     hallThrusterOff, hallThrusterPrimaryText, hallThrusterPrimaryTitleText,
@@ -197,6 +197,7 @@ export class LearningMode extends React.Component {
 
         /*// Learning Mode Intro first slide/stage/scene //*/
         if(this.state.scene[hallThrusterOff] === true && this.state.deltastage === hallThrusterOff){
+            this.hideElement("cathodeShellGuideText");
             this.hideElement("toggleButtonGroup");
             this.hideElement("summaryButton_");
         }
@@ -224,8 +225,6 @@ export class LearningMode extends React.Component {
 
             this.setState({thrusterButtonText: "On"});
         }
-
-
 
         /*// Learning Mode core first stage/scene //*/
         // if basedrawing is active
@@ -566,6 +565,8 @@ export class LearningMode extends React.Component {
 
         // trigger zoom animation
         document.getElementById("shellToCrossZoom").classList.add("shellToCrossZoomAnimationClass");
+        this.hideElement("cathodeShellGuideText");
+
         this.hideElement("hallThruster");
         this.showElement("shellToCrossZoom");
 
@@ -593,6 +594,8 @@ export class LearningMode extends React.Component {
      * nextButton_hallThrusterToShell_HandleClick()
      */
     nextButton_hallThrusterToShell_HandleClick() {
+        this.showElement("cathodeShellGuideText");
+
         this.hideElement("hallThrusterOffLabelDiv");
         this.hideElement("hallThrusterOnLabelDiv");
         this.hideElement("clickHollowCathodeGuideText");
@@ -603,7 +606,6 @@ export class LearningMode extends React.Component {
 
         let nextButton = document.getElementById("HallThrusterNext");
         let nextButton_Accessible = document.getElementById("HallThrusterNext_Accessible");
-
 
         nextButton.classList.replace("CathodeHitBox_zoomed_out", "CathodeHitBox_zoomed_in");
         nextButton.onclick = this.nextButton_shellToLearningModeCore_HandleClick;
@@ -752,7 +754,6 @@ export class LearningMode extends React.Component {
                     </label>
                 </div>
 
-
                 <div id={"hallThrusterNameLabelDiv"}>
                     <label id={"hallThrusterNameLabel"}
                            className={"titleLabel hallThrusterNameTitleLabelPos"}> {this.state.titleText}
@@ -767,6 +768,11 @@ export class LearningMode extends React.Component {
                 <label id={"clickHollowCathodeGuideText"}
                        className={"clickHollowCathodeGuideText clickHollowCathodeGuideTextPos  "}>
                     {clickHollowCathodeGuideText}
+                </label>
+
+                <label id={"cathodeShellGuideText"}
+                       className={"cathodeShellGuideText cathodeShellGuideTextPos  "}>
+                    {cathodeShellGuideText}
                 </label>
 
                 <div id={"toggleButtonGroup"} className={"stackedButtonGroup bottomrightAlign  "}>
