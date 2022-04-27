@@ -20,8 +20,8 @@ class SummaryPage extends React.Component{
         return(
             <>
                 <div className={"summaryPageContainer"}>
-                    <div className={'titleLabel summaryTitlePos'}>
-                        HOLLOW CATHODE VISUALIZATION SUMMARY
+                    <div className={'summaryTitleLabel summaryTitlePos'}>
+                        Let's go over what you learned.
                     </div>
 
                     <div id={'summaryContent'} className={'summarySubLabel summarySubLabelPos'}>

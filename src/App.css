@@ -359,6 +359,15 @@ img{
     width: 100%;
 }
 
+.summaryTitleLabel {
+    font-family: "Courier New";
+    color: #A53F5B;
+    font-size: clamp(25px, 2.1vw, 45px);
+    padding: 8px;
+    font-weight: bold;
+    width: 100%;
+}
+
 .sublabel {
     color: #f5f5f5;
     font-size: clamp(11px, 0.9vw, 20px);
@@ -481,10 +490,12 @@ img{
 
 /*// Summary Page //*/
 .summarySubLabelPos{
-    text-align: left;
     position: absolute;
-    top: 8%;
-    left: 58vw;
+
+    font-size: clamp(22px, 1vw, 64px);
+
+    top: 15%;
+    left: 60vw;
 
     max-width: 35vw;
     min-width: 20vw;
@@ -500,7 +511,9 @@ img{
 }
 
 .summarySubLabel{
-    text-align: left;
+    font-family: "Courier New";
+    font-weight: bold;
+    text-align: justify;
 }
 
 
