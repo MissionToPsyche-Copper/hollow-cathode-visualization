@@ -47,7 +47,7 @@ class PresMode extends React.Component {
         this.delay = 5000
 
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene };
+        this.state = { deltastage: props.deltastage, scene: props.scene, toggleModeButtonText: "Auto Mode" };
 
         // reload page bug temporary fix
         try{
@@ -216,6 +216,10 @@ class PresMode extends React.Component {
 
         document.getElementById("autoToggleButton").classList.toggle("active");
 
+        let toggleModeButtonText = this.state.toggleModeButtonText == "Manual Mode" ? "Auto Mode" : "Manual Mode"
+        this.setState({toggleModeButtonText: toggleModeButtonText})
+
+
         if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'
@@ -244,7 +248,7 @@ class PresMode extends React.Component {
                     <Link to={'/'}>
                         <button id={"backButton"} className={"button"}> Back to Landing Page </button>
                     </Link>
-                    <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> Toggle Mode </button>
+                    <button id={"autoToggleButton"} className={"button"} onClick={this.autoToggleButton_HandleClick}> {this.state.toggleModeButtonText} </button>
                 </div>
                 <div className={"stackedButtonGroup bottomrightAlign"}>
                     <button id={"nextButton"} className={"button"} onClick={this.nextButton_HandleClick}> Next </button>
