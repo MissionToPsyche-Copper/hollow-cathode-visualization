@@ -13,7 +13,7 @@ describe('PresentationModeTesting', function () {
     beforeEach(async function () {
         driver = await new Builder().forBrowser('chrome').build()
         vars = {}
-        await driver.get("Iw47PcNCpPdr7ONwHMndMuyrF9vu3NlJBXvWNFjORYA110")
+        await driver.get("https://jxs5476.github.io/hollow-cathode-visualization/")
         await driver.manage().window().setRect(839, 864)
     })
     afterEach(async function () {
