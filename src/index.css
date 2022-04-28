@@ -470,18 +470,16 @@ code {
   font-size: 1.2em;
 }
 
-
-
 /*// Particle Key / Guide //*/
 /* Position */
 #particleKey{
-  /*position: absolute;*/
-  /*top: 10vh;*/
-  /*left: 20vw;*/
+  position: absolute;
+  top: -25vh;
+  left: 14vw;
 
-  padding-bottom: 2vh;
+  /*padding-bottom: 2vh;*/
 
-  display: none;
+  /*display: none;*/
 
   z-index: 10;
 }
@@ -489,11 +487,15 @@ code {
 .electronKey{
   height: 4.8vh;
   padding: 2%;
+  /*padding-right: 15%;*/
+  padding-left: 9%;
+  padding-right: 33%;
 }
 
 .xenonKey{
   height: 8vh;
   padding: 2%;
+  padding-right: 18%;
 }
 
 
