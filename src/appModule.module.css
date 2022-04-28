@@ -1,4 +1,11 @@
+/**
+Module CSS file. Used for styling HTML elements straight from Galactic.js
+ */
+
 .z_index_2 {
     z-index: 2;
-    color: red;
+}
+
+.title_pos {
+    top: 80%;
 }

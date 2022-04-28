@@ -612,8 +612,6 @@ class ProtoParticle {
         }
     }
 
-
-
     /**
      * Public Interface, used by Painter.js
      * Generates a new electron particle on a given layer at a given position
