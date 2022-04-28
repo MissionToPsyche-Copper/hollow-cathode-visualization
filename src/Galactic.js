@@ -3,6 +3,9 @@
 // export const canvas_width = 940; // becoming depreciated
 // Jack's Dimensions
 
+import './App.css';
+import styles from './appModule.module.css';
+
 /**
  * Mapping layers via constants
  * These should always be used to reference layers when used as parameters to a function or when interacting with this.state.
@@ -69,13 +72,13 @@ export const cathodeShellPrimaryText =
     </div>
 export const cathodeShellGuideText = "Click on the hollow cathode or press 'Next' to explore how the hollow cathode performs its jobs."
 
-export const cathodeCSVTitleText = "Inside the Hollow Cathode"
+export const cathodeCSVTitleText = <p className={styles.z_index_2} > "Inside the Hollow Cathode" </p>
 export const cathodeCSVText =
     <div>
-        <p>The hollow cathode has three pieces that help it work: the heaters, the gas feed, and the keeper electrode. You can turn them on and off with the buttons at the bottom of the screen. Let’s try to get the hollow cathode working!</p>
+        <p className={styles.z_index_2}>The hollow cathode has three pieces that help it work: the heaters, the gas feed, and the keeper electrode. You can turn them on and off with the buttons at the bottom of the screen. Let’s try to get the hollow cathode working!</p>
     </div>
 export const cathodeCSVSubText =
-    "First, let’s toggle the heaters to turn them on. "
+    <p className={styles.z_index_2}>First, let’s toggle the heaters to turn them on.</p>
 
 export const heatTitleText = "Heating the Inserts"
 export const heatText = <p>The heaters are coiled around the cathode tube. They heat the insert up to an extremely high temperature, causing it to emit electrons. While our goal is to generate electrons for the Hall thruster, the insert alone doesn't produce enough and would be inefficient as our primary source of electrons. Although, electrons can be used to ionize neutral particles to produce even more electrons. The gas feed can be used to inject neutral particles into the cathode tube.</p>
