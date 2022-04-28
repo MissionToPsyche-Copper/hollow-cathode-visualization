@@ -383,6 +383,10 @@ img{
     max-width: 30vw;
 }
 
+.landingPageButtonPos{
+    margin-bottom: 5%;
+}
+
 .landingPageTitleLabel {
     font-family: "Courier New";
     color: #A53F5B;
