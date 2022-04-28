@@ -338,6 +338,10 @@ img{
     text-decoration:none;
 }
 
+.landingPageButtonPos{
+    margin-bottom: 5%;
+}
+
 .disabled {
     opacity: 0.5;
     cursor: not-allowed;
