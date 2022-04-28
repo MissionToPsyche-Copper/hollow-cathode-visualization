@@ -36,7 +36,7 @@ class SummaryPage extends React.Component{
                         </a>
                         <a href={link2url}>
                             <button
-                                    className={"button notActive"}
+                                    className={"button notActive psycheButtonPos"}
                                     style={{display: "block"}}> The Psyche Mission
                             </button>
                         </a>

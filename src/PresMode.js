@@ -219,7 +219,6 @@ class PresMode extends React.Component {
         let toggleModeButtonText = this.state.toggleModeButtonText == "Manual Mode" ? "Auto Mode" : "Manual Mode"
         this.setState({toggleModeButtonText: toggleModeButtonText})
 
-
         if(PresMode.isAuto){
             //when in auto mode, the next button is hidden, but the handler function for 'next' is run every this.delay (currently 5000) milliseconds
             document.getElementById("nextButton").style.visibility = 'hidden'

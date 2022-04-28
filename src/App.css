@@ -564,6 +564,8 @@ img{
     font-family: "Courier New";
     font-weight: bold;
     text-align: justify;
+
+    z-index: 20;
 }
 
 
@@ -583,6 +585,10 @@ img{
 
 .refSubLabel{
     text-align: left;
+}
+
+.psycheButtonPos{
+    margin-top: 5%;
 }
 
 

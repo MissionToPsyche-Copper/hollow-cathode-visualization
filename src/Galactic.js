@@ -60,7 +60,7 @@ export const hallThrusterSecondaryOffText =
         {/*<p><b id={"thrusterGuideText"} className={"thrusterGuideText"}>Click on the hollow cathode above the Hall thruster to learn more about it.</b></p>*/}
     </div>
 
-export const clickHollowCathodeGuideText = "Click on the hollow cathode here to learn more about it"
+export const clickHollowCathodeGuideText = "Click on the hollow cathode or press 'Next' to learn more about it."
 
 export const cathodeShellPrimaryTitleText = "This is a Hollow Cathode"
 export const cathodeShellPrimaryText =
