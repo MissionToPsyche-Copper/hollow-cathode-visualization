@@ -17,10 +17,10 @@ describe('LearningModeTesting', function () {
         config.setBatch(new BatchInfo("Hollow Cathode Learning Batch"))
         //To get API key, the tester needs Applitools account.
         //Once having Applitools account, the tester clicks user icon then clicks "My API key" to get API key
-        const apiKey= "LyBNg7PUAI2LrhPJLJBt3P0jNjupYxn0CXaZzfpIJhc110"
+        const apiKey= "Iw47PcNCpPdr7ONwHMndMuyrF9vu3NlJBXvWNFjORYA110"
         config.setApiKey(apiKey)
         eyes.setConfiguration(config)
-        await driver.get("http://localhost:3000/")
+        await driver.get("https://jxs5476.github.io/hollow-cathode-visualization/")
     })
     afterEach(async function () {
         await driver.quit()
@@ -45,9 +45,17 @@ describe('LearningModeTesting', function () {
     it('BaseDrawingTesting', async function(){
         await sleep(1000)
         await eyes.open(driver, 'Hollow Cathode Visualization App', 'BaseDrawing demo');
-        await eyes.check("BasDrawing Window", Target.window().fully());
-        await toBaseDrawing()
-        await sleep(2000)
+        await eyes.check("Landing Page", Target.window().fully());
+        await driver.findElement(By.id('canvasHolder')).click();
+        await eyes.check("Hollow & Hall Off Intro", Target.window().fully());
+        driver.findElement(By.id('HallThrusterToggle')).click();
+        await sleep(1500)
+        await eyes.check("Hollow & Hall On Intro", Target.window().fully());
+        driver.findElement(By.id('HallThrusterNext_Accessible')).click();
+        await sleep(1500)
+        await eyes.check("Hollow Intro", Target.window().fully());
+        await driver.findElement(By.id('HallThrusterNext_Accessible')).click();
+        await sleep(500);
         await eyes.close()
     })
 
@@ -193,7 +201,9 @@ describe('LearningModeTesting', function () {
         await sleep(3000)
         await driver.findElement(By.id('canvasHolder')).click()
         await sleep(1000)
-        await driver.findElement(By.id('HallThrusterNext')).click()
+        await driver.findElement(By.id('HallThrusterNext_Accessible')).click()
+        await sleep(3000)
+        await driver.findElement(By.id('HallThrusterNext_Accessible')).click()
         await sleep(3000)
     }
 
@@ -204,14 +214,23 @@ describe('LearningModeTesting', function () {
             let i=0
             while(i<3){
                 traceTable[i]=list[i];
-                await sleep(500)
+                await sleep(1000)
                 await eyes.check(list[i], Target.window().fully())
                 await driver.findElement(By.id(list[i++])).click()
-                if((traceTable.includes("HeatInsertToggle") && traceTable.includes("GasFeedToggle")) || traceTable.length===3){
-                    await sleep(500)
-                    await eyes.check('nextButton', Target.window().fully())
-                    await driver.findElement(By.id('nextButton')).click();
-                }
+                // if((traceTable.includes("HeatInsertToggle") && traceTable.includes("GasFeedToggle")) || traceTable.length===3){
+                    if( (traceTable[0]==="HeatInsertToggle" && traceTable[1]==="KeeperElectrodeToggle") || (traceTable[0]==="GasFeedToggle" && traceTable[1]==="KeeperElectrodeToggle")){
+                        eyes.check("Error Scenario", Target.window().fully);
+                        console.log('To end point... break\n')
+                        break;
+                    }
+                    else{
+                        await sleep(500)
+                        await eyes.check('nextButton', Target.window().fully());
+                        let el = driver.findElement(By.id('nextButton'));
+                        if(el !== null)
+                            el.click();
+                    }
+                // }
             }
             await reset(++times)
         }else {
@@ -228,9 +247,14 @@ describe('LearningModeTesting', function () {
         list[r]= tmp;
     }
     async function reset(times){
-        await driver.get("http://localhost:3000/")
-        await driver.findElement(By.id("canvasHolder")).click()
-        await driver.findElement(By.id("HallThrusterNext")).click()
-        await eyes.check("Reset Window" + times, Target.window().fully())
+        await driver.get("https://jxs5476.github.io/hollow-cathode-visualization/")
+        await sleep(1000)
+        await driver.findElement(By.id('canvasHolder')).click()
+        await sleep(500)
+        await driver.findElement(By.id('HallThrusterNext_Accessible')).click()
+        await sleep(500)
+        await driver.findElement(By.id('HallThrusterNext_Accessible')).click()
+        await sleep(500)
+        // await eyes.check("Reset Window" + times, Target.window().fully())
     }
 });
