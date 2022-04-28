@@ -75,37 +75,37 @@ export const cathodeShellGuideText = "Click on the hollow cathode or press 'Next
 export const cathodeCSVTitleText = "Inside the Hollow Cathode"
 export const cathodeCSVText =
     <div>
-        <p>The hollow cathode has three pieces that help it work: the heaters, the gas feed, and the keeper electrode. You can turn them on and off with the buttons at the bottom of the screen. Let’s try to get the hollow cathode working!</p>
+        <p className={"z_index_2"} >The hollow cathode has three pieces that help it work: the heaters, the gas feed, and the keeper electrode. You can turn them on and off with the buttons at the bottom of the screen. Let’s try to get the hollow cathode working!</p>
     </div>
 export const cathodeCSVSubText =
-    <p className={styles.z_index_2}> First, let’s toggle the heaters to turn them on.</p>
+    <p className={"z_index_2"}> First, let’s toggle the heaters to turn them on.</p>
 
 export const heatTitleText = "Heating the Inserts"
-export const heatText = <p className={styles.z_index_2} >The heaters are coiled around the cathode tube. They heat the insert up to an extremely high temperature, causing it to emit electrons. While our goal is to generate electrons for the Hall thruster, the insert alone doesn't produce enough and would be inefficient as our primary source of electrons. Although, electrons can be used to ionize neutral particles to produce even more electrons. The gas feed can be used to inject neutral particles into the cathode tube.</p>
+export const heatText = <p className={"z_index_2"} >The heaters are coiled around the cathode tube. They heat the insert up to an extremely high temperature, causing it to emit electrons. While our goal is to generate electrons for the Hall thruster, the insert alone doesn't produce enough and would be inefficient as our primary source of electrons. Although, electrons can be used to ionize neutral particles to produce even more electrons. The gas feed can be used to inject neutral particles into the cathode tube.</p>
 export const heatSubText = "";
 
 export const gasTitleText = "Injecting Xenon Gas"
-export const gasText = <p className={styles.z_index_2} >The gas feed lets tiny particles called Xenon into the cathode tube. Whenever a Xenon particle hits an electron, the Xenon gets charged, or ionized. An ionized particle loses some of its electrons which leaves more usable elections in the cathode tube!</p>
-export const gasSubText = <p className={styles.z_index_2}> Click Next to see what happens when Xenon from the gas feed meets electrons. </p>
+export const gasText = <p className={"z_index_2"} >The gas feed lets tiny particles called Xenon into the cathode tube. Whenever a Xenon particle hits an electron, the Xenon gets charged, or ionized. An ionized particle loses some of its electrons which leaves more usable elections in the cathode tube!</p>
+export const gasSubText = <p className={"z_index_2"} > Click Next to see what happens when Xenon from the gas feed meets electrons. </p>
 
 export const plasmaTitleText = "Plasma Forms"
-export const plasmaText = <p className={styles.z_index_2} >An incredibly hot plasma of electrons and ionized Xenon forms inside the cathode tube. As electrons run into the Xenon particles, more electrons break free from the Xenon, this is called ionization. You can see the Xenon ionizing when they turn from purple to bright blue. Ionizing xenon gives us a steady source of lots of electrons in the hollow cathode! Now we just need to get the electrons from the cathode tube out to the Hall thruster. </p>
-export const plasmaSubText = <p className={styles.z_index_2}> To do this, let’s turn on the keeper electrode. </p>
+export const plasmaText = <p className={"z_index_2"} >An incredibly hot plasma of electrons and ionized Xenon forms inside the cathode tube. As electrons run into the Xenon particles, more electrons break free from the Xenon, this is called ionization. You can see the Xenon ionizing when they turn from purple to bright blue. Ionizing xenon gives us a steady source of lots of electrons in the hollow cathode! Now we just need to get the electrons from the cathode tube out to the Hall thruster. </p>
+export const plasmaSubText = <p className={"z_index_2"} > To do this, let’s turn on the keeper electrode. </p>
 
 export const keeperTitleText = "The Keeper Electrode"
-export const keeperText = <p className={styles.z_index_2} >You’ve turned on the keeper electrode, it creates an electric field inside the cathode. You are probably familiar with magnetic fields from trying to stick the same ends of two magnets together, electric fields behave similarly, they pull negative particles and push positive particles. The keeper electrode pulls electrons (negatively charged) out of the hollow cathode so the Hall thruster can use them, it also pushes the ionized xenon (positively charged) to the back of the cathode.</p>
+export const keeperText = <p className={"z_index_2"} >You’ve turned on the keeper electrode, it creates an electric field inside the cathode. You are probably familiar with magnetic fields from trying to stick the same ends of two magnets together, electric fields behave similarly, they pull negative particles and push positive particles. The keeper electrode pulls electrons (negatively charged) out of the hollow cathode so the Hall thruster can use them, it also pushes the ionized xenon (positively charged) to the back of the cathode.</p>
 export const keeperSubText = "";
 
 export const ejectTitleText = "Ejecting Plasma"
-export const ejectText = <p className={styles.z_index_2} >You’ve just ejected the plasma! The keeper electrode just pulled all the electrons out of the hollow cathode for the Hall thruster to use.</p>
+export const ejectText = <p className={"z_index_2"} >You’ve just ejected the plasma! The keeper electrode just pulled all the electrons out of the hollow cathode for the Hall thruster to use.</p>
 export const ejectSubText = "";
 
-export const recapTitleText = <p className={styles.z_index_2}> A Quick Recap </p>
+export const recapTitleText = <p className={"z_index_2"} > A Quick Recap </p>
 export const recapText =
     <div>
-        <p className={styles.z_index_2} >Congratulations, you got the hollow cathode working! Let’s talk about everything you just did.</p>
-        <p className={styles.z_index_2} >First, you learned that the hollow cathode is an important piece of the Psyche spacecraft, as it lets the Hall thruster do its job of propelling the spacecraft through outer space.</p>
-        <p className={styles.z_index_2} >Then, you got the hollow cathode working. To do this, you used the heaters to heat the hollow cathode’s inserts until they generated electrons. Next, using the gas feed you injected some Xenon gas into the cathode tube which ionized, forming a hot plasma of even more electrons. Lastly, you used the keeper electrode to pull all the electrons out of the hollow cathode so the Hall thruster could use them.</p>
+        <p className={"z_index_2"} >Congratulations, you got the hollow cathode working! Let’s talk about everything you just did.</p>
+        <p className={"z_index_2"} >First, you learned that the hollow cathode is an important piece of the Psyche spacecraft, as it lets the Hall thruster do its job of propelling the spacecraft through outer space.</p>
+        <p className={"z_index_2"} >Then, you got the hollow cathode working. To do this, you used the heaters to heat the hollow cathode’s inserts until they generated electrons. Next, using the gas feed you injected some Xenon gas into the cathode tube which ionized, forming a hot plasma of even more electrons. Lastly, you used the keeper electrode to pull all the electrons out of the hollow cathode so the Hall thruster could use them.</p>
     </div>
 
 export const linksTitleText = "Learn about Psyche!"
@@ -118,10 +118,10 @@ export const link3url = "https://psyche.asu.edu/";
 export const heatKeeperErrorTitleText = "Watch Out!"
 export const heatKeeperErrorText =
     <div>
-        <p className={styles.z_index_2} >You’ve turned on the keeper electrode too early!</p>
-        <p className={styles.z_index_2} >Turning on the keeper electrode at the right time pulls enough electrons out of the hollow cathode for the Hall thruster to use. Right now, there’s not very many electrons being pulled out of the hollow cathode, so the Hall thruster doesn’t have enough electrons to do its job.</p>
+        <p className={"z_index_2"} >You’ve turned on the keeper electrode too early!</p>
+        <p className={"z_index_2"} >Turning on the keeper electrode at the right time pulls enough electrons out of the hollow cathode for the Hall thruster to use. Right now, there’s not very many electrons being pulled out of the hollow cathode, so the Hall thruster doesn’t have enough electrons to do its job.</p>
     </div>
-export const heatKeeperErrorSubText = <p className={styles.z_index_2} > Try going back and turning off the keeper electrode and using the gas feed to produce more electrons before ejecting them. </p>
+export const heatKeeperErrorSubText = <p className={"z_index_2"} > Try going back and turning off the keeper electrode and using the gas feed to produce more electrons before ejecting them. </p>
 
 export const gasKeeperErrorTitleText = "Watch Out!"
 export const gasKeeperErrorText =
