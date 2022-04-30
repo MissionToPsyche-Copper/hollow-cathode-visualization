@@ -263,10 +263,10 @@ class Painter{
             // (ctx, x, y, mmax_y, mmin_y, mmax_x, mmin_x)
             // generate two initial ones to get it going right away
             ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            ProtoParticle.generateElectron(ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 4, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
             // generate on a timer
             this.ElectronGeneratorKey_Top = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeTop() + ELECTRON_RADIUS, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "top insert"
-            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 3, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
+            this.ElectronGeneratorKey_Bot = setInterval(ProtoParticle.generateElectron, spawn_rate * 1000, ctx, this.getInsertRandomX(), this.getCathTubeBot() - ELECTRON_RADIUS * 4, this.getCathTubeBot(), this.getCathTubeTop(), this.getParticleTubeRightX(), this.getCathTubeLeftX()); // "bottom insert"
         }
     }
 
