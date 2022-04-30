@@ -445,9 +445,9 @@ class ProtoParticle {
                 if(particle.x > particle.getCathTubeRightX()){
                     // stop it from returning
                     particle.min_x = particle.getCathTubeRightX(); // todo particle 1
-                    particle.max_x = particle.canvas.width;
+                    particle.max_x = particle.canvas.width * 2;
                     particle.min_y = 0;
-                    particle.max_y = particle.canvas.height;
+                    particle.max_y = particle.canvas.height * 2;
                 } else {
                     if(ejectFlag){
                         // y acceleration
