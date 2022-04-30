@@ -23,13 +23,13 @@ ionizedXenonImage.src = path_ionized_xenon;
 
 // Misc //
 const ELECTRON_RADIUS = 10;
-const XENON_RADIUS = 20;
-const TIMING_INTERVAL = 5/60;
+const XENON_RADIUS = 16;
+const TIMING_INTERVAL = 4/60;
 const IONIZATION_AGE_THRESHOLD = 1500; // particle.halfLife must be < IONIZATION_AGE_THRESHOLD to ionize
 const DEFAULT_HALFLIFE = 2000; // how many animation frames a particle lives for
 
 
-const collision_elasticity = 0.7; // 1 == fully elastic, 0 == no bounce
+const collision_elasticity = 0.8; // 1 == fully elastic, 0 == no bounce
 // warning: collision_elasticity doesn't apply to diagonal (y=mx+b) collisions since we don't have a need for that atm
 // charges //
 const keeper_electric_field_kq = -40; // the constant for k*q in the kqq/r equation (force due to an electric field) due to the keeper electrode
@@ -49,7 +49,7 @@ const particle_maxv_x = 20; // original: 30, 2nd iteration: 30
 const particle_minv_x = -20; // original: -30, 2nd iteration: -0
 const particle_maxv_y = 20; // original: 30, 2nd iteration: 30
 const particle_minv_y = -20; // original: -30, 2nd iteration: -30
-const particle_speed_modifier = 0.15; //original: 0.025
+const particle_speed_modifier = 0.03; //original (slow): 0.025, very fast: 0.15
 //////
 
 // NON-CONSTANTS //
