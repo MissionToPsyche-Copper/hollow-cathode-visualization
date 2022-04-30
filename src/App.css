@@ -375,7 +375,7 @@ img{
     color: #f5f5f5;
     /*font-size: clamp(11px, 0.9vw, 20px);*/
     text-align: justify;
-    font-size: clamp(20px, 0.9vw, 20px);
+    font-size: clamp(12px, 1.1vw, 20px);
     font-family: Arial, serif;
     font-weight: normal;
     padding: 8px;
@@ -542,7 +542,7 @@ img{
 .summarySubLabelPos{
     position: absolute;
 
-    font-size: clamp(22px, 1vw, 64px);
+    font-size: clamp(12px, 1.2vw, 64px);
 
     top: 15%;
     left: 60vw;
