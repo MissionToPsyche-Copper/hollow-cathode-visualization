@@ -47,7 +47,8 @@ class PresMode extends React.Component {
         this.delay = 5000
 
         // initialize state
-        this.state = { deltastage: props.deltastage, scene: props.scene, toggleModeButtonText: "Auto Mode" };
+        // this.state = { deltastage: props.deltastage, scene: props.scene, toggleModeButtonText: "Auto Mode" };
+        this.state = { deltastage: base, scene: [true, false, false, false, false, false, false, false], toggleModeButtonText: "Auto Mode" };
 
         // reload page bug temporary fix
         try{
