@@ -200,6 +200,8 @@ export class LearningMode extends React.Component {
             this.hideElement("cathodeShellGuideText");
             this.hideElement("toggleButtonGroup");
             this.hideElement("summaryButton_");
+
+            this.hideElement("hallThrusterOnLabelDiv");
         }
 
         // did the user just turn ON the thrusters?

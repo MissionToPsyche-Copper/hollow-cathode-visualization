@@ -55,8 +55,8 @@ export const hallThrusterSecondaryOnText =
     </div>
 export const hallThrusterSecondaryOffText =
     <div>
-        <p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out small charged particles, called ions, away from the spacecraft at extremely high speeds.</p>
-        <p>For the Hall thruster to work, it needs a steady stream of tiny particles called electrons. These electrons charge, or ionize, particles from the Hall thruster so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the Hall thruster.</p>
+        {/*<p>The blue plasma coming out of the Hall thruster propels the spacecraft through outer space. The Hall thruster shoots out small charged particles, called ions, away from the spacecraft at extremely high speeds.</p>*/}
+        {/*<p>For the Hall thruster to work, it needs a steady stream of tiny particles called electrons. These electrons charge, or ionize, particles from the Hall thruster so they can shoot out of the spacecraft. To generate the electrons, we need a hollow cathode. The hollow cathode is the component right above the Hall thruster.</p>*/}
         {/*<p><b id={"thrusterGuideText"} className={"thrusterGuideText"}>Click on the hollow cathode above the Hall thruster to learn more about it.</b></p>*/}
     </div>
 
@@ -89,7 +89,7 @@ export const gasText = <p className={styles.z_index_2} >The gas feed lets tiny p
 export const gasSubText = <p className={styles.z_index_2}> Click Next to see what happens when Xenon from the gas feed meets electrons. </p>
 
 export const plasmaTitleText = "Plasma Forms"
-export const plasmaText = <p className={styles.z_index_2} >An incredibly hot plasma of electrons and ionized Xenon forms inside the cathode tube. As electrons run into the Xenon particles, more electrons break free from the Xenon, this is called ionization. You can see the Xenon ionizing when they turn from purple to bright blue. Ionizing xenon gives us a steady source of lots of electrons in the hollow cathode! Now we just need to get the electrons from the cathode tube out to the Hall thruster. </p>
+export const plasmaText = <p className={styles.z_index_2} >An plasma of electrons and ionized Xenon forms inside the cathode tube. As electrons run into the Xenon particles, more electrons break free from the Xenon, this is called ionization. You can see the Xenon ionizing when they turn from purple to bright blue. Ionizing xenon gives us a steady source of lots of electrons in the hollow cathode! Now we just need to get the electrons from the cathode tube out to the Hall thruster. </p>
 export const plasmaSubText = <p className={styles.z_index_2}> To do this, let’s turn on the keeper electrode. </p>
 
 export const keeperTitleText = "The Keeper Electrode"
