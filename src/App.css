@@ -446,7 +446,7 @@ img{
     font-family: "Courier New";
     font-weight: bolder;
 
-    z-index: 0;
+    z-index: 10;
 
     text-align: left;
 }
